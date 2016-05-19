@@ -1,0 +1,56 @@
+#! /bin/bash
+
+suff=""
+dir_suff=".6mo"
+
+
+ver_dir=$WORK/verification/global_oce_llc90
+ver_code=$ver_dir/code
+ver_input=$ver_dir/input.ecco_v4
+
+# Input list should have desired code in first directory
+# e.g. data in input1 is desired, doesn't get copied from 2 or 3...
+inputList=$ver_input
+
+exp_dir=$PWD
+code_dir=$exp_dir/code$suff
+build_dir=$exp_dir/build$suff
+run_dir=$exp_dir/run$suff$dir_suff
+input_dir=$exp_dir/input$suff$dir_suff
+
+
+## Grab code from llc90
+
+if [ ! -d $code_dir ] ; then
+	mkdir $code_dir
+fi
+
+cp $ver_code/* $code_dir/
+echo "Copy: "$ver_code" to "$code_dir
+
+## Now get inputs
+
+if [ ! -d $input_dir ] ; then
+	mkdir $input_dir
+fi
+
+for fromDir in $inputList
+do
+
+  if [ -d $fromDir ] ; then 
+    fileList=`(ls -1 $fromDir)`
+    cpList="Files: "
+    for xx in $fileList
+    do
+      if [[  -r ${fromDir}/$xx && $xx != "CVS" ]] ; then
+        if [ ! -r $input_dir/$xx ] ; then
+          cpList=${cpList}" "$xx
+          cp ${fromDir}/$xx $input_dir/
+        fi
+      fi
+    done
+    echo "Copy: "$cpList" from dir "$fromDir
+  else
+    echo $fromDir" not a directory ..."
+  fi
+done

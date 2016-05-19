@@ -325,6 +325,8 @@ c-----------------------------------------------------
               enddo
             enddo
 
+          enddo ! irec
+
         endif !if (nrecloc.gt.0)
       endif !if (kgen.NE.0)
       enddo !icount_transp
