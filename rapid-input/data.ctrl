@@ -55,10 +55,38 @@
  mult_gentim2d(3) = 0.,
 #
  xx_gentim2d_weight(4) = 'wt_ones.data',
- xx_gentim2d_file(4) = 'xx_sflux',
+ xx_gentim2d_file(4) = 'xx_atemp',
  xx_gentim2d_startdate1(4) = 19920101,
  xx_gentim2d_startdate2(4) = 60000,
  xx_gentim2d_period(4) = 1209600.0,
  mult_gentim2d(4) = 0.,
+#
+ xx_gentim2d_weight(5) = 'wt_ones.data',
+ xx_gentim2d_file(5) = 'xx_swdown',
+ xx_gentim2d_startdate1(5) = 19920101,
+ xx_gentim2d_startdate2(5) = 60000,
+ xx_gentim2d_period(5) = 1209600.0,
+ mult_gentim2d(5) = 0.,
+#
+ xx_gentim2d_weight(6) = 'wt_ones.data',
+ xx_gentim2d_file(6) = 'xx_lwdown',
+ xx_gentim2d_startdate1(6) = 19920101,
+ xx_gentim2d_startdate2(6) = 60000,
+ xx_gentim2d_period(6) = 1209600.0,
+ mult_gentim2d(6) = 0.,
+#
+ xx_gentim2d_weight(7) = 'wt_ones.data',
+ xx_gentim2d_file(7) = 'xx_precip',
+ xx_gentim2d_startdate1(7) = 19920101,
+ xx_gentim2d_startdate2(7) = 60000,
+ xx_gentim2d_period(7) = 1209600.0,
+ mult_gentim2d(7) = 0.,
+#
+ xx_gentim2d_weight(8) = 'wt_ones.data',
+ xx_gentim2d_file(8) = 'xx_sflux',
+ xx_gentim2d_startdate1(8) = 19920101,
+ xx_gentim2d_startdate2(8) = 60000,
+ xx_gentim2d_period(8) = 1209600.0,
+ mult_gentim2d(8) = 0.,
 #
  &
