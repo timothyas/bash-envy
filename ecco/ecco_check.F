@@ -514,6 +514,10 @@ c
             il = ilnblnk(gencost_errfile(k))
             write(tempfile(1:128),'(2A)') gencost_errfile(k)(1:il),'K'
             inquire( file=tempfile(1:il+1), exist=exst )
+           write(msgBuf,'(2A,L5)') 'ecco_check file, exst: ',
+     &       tempfile(1:il+1),exst
+           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
             if (exst) then
              ioUnit = 0
              call MDS_READVEC_LOC(tempfile,cost_iprec,ioUnit,'RL',
