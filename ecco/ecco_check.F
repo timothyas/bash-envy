@@ -499,29 +499,44 @@ c-- will move to init perhaps, but leave here for now due to check exst
              call mdsreadfield(tempfile,cost_iprec,'RL',1,
      &            gencost_mskSsurf(1-olx,1-oly,1,1,k),1,mythid)
            endif
-          else
-           using_gencost(k)=.FALSE.
-           il=ilnblnk(gencost_name(k))
-           WRITE(msgBuf,'(4A)')
-     &     '** WARNING ** ECCO_CHECKD: errfile not defined',
-     &     ' so ',gencost_name(k)(1:il),' gets switched off'
-           CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
-     &               SQUEEZE_RIGHT , myThid)
 
 c--------------------------------------
 cts Adding vertical mask to transport
 c
-            il = ilnblnk(gencost_errfile(k))
-            write(tempfile(1:128),'(2A)') gencost_errfile(k)(1:il),'K'
-            inquire( file=tempfile(1:il+1), exist=exst )
+           il = ilnblnk(gencost_errfile(k))
+           write(tempfile(1:128),'(2A)') gencost_errfile(k)(1:il),'K'
+           inquire( file=tempfile(1:il+1), exist=exst )
            write(msgBuf,'(2A,L5)') 'ecco_check file, exst: ',
      &       tempfile(1:il+1),exst
            CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                  SQUEEZE_RIGHT , myThid)
+
+           do k2 = 1,nr
+            gencost_mskVertical(k2,k)= 1. _d 0
+           enddo
+
             if (exst) then
-             ioUnit = 0
-             call MDS_READVEC_LOC(tempfile,cost_iprec,ioUnit,'RL',
-     &         nR, gencost_mskVertical(1,k), dummyRS, 0, 0, 1, myThid )
+              ioUnit = 0
+              call MDS_READVEC_LOC(tempfile,cost_iprec,ioUnit,'RL',
+     &          nR, gencost_mskVertical(1,k), dummyRS, 0, 0, 1, myThid )
+              do k2 = 1,nr
+              write(msgBuf,'(A8,I2,A3,F10.3)') 'mskV(k= ',k2,
+     &         '): ', gencost_mskVertical(k2,k)
+              CALL PRINT_MESSAGE(msgBuf, standardMessageUnit,
+     &                  SQUEEZE_RIGHT, myThid )
+              enddo
+            else
+               using_gencost(k)=.FALSE.
+               il=ilnblnk(gencost_name(k))
+               WRITE(msgBuf,'(4A)')
+     &         '** WARNING ** ECCO_CHECKD: errfile not defined',
+     &         ' so ',gencost_name(k)(1:il),' gets switched off'
+               CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                   SQUEEZE_RIGHT , myThid)
+              write(msgBuf,'(3A)') '**Warning: Could not find file: ',
+     &         tempfile(1:il+1), ' for vertical mask ...'
+              CALL PRINT_MESSAGE(msgBuf, standardMessageUnit,
+     &                  SQUEEZE_RIGHT, myThid )
             endif
 cts
 c--------------------------------------

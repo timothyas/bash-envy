@@ -40,6 +40,7 @@ c     == local variables ==
       integer imin,imax
 #ifdef ALLOW_GENCOST_CONTRIBUTION
       integer kgen
+      character*(MAX_LEN_MBUF) msgBuf
       _RL areavolTile(nSx,nSy)
       _RL areavolGlob, tmpmsk, tmpmsk2
       _RL tmpVol(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
@@ -286,12 +287,12 @@ cts Adding vertical mask to transport
             trVol(i,j,k,bi,bj) = trVol(i,j,k,bi,bj)*
      &          gencost_mskVertical(k,kgen)
           enddo
-         elseif (gencost_barfile(kgen)(1:7).EQ.'m_trHeat') then
+         elseif (gencost_barfile(kgen)(1:8).EQ.'m_trHeat') then
           do k = 1,nr
             trHeat(i,j,k,bi,bj) = trHeat(i,j,k,bi,bj)*
      &          gencost_mskVertical(k,kgen)
           enddo
-         elseif (gencost_barfile(kgen)(1:7).EQ.'m_trSalt') then
+         elseif (gencost_barfile(kgen)(1:8).EQ.'m_trSalt') then
           do k = 1,nr
             trSalt(i,j,k,bi,bj) = trSalt(i,j,k,bi,bj)*
      &          gencost_mskVertical(k,kgen)

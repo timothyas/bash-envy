@@ -270,6 +270,44 @@ c     I       mythid)
 
 c global sums for display of time series
 c note tmpNumGlo is the constant total wet points in the msktrVol[W,S]
+
+c----------------------------------------------------
+cts Adding temporal mask as in boxmean
+c
+
+          il = ilnblnk(gencost_errfile(kgen(icount)))
+          write(fname0(1:128),'(2A)') 
+     &      gencost_errfile(kgen(icount))(1:il),'T'
+          inquire( file=fname0(1:il+1), exist=exst )
+
+          if ( (.NOT.exst).OR.(gencost_errfile(kgen(icount)).EQ.' ')
+     &          ) then
+
+           write(msgBuf,'(3A)') '**Warning: temporal msk file: ',
+     &       fname0(1:il+1), ' not found, using 1/nrecloc'        
+           CALL PRINT_MESSAGE(msgBuf, standardMessageUnit, 
+     &         SQUEEZE_RIGHT, myThid ) 
+
+           gencost_mskTemporal=nrecloc
+           gencost_mskTemporal=1. _d 0 / gencost_mskTemporal
+          else
+
+           write(msgBuf,'(3A,I2)') 'Using temporal msk from file: ',
+     &          fname0(1:il+1), ' nrecloc: ', nrecloc
+           CALL PRINT_MESSAGE(msgBuf, standardMessageUnit,
+     &          SQUEEZE_RIGHT, myThid )
+
+           ioUnit = 0           
+           call MDS_READVEC_LOC(fname0,cost_iprec,ioUnit,'RL',
+     &          1, gencost_mskTemporal, dummyRS, 0, 0, irec, myThid )
+          endif
+
+          tmpMeanTile = tmpMeanTile*gencost_mskTemporal
+          
+
+cts
+c-----------------------------------------------------
+
             tmpMeanGlo = 0. _d 0
             tmpNumGlo = 0. _d 0
             il=ilnblnk(gencost_barfile(kgen(icount)))
@@ -286,11 +324,15 @@ c sum that is actually be used in cost function
               DO bi = itlo,ithi
                 objf_gencost(bi,bj,kgen(icount))=
      &             objf_gencost(bi,bj,kgen(icount))+tmpMeanTile(bi,bj)
+                num_gencost(bi,bj,kgen(icount))=nrecloc*facNum
               ENDDO
             ENDDO
 
         
-
+c---------------------------------------------------------
+c The rest of this is not necessary based on my edits
+cts
+cts
 cts          enddo !irec
 cts including next bit in do loop to get temporal mask
 
@@ -298,33 +340,16 @@ c-- last step:
 c-- divide by number of record to get mean transport:
 c-- make num_gencost equals number of months/days used
 
-c----------------------------------------------------
-cts Adding temporal mask as in boxmean
-c
 
-          il = ilnblnk(gencost_errfile(kgen(icount)))
-          write(fname0(1:128),'(2A)') 
-     &      gencost_errfile(kgen(icount))(1:il),'T'
-          inquire( file=fname0(1:il+1), exist=exst )
-          if ( (.NOT.exst).OR.
-     &     (gencost_errfile(kgen(icount)).EQ.' ') ) then
-           gencost_mskTemporal=nrecloc
-           gencost_mskTemporal=1. _d 0 / gencost_mskTemporal
-          else
-           ioUnit = 0
-           call MDS_READVEC_LOC(fname0,cost_iprec,ioUnit,'RL',
-     &          1, gencost_mskTemporal, dummyRS, 0, 0, iRec, myThid )
-          endif
+c            do bj = jtlo,jthi
+c              do bi = itlo,ithi
+c                objf_gencost(bi,bj,kgen(icount))=
+c     &             objf_gencost(bi,bj,kgen(icount))
+c                num_gencost(bi,bj,kgen(icount))=nrecloc*facNum
+c              enddo
+c            enddo
 cts
-c-----------------------------------------------------
-            do bj = jtlo,jthi
-              do bi = itlo,ithi
-                objf_gencost(bi,bj,kgen(icount))=
-     &             objf_gencost(bi,bj,kgen(icount))*gencost_mskTemporal
-                num_gencost(bi,bj,kgen(icount))=nrecloc*facNum
-              enddo
-            enddo
-
+c---------------------------------------------------------
           enddo ! irec
 
         endif !if (nrecloc.gt.0)
