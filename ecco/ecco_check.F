@@ -518,13 +518,7 @@ c
             if (exst) then
               ioUnit = 0
               call MDS_READVEC_LOC(tempfile,cost_iprec,ioUnit,'RL',
-     &          nR, gencost_mskVertical(1,k), dummyRS, 0, 0, 1, myThid )
-              do k2 = 1,nr
-              write(msgBuf,'(A8,I2,A3,F10.3)') 'mskV(k= ',k2,
-     &         '): ', gencost_mskVertical(k2,k)
-              CALL PRINT_MESSAGE(msgBuf, standardMessageUnit,
-     &                  SQUEEZE_RIGHT, myThid )
-              enddo
+     &        nr, gencost_mskVertical(1,k), dummyRS, 0, 0, 1,myThid)
             else
                using_gencost(k)=.FALSE.
                il=ilnblnk(gencost_name(k))

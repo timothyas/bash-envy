@@ -188,7 +188,7 @@ c immediately afterward, init is probably not needed.
                 trVolS(i,j,k) =
      &                 vVel(i,j,k,bi,bj)*hFacS(i,j,k,bi,bj)
      &                *dxG(i,j,bi,bj)*drF(k)*msktrVolS(i,j,bi,bj)
-     &                *maskInS(i,j,bi,bj)
+cts     &                *maskInS(i,j,bi,bj)
 
                 trHeatW(i,j,k) = trVolW(i,j,k)
      &                *(theta(i,j,k,bi,bj)+theta(i-1,j,k,bi,bj))*halfRL
