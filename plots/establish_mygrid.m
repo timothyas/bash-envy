@@ -1,6 +1,10 @@
 
 if ~exist('mygrid','var')
-  runDir='/workspace/gcmpack/GRID/';
+  if ismac
+	runDir = '~/Documents/gcmpack/GRID/'
+  else
+  	runDir='/workspace/gcmpack/GRID/';
+  end
   grid_load(runDir,5, 'compact');
   gcmfaces_global;
 end
