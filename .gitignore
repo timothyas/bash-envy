@@ -1,0 +1,16 @@
+syntax: glob
+*/masks/*
+*.pdf
+*.tar.gz
+*.mat
+*.avi
+*~
+*.o
+*.aux
+*.log
+*.backup
+*.bak
+*.swp
+*.orig
+*.mod
+
