@@ -190,17 +190,17 @@ c immediately afterward, init is probably not needed.
      &                *dxG(i,j,bi,bj)*drF(k)*msktrVolS(i,j,bi,bj)
      &                *maskInS(i,j,bi,bj)
 
-                trHeatW(i,j,k) = trVolW(i,j,k)
+                trHeatW(i,j,k) = trVolW(i,j,k,bi,bj)
      &                *(theta(i,j,k,bi,bj)+theta(i-1,j,k,bi,bj))*halfRL
      &                *HeatCapacity_Cp*rhoConst
-                trHeatS(i,j,k) = trVolS(i,j,k)
+                trHeatS(i,j,k) = trVolS(i,j,k,bi,bj)
      &                *(theta(i,j,k,bi,bj)+theta(i,j-1,k,bi,bj))*halfRL
      &                *HeatCapacity_Cp*rhoConst
 
-                trSaltW(i,j,k) = trVolW(i,j,k)
+                trSaltW(i,j,k) = trVolW(i,j,k,bi,bj)
      &                *(salt(i,j,k,bi,bj)+salt(i-1,j,k,bi,bj))*halfRL
      &                *rhoConst/1000.
-                trSaltS(i,j,k) = trVolS(i,j,k)
+                trSaltS(i,j,k) = trVolS(i,j,k,bi,bj)
      &                *(salt(i,j,k,bi,bj)+salt(i,j-1,k,bi,bj))*halfRL
      &                *rhoConst/1000.
 c now summing
