@@ -467,7 +467,7 @@ cgf     would help eventually distinguish, e.g., m_heat_hdif vs m_heat_vdif...
 cgf (4) generalization: specify type of transport (vol, heat, etc) via namelist?
              call ecco_zero(msktrVolW,1,zeroRL,mythid)
              call mdsreadfield(tempfile,cost_iprec,'RL',1,
-     &            msktrVolW,1,mythid)
+     &            msktrVolW(1-olx,1-oly,1,1),1,mythid)
              call mdsreadfield(tempfile,cost_iprec,'RL',1,
      &            gencost_mskWsurf(1-olx,1-oly,1,1,k),1,mythid)
            endif
@@ -495,7 +495,7 @@ c-- South --------------------
 c-- will move to init perhaps, but leave here for now due to check exst
              call ecco_zero(msktrVolS,1,zeroRL,mythid)
              call mdsreadfield(tempfile,cost_iprec,'RL',1,
-     &            msktrVolS,1,mythid)
+     &            msktrVolS(1-olx,1-oly,1,1),1,mythid)
              call mdsreadfield(tempfile,cost_iprec,'RL',1,
      &            gencost_mskSsurf(1-olx,1-oly,1,1,k),1,mythid)
            endif

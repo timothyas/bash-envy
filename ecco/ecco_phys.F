@@ -47,8 +47,8 @@ c     == local variables ==
 #endif
 
 c- note defined with overlap here, not needed, but more efficient
-      _RL trVolW(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
-      _RL trVolS(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
+      _RL trVolW(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
+      _RL trVolS(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL trHeatW(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL trHeatS(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL trSaltW(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
@@ -169,8 +169,8 @@ c immediately afterward, init is probably not needed.
           do k = 1,nr
             do j = 1-OLy,sNy+Oly
               do i = 1-OLx,sNx+OLx
-                trVolW(i,j,k,bi,bj)=0. _d 0
-                trVolS(i,j,k,bi,bj)=0. _d 0
+                trVolW(i,j,k)=0. _d 0
+                trVolS(i,j,k)=0. _d 0
                 trHeatW(i,j,k)=0. _d 0
                 trHeatS(i,j,k)=0. _d 0
                 trSaltW(i,j,k)=0. _d 0
@@ -179,33 +179,32 @@ c immediately afterward, init is probably not needed.
             enddo
           enddo
           do k = 1,nr
-            do j = 1,sNy
-              do i =  1,sNx
-                trVolW(i,j,k,bi,bj) =
+            do j = 1-OLy,sNy+Oly
+              do i = 1-OLx,sNx+OLx
+                trVolW(i,j,k) =
      &                 uVel(i,j,k,bi,bj)*hFacW(i,j,k,bi,bj)
      &                *dyG(i,j,bi,bj)*drF(k)*msktrVolW(i,j,bi,bj)
      &                *maskInW(i,j,bi,bj)
-                trVolS(i,j,k,bi,bj) =
+                trVolS(i,j,k) =
      &                 vVel(i,j,k,bi,bj)*hFacS(i,j,k,bi,bj)
      &                *dxG(i,j,bi,bj)*drF(k)*msktrVolS(i,j,bi,bj)
      &                *maskInS(i,j,bi,bj)
 
-                trHeatW(i,j,k) = trVolW(i,j,k,bi,bj)
+                trHeatW(i,j,k) = trVolW(i,j,k)
      &                *(theta(i,j,k,bi,bj)+theta(i-1,j,k,bi,bj))*halfRL
      &                *HeatCapacity_Cp*rhoConst
-                trHeatS(i,j,k) = trVolS(i,j,k,bi,bj)
+                trHeatS(i,j,k) = trVolS(i,j,k)
      &                *(theta(i,j,k,bi,bj)+theta(i,j-1,k,bi,bj))*halfRL
      &                *HeatCapacity_Cp*rhoConst
 
-                trSaltW(i,j,k) = trVolW(i,j,k,bi,bj)
+                trSaltW(i,j,k) = trVolW(i,j,k)
      &                *(salt(i,j,k,bi,bj)+salt(i-1,j,k,bi,bj))*halfRL
      &                *rhoConst/1000.
-                trSaltS(i,j,k) = trVolS(i,j,k,bi,bj)
+                trSaltS(i,j,k) = trVolS(i,j,k)
      &                *(salt(i,j,k,bi,bj)+salt(i,j-1,k,bi,bj))*halfRL
      &                *rhoConst/1000.
 c now summing
-                trVol(i,j,k,bi,bj)=trVolW(i,j,k,bi,bj)+ 
-     &                             trVolS(i,j,k,bi,bj)
+                trVol(i,j,k,bi,bj)=trVolW(i,j,k)+trVolS(i,j,k)
                 trHeat(i,j,k,bi,bj)=trHeatW(i,j,k)+trHeatS(i,j,k)
                 trSalt(i,j,k,bi,bj)=trSaltW(i,j,k)+trSaltS(i,j,k)
                 
