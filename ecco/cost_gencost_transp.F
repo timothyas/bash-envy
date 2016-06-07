@@ -186,11 +186,20 @@ c-- Compute cost
 c-- keep total at each irec to print out for time-series
 c-- local sum across tiles
 
+
+c-- Right now, big loop over k
+c    want to print out AMOC strength at each depth
+
           DO bj = jtlo,jthi
             DO bi = itlo,ithi
               tmpSumTile(bi,bj) = 0. _d 0
               tmpNumTile(bi,bj) = 0. _d 0
-              do k = 1,nr
+            ENDDO
+          ENDDO
+
+          do k = 1,nr
+          DO bj = jtlo,jthi
+            DO bi = itlo,ithi
                 do j = jmin,jmax
                   do i = imin,imax
 c sum for display of time series
@@ -205,7 +214,6 @@ c sum for actual cost function
      &              mybar(i,j,k,bi,bj)*gencost_mskTemporal
                   enddo
                 enddo
-              enddo
             ENDDO
           ENDDO 
 
@@ -218,8 +226,14 @@ c-- Compute global sum for time series
           WRITE(msgBuf,'(2A,I3,A,1PE21.14,1PE21.14)')
      &        'globalsum transp ',gencost_barfile(kgen)(1:il),
      &        irec,' ',tmpSumGlo,tmpNumGlo
+
+c-- this part is pretty ad hoc
+c    just don't want too many print statements...
+          if( k.lt.31 ) then
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
+          endif
+        enddo ! k=1->nr
 
         enddo ! irec=1->nrecloc
 
