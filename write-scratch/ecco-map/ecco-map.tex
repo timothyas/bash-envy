@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass[a4paper,10pt]{article}
 \usepackage[utf8]{inputenc}
 
 %opening
@@ -9,24 +9,71 @@
 \usepackage{geometry,amsmath,color,graphicx,listings,algorithmic,algorithm}
 \geometry{margin=1in}
 
+% --- Commands
+\newcommand{\ai}{\hspace{\algorithmicindent}}
+
 \begin{document}
 
 \maketitle
 
 \begin{algorithm}
-  \caption{ECCO pkg: boxmean \& transp cost functions}
+  \caption{ECCO pkg: gencost functionality with boxmean \& transp cost functions}
   \begin{algorithmic}
    \label{alg:ecco}
+   \STATE
    \STATE THE\_MODEL\_MAIN
-   \STATE \, THE\_MAIN\_LOOP
-   \STATE \, \, INITIALIZE\_FIXED
+   \STATE\ai THE\_MAIN\_LOOP
+   \STATE\ai\ai INITIALIZE\_FIXED
+   \STATE\ai\ai\ai INI\_PARMS
+   \STATE\ai\ai\ai\ai PACKAGES\_READPARMS
+   \STATE\ai\ai\ai\ai\ai ECCO\_READPARMS
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Reads in laundry list of parameters from \texttt{data.ecco}
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Checks for specified \textit{gencost\_name} e.g. [boxmean,transp]\_[eta,trVol]
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Checks for correct \textit{avgperiod}
+   \STATE...
+   \STATE\ai\ai\ai PACKAGES\_INIT\_FIXED
+   \STATE\ai\ai\ai\ai ECCO\_COST\_INIT\_FIXED
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ \textit{gencost\_flag}$>$1 then set \textit{avgperiod, nrec, period}, \textit{[start,end]date[s]}
    
+   \STATE\ai\ai\ai\ai\ai ECCO\_CHECK
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ transp: Reads \textit{errfile[S,W,K]}$\rightarrow$\textit{msktrVol[S,W]} \& \textit{mskVertical} 
+   \STATE\ai\ai\ai\ai\ai\ai\ai  Checks \textit{barfile}$=$\textit{m\_tr[Vol,Heat,Salt]}
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ boxmean: Reads \textit{errfile[C,K]}$\rightarrow$\textit{msk[C,Vertical]}
+   \STATE\ai\ai\ai\ai\ai\ai\ai  Checks \textit{barfile}$=$\textit{m\_boxmean\_[theta,salt,eta]}
+   \STATE\ai\ai\ai\ai\ai ECCO\_COST\_WEIGHTS
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Deprecated
+   \STATE\ai\ai\ai\ai\ai ECCO\_COST\_INIT\_BARFILES
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Called if ALLOW\_TANGENTLINEAR\_RUN not defined
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Writes \textit{gencost\_barfile}
+   \STATE\ai\ai\ai\ai\ai ECCO\_SUMMARY
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Prints summary of file names, cost flag, post processing 
+   \STATE\ai\ai\ai\ai\ai ECCO\_COST\_SUMMARY
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Deprecated
+   \STATE...
+   \STATE\ai\ai INITIALIZE\_VARIA
+   \STATE\ai\ai\ai PACKAGES\_INIT\_VARIA
+   \STATE\ai\ai\ai\ai ECCO\_COST\_INIT\_VARIA
+   \STATE\ai\ai\ai\ai\ai ECCO\_PHYS
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ transp: Computes \textit{tr[Vol,Heat,Salt]} using \textit{msktrVol[S,W]}
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ boxmean: Computes \textit{theta},\textit{salt}, \& \textit{eta} volumetric average using \textit{gencost\_mskC} 
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Currently \textit{gencost\_mskVertical} is used here to mask computations
+   \STATE\ai\ai\ai\ai\ai ECCO\_COST\_INIT\_VARIA
+   \STATE\ai\ai\ai\ai\ai\ai COST\_AVERAGESINIT
+   \STATE\ai\ai\ai\ai\ai\ai\ai $\rightarrow$ Initializes \textit{gencost\_[bar,mod][fld,3d]} to 0
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Initializes \textit{objf\_gencost} \& \textit{num\_gencost} to 0
+
+   \STATE (time loop starts, lots of overhead loops for checkpointing)
    \FOR{$n = 1 \rightarrow N_t$} 
-      \STATE \texttt{
+      \STATE 
 	\begin{enumerate}
            \item COST\_AVERAGES\_FIELDS
-        \end{enumerate}}
+           \item MAIN\_DO\_LOOP (forward step, main stuff)
+        \end{enumerate}
    \ENDFOR
+   \STATE COST\_AVERAGES\_FIELDS
+   \STATE ECCO\_COST\_DRIVER
+   \STATE COST\_FINAL
+   \STATE\ai ECCO\_COST\_FINAL
   \end{algorithmic}
 \end{algorithm}
 
