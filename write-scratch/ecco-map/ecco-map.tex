@@ -1,0 +1,34 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%opening
+\title{\vspace{-8ex}Mapping out ECCO \\ boxmean and transport cost functions}
+\author{Tim Smith}
+\date{\vspace{-5ex}}
+% --- Packages
+\usepackage{geometry,amsmath,color,graphicx,listings,algorithmic,algorithm}
+\geometry{margin=1in}
+
+\begin{document}
+
+\maketitle
+
+\begin{algorithm}
+  \caption{ECCO pkg: boxmean \& transp cost functions}
+  \begin{algorithmic}
+   \label{alg:ecco}
+   \STATE THE\_MODEL\_MAIN
+   \STATE \, THE\_MAIN\_LOOP
+   \STATE \, \, INITIALIZE\_FIXED
+   
+   \FOR{$n = 1 \rightarrow N_t$} 
+      \STATE \texttt{
+	\begin{enumerate}
+           \item COST\_AVERAGES\_FIELDS
+        \end{enumerate}}
+   \ENDFOR
+  \end{algorithmic}
+\end{algorithm}
+
+
+\end{document}
