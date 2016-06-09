@@ -10,7 +10,7 @@
 \geometry{margin=1in}
 
 % --- Commands
-\newcommand{\ai}{\hspace{\algorithmicindent}}
+\newcommand{\ai}{$|$\hspace{\algorithmicindent}}
 
 \begin{document}
 
@@ -55,7 +55,7 @@
    \STATE\ai\ai\ai\ai ECCO\_COST\_INIT\_VARIA
    \STATE\ai\ai\ai\ai\ai ECCO\_PHYS
    \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ transp: Computes \textit{tr[Vol,Heat,Salt]} using \textit{msktrVol[S,W]}
-   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ boxmean: Computes \textit{theta},\textit{salt}, \& \textit{eta} volumetric average using \textit{gencost\_mskC} 
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ boxmean: \textit{gencost\_storefld}=\textit{[theta,salt,eta]} vol. avg. using \textit{gencost\_mskC} 
    \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Currently \textit{gencost\_mskVertical} is used here to mask computations
    \STATE\ai\ai\ai\ai\ai ECCO\_COST\_INIT\_VARIA
    \STATE\ai\ai\ai\ai\ai\ai COST\_AVERAGESINIT
@@ -66,7 +66,7 @@
  \end{algorithmic}
 \end{algorithm}
   \begin{algorithm}
-  \caption{ECCO pkg: gencost functionality with boxmean \& transp cost functions}
+  \caption{ECCO pkg: Inside the main loop}
   \begin{algorithmic}
    \label{alg:ecco2}
    \STATE (time loop starts, lots of overhead loops for checkpointing)
@@ -75,6 +75,8 @@
 	\begin{enumerate}
            \item COST\_AVERAGESFIELDS
            \item MAIN\_DO\_LOOP (forward step, main stuff)
+           \item\ai DO\_OCEANIC\_PHYS
+           \item\ai\ai ECCO\_PHYS
         \end{enumerate}
    \ENDFOR
    \STATE\ai COST\_AVERAGESFIELDS
@@ -84,7 +86,6 @@
    \STATE\ai\ai\ai $\rightarrow$ Assigns \textit{[start,end]ofgen}, \textit{ingen}, \textit{sum1gen}, \textit{genrec}
    \STATE\ai\ai COST\_GENCOST\_CUSTOMIZE
    \STATE\ai\ai\ai $\rightarrow$ boxmean: \textit{gencost\_modfld} = \textit{gencost\_storefld}
-   \STATE\ai\ai\ai $\rightarrow$ ...where does storefld get written??
    \STATE\ai\ai\ai $\rightarrow$ transp: \textit{gencost\_mod3d} = \textit{tr[Vol,Heat,Salt]}
    \STATE\ai\ai COST\_AVERAGESGENERIC
    \STATE\ai\ai\ai $\rightarrow$ Takes in \textit{barfile}, \textit{barfld}, \textit{modfld}, flags, and assignperiod info
