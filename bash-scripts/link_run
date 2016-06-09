@@ -2,7 +2,7 @@
 
 ## Set up suffix for adjoint run
 suff=""
-dir_suff=""
+dir_suff=".24mo"
 
 ## Set up directories
 root_dir=$HOME/MITgcm
@@ -19,7 +19,7 @@ masks_dir=$input_dir/masks
 
 submit_script=$exp_dir/submit_rapid
 data_dir=$WORK/ecco-data
-input_data_dir=$data_dir/inputs_baseline2
+input_data_dir=$data_dir/inputs_baseline2/input_insitu
 forcing_dir=$data_dir/forcing_baseline2
 
 ## Link ALL of the files
@@ -67,7 +67,7 @@ fi
 ln -sf $input_dir/* .
 
 # insitu data sets
-ln -sf $input_data_dir/input*/* .
+ln -sf $input_data_dir/* .
 
 # 6 Hour forcing files
 ln -sf $forcing_dir .
