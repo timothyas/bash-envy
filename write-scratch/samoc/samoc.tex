@@ -1,0 +1,52 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry,amsmath,color,graphicx}
+%opening
+\title{\vspace{-5ex}Capturing Variability in AMOC \\ Measured at 34.5$^\circ$S}
+\author{Tim Smith}
+\date{\vspace{-3ex}}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  
+\end{abstract}
+
+\section{AMOC Objective Function}
+
+  Following the definition set out in \cite{wunschAndHeimbach_AMOC}, the monthly mean meridional volume transport northward at a given time $t$, longitude $\lambda$, latitude $\phi$, and depth $z$ is $\bar{V}(\lambda,z,\phi,t)$. With a discrete numerical integration reflecting horizontal grid resolution of $1^{\circ} \times 1^{\circ}$, and $N_r$ layers in the vertical this volume transport at in the grid cell $(\phi_i,\lambda_j,z_k)$ is: 
+  \begin{align}
+    \bar{V}(\phi_i,\lambda_j,z_k,t) &= \int_{z_k}\int_{\lambda_j}v \,d\lambda dz \\
+				    &\simeq v_i \,  \triangle \lambda_j \triangle z_k
+    \label{eq:volTrans}
+  \end{align}
+  
+  where $v_i$ is the meridional velocity defined on the Southern face of the grid cell. The monthly mean volume transport across a latitude band $\phi_i$ at depth $z_k$ from coast to coast is approximated by the sum: 
+  
+  \begin{equation}
+    \bar{V}_{cc}(\phi_i,z_k,t) = \sum_{j}\bar{V}(\phi_i,\lambda_j,z_k,t) .
+    \label{eq:vcc}
+  \end{equation}
+
+  With these definitions, AMOC is the maximum transport: 
+  
+  \begin{equation}
+    \bar{V}_{MOC}(z_{max}(t),\phi,t) = \max_z\int_{z(\phi,t)}^{\eta(\phi,t)}\bar{V}_{cc}(\phi,z,t) \, dz
+    \label{eq:amoc}
+  \end{equation}
+
+  \red{For now}, I am using the annual mean for $z_{max}$ as given in \cite{wunschAndHeimbach_AMOC} to compute this integral.   
+
+  
+\begin{thebibliography}{3}
+
+  \bibitem{wunschAndHeimbach_AMOC}
+  Wunsch, Carl, and Patrick Heimbach. ``Two decades of the Atlantic meridional overturning circulation: Anatomy, variations, extremes, prediction, and overcoming its limitations." Journal of Climate 26.18 (2013): 7167-7186.
+
+\end{thebibliography}
+
+\end{document}

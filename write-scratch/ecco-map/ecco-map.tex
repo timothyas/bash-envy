@@ -1,0 +1,109 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+%opening
+\title{\vspace{-8ex}Mapping out ECCO \\ boxmean and transport cost functions}
+\author{Tim Smith}
+\date{\vspace{-5ex}}
+% --- Packages
+\usepackage{geometry,amsmath,color,graphicx,listings,algorithmic,algorithm}
+\geometry{margin=1in}
+
+% --- Commands
+\newcommand{\ai}{$|$\hspace{\algorithmicindent}}
+
+\begin{document}
+
+\maketitle
+
+\begin{algorithm}
+  \caption{ECCO pkg: gencost functionality with boxmean \& transp cost functions}
+  \begin{algorithmic}
+   \label{alg:ecco}
+   \STATE
+   \STATE THE\_MODEL\_MAIN
+   \STATE\ai INITIALIZE\_FIXED
+   \STATE\ai\ai INI\_PARMS
+   \STATE\ai\ai\ai PACKAGES\_READPARMS
+   \STATE\ai\ai\ai\ai ECCO\_READPARMS
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Reads in laundry list of parameters from \texttt{data.ecco}
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Checks for specified \textit{gencost\_name} e.g. [boxmean,transp]\_[eta,trVol]
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Checks for correct \textit{avgperiod}
+   \STATE...
+   \STATE\ai\ai PACKAGES\_INIT\_FIXED
+   \STATE\ai\ai\ai ECCO\_COST\_INIT\_FIXED
+   \STATE\ai\ai\ai\ai $\rightarrow$ \textit{gencost\_flag}$>$1 then set \textit{avgperiod, nrec, period}, \textit{[start,end]date[s]}
+   
+   \STATE\ai\ai\ai\ai ECCO\_CHECK
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ transp: Reads \textit{errfile[S,W,K]}$\rightarrow$\textit{msktrVol[S,W]} \& \textit{mskVertical} 
+   \STATE\ai\ai\ai\ai\ai\ai  Checks \textit{barfile}$=$\textit{m\_tr[Vol,Heat,Salt]}
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ boxmean: Reads \textit{errfile[C,K]}$\rightarrow$\textit{msk[C,Vertical]}
+   \STATE\ai\ai\ai\ai\ai\ai  Checks \textit{barfile}$=$\textit{m\_boxmean\_[theta,salt,eta]}
+   \STATE\ai\ai\ai\ai ECCO\_COST\_WEIGHTS
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Deprecated
+   \STATE\ai\ai\ai\ai ECCO\_COST\_INIT\_BARFILES
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Called if ALLOW\_TANGENTLINEAR\_RUN not defined
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Writes \textit{gencost\_barfile}
+   \STATE\ai\ai\ai\ai ECCO\_SUMMARY
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Prints summary of file names, cost flag, post processing 
+   \STATE\ai\ai\ai\ai ECCO\_COST\_SUMMARY
+   \STATE\ai\ai\ai\ai\ai $\rightarrow$ Deprecated
+   \STATE...
+   \STATE\ai THE\_MAIN\_LOOP
+   \STATE\ai\ai INITIALIZE\_VARIA
+   \STATE\ai\ai\ai PACKAGES\_INIT\_VARIA
+   \STATE\ai\ai\ai\ai ECCO\_COST\_INIT\_VARIA
+   \STATE\ai\ai\ai\ai\ai ECCO\_PHYS
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ transp: Computes \textit{tr[Vol,Heat,Salt]} using \textit{msktrVol[S,W]}
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ boxmean: \textit{gencost\_storefld}=\textit{[theta,salt,eta]} vol. avg. using \textit{gencost\_mskC} 
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Currently \textit{gencost\_mskVertical} is used here to mask computations
+   \STATE\ai\ai\ai\ai\ai ECCO\_COST\_INIT\_VARIA
+   \STATE\ai\ai\ai\ai\ai\ai COST\_AVERAGESINIT
+   \STATE\ai\ai\ai\ai\ai\ai\ai $\rightarrow$ Initializes \textit{gencost\_[bar,mod][fld,3d]} to 0
+   \STATE\ai\ai\ai\ai\ai\ai $\rightarrow$ Initializes \textit{objf\_gencost} \& \textit{num\_gencost} to 0
+
+   \STATE...
+ \end{algorithmic}
+\end{algorithm}
+  \begin{algorithm}
+  \caption{ECCO pkg: Inside the main loop}
+  \begin{algorithmic}
+   \label{alg:ecco2}
+   \STATE (time loop starts, lots of overhead loops for checkpointing)
+   \FOR{$n = 1 \rightarrow N_t$} 
+      \STATE 
+	\begin{enumerate}
+           \item COST\_AVERAGESFIELDS
+           \item MAIN\_DO\_LOOP (forward step, main stuff)
+           \item\ai DO\_OCEANIC\_PHYS
+           \item\ai\ai ECCO\_PHYS
+        \end{enumerate}
+   \ENDFOR
+   \STATE\ai COST\_AVERAGESFIELDS
+   \STATE\ai\ai COST\_AVERAGESFLAGS
+   \STATE\ai\ai\ai $\rightarrow$ Computes logicals describing where in calendar the model is at
+   \STATE\ai\ai COST\_GENCOST\_ASSIGNPERIOD
+   \STATE\ai\ai\ai $\rightarrow$ Assigns \textit{[start,end]ofgen}, \textit{ingen}, \textit{sum1gen}, \textit{genrec}
+   \STATE\ai\ai COST\_GENCOST\_CUSTOMIZE
+   \STATE\ai\ai\ai $\rightarrow$ boxmean: \textit{gencost\_modfld} = \textit{gencost\_storefld}
+   \STATE\ai\ai\ai $\rightarrow$ transp: \textit{gencost\_mod3d} = \textit{tr[Vol,Heat,Salt]}
+   \STATE\ai\ai COST\_AVERAGESGENERIC
+   \STATE\ai\ai\ai $\rightarrow$ Takes in \textit{barfile}, \textit{barfld}, \textit{modfld}, flags, and assignperiod info
+   \STATE\ai\ai\ai $\rightarrow$ Starts new \textit{barfld}, accumulates \textit{barfld}$\leftarrow$\textit{modfld}, or computes final avg val \textit{barfld} 
+   \STATE\ai\ai\ai depending on calendar position
+   \STATE\ai\ai\ai $\rightarrow$ Condition: if (startofloc \& endofloc), true only if \textit{avgperiod}=step
+   \STATE\ai ECCO\_COST\_DRIVER
+   \STATE\ai\ai COST\_GENCOST\_ALL
+   \STATE\ai\ai\ai COST\_GENCOST\_BOXMEAN
+   \STATE\ai\ai\ai COST\_GENCOST\_TRANSP
+   \STATE\ai\ai CTRL\_COST\_DRIVER
+   \STATE COST\_FINAL
+   \STATE\ai ECCO\_COST\_FINAL
+   \STATE\ai\ai $\rightarrow$ \textit{tile\_fc(bi,bj)} = \textit{mult\_gencost}*\textit{objf\_gencost(bi,bj)}
+   \STATE\ai\ai $\rightarrow$ \textit{[f,no]\_gencost} = global cost function, and count
+   \STATE\ai\ai $\rightarrow$ Prints out \textit{f\_gencost = ...}
+  \end{algorithmic}
+\end{algorithm}
+
+
+\end{document}
