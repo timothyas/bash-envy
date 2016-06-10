@@ -13,4 +13,4 @@ syntax: glob
 *.swp
 *.orig
 *.mod
-
+*.png

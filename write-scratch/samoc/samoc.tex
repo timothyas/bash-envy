@@ -2,23 +2,28 @@
 \usepackage[utf8]{inputenc}
 \usepackage{geometry,amsmath,color,graphicx}
 %opening
-\title{\vspace{-5ex}Capturing Variability in AMOC \\ Measured at 34.5$^\circ$S}
+\title{\vspace{-10ex}Computing AMOC}
 \author{Tim Smith}
 \date{\vspace{-3ex}}
 
 \newcommand{\red}[1]{\textcolor{red}{#1}}
+
+%% --- Figures
+\graphicspath{ {plots/} }
+\DeclareGraphicsExtensions{.png,.pdf}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-  
+ I have been running short model simulations, computing AMOC at 25$^{\circ}$N so I could verify my values with those in e.g. \cite{wunschAndHeimbach_AMOC} or \cite{mcCarthy}, but I'm running into some problems. Essentially, I'm not getting values that make sense. Here are some of my questions, I tried to keep it very brief. 
 \end{abstract}
+
 
 \section{AMOC Objective Function}
 
-  Following the definition set out in \cite{wunschAndHeimbach_AMOC}, the monthly mean meridional volume transport northward at a given time $t$, longitude $\lambda$, latitude $\phi$, and depth $z$ is $\bar{V}(\lambda,z,\phi,t)$. With a discrete numerical integration reflecting horizontal grid resolution of $1^{\circ} \times 1^{\circ}$, and $N_r$ layers in the vertical this volume transport at in the grid cell $(\phi_i,\lambda_j,z_k)$ is: 
+  Following the definition set out in \cite{wunschAndHeimbach_AMOC}, the monthly mean meridional volume transport northward at a given time $t$, longitude $\lambda$, latitude $\phi$, and depth $z$ is $\bar{V}(\lambda,z,\phi,t)$. With a discrete numerical integration at each grid cell, I am computing this volume transport in a given grid cell grid cell $(\phi_i,\lambda_j,z_k)$ as: 
   \begin{align}
     \bar{V}(\phi_i,\lambda_j,z_k,t) &= \int_{z_k}\int_{\lambda_j}v \,d\lambda dz \\
 				    &\simeq v_i \,  \triangle \lambda_j \triangle z_k
@@ -39,13 +44,46 @@
     \label{eq:amoc}
   \end{equation}
 
-  \red{For now}, I am using the annual mean for $z_{max}$ as given in \cite{wunschAndHeimbach_AMOC} to compute this integral.   
+  \red{Question: Wouldn't this leave the units of $ \bar{V}_{MOC}(z_{max}(t),\phi,t)$ to be [Sv m]? Is $\bar{V}_{cc}(\phi_i,z_k,t)$ actually in units Sv (m depth)$^{-1}$?}
+  
+ % When I plot the zonally integrated quantity $\bar{V}_{cc}(\phi_i,z_k,t)$ as defined in eqn. \ref{eq:vcc} I get the plot shown in Fig. \ref{fig:Vcc}. Each line represents a monthly mean for $\bar{V}_{cc}(\phi_i,z_k,t)$ from a 4 year run. \red{Some of the transports are huge at depths around ..., whereas the plot in \cite{wunschAndHeimbach_AMOC} (copied here in Fig. \ref{whplot}) shows these should be much smaller. Do you have any intuition for why this is so far off?}
+  
+  %\begin{figure}
+   %\centering
+ %  \includegraphics[width=\textwidth]{vcc}
+ %  \caption{Each line represents a zonally integrated, monthly mean volume transport $\bar{V}_{cc}(\phi_i,z_k,t)$ from a 4 year run. The amplitudes seem to be much larger than they should be for depths below 3000m. Compare to \ref{fig:whplot} at 25$^{\circ}$N.}
+ %  \label{fig:Vcc}
+ % \end{figure}
+  
+  %\begin{figure}
+  % \centering
+  % \includegraphics{whplot}
+  % \label{fig:whplot}
+  %\end{figure}
+
+
+  
+  
+\section{Latitude masks}
+  
+  When creating my mask for the objective function, I grab points where latitude is the closest latitude to 25$^{\circ}$N. However, when I plot this I get a mismatch between the different 'faces' on the grid (see next pg). I suspect this is just an artefact of plotting because the right face has more latitude grid cells (F5 range: [-90,71.62] Latitude) than the left face (F1 range: [-88.02, 72.04] Latitude). But I just wanted to check.
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{latitudeMismatch}
+   \label{fig:latitudeMismatch}
+   \caption{There seems to be a mismatch between faces 1 \& 5 (the abrupt change is where these two faces come together).}
+  \end{figure}
+
 
   
 \begin{thebibliography}{3}
 
   \bibitem{wunschAndHeimbach_AMOC}
   Wunsch, Carl, and Patrick Heimbach. ``Two decades of the Atlantic meridional overturning circulation: Anatomy, variations, extremes, prediction, and overcoming its limitations." Journal of Climate 26.18 (2013): 7167-7186.
+  
+  \bibitem{mcCarthy}
+  McCarthy, G. D., et al. ``Measuring the Atlantic meridional overturning circulation at 26 N." Progress in Oceanography 130 (2015): 91-111.
 
 \end{thebibliography}
 
