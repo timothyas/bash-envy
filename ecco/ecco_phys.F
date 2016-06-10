@@ -167,8 +167,8 @@ c-- init
 c-- init: if done with overlap, more efficient. But since overwritten
 c immediately afterward, init is probably not needed.
           do k = 1,nr
-            do j = 1-OLy,sNy+Oly
-              do i = 1-OLx,sNx+OLx
+            do j = 1,sNy
+              do i = 1,sNx
                 trVolW(i,j,k)=0. _d 0
                 trVolS(i,j,k)=0. _d 0
                 trHeatW(i,j,k)=0. _d 0
@@ -179,8 +179,8 @@ c immediately afterward, init is probably not needed.
             enddo
           enddo
           do k = 1,nr
-            do j = 1-OLy,sNy+Oly
-              do i = 1-OLx,sNx+OLx
+            do j = 1,sNy
+              do i = 1,sNx
                 trVolW(i,j,k) =
      &                 uVel(i,j,k,bi,bj)*hFacW(i,j,k,bi,bj)
      &                *dyG(i,j,bi,bj)*drF(k)*msktrVolW(i,j,bi,bj)

@@ -225,14 +225,9 @@ c-- Compute global sum for time series
      &        'globalsum transp ',gencost_barfile(kgen)(1:il),
      &        irec,' ',tmpSumGlo,tmpNumGlo
 
-c-- this part is pretty ad hoc
-c    just don't want too many print statements...
-          if( k.lt.31 ) then
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
-          endif
-
-        enddo ! irec=1->nrecloc
+          enddo ! irec=1->nrecloc
 
 c-- sum that is actually be used in cost function
           mySumGlo = 0. _d 0
