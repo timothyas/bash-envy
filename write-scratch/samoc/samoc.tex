@@ -1,6 +1,9 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{geometry,amsmath,color,graphicx}
+\geometry{margin=1in}
+
+
 %opening
 \title{\vspace{-10ex}Computing AMOC}
 \author{Tim Smith}
@@ -17,34 +20,58 @@
 \maketitle
 
 \begin{abstract}
- I have been running short model simulations, computing AMOC at 25$^{\circ}$N so I could verify my values with those in e.g. \cite{wunschAndHeimbach_AMOC} or \cite{mcCarthy}, but I'm running into some problems. Essentially, I'm not getting values that make sense. Here are some of my questions, I tried to keep it very brief. 
+ I have been running short model simulations, computing AMOC at 25$^{\circ}$N so I could verify my values with those in e.g. \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, or \cite{mcCarthy}, but I'm running into some problems. Essentially, I'm not getting values that make sense. Here are some of my questions, I tried to keep it very brief. 
 \end{abstract}
 
 
 \section{AMOC Objective Function}
 
-  Following the definition set out in \cite{wunschAndHeimbach_AMOC}, the monthly mean meridional volume transport northward at a given time $t$, longitude $\lambda$, latitude $\phi$, and depth $z$ is $\bar{V}(\lambda,z,\phi,t)$. With a discrete numerical integration at each grid cell, I am computing this volume transport in a given grid cell grid cell $(\phi_i,\lambda_j,z_k)$ as: 
-  \begin{align}
-    \bar{V}(\phi_i,\lambda_j,z_k,t) &= \int_{z_k}\int_{\lambda_j}v \,d\lambda dz \\
-				    &\simeq v_i \,  \triangle \lambda_j \triangle z_k
-    \label{eq:volTrans}
-  \end{align}
-  
-  where $v_i$ is the meridional velocity defined on the Southern face of the grid cell. The monthly mean volume transport across a latitude band $\phi_i$ at depth $z_k$ from coast to coast is approximated by the sum: 
+  The following definition comes from \cite{wunschLinear} \& \cite{wunschAndHeimbach_AMOC}. The monthly mean meridional velocity (northward) at time $t$, longitude $\lambda$, latitude $\phi$, and depth $z$ is $\bar{v}(\lambda,z,\phi,t)$. Integrating zonally over a latitude band from coast to coast gives: 
   
   \begin{equation}
-    \bar{V}_{cc}(\phi_i,z_k,t) = \sum_{j}\bar{V}(\phi_i,\lambda_j,z_k,t) .
-    \label{eq:vcc}
+   \bar{V}_{cc}(\phi,z,t) = \int_{West}^{East}\bar{v}(\lambda,\phi,z,t)\,d\lambda .
+   \label{eq:zonalInt}
   \end{equation}
 
-  With these definitions, AMOC is the maximum transport: 
+  The monthly mean AMOC is then: 
   
   \begin{equation}
-    \bar{V}_{MOC}(z_{max}(t),\phi,t) = \max_z\int_{z(\phi,t)}^{\eta(\phi,t)}\bar{V}_{cc}(\phi,z,t) \, dz
+    \bar{V}_{MOC}(\phi,t,z_{max}(\phi,t)) = \max_z\int_{z(\phi,t)}^{\eta(\phi,t)}\bar{V}_{cc}(\phi,z,t) \, dz
     \label{eq:amoc}
   \end{equation}
+  
+  \subsection{Numerical Implementation}
+  
+  I compute the AMOC using discrete numerical integration (sums) and ``mask'' files that pick out the particular grid cells of interest. The integrals in eqns. \ref{eq:zonalInt} and \ref{eq:amoc} are carried out as follows. At each time step the subroutine ECCO\_PHYS computes the meridional volume transport (MVT) through the Southern face of each grid cell $(x_i,y_j,z_k)$ as: 
+  
+  \begin{align}
+    MVT(x_i,y_j,z_k,t) &= \int_{z_k}\int_{x_i}v(x_i,y_j,z_k) \,dx dz \\
+				    &\simeq v(x_i,y_j,z_k) \,  \triangle x_i \triangle z_k ,
+    \label{eq:MVT}
+  \end{align}
+  
+  where $x_i$ is the discrete counterpart to longitude $\lambda_i$, $y_j$ to latitude $\phi_j$. Inside the ECCO package (MITgcm/pkg/ecco) the subroutine COST\_AVERAGESGENERIC computes the monthly mean value for this transport  (or whatever is desired as the cost function) using the calendar package and writes it to file: \textit{gencost\_barfile}. Using monthly mean values, the zonal integral in \ref{eq:zonalInt} is then approximated by the summation along a single latitude band: 
+  
+  \begin{equation}
+   \bar{V}_{cc}(y_j,z_k,t) \triangle z_k \simeq \sum_i \bar{MVT}(x_i,y_j,z_k,t) ,
+   \label{eq:vccApprox}
+  \end{equation}
 
-  \red{Question: Wouldn't this leave the units of $ \bar{V}_{MOC}(z_{max}(t),\phi,t)$ to be [Sv m]? Is $\bar{V}_{cc}(\phi_i,z_k,t)$ actually in units Sv (m depth)$^{-1}$?}
+  where the $\triangle z_k$ on the LHS is present because $V_{cc}$ as defined originally does not include the vertical integral. I'm just being overly explicit about dimensionality. 
+  The monthly mean AMOC is then computed numerically as: 
+  
+  \begin{equation}
+   \bar{V}_{MOC}(y_j,z_{max}(y_j,t),t) \simeq \max_{k} \texttt{cumsum}_k \{\bar{V}_{cc}(y_j,z_k,t)\triangle z_k\} ,
+   \label{eq:amocApprox}
+  \end{equation}
+
+  where $\texttt{cumsum}_k$ is a cumulative sum function, operating in the vertical direction. 
+  
+  In the computation of \ref{eq:MVT}, a ``mask'' is placed on the southern grid faces so that only the latitude band we care about is computed (this is originally read in as \textit{gencost\_errfileS} in ECCO\_CHECK). This mask is simply a 2D surface containing a 1 where contribution is desired from that grid cell, and 0 when not. For example, Figure \ref{fig:latitudeMismatch} shows a mask at 25$^\circ$N which I was using to verify results with those shown in \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, \& \cite{mcCarthy}. Note the color gradient is an artefact of the plotting scheme: the file only contains 1's and 0's. Additionally there's a mask on the Western grid cell faces, which is all zeros in this case. 
+  
+  \subsection{Plots}
+  
+  
   
  % When I plot the zonally integrated quantity $\bar{V}_{cc}(\phi_i,z_k,t)$ as defined in eqn. \ref{eq:vcc} I get the plot shown in Fig. \ref{fig:Vcc}. Each line represents a monthly mean for $\bar{V}_{cc}(\phi_i,z_k,t)$ from a 4 year run. \red{Some of the transports are huge at depths around ..., whereas the plot in \cite{wunschAndHeimbach_AMOC} (copied here in Fig. \ref{whplot}) shows these should be much smaller. Do you have any intuition for why this is so far off?}
   
@@ -64,7 +91,7 @@
 
   
   
-\section{Latitude masks}
+\section{Latitude mask question}
   
   When creating my mask for the objective function, I grab points where latitude is the closest latitude to 25$^{\circ}$N. However, when I plot this I get a mismatch between the different 'faces' on the grid (see next pg). I suspect this is just an artefact of plotting because the right face has more latitude grid cells (F5 range: [-90,71.62] Latitude) than the left face (F1 range: [-88.02, 72.04] Latitude). But I just wanted to check.
   
@@ -72,13 +99,15 @@
    \centering
    \includegraphics[width=\textwidth]{latitudeMismatch}
    \label{fig:latitudeMismatch}
-   \caption{There seems to be a mismatch between faces 1 \& 5 (the abrupt change is where these two faces come together).}
+   \caption{Mask on the Southern grid cell faces. There seems to be a mismatch between faces 1 \& 5 (the abrupt change is where these two faces come together). Note: color gradient is an artefact of the plotting scheme, the file only contains 1's and 0's.}
   \end{figure}
-
 
   
 \begin{thebibliography}{3}
 
+  \bibitem{wunschLinear}
+  Carl Wunsch, ``Covariances and linear predictability of the Atlantic Ocean'', Deep Sea Research Part II: Topical Studies in Oceanography, Volume 85, January 2013, Pages 228-243, ISSN 0967-0645, http://dx.doi.org/10.1016/j.dsr2.2012.07.015.
+  
   \bibitem{wunschAndHeimbach_AMOC}
   Wunsch, Carl, and Patrick Heimbach. ``Two decades of the Atlantic meridional overturning circulation: Anatomy, variations, extremes, prediction, and overcoming its limitations." Journal of Climate 26.18 (2013): 7167-7186.
   
