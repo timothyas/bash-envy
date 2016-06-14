@@ -169,8 +169,8 @@ c-- Temporal mask
            gencost_mskTemporal=1. _d 0 / gencost_mskTemporal
           else
 
-           write(msgBuf,'(3A,I2)') 'Using temporal msk from file: ',
-     &          fname0(1:il+1), ' nrecloc: ', nrecloc
+           write(msgBuf,'(2A)') 'Using temporal msk from file: ',
+     &          fname0(1:il+1)
            CALL PRINT_MESSAGE(msgBuf, standardMessageUnit,
      &          SQUEEZE_RIGHT, myThid )
 
