@@ -7,4 +7,5 @@ if ~exist('mygrid','var')
   end
   grid_load(runDir,5, 'compact');
   gcmfaces_global;
+  gcmfaces_lines_zonal;
 end
