@@ -6,22 +6,21 @@
 
 %opening
 \title{\vspace{-10ex}Computing AMOC}
-\author{Tim Smith}
 \date{\vspace{-3ex}}
 
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 
 %% --- Figures
-\graphicspath{ {plots/} }
+\graphicspath{ {../../rapid/} }
 \DeclareGraphicsExtensions{.png,.pdf}
 
 \begin{document}
 
 \maketitle
 
-\begin{abstract}
- I have been running short model simulations, computing AMOC at 25$^{\circ}$N so I could verify my values with those in e.g. \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, or \cite{mcCarthy}, but I'm running into some problems. Essentially, I'm not getting values that make sense. Here are some of my questions, I tried to keep it very brief. 
-\end{abstract}
+%\begin{abstract}
+% I have been running short model simulations, computing AMOC at 25$^{\circ}$N so I could verify my values with those in e.g. \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, or \cite{mcCarthy}, but I'm running into some problems. Essentially, I'm not getting values that make sense. Here are some of my questions, I tried to keep it very brief. 
+%\end{abstract}
 
 
 \section{AMOC Objective Function}
@@ -57,7 +56,7 @@
    \label{eq:vccApprox}
   \end{equation}
 
-  where the $\triangle z_k$ on the LHS is present because $V_{cc}$ as defined originally does not include the vertical integral. I'm just being overly explicit about dimensionality. 
+  where the $\triangle z_k$ on the LHS is present because $V_{cc}$ as defined originally is not a volume transport, it's just a zonally integrated velocity. I'm just being overly explicit about dimensionality. 
   The monthly mean AMOC is then computed numerically as: 
   
   \begin{equation}
@@ -67,9 +66,51 @@
 
   where $\texttt{cumsum}_k$ is a cumulative sum function, operating in the vertical direction. 
   
-  In the computation of \ref{eq:MVT}, a ``mask'' is placed on the southern grid faces so that only the latitude band we care about is computed (this is originally read in as \textit{gencost\_errfileS} in ECCO\_CHECK). This mask is simply a 2D surface containing a 1 where contribution is desired from that grid cell, and 0 when not. For example, Figure \ref{fig:latitudeMismatch} shows a mask at 25$^\circ$N which I was using to verify results with those shown in \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, \& \cite{mcCarthy}. Note the color gradient is an artefact of the plotting scheme: the file only contains 1's and 0's. Additionally there's a mask on the Western grid cell faces, which is all zeros in this case. 
+  In the computation of \ref{eq:MVT}, a ``mask'' is placed on the southern grid faces so that only the latitude band we care about is computed (this is originally read in as \textit{gencost\_errfileS} in ECCO\_CHECK). This mask is simply a 2D surface containing a 1 where contribution is desired from that grid cell, and 0 when not. For example, Figure 5 shows a mask at 25$^\circ$N which I was using to verify results with those shown in \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, \& \cite{mcCarthy}. Note the color gradient is an artefact of the plotting scheme: the file only contains 1's and 0's. Additionally there's a mask on the Western grid cell faces, which is all zeros in this case. 
   
-  \subsection{Plots}
+  \subsection{Verifying with the ECCO solution}
+  
+  Ok sanity check time. I'm doing all of the above, but using the monthly climatologies for meridional velocity from ECCO v4 release 2. I'm only looking at latitudes from 0 to 25 just to simplify things. My first plots (Figs. \ref{fig:vcc-jan} - \ref{fig:vcc-july}) are just the meridional transport integrated along a latitude band from coast to coast. This should look something like Fig. 8 in \cite{wunschLinear}. Next plots (figs \ref{fig:amoc-jan}-\ref{fig:amoc-july}). are the accumulating sum of this quantity, which should look something like Fig. 2 in \cite{wunschAndHeimbach_AMOC}. Spoiler, they don't look alike at all. I'm wondering if there is something weird going on with the averaging procedure or something like that. 
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{vcc-jan}
+   \caption{Meridional volume transport integrated from coast to coast (Eqn. \ref{eq:vccApprox}) at each depth, using the ECCO v4 r2 January climatology.}
+   \label{fig:vcc-jan}
+  \end{figure}
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{vcc-july}
+   \caption{Same as \ref{fig:vcc-jan} but with July climatology.}
+   \label{fig:vcc-july}
+  \end{figure}
+
+  \begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{vcc-jan}
+   \caption{Accumulating sum of meridional volume transport integrated from coast to coast (Eqn. \ref{eq:vccApprox}) at each depth, using the ECCO v4 r2 January climatology.}
+   \label{fig:amoc-jan}
+  \end{figure}
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{vcc-july}
+   \caption{Meridional volume transport integrated from coast to coast (Eqn. \ref{eq:vccApprox}) at each depth, using the ECCO v4 r2 January climatology.}
+   \label{fig:amoc-july}
+  \end{figure}
+  
+  \section{Latitude mask question}
+  
+  When creating my mask for the objective function, I grab points where latitude is the closest latitude to 25$^{\circ}$N. However, when I plot this I get a mismatch between the different 'faces' on the grid (see next pg). I suspect this is just an artefact of plotting because the right face has more latitude grid cells (F5 range: [-90,71.62] Latitude) than the left face (F1 range: [-88.02, 72.04] Latitude). But it seems odd.
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{latitudeMismatch}
+   \label{fig:latitudeMismatch}
+   \caption{Mask on the Southern grid cell faces. There seems to be a mismatch between faces 1 \& 5 (the abrupt change is where these two faces come together). Note: color gradient is an artefact of the plotting scheme, the file only contains 1's and 0's.}
+  \end{figure}
+
   
   
   
@@ -91,16 +132,6 @@
 
   
   
-\section{Latitude mask question}
-  
-  When creating my mask for the objective function, I grab points where latitude is the closest latitude to 25$^{\circ}$N. However, when I plot this I get a mismatch between the different 'faces' on the grid (see next pg). I suspect this is just an artefact of plotting because the right face has more latitude grid cells (F5 range: [-90,71.62] Latitude) than the left face (F1 range: [-88.02, 72.04] Latitude). But I just wanted to check.
-  
-  \begin{figure}
-   \centering
-   \includegraphics[width=\textwidth]{latitudeMismatch}
-   \label{fig:latitudeMismatch}
-   \caption{Mask on the Southern grid cell faces. There seems to be a mismatch between faces 1 \& 5 (the abrupt change is where these two faces come together). Note: color gradient is an artefact of the plotting scheme, the file only contains 1's and 0's.}
-  \end{figure}
 
   
 \begin{thebibliography}{3}
