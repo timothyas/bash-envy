@@ -680,7 +680,7 @@ c--------------------------------------
 
           endif!errfile
 c-- check barfile, only acceptable barfile is m_trVol
-          if(.not.( (gencost_barfile(k)(1:7).EQ.'m_trVol') then
+          if(.not.(gencost_barfile(k)(1:7).EQ.'m_trVol') ) then
            using_gencost(k)=.FALSE.
            il=ilnblnk(gencost_barfile(k))
            WRITE(msgBuf,'(3A)')
