@@ -565,6 +565,137 @@ c-- final report to make sure using_cost_transp is set correctly
      &     'using_cost_transp: ',icount_transp,using_cost_transp
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                        SQUEEZE_RIGHT , myThid)
+
+c---------------- block -5 ----------------------------
+c-- transs: require [err,bar][W,S]file, can have datafile, but
+c-- not checked here. also not checked for variwei at the moment
+         elseif ( gencost_flag(k).eq. -5 ) then
+          WRITE(msgBuf,'(A,i3,L5)')
+     &     'ecco_check for gencost amoc; k,using_gencost(k): ,',
+     &     k,using_gencost(k)
+          CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                        SQUEEZE_RIGHT , myThid)
+
+c-- check errfile[W,S]
+          call ecco_zero(gencost_mskWsurf(1-olx,1-oly,1,1,k),
+     &         1,zeroRL,mythid)
+          call ecco_zero(gencost_mskSsurf(1-olx,1-oly,1,1,k),
+     &         1,zeroRL,mythid)
+          if ( gencost_errfile(k) .NE. ' ' ) then
+c-- West ----------------------
+           il = ilnblnk(gencost_errfile(k))
+           write(tempfile(1:128),'(2A)') gencost_errfile(k)(1:il),'W'
+           inquire( file=tempfile(1:il+1), exist=exst )
+           write(msgBuf,'(2A,L5)') 'ecco_check file, exst: ',
+     &       tempfile(1:il+1),exst
+           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
+           if (.NOT.exst) then
+             using_gencost(k)=.FALSE.
+             WRITE(msgBuf,'(2A)')
+     &         '** WARNING ** ECCO_CHECK_FILES: missing error file: ',
+     &         tempfile(1:il+1)
+             CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
+             il = ilnblnk(gencost_name(k))
+             WRITE(msgBuf,'(3A)')
+     &         ' so ',gencost_name(k)(1:il),' gets switched off'
+             CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
+           else
+c-- will move to init perhaps, but leave here for now due to check exst
+             call ecco_zero(msktrVolW,1,zeroRL,mythid)
+             call mdsreadfield(tempfile,cost_iprec,'RL',1,
+     &            msktrVolW(1-olx,1-oly,1,1),1,mythid)
+             call mdsreadfield(tempfile,cost_iprec,'RL',1,
+     &            gencost_mskWsurf(1-olx,1-oly,1,1,k),1,mythid)
+           endif
+c-- South --------------------
+           il = ilnblnk(gencost_errfile(k))
+           write(tempfile(1:128),'(2A)') gencost_errfile(k)(1:il),'S'
+           inquire( file=tempfile(1:il+1), exist=exst )
+           write(msgBuf,'(2A,L5)') 'ecco_check file, exst: ',
+     &       tempfile(1:il+1),exst
+           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
+           if (.NOT.exst) then
+             using_gencost(k)=.FALSE.
+             WRITE(msgBuf,'(2A)')
+     &         '** WARNING ** ECCO_CHECK_FILES: missing error file: ',
+     &         tempfile(1:il+1)
+             CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
+             il = ilnblnk(gencost_name(k))
+             WRITE(msgBuf,'(3A)')
+     &         ' so ',gencost_name(k)(1:il),' gets switched off'
+             CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
+           else
+c-- will move to init perhaps, but leave here for now due to check exst
+             call ecco_zero(msktrVolS,1,zeroRL,mythid)
+             call mdsreadfield(tempfile,cost_iprec,'RL',1,
+     &            msktrVolS(1-olx,1-oly,1,1),1,mythid)
+             call mdsreadfield(tempfile,cost_iprec,'RL',1,
+     &            gencost_mskSsurf(1-olx,1-oly,1,1,k),1,mythid)
+           endif
+
+c--------------------------------------
+cts Adding vertical mask to transport
+c   Note: this isn't really necessary, since amoc cost function finds
+c         max transport, rather than transp, which needs a max for 
+c         a specified level. However, keeping barfile as m_trVol
+c         and this is what's checked for in ecco_phys
+c
+           il = ilnblnk(gencost_errfile(k))
+           write(tempfile(1:128),'(2A)') gencost_errfile(k)(1:il),'K'
+           inquire( file=tempfile(1:il+1), exist=exst )
+           write(msgBuf,'(2A,L5)') 'ecco_check file, exst: ',
+     &       tempfile(1:il+1),exst
+           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                  SQUEEZE_RIGHT , myThid)
+
+           do k2 = 1,nr
+            gencost_mskVertical(k2,k)= 1. _d 0
+           enddo
+
+            if (exst) then
+              ioUnit = 0
+              call MDS_READVEC_LOC(tempfile,cost_iprec,ioUnit,'RL',
+     &        nr, gencost_mskVertical(1,k), dummyRS, 0, 0, 1,myThid)
+            else
+               using_gencost(k)=.FALSE.
+               il=ilnblnk(gencost_name(k))
+               WRITE(msgBuf,'(4A)')
+     &         '** WARNING ** ECCO_CHECKD: errfile not defined',
+     &         ' so ',gencost_name(k)(1:il),' gets switched off'
+               CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                   SQUEEZE_RIGHT , myThid)
+              write(msgBuf,'(3A)') '**Warning: Could not find file: ',
+     &         tempfile(1:il+1), ' for vertical mask ...'
+              CALL PRINT_MESSAGE(msgBuf, standardMessageUnit,
+     &                  SQUEEZE_RIGHT, myThid )
+            endif
+cts
+c--------------------------------------
+
+          endif!errfile
+c-- check barfile, only acceptable barfile is m_trVol
+          if(.not.(gencost_barfile(k)(1:7).EQ.'m_trVol') ) then
+           using_gencost(k)=.FALSE.
+           il=ilnblnk(gencost_barfile(k))
+           WRITE(msgBuf,'(3A)')
+     &     '** WARNING ** S/R ECCO_CHECK: barfile ',
+     &     gencost_barfile(k)(1:il),': has no matched model var.'
+           CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                         SQUEEZE_RIGHT, myThid )
+           WRITE(msgBuf,'(A)') 'Edit cost_gencost_customize to fix. '
+           CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                         SQUEEZE_RIGHT, myThid )
+           il = ilnblnk(gencost_name(k))
+           WRITE(msgBuf,'(2A)') gencost_name(k)(1:il),' is switched off'
+           CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
+     &                         SQUEEZE_RIGHT, myThid )
+          endif !barfile
          endif  !gencost_flag
 
          endif !if ( gencost_datafile(k) .ne. ' ' ) then
