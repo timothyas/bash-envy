@@ -200,7 +200,7 @@ c Start with bottom element
             DO bi = itlo,ithi
               do j = jmin,jmax
                 do i = imin,imax
-                    tmpCumSumTile(Nr,bi,bj)=tmpCumSumTile(Nr,bi,bj) +
+                    tmpCumSumTile(Nr,bi,bj)=tmpCumSumTile(Nr,bi,bj) -
      &                mybar(i,j,Nr,bi,bj)*gencost_mskTemporal
 
                     tmpNumTile(bi,bj)=
@@ -216,7 +216,7 @@ c Now do rest of the water column
               do k = Nr-1, 1, -1
                 do j = jmin,jmax
                   do i = imin,imax
-                    tmpCumSumTile(k,bi,bj)=tmpCumSumTile(k,bi,bj) +
+                    tmpCumSumTile(k,bi,bj)=tmpCumSumTile(k,bi,bj) -
      &                mybar(i,j,k,bi,bj)*gencost_mskTemporal
 
                     tmpNumTile(bi,bj)=
@@ -252,7 +252,7 @@ c-- Find maximum in global cumulative sum
 
           WRITE(msgBuf,'(2A,I3,A,1PE21.14,A,I3)')
      &        'amoc cost ',gencost_barfile(kgen)(1:il),
-     &        irec,' ', myTempMax, ' k: ', kmax
+     &        irec,' ', myTempMax, ' kmax: ', kmax
 
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
