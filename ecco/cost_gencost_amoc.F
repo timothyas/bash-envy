@@ -118,14 +118,6 @@ c-- local variables
 
 c model mask[W,S]: already included in transp calc in ecco_phys
 
-c-- This next bit doesn't seem necessary ... 
-c          DO bj = jtlo,jthi
-c            DO bi = itlo,ithi
-c              objf_gencost(bi,bj,kgen) = 0. _d 0
-c              num_gencost(bi,bj,kgen) =0. _d 0
-c            ENDDO
-c          ENDDO
-
 
 c=============== PART 1: main loop ===================
         do irec = 1,nrecloc
@@ -256,19 +248,6 @@ c-- Find maximum in global cumulative sum
 
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
-
-c -------------------------------
-c Temporarily printing out at each level just to see
-          do k = 1, Nr
-
-          il=ilnblnk(gencost_barfile(kgen))
-          WRITE(msgBuf,'(A,I3,A,1PE21.14)')
-     &        'k: ', k, ' globalCumSum: ',tmpCumSumGlo(k)
-
-          CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                          SQUEEZE_RIGHT, myThid )
-          enddo 
-c------------------------------
 
 c=============== PART 2.3: Save to obj ===================
 c-- Add AMOC contribution to actual objective function variable
