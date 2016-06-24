@@ -1,8 +1,9 @@
 #!/bin/bash
 
-## Set up suffix for adjoint run
-suff=""
-dir_suff=".24mo"
+## Set up suffix for adjoint run: "_ad"
+#  or leave as "" for forward run
+suff="_ad"
+dir_suff=".12mo"
 
 ## Set up directories
 root_dir=$HOME/MITgcm
@@ -92,7 +93,11 @@ echo "      - Check data.ecco: ... just make sure it looks good"
 echo ""
 echo "      - Check to make sure any masks are set properly ... "
 echo ""
-echo "      - Check submit file for run time, allocation, etc.."
+echo "      - Check submit file for .."
+echo "           Correct queue? "
+echo "           forward run: <exec> mitgcmuv "
+echo "           adjoint: <exec> mitgcmuv_ad "
+echo "           walltime correct? " 
 echo ""
 echo "Assuming this is done, ready for launch ... "
 echo ""
