@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#SBATCH -J tpsla 
+#SBATCH -o tpsla.%j.out
+#SBATCH -e tpsla.%j.err
+#SBATCH -N 4
+#SBATCH -n 96
+#SBATCH -p normal
+#SBATCH -t 15:00:00
+
+#SBATCH --mail-user=timsmith204@utexas.edu
+#SBATCH --mail-type=begin
+#SBATCH --mail-type=end
+
+ibrun -np 96 ./mitgcmuv_ad
