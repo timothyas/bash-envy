@@ -1,0 +1,13 @@
+#PBS -S /bin/bash
+#PBS -N rapid
+#PBS -l select=1:ncpus=16:model=ivy+4:ncpus=20:model=ivy
+#PBS -l walltime=04:00:00
+#PBS -q normal
+#PBS -m be
+#PBS -M timsmith204@utexas.edu
+
+module load comp-intel/2013.1.117
+module load mpi-sgi/mpt.2.11r13
+module load netcdf/4.1.2
+
+mpiexec /u/scicon/tools/bin/gm.x ./mitgcmuv

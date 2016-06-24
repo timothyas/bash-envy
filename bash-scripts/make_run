@@ -1,8 +1,8 @@
 #!/bin/bash
 
-## Set up suffix for adjoint run
-suff=""
-dir_suff=""
+## Set up suffix for adjoint run: "_ad"
+#  or leave as "" for forward run
+suff="_ad"
 
 ## Set up directories
 root_dir=$HOME/MITgcm
@@ -10,9 +10,14 @@ ver_dir=$WORK/verification/global_oce_llc90
 exp_dir=$PWD
 build_dir=$exp_dir/build$suff
 code_dir=$exp_dir/code$suff
-run_dir=$exp_dir/run$suff$dir_suff
 
-build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$root_dir/tools/build_options/linux_amd64_gfortran -mpi"
+## Opt file architecture specific
+pleiades_opt=linux_amd64_ifort+mpi_ice_nas
+engaging_opt=linux_amd64_gfortran
+tacc_opt=linux_amd64_ifort
+
+## Use the correct opt file here
+build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$root_dir/tools/build_options/$pleiades_opt -mpi"
 #tmp="make_junk"$suff".txt"
 
 ## Check which run to set up
