@@ -199,7 +199,7 @@ elseif proj==1.3;
     myConv='pcol';
     xtic=[190:5:220]; ytic=[15:3:30];
 elseif proj==1.4;
-    m_proj('Equidistant cylindrical','lat',[-90 90],'lon',[240 360]+20);
+    m_proj('Equidistant cylindrical','lat',[-90 90],'lon',[240 380]+20);
     myConv='pcol';
     xtic=[140:40:360]; ytic=[-90:30:90];
 elseif proj==2;
