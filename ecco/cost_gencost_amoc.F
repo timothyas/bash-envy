@@ -107,7 +107,7 @@ c-- detect the relevant gencost indices
 c=============== PART 0: initilization ===================
 
 c-- local variables
-        nrecloc=gencost_nrec(kgen)
+        myTempMax = 0. _d 0
         doglobalread = .false.
         ladinit = .false. 
         dummyRL = gencost_dummy(kgen)
@@ -116,7 +116,17 @@ c-- local variables
         write(mybarfile,'(2a,i10.10)') 
      &    gencost_barfile(kgen)(1:il),'.',eccoiter
 
+c-- Initialize to zero
+          DO bj = jtlo,jthi
+            DO bi = itlo,ithi
+              do k = 1, Nr
+                tmpCumSumTile(k,bi,bj) = 0. _d 0
+              enddo
+              tmpNumTile(bi,bj) = 0. _d 0
+            ENDDO
+          ENDDO
 c model mask[W,S]: already included in transp calc in ecco_phys
+        nrecloc=gencost_nrec(kgen)
 
 
 c=============== PART 1: main loop ===================
@@ -132,6 +142,17 @@ c-- Read barfile
           call READ_REC_XYZ_RL( mybarfile, mybar, irec, 
      &                       1, mythid )
 #endif /* ALLOW_AUTODIFF */ 
+
+c-- Initialize after read
+
+          DO bj = jtlo,jthi
+            DO bi = itlo,ithi
+              do k = 1, Nr
+                tmpCumSumTile(k,bi,bj) = 0. _d 0
+              enddo
+              tmpNumTile(bi,bj) = 0. _d 0
+            ENDDO
+          ENDDO
 
 c-- Temporal mask
           il = ilnblnk(gencost_errfile(kgen))
@@ -169,43 +190,13 @@ c-- Compute cost only if nonzero temporal mask
           if ( myProcId .EQ. 0 ) num_gencost(1,1,kgen)=
      &      num_gencost(1,1,kgen)+gencost_mskTemporal
 
-        
-c-- Initialize
-
-          DO bj = jtlo,jthi
-            DO bi = itlo,ithi
-              do k = 1, Nr
-                tmpCumSumTile(k,bi,bj) = 0. _d 0
-              enddo
-              tmpNumTile(bi,bj) = 0. _d 0
-            ENDDO
-          ENDDO
-
 c=============== PART 2.1: Cumulative sum ===================
 c Take cumulative sum of my bar from bottom up
 c i.e. compute the streamfunction (assuming mybar = trvol) 
 c 
-c Start with bottom element
-
-
           DO bj = jtlo,jthi
             DO bi = itlo,ithi
-              do j = jmin,jmax
-                do i = imin,imax
-                    tmpCumSumTile(Nr,bi,bj)=tmpCumSumTile(Nr,bi,bj) -
-     &                mybar(i,j,Nr,bi,bj)*gencost_mskTemporal
-
-                    tmpNumTile(bi,bj)=
-     &                tmpNumTile(bi,bj)+1. _d 0
-                enddo
-              enddo
-            ENDDO
-          ENDDO 
-
-c Now do rest of the water column
-          DO bj = jtlo,jthi
-            DO bi = itlo,ithi
-              do k = Nr-1, 1, -1
+              do k = Nr, 1, -1
                 do j = jmin,jmax
                   do i = imin,imax
                     tmpCumSumTile(k,bi,bj)=tmpCumSumTile(k,bi,bj) -
@@ -215,9 +206,10 @@ c Now do rest of the water column
      &                tmpNumTile(bi,bj)+1. _d 0
                   enddo
                 enddo
-                
+               if( k .lt. Nr ) then 
                 tmpCumSumTile(k,bi,bj)=tmpCumSumTile(k,bi,bj) +
      &            tmpCumSumTile(k+1,bi,bj)
+               endif
               enddo
             ENDDO
           ENDDO 
@@ -231,33 +223,22 @@ c-- Compute global sum at each level
 
 c=============== PART 2.2: Get max val ===================
 c-- Find maximum in global cumulative sum
-          myTempMax = tmpCumSumGlo(1)
-          kmax = 1
+          myTempMax = myTempMax+tmpCumSumGlo(1)
+c          kmax = 1
 
           do k = 2, Nr
             if( myTempMax < tmpCumSumGlo(k) ) then
-              myTempMax = tmpCumSumGlo(k)
-              kmax = k
+              myTempMax = myTempMax+tmpCumSumGlo(k)
+c              kmax = k
             endif
           enddo 
 
 
-          WRITE(msgBuf,'(2A,I3,A,1PE21.14,A,I3)')
+          WRITE(msgBuf,'(2A,I3,A,1PE21.14)')
      &        'amoc cost ',gencost_barfile(kgen)(1:il),
-     &        irec,' ', myTempMax, ' kmax: ', kmax
-
+     &        irec,' ', myTempMax
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
-
-c=============== PART 2.3: Save to obj ===================
-c-- Add AMOC contribution to actual objective function variable
-c   Note: using global values, so only want to store in 
-c         one processors obj function value
-
-          if ( myProcId .EQ. 0 ) objf_gencost(1,1,kgen)=
-     &      objf_gencost(1,1,kgen)+myTempMax 
-
-c============= Done with cost computation =====================
 
           else ! mskTemporal == 0
 
@@ -269,6 +250,16 @@ c============= Done with cost computation =====================
 
           endif ! mskTemporal /=0 
           enddo ! irec=1->nrecloc
+
+c=============== PART 2.3: Save to obj ===================
+c-- Add AMOC contribution to actual objective function variable
+c   Note: using global values, so only want to store in 
+c         one processors obj function value
+
+          if ( myProcId .EQ. 0 ) objf_gencost(1,1,kgen)=
+     &      objf_gencost(1,1,kgen)+myTempMax 
+
+c============= Done with cost computation =====================
 
           WRITE(msgBuf,'(A,1PE21.14)') 'amoc fc: ', 
      &          objf_gencost(1,1,kgen)
