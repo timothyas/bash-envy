@@ -5,137 +5,91 @@
 
 
 %opening
-\title{\vspace{-10ex}Computing AMOC}
+\title{\vspace{-10ex}AMOC at 34S}
+\author{Tim Smith}
 \date{\vspace{-3ex}}
 
+%% --- New commands
+\newcommand{\pderiv}[3][]{% \pderiv[<order>]{<func>}{<var>} 
+  \ensuremath{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}}
+  
 \newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\degSym}{$^{\circ}$}
 
 %% --- Figures
-\graphicspath{ {../../rapid/} }
+\graphicspath{ {../../samoc/figures/} }
 \DeclareGraphicsExtensions{.png,.pdf}
 
 \begin{document}
 
 \maketitle
 
-%\begin{abstract}
-% I have been running short model simulations, computing AMOC at 25$^{\circ}$N so I could verify my values with those in e.g. \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, or \cite{mcCarthy}, but I'm running into some problems. Essentially, I'm not getting values that make sense. Here are some of my questions, I tried to keep it very brief. 
-%\end{abstract}
+\begin{abstract}
+  We are interested in the variability of AMOC at 34$^{\circ}$S over time scales ranging from a few months to ~10-20 years. This location is of particular interest because there are two pilot boundary arrays located here (at 34.5$^{\circ}$): on the Eastern boundary two sensors as part of the GoodHope program (Feb2008-Dec2010) and the Southwest Atlantic MOC array (deployed March 2009) on the Western boundary \cite{meinenSamoc}. These systems are made up of Inverted Echo Sounders (IES), with a pressure sensor (PIES), and in some places a current meter (CPIES). While these arrays were not put in place to monitor AMOC, we use the data provided to compare computer model calculations of the AMOC. Here we use the MITgcm parameters fit to observations as in ECCO v4 r2 (much more here) \cite{forgetEccov4}. Defining the AMOC as an objective function and using the adjoint mode of this code allows us to compute sensitivities of AMOC to various external forcings (wind stress, buoyancy fluxes, ...). The purpose here is to find the causal mechanisms of variability and the timescales on which they act. While a 20 year time frame is not nearly enough to establish statistically meaningful trends in AMOC's behavior, it is certainly true that continuing or reestablishing observation systems will give a clearer picture of AMOC's low frequency variability and trends. 
+\end{abstract}
 
-
-\section{AMOC Objective Function}
-
-  The following definition comes from \cite{wunschLinear} \& \cite{wunschAndHeimbach_AMOC}. The monthly mean meridional velocity (northward) at time $t$, longitude $\lambda$, latitude $\phi$, and depth $z$ is $\bar{v}(\lambda,z,\phi,t)$. Integrating zonally over a latitude band from coast to coast gives: 
+\section{Methods}
+\label{methods}
   
-  \begin{equation}
-   \bar{V}_{cc}(\phi,z,t) = \int_{West}^{East}\bar{v}(\lambda,\phi,z,t)\,d\lambda .
-   \label{eq:zonalInt}
-  \end{equation}
-
-  The monthly mean AMOC is then: 
+  \subsection{AMOC definition}
   
-  \begin{equation}
-    \bar{V}_{MOC}(\phi,t,z_{max}(\phi,t)) = \max_z\int_{z(\phi,t)}^{\eta(\phi,t)}\bar{V}_{cc}(\phi,z,t) \, dz
+    The domain of interest is the zonal cross section of the Atlantic ocean at 34$^{\circ}$S, from the Western coast in the Aghulas Basin to the Cape of Good Hope Basin in the East. In cartesian coordinates, we denote this as: $x \in [x_W,x_E], y = y(\phi=34^{\circ}S), z \in [-H,\eta(y,t)]$ (spherical coordinates are used in the computation, however).  We define the meridional overturning stream function as follows: 
+    
+    \begin{equation}
+      \pderiv[]{\psi_{MOC}}{y}(y,z,t) = \int_{x_W}^{x_E}w(x,y,z,t)\,dx \qquad\text{;}\qquad \pderiv[]{\psi_{MOC}}{z}(y,z,t) = -\int_{x_W}^{x_E}v(x,y,z,t)\,dx .
+     \label{eq:mocStf}
+    \end{equation}
+
+   Assuming no normal flow at $z = -H$, the stream function is given by:
+   \begin{equation}
+    \psi_{MOC}(y,z,t) = -\int_{-H}^{z}\int_{x_W}^{x_E}v(x,y,z,t)\,dx\,dz .
+    \label{eq:mocStf2}
+   \end{equation}
+
+   Note that with this definition, volume transport moving northward is positive. AMOC is defined as the maximum value of this stream function: 
+   
+   \begin{equation}
+    AMOC(y,z_{max},t) = \max_{-H < z < \eta(y,t)}{\psi_{MOC}(y,z,t)} ,
     \label{eq:amoc}
-  \end{equation}
-  
-  \subsection{Numerical Implementation}
-  
-  I compute the AMOC using discrete numerical integration (sums) and ``mask'' files that pick out the particular grid cells of interest. The integrals in eqns. \ref{eq:zonalInt} and \ref{eq:amoc} are carried out as follows. At each time step the subroutine ECCO\_PHYS computes the meridional volume transport (MVT) through the Southern face of each grid cell $(x_i,y_j,z_k)$ as: 
-  
-  \begin{align}
-    MVT(x_i,y_j,z_k,t) &= \int_{z_k}\int_{x_i}v(x_i,y_j,z_k) \,dx dz \\
-				    &\simeq v(x_i,y_j,z_k) \,  \triangle x_i \triangle z_k ,
-    \label{eq:MVT}
-  \end{align}
-  
-  where $x_i$ is the discrete counterpart to longitude $\lambda_i$, $y_j$ to latitude $\phi_j$. Inside the ECCO package (MITgcm/pkg/ecco) the subroutine COST\_AVERAGESGENERIC computes the monthly mean value for this transport  (or whatever is desired as the cost function) using the calendar package and writes it to file: \textit{gencost\_barfile}. Using monthly mean values, the zonal integral in \ref{eq:zonalInt} is then approximated by the summation along a single latitude band: 
-  
-  \begin{equation}
-   \bar{V}_{cc}(y_j,z_k,t) \triangle z_k \simeq \sum_i \bar{MVT}(x_i,y_j,z_k,t) ,
-   \label{eq:vccApprox}
-  \end{equation}
+   \end{equation}
 
-  where the $\triangle z_k$ on the LHS is present because $V_{cc}$ as defined originally is not a volume transport, it's just a zonally integrated velocity. I'm just being overly explicit about dimensionality. 
-  The monthly mean AMOC is then computed numerically as: 
-  
-  \begin{equation}
-   \bar{V}_{MOC}(y_j,z_{max}(y_j,t),t) \simeq \max_{k} \texttt{cumsum}_k \{\bar{V}_{cc}(y_j,z_k,t)\triangle z_k\} ,
-   \label{eq:amocApprox}
-  \end{equation}
+   where it is important to note that this value is a function of time and latitude (here denoted as $y$). Here we use monthly mean values for meridional velocity ($\bar{v}$), so that AMOC as a monthly mean quantity. Using results from ECCOv4r2 \cite{forgetEccov4}, the overturning stream function along with its mean and standard deviation over the period 1992-2011 is shown in Fig. \ref{fig:mocStfStats}. At this location and over this time frame, AMOC has a mean value of 10.85 Sv with a standard deviation of 3.13 Sv, where the maximizing depth has a mean and standard deviation 1106m +/- 83m. Note that the vertical grid spacing at this depth is approximately 100m. \red{Mention that AMOC is normally distributed, cite \cite{wunschAndHeimbach_AMOC}? give measure of normality?}. These are shown in Fig. \ref{fig:samocStats}. These values are quite different from what is computed by Meinen  \cite{meinenSamoc}, 
+   
+   \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{mocStfStats}
+    \caption{Overturning stream function at 34\degSym S computed using monthly mean velocity fields from ECCOv4r2.}
+    \label{fig:mocStfStats}
+   \end{figure}
+   
+   \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{samocStats}
+    \caption{(Top) AMOC computed at 34\degSym S, using monthly mean velocity fields from ECCOv4r2. (Bottom) The maximizing depth at which AMOC is computed during that month. The mean value and +/-1$\sigma$ values are given by the solid gray and dashed gray lines, respectively.}
+    \label{fig:samocStats}
+   \end{figure}
 
-  where $\texttt{cumsum}_k$ is a cumulative sum function, operating in the vertical direction. 
+   
   
-  In the computation of \ref{eq:MVT}, a ``mask'' is placed on the southern grid faces so that only the latitude band we care about is computed (this is originally read in as \textit{gencost\_errfileS} in ECCO\_CHECK). This mask is simply a 2D surface containing a 1 where contribution is desired from that grid cell, and 0 when not. For example, Figure 5 shows a mask at 25$^\circ$N which I was using to verify results with those shown in \cite{wunschLinear}, \cite{wunschAndHeimbach_AMOC}, \& \cite{mcCarthy}. Note the color gradient is an artefact of the plotting scheme: the file only contains 1's and 0's. Additionally there's a mask on the Western grid cell faces, which is all zeros in this case. 
+  \subsection{Linear Sensitivity}
+  \label{linearSensitivity}
   
-  \subsection{Verifying with the ECCO solution}
+  We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we then compute the sensitivity of the objective function to model inputs. In this case, the inputs consist of external forces: wind stress, heat, and freshwater fluxes. 
   
-  Ok sanity check time. I'm doing all of the above, but using the monthly climatologies for meridional velocity from ECCO v4 release 2. I'm only looking at latitudes from 0 to 25 just to simplify things. My first plots (Figs. \ref{fig:vcc-jan} - \ref{fig:vcc-july}) are just the meridional transport integrated along a latitude band from coast to coast. This should look something like Fig. 8 in \cite{wunschLinear}. Next plots (figs \ref{fig:amoc-jan}-\ref{fig:amoc-july}). are the accumulating sum of this quantity, which should look something like Fig. 2 in \cite{wunschAndHeimbach_AMOC}. Spoiler, they don't look alike at all. I'm wondering if there is something weird going on with the averaging procedure or something like that. 
-  
-  \begin{figure}
-   \centering
-   \includegraphics[width=\textwidth]{vcc-jan}
-   \caption{Meridional volume transport integrated from coast to coast (Eqn. \ref{eq:vccApprox}) at each depth, using the ECCO v4 r2 January climatology.}
-   \label{fig:vcc-jan}
-  \end{figure}
-  
-  \begin{figure}
-   \centering
-   \includegraphics[width=\textwidth]{vcc-july}
-   \caption{Same as \ref{fig:vcc-jan} but with July climatology.}
-   \label{fig:vcc-july}
-  \end{figure}
-
-  \begin{figure}
-   \centering
-   \includegraphics[width=\textwidth]{vcc-jan}
-   \caption{Accumulating sum of meridional volume transport integrated from coast to coast (Eqn. \ref{eq:vccApprox}) at each depth, using the ECCO v4 r2 January climatology.}
-   \label{fig:amoc-jan}
-  \end{figure}
-  
-  \begin{figure}
-   \centering
-   \includegraphics[width=\textwidth]{vcc-july}
-   \caption{Meridional volume transport integrated from coast to coast (Eqn. \ref{eq:vccApprox}) at each depth, using the ECCO v4 r2 January climatology.}
-   \label{fig:amoc-july}
-  \end{figure}
-  
-  \section{Latitude mask question}
-  
-  When creating my mask for the objective function, I grab points where latitude is the closest latitude to 25$^{\circ}$N. However, when I plot this I get a mismatch between the different 'faces' on the grid (see next pg). I suspect this is just an artefact of plotting because the right face has more latitude grid cells (F5 range: [-90,71.62] Latitude) than the left face (F1 range: [-88.02, 72.04] Latitude). But it seems odd.
-  
-  \begin{figure}
-   \centering
-   \includegraphics[width=\textwidth]{latitudeMismatch}
-   \label{fig:latitudeMismatch}
-   \caption{Mask on the Southern grid cell faces. There seems to be a mismatch between faces 1 \& 5 (the abrupt change is where these two faces come together). Note: color gradient is an artefact of the plotting scheme, the file only contains 1's and 0's.}
-  \end{figure}
-
-  
-  
-  
- % When I plot the zonally integrated quantity $\bar{V}_{cc}(\phi_i,z_k,t)$ as defined in eqn. \ref{eq:vcc} I get the plot shown in Fig. \ref{fig:Vcc}. Each line represents a monthly mean for $\bar{V}_{cc}(\phi_i,z_k,t)$ from a 4 year run. \red{Some of the transports are huge at depths around ..., whereas the plot in \cite{wunschAndHeimbach_AMOC} (copied here in Fig. \ref{whplot}) shows these should be much smaller. Do you have any intuition for why this is so far off?}
-  
-  %\begin{figure}
-   %\centering
- %  \includegraphics[width=\textwidth]{vcc}
- %  \caption{Each line represents a zonally integrated, monthly mean volume transport $\bar{V}_{cc}(\phi_i,z_k,t)$ from a 4 year run. The amplitudes seem to be much larger than they should be for depths below 3000m. Compare to \ref{fig:whplot} at 25$^{\circ}$N.}
- %  \label{fig:Vcc}
- % \end{figure}
-  
-  %\begin{figure}
-  % \centering
-  % \includegraphics{whplot}
-  % \label{fig:whplot}
-  %\end{figure}
-
-
+   \subsubsection{Adjoint sensitivity details}
+   
+   Sensitivities 
   
   
 
-  
 \begin{thebibliography}{3}
 
+  \bibitem{meinenSamoc}
+  Meinen, et al. MOC Variability at 34.5S...
+  
+  \bibitem{forgetEccov4}
+  Forget, Gael, et al. \textit{ECCO version 4: an integrated framework for non-linear inverse modeling and global ocean state estimation.} Geoscientific Model Development 8 (2015): 3071-3104.
+  
   \bibitem{wunschLinear}
   Carl Wunsch, ``Covariances and linear predictability of the Atlantic Ocean'', Deep Sea Research Part II: Topical Studies in Oceanography, Volume 85, January 2013, Pages 228-243, ISSN 0967-0645, http://dx.doi.org/10.1016/j.dsr2.2012.07.015.
   
