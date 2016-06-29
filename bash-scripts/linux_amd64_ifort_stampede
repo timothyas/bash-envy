@@ -34,12 +34,12 @@ if test "x$MPI" = xtrue ; then
   CC=mpicc
   FC=mpif77
   F90C=mpif90
-  LINK="$F90C -ipo"
+  LINK="$F90C -no-ipo"
 else
   CC=icc
   FC=ifort
   F90C=ifort
-  LINK="$F90C -ipo"
+  LINK="$F90C -no-ipo"
 fi
 
 DEFINES='-DWORDLENGTH=4'
