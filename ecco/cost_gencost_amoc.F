@@ -223,10 +223,13 @@ c-- Compute global sum at each level
 
 c=============== PART 2.2: Get max val ===================
 c-- Find maximum in global cumulative sum
+
+CADJ STORE myTempMax = tapelev_init, key = 1
           myTempMax = myTempMax+tmpCumSumGlo(1)
 c          kmax = 1
 
           do k = 2, Nr
+CADJ STORE myTempMax = tapelev_init, key = k
             if( myTempMax < tmpCumSumGlo(k) ) then
               myTempMax = myTempMax+tmpCumSumGlo(k)
 c              kmax = k
@@ -247,6 +250,7 @@ c              kmax = k
      &          nrecloc
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
+
 
           endif ! mskTemporal /=0 
           enddo ! irec=1->nrecloc
