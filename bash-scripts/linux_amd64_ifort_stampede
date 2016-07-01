@@ -69,7 +69,8 @@ FFLAGS="$FFLAGS -fPIC"
 #FFLAGS="$FFLAGS -r8"
 
 if test "x$IEEE" = x ; then     #- with optimisation:
-    FOPTIM='-O2 -align -xAVX -ip'
+    FOPTIM='-O2 -align -xAVX -ip -fp-model precise -traceback -ftz'
+    NOOPTFILES='seaice_growth.F calc_oce_mxlayer.F fizhi_lsm.F fizhi_clockstuff.F'
 else
   if test "x$DEVEL" = x ; then  #- no optimisation + IEEE :
     # "-mp" is for ieee "maintain precision"
