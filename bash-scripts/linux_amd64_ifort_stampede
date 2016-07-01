@@ -6,6 +6,17 @@
 # For running on TACC's Stampede
 #  Compiler optimizations for Intel E5-2680 (Sandy Bridge) Processors
 #
+#
+# Note: be sure to load the following modules
+#
+#  module load netcdf
+#  module load parallel-netcdf
+#  
+#  (default) module load intel
+#  (default) module load mvapich2 
+#
+#
+#
 # a) For more speed, provided your data size doesn't exceed 2GB you can
 # remove -fPIC which carries a performance penalty of 2-6%.
 # b) Provided that the libraries you link to are compiled with -fPIC this
