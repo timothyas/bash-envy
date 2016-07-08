@@ -20,9 +20,9 @@ function [] = timeStatsPlot(t, fld, strs, flip, plt2stat)
 %    plt2stat : specify 'mean' or 'median'
 % -------------------------------------------------------------------------
 
-if size(fld,2) ~= length(Nt)
+if size(fld,2) ~= length(t)
     fld = fld';
-    if size(fld,2) ~= length(Nt)
+    if size(fld,2) ~= length(t)
         fprintf('ERROR: fld not same length as time.\n')
         return
     end
@@ -65,7 +65,7 @@ end
     
 if nargin<5
     plt2stat = 'mean';
-elseif ~strcmp(plt2stat,'mean') || ~strcmp(plt2stat,'median')
+elseif ~strcmp(plt2stat,'mean') && ~strcmp(plt2stat,'median')
     fprintf('ERROR: 2nd plot option needs to be mean or median\n')
     return
 end
@@ -74,14 +74,14 @@ end
 
 %% Set up 
 grayCol = [100 100 100]/255;
-Nt = t(end)-t(1);
+Nt = t(end)-t(1)+1;
 
 
 if size(fld,1) == 1
     plot(t,fld,'k'), hold on
-    plot(t,mean(fld)*ones(1,Nt),'Color',grayCol)
-    plot(t,(mean(fld)+std(fld))*ones(1,Nt),'--','Color',grayCol);
-    plot(t,(mean(fld)-std(fld))*ones(1,Nt),'--','Color',grayCol);
+    plot(t,mean(fld)*ones(size(t)),'Color',grayCol)
+    plot(t,(mean(fld)+std(fld))*ones(size(t)),'--','Color',grayCol);
+    plot(t,(mean(fld)-std(fld))*ones(size(t)),'--','Color',grayCol);
     hold off
     xlim([t(1) t(end)])
     xlabel(xlbl);
@@ -94,9 +94,9 @@ if size(fld,1) == 1
 elseif size(fld,1)==2
     subplot(2,1,1),plot(t,fld(1,:),'k')
     hold on
-    plot(t,mean(fld(1,:))*ones(1,Nt),'Color',grayCol)
-    plot(t,(mean(fld(1,:))+std(fld(1,:)))*ones(1,Nt),'--','Color',grayCol)
-    plot(t,(mean(fld(1,:))-std(fld(1,:)))*ones(1,Nt),'--','Color',grayCol)
+    plot(t,mean(fld(1,:))*ones(size(t)),'Color',grayCol)
+    plot(t,(mean(fld(1,:))+std(fld(1,:)))*ones(size(t)),'--','Color',grayCol)
+    plot(t,(mean(fld(1,:))-std(fld(1,:)))*ones(size(t)),'--','Color',grayCol)
     hold off
     xlim([t(1) t(end)])
     xlabel(xlbl)
@@ -114,8 +114,8 @@ elseif size(fld,1)==2
         plot(1:240,(median(fld(2,:))-std(fld(2,:)))*ones(1,240),'--','Color',grayCol)
     else
         plot(t,mean(fld(2,:))*ones(2,Nt),'Color',grayCol)
-        plot(t,(mean(fld(2,:))+std(fld(2,:)))*ones(1,Nt),'--','Color',grayCol)
-        plot(t,(mean(fld(2,:))-std(fld(2,:)))*ones(1,Nt),'--','Color',grayCol)
+        plot(t,(mean(fld(2,:))+std(fld(2,:)))*ones(size(t)),'--','Color',grayCol)
+        plot(t,(mean(fld(2,:))-std(fld(2,:)))*ones(size(t)),'--','Color',grayCol)
     end
     hold off
     xlim([t(1) t(end)])
