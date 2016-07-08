@@ -56,3 +56,13 @@ do
     echo $fromDir" not a directory ..."
   fi
 done
+
+echo ""
+echo "*** Pro tips: "
+echo "      - Check SIZE.h: make sure nPx is as desired "
+echo ""
+echo "      - Check CTRL_SIZE:  " 
+echo "          maxCtrlTim2d correct? maxCtrlArr3d? "
+echo ""
+echo "      - Copy your own modified code into code(_ad) as well "
+echo ""
