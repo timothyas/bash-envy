@@ -75,7 +75,7 @@ F90FLAGS=$FFLAGS
 F90OPTIM=$FOPTIM
 CFLAGS='-O0 -ip -fPIC'
 
-INCLUDEDIRS='${MPICH_HOME}/include ${TACC_NETCDF_INF}'
+INCLUDEDIRS='${MPICH_HOME}/include ${TACC_NETCDF_INC}'
 INCLUDES='-I${MPICH_HOME}/include -I${TACC_NETCDF_INC}'
 LIBS='-L${MPICH_HOME}/lib -lmpich -L${TACC_NETCDF_LIB} -lnetcdf -lnetcdff'
 #- used for parallel (MPI) DIVA
