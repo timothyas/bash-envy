@@ -29,11 +29,11 @@ LDADD='-shared-intel'
 ##- used for parallel (MPI) DIVA
 #MPIINCLUDEDIR='/nasa/sgi/mpt/2.11r13/include'
 
-LIBS='-L/nasa/sgi/mpt/2.12r26/lib -lmpi -L/nasa/netcdf/4.1.2/lib -lnetcdf'
-INCLUDES='-I/nasa/sgi/mpt/2.12r26/include -I/nasa/netcdf/4.1.2/include'
-INCLUDEDIRS='/nasa/sgi/mpt/2.12r26/include'
+LIBS='-L${MPI_ROOT}/lib -lmpi -L/nasa/netcdf/4.1.2/lib -lnetcdf'
+INCLUDES='-I${MPI_ROOT}/include -I/nasa/netcdf/4.1.2/include'
+INCLUDEDIRS='${MPI_ROOT}/include'
 #- used for parallel (MPI) DIVA
-MPIINCLUDEDIR='/nasa/sgi/mpt/2.12r26/include'
+MPIINCLUDEDIR='${MPI_ROOT}/include'
 
 #MPI_HEADER_FILES='mpif.h mpiof.h mpif_parameters.h'
 
