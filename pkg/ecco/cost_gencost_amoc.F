@@ -225,21 +225,23 @@ c=============== PART 2.2: Get max val ===================
 c-- Find maximum in global cumulative sum
 
 CADJ STORE myTempMax = tapelev_init, key = 1
+CADJ STORE kmax = tapelev_init, key = 1
           myTempMax = myTempMax+tmpCumSumGlo(1)
-c          kmax = 1
+          kmax = 1
 
           do k = 2, Nr
 CADJ STORE myTempMax = tapelev_init, key = k
+CADJ STORE kmax = tapelev_init, key = k
             if( myTempMax < tmpCumSumGlo(k) ) then
               myTempMax = myTempMax+tmpCumSumGlo(k)
-c              kmax = k
+              kmax = k
             endif
           enddo 
 
 
-          WRITE(msgBuf,'(2A,I3,A,1PE21.14)')
+          WRITE(msgBuf,'(2A,I3,A,1PE21.14,A,I2)')
      &        'amoc cost ',gencost_barfile(kgen)(1:il),
-     &        irec,' ', myTempMax
+     &        irec,' ', myTempMax, 'kmax: ',kmax
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
 
