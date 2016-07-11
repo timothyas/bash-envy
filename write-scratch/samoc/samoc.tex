@@ -53,7 +53,8 @@
     \label{eq:amoc}
    \end{equation}
 
-   where it is important to note that this value is a function of time and latitude (here denoted as $y$). Here we use monthly mean values for meridional velocity ($\bar{v}$), so that AMOC as a monthly mean quantity. Using results from ECCOv4r2 \cite{forgetEccov4}, the overturning stream function along with its mean and standard deviation over the period 1992-2011 is shown in Fig. \ref{fig:mocStfStats}. At this location and over this time frame, AMOC has a mean value of 10.85 Sv with a standard deviation of 3.13 Sv, where the maximizing depth has a mean and standard deviation 1106m +/- 83m. Note that the vertical grid spacing at this depth is approximately 100m. \red{Mention that AMOC is normally distributed, cite \cite{wunschAndHeimbach_AMOC}? give measure of normality?}. These are shown in Fig. \ref{fig:samocStats}. These values are quite different from what is computed by Meinen  \cite{meinenSamoc}, 
+   where it is important to note that this value is a function of time and latitude (here denoted as $y$). Here we use monthly mean values for meridional velocity ($\bar{v}$), so that AMOC as a monthly mean quantity. Using results from ECCOv4r2 \cite{forgetEccov4}, the overturning stream function along with its mean and standard deviation over the period 1992-2011 is shown in Fig. \ref{fig:mocStfStats}. At this location and over this time frame, AMOC has a mean value of 14.25 Sv with a standard deviation of 3.14 Sv, where the maximizing depth has a mean and standard deviation 1422m +/- 56m (median depth 1461.4m). Note that the vertical grid spacing at this depth is approximately 100m. \red{Mention that AMOC is normally distributed, cite \cite{wunschAndHeimbach_AMOC}? give measure of normality?}. These are shown in Fig. \ref{fig:samocStats}. Compared to calculations by Meinen et al \cite{meinenSamoc}, these values are slightly lower in the mean, and show far less variation on monthly time periods: they show, in some months, variation up to 30 Sv. I'll discuss these details in section \ref{obsSAMOC}. 
+
    
    \begin{figure}
     \centering
@@ -70,16 +71,81 @@
    \end{figure}
 
    
-  
+   \subsection{Bolus transport considerations}
+   \label{bolus}
+   
+   The meridional overturning stream function due to bolus transport is shown in Fig. \ref{fig:bolusMocStfStats}. Interestingly there is only significant variation in the mixed layer, and very little beyond ~200m. I originally would have expected more variation since this is the ``eddy transport velocity''. Do we not see variation because I'm using monthly mean values? 
+   
+   Including the bolus transport increases the 20 year mean AMOC value to 16 Sv, and raises the mean depth to ~1397m (median 1356.9m) (as opposed to 14.25 Sv, 1460m respectively). The standard deviations remain essentially unchanged at 3.15 Sv and 62m. 
+   
+   \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{bolusMocStfStats}
+    \caption{Overturning stream function at 34\degSym S due to bolus transport. Values computed using monthly mean bolus velocity fields from ECCOv4r2.}
+    \label{fig:bolusMocStfStats}
+   \end{figure}
+   
+   \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{res_samocStats}
+    \caption{(Top) AMOC computed at 34\degSym S, using monthly mean velocity \& bolus velocity fields ($\bar{\mathbf{v}}+\tilde{\mathbf{v}}$) from ECCOv4r2. (Bottom) The maximizing depth at which AMOC is computed during that month. The mean value and +/-1$\sigma$ values are given by the solid gray and dashed gray lines, respectively. Including the bolus transport increases the 20 year mean AMOC value to 16 Sv, and raises the depth to ~1360m (as opposed to 14.25 Sv, 1460m respectively).}
+    \label{fig:res_samocStats}
+   \end{figure}
+
+   \subsection{Observers SAMOC}
+    \label{obsSAMOC}
+    
+    Following e.g. Meinen et al \cite{meinenSamoc} and McCarthy \cite{mcCarthy}, we construct the observers AMOC at 34\degSym S with the following components: 
+    
+    \begin{enumerate}
+     \item Ekman transport: Computed using monthly mean of 6 hour ERA-Interim re-analysis fields (Dee et al. 2011), interpolated to ocean grid at surface over 1992-2011. The volumetric transport at latitude $y$ is: %
+     
+     \begin{equation}
+      T_{ek}(y,t) = -\int_W^E\frac{\tau_x}{f\rho} \, dx
+      \label{eq:ekTransp}
+     \end{equation}
+     
+     where $f$ is the Coriolis paramter at 34\degSym S, $\rho = \rho_0 = 1029 kg/m^3$. 
+     
+     \item Geostrophic transport: Computed based on the geopotential height anomaly:
+     
+     \begin{equation}
+      T_{geo}(y,z,t) = \int_W^E(v-v_r)dx = \dfrac{1}{f}\int_W^E \dfrac{dp}{\rho} = - \dfrac{1}{f} \int g\,dz = \dfrac{1}{f} \int d\phi= \dfrac{1}{f} (\phi'_E(z) - \phi'_W(z))
+      \label{eq:geoTransp}
+     \end{equation}
+     
+     where $\phi'$ is the geopotential surface anomaly which is made up from the surface and hydrostatic components:
+     
+     \begin{equation}
+      \phi'_s \simeq \eta b_0 = \eta g \qquad\text{;}\qquad \phi'_{hyd} = \int_z^{z_{surf}} (b-b_0)dz .
+      \label{eq:phiEqns}
+     \end{equation}
+    
+    \item Reference transport: since the geostrophic component is computed relative to a certain level of flow, this is required. Here I use bottom pressure to compute flow at the ocean floor for the reference flow: 
+    
+    \begin{equation}
+     T_{ref}(y,t) = \dfrac{1}{f} \int d\phi= \dfrac{1}{f} (\phi'_E(z) - \phi'_W(z))
+     \label{eq:refTransp}
+    \end{equation}
+
+    where here bottom pressure anomaly divided by density is used for $\phi'$. 
+ 
+    \end{enumerate}
+    
+    Currently the geostrophic component is not correct, giving an overturning streamfunction profile as shown in Fig. \ref{fig:geoOvStf}
+    
+    \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{geoOvStf}
+    \caption{Overturning streamfunction calculated with transport defined in Eqn. \ref{eq:geoTransp}}
+    \label{fig:geoOvStf}
+   \end{figure}
+
+   
   \subsection{Linear Sensitivity}
   \label{linearSensitivity}
   
   We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we then compute the sensitivity of the objective function to model inputs. In this case, the inputs consist of external forces: wind stress, heat, and freshwater fluxes. 
-  
-   \subsubsection{Adjoint sensitivity details}
-   
-   Sensitivities 
-  
   
 
 \begin{thebibliography}{3}
