@@ -4,12 +4,11 @@
 # This amounts to simply adding some compiler flags and hitting go.
 
 ## Set up suffix for adjoint run
-suff=""
-dir_suff=".12mo"
+suff="_ad"
 
 ## Set up directories
 root_dir=$HOME/MITgcm
-ver_dir=$WORK/verification/global_oce_llc90
+ver_dir=$WORK/../verification/global_oce_llc90
 exp_dir=$PWD
 build_dir=$exp_dir/build$suff
 code_dir=$exp_dir/code$suff
@@ -19,10 +18,12 @@ module load mpiP
 mpip_links='-L${TACC_MPIP_LIB} -lmpiP'
 
 ## Opt file architecture specific
-pleiades_opt=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_haswell
-engaging_opt=$root_dir/tools/build_options/linux_amd64_gfortran
-stampede_opt=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort_stampede
-lonestar_opt=$WORK/../gcm-contrib/bash-scripts/linux_amd64_ifort_lonestar
+#pleiades_gen=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_all
+#pleiades_ivy=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_ivy
+#pleiades_haswell=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_haswell
+#engaging_opt=$root_dir/tools/build_options/linux_amd64_gfortran
+#stampede_opt=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_stampede
+lonestar_opt=$WORK/../gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_lonestar
 
 build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$lonestar_opt -mpi"
 
