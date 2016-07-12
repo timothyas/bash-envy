@@ -6,8 +6,8 @@
 #PBS -m be
 #PBS -M timsmith204@utexas.edu
 
-module load comp-intel/2013.1.117
-module load mpi-sgi/mpt.2.11r13
+module load comp-intel
+module load mpi-sgi/mpt
 module load netcdf/4.1.2
 
 mpiexec /u/scicon/tools/bin/gm.x ./mitgcmuv
