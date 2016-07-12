@@ -12,13 +12,15 @@ build_dir=$exp_dir/build$suff
 code_dir=$exp_dir/code$suff
 
 ## Opt file architecture specific
-pleiades_opt=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_haswell
+pleiades_gen=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_all
+pleiades_ivy=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_ivy
+pleiades_haswell=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_haswell
 engaging_opt=$root_dir/tools/build_options/linux_amd64_gfortran
 stampede_opt=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort_stampede
 lonestar_opt=$WORK/../gcm-contrib/bash-scripts/linux_amd64_ifort_lonestar
 
 ## Use the correct opt file here
-build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$pleiades_opt -mpi"
+build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$pleiades_haswell -mpi"
 #tmp="make_junk"$suff".txt"
 
 ## Check which run to set up
