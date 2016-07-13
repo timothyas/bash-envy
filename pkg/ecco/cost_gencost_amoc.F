@@ -91,6 +91,10 @@ c     == end of interface ==
       jmax = sNy
 
 
+      write(msgbuf,'(A)') 'Inside cost_gencost_amoc ...'
+      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                    SQUEEZE_RIGHT, myThid )
+
       do kgen=1,NGENCOST
         kg3 = gencost_pointer3d(kgen)
 
@@ -107,7 +111,7 @@ c-- detect the relevant gencost indices
 c=============== PART 0: initilization ===================
 
 c-- local variables
-        myTempMax = 0. _d 0
+
         doglobalread = .false.
         ladinit = .false. 
         dummyRL = gencost_dummy(kgen)
@@ -226,14 +230,14 @@ c-- Find maximum in global cumulative sum
 
 CADJ STORE myTempMax = tapelev_init, key = 1
 CADJ STORE kmax = tapelev_init, key = 1
-          myTempMax = myTempMax+tmpCumSumGlo(1)
+          myTempMax = tmpCumSumGlo(1)
           kmax = 1
 
           do k = 2, Nr
 CADJ STORE myTempMax = tapelev_init, key = k
 CADJ STORE kmax = tapelev_init, key = k
             if( myTempMax < tmpCumSumGlo(k) ) then
-              myTempMax = myTempMax+tmpCumSumGlo(k)
+              myTempMax = tmpCumSumGlo(k)
               kmax = k
             endif
           enddo 
@@ -244,6 +248,16 @@ CADJ STORE kmax = tapelev_init, key = k
      &        irec,' ', myTempMax, 'kmax: ',kmax
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
+
+c=============== PART 2.3: Save to obj ===================
+c-- Add AMOC contribution to actual objective function variable
+c   Note: using global values, so only want to store in 
+c         one processors obj function value
+
+          if ( myProcId .EQ. 0 ) objf_gencost(1,1,kgen)=
+     &      objf_gencost(1,1,kgen)+myTempMax 
+
+c============= Done with cost computation =====================
 
           else ! mskTemporal == 0
 
@@ -257,16 +271,7 @@ CADJ STORE kmax = tapelev_init, key = k
           endif ! mskTemporal /=0 
           enddo ! irec=1->nrecloc
 
-c=============== PART 2.3: Save to obj ===================
-c-- Add AMOC contribution to actual objective function variable
-c   Note: using global values, so only want to store in 
-c         one processors obj function value
-
-          if ( myProcId .EQ. 0 ) objf_gencost(1,1,kgen)=
-     &      objf_gencost(1,1,kgen)+myTempMax 
-
-c============= Done with cost computation =====================
-
+c-- Print out what actually is used as cost function
           WRITE(msgBuf,'(A,1PE21.14)') 'amoc fc: ', 
      &          objf_gencost(1,1,kgen)
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
