@@ -1,8 +1,6 @@
 function []=m_map_atl(fld,varargin);
 %object:    gcmfaces front end to m_map
 %           plot atlantic basin
-%           from Gael's gcmfaces/gcmfaces_maps/m_map_gcmfaces.m
-%           just added option: proj=1.4... that's it
 %
 %
 %inputs:    fld is the 2D field to be mapped, or a cell (see below).
@@ -258,6 +256,11 @@ elseif proj==4.95
     m_proj('mollweide','lat',[-75 75],'lon',[-105 45]);
     myConv='pcol';
     xtic=[-100:40:40]; ytic=[-80:20:70]; xloc='top';
+elseif proj == 5
+    m_proj('mollweide','lat',[-80 80],'lon',[-185 115]);
+    myConv='pcol';
+    xtic=[-180:40:110]; ytic=[-75:20:75]; xloc='bottom';
+    xticlab=0;
 else;
     error('undefined projection');
 end;
