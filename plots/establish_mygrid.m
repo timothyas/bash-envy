@@ -1,4 +1,3 @@
-
 if ~exist('mygrid','var')
   if ismac
 	runDir = '~/Documents/gcmpack/GRID/'
