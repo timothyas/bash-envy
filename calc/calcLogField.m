@@ -1,4 +1,4 @@
-function[ladxx] = calcLogField(adxx, mygrid)
+function[ladxx, lmin, lmax, lrng] = calcLogField(adxx, mygrid)
 %% Get log of adjoint field for nice plotting
 % Inputs: 
 %       adxx : gcmfaces object containing (e.g.) sensitivity field
@@ -8,7 +8,7 @@ function[ladxx] = calcLogField(adxx, mygrid)
 %       ladxx : log10 of adxx, where sign(ladxx) = sign(adxx)
 % -------------------------------------------------------------------------
 
-if isa(adxx,'gcmfaces'), convert2gcmfaces(adxx); end
+if isa(adxx,'gcmfaces'), adxx=convert2gcmfaces(adxx); end
 if nargin < 2, establish_mygrid; end
 
 %% adxx is not gcmfaces type for this bit
@@ -21,7 +21,12 @@ sn=convert2gcmfaces(sn);
 ladxx=convert2gcmfaces(ladxx);
 % adxx=convert2gcmfaces(adxx); 
 
-%% Return log10 of adxx with sign
-ladxx=ladxx.*sn;
+% %% Return log10 of adxx with sign
+% ladxx=ladxx.*sn;
+
+%% Get min, max, range of log of data
+lmin = min(min(min(ladxx)));
+lmax = max(max(max(ladxx)));
+lrng = lmax-lmin;
 
 end
