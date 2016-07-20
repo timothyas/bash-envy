@@ -33,12 +33,12 @@ end
 
 if nargin < 3
     logFld = 1;
-    myCaxis = 'auto';
+    caxLim = 0;
     saveVideo = 0; 
     figType = 'wide';
 else
     logFld = opts.logFld;
-    myCaxis = opts.myCaxis;
+    caxLim = opts.caxLim;
     saveVideo = opts.saveVideo;
     figType = opts.figType; 
 end
@@ -49,11 +49,7 @@ end
 
 % Prepare ranges for logarithmic plotting
 if logFld
-    [fld,~,~,~] = calcLogField(fld,mygrid);
-%     fld = 1 + 63*(fld-lmin)/lrng;
-%     colbar = [-1, -.1, -.01, 0 , .01, .1, 1];
-%     colscale = 1 + 63*(colbar*lmin - lmin)/lrng;
-%     myCaxis = [
+    [fld] = calcLogField(fld,mygrid);
 end;
     
 % Prep video object
@@ -71,10 +67,11 @@ else
 end
 
 % Prepare ranges
-colscale = logspace(-3,0,30)*myCaxis(2);
+colscale = logspace(-3,0,30)*10^-caxLim;
+colscale=colscale(end:-1:1);
 ctick = [-colscale(end:-1:1), 0, colscale];
 Ntick = length(ctick); 
-colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]*myCaxis(2);
+colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]*10^-caxLim;
 fld=convert2gcmfaces(fld);
 binFld = fld;
 for i = 1:Ntick
@@ -88,7 +85,6 @@ for i = 1:Ntick
         bin = fld >= ctick(i-1) & fld < ctick(i);
         binFld(bin) = (ctick(i-1)+ctick(i))*.5;
     end
-    
 end
 binFld=convert2gcmfaces(binFld);
 fld=convert2gcmfaces(fld);
@@ -97,13 +93,14 @@ fld=convert2gcmfaces(fld);
 c=gcf();
 for n=size(fld.f1,3):-1:1
     
-    figure(c),m_map_atl(fld(:,:,n),5)%,{'myCaxis',myCaxis});
+    figure(c),m_map_atl(binFld(:,:,n),5)%,{'myCaxis',myCaxis});
     hc=colorbar;
     set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
     colormap(redblue(Ntick));
-    xlabel([xlbl sprintf('t-%d %s',n,time)])
+    xlabel([xlbl sprintf('t-%d %s',size(fld.f1,3)-n,time)])
+%     ylabel(hc,sprintf('x10^{%d}\n%s',-caxLim,clbl),'rotation',0);
     ylabel(hc,clbl,'rotation',0);
-    keyboard
+%     keyboard
     if saveVideo 
         currFrame=getframe(c);
         writeVideo(vidObj,currFrame); 

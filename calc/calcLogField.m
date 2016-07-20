@@ -21,8 +21,8 @@ sn=convert2gcmfaces(sn);
 ladxx=convert2gcmfaces(ladxx);
 % adxx=convert2gcmfaces(adxx); 
 
-% %% Return log10 of adxx with sign
-% ladxx=ladxx.*sn;
+%% Return log10 of adxx with sign
+ladxx=ladxx.*sn;
 
 %% Get min, max, range of log of data
 lmin = min(min(min(ladxx)));
