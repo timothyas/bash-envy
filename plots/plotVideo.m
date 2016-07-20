@@ -68,7 +68,7 @@ end
 
 % Prepare ranges
 colscale = logspace(-3,0,30)*10^-caxLim;
-colscale=colscale(end:-1:1);
+% colscale=colscale(end:-1:1);
 ctick = [-colscale(end:-1:1), 0, colscale];
 Ntick = length(ctick); 
 colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]*10^-caxLim;
