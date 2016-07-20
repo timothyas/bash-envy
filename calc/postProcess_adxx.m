@@ -1,4 +1,4 @@
-function[] = postProcess_adxx(adjField, nFact, X, dirs, mygrid)
+function[] = postProcess_adxx(adjField, nFact, X, klev, adjDump, runStr, dirs, mygrid)
 % Want to post process adxx files as follows: 
 %   1. Normalize by area or volume
 %   2. Factor (e.g. transport to Sv
@@ -9,7 +9,11 @@ function[] = postProcess_adxx(adjField, nFact, X, dirs, mygrid)
 %
 %       adjFields : tauu, tauv, aqh, precip ... 
 %       nFact : e.g. 10^-6 for -> Sv
+%       klev : level for 3d terms
 %       X={x,xq} : vector for interpolation of time controls
+%       adjDump : if 1 (0 is default) then process adj dump files, else
+%                 look for adxx files
+%       runStr : string for particular run 
 %       dirs : project directory tree
 %       mygrid : yup
 %
@@ -18,7 +22,7 @@ function[] = postProcess_adxx(adjField, nFact, X, dirs, mygrid)
 %       adxx : the field as gcmfaces object after post processing
 % -------------------------------------------------------------------------
 
-
+adjLoadDir = [dirs.results runStr];
 Nadj = length(adjField);
 
 for i = 1:Nadj
@@ -27,13 +31,43 @@ for i = 1:Nadj
     
     if ~exist(adjFile,'file')
         %% Load from file
-        adxx = read_bin([adjLoadDir 'adxx_' adjField '.0000000012.data']);
+        if ~adjDump
+            adxx = read_bin([adjLoadDir 'adxx_' adjField '.0000000012.data']);
+        else
+            if strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
+                adxx = rdmds2gcmfaces([adjLoadDir 'ADJustress'],NaN);
+                len_adxx = size(adxx.f1,3);
+                for n = 1:len_adxx
+                    tmp = rdmds2gcmfaces([adjLoadDir 'ADJ' adjField{i}],n);
+                    adxx(:,:,n) = tmp(:,:,klev);
+                end
+            elseif strcmp(adjField{i},'ustress') || strcmp(adjField{i},'vstress')
+                if ~exist('adxxU','var')
+                    adxxU = rdmds2gcmfaces([adjLoadDir 'ADJustress'],NaN);
+                    adxxV = rdmds2gcmfaces([adjLoadDir 'ADJvstress'],NaN);
+                    len_adxx = size(adxx.f1,3);
+                    for n = 1:len_adxx
+                        [adxxU(:,:,n),adxxV(:,:,n)] = calc_UEVNfromUXVY(adxxU(:,:,n),adxxV(:,:,n));
+                    end
+                    adxx = adxxU;
+                else
+                    adxx = adxxV;
+                end
+            else
+                adxx = rdmds2gcmfaces([adjLoadDir 'ADJ' adjField{i}],n);
+            end
+        end
+        
 
         %% Normalize by area or volume
         dxg = mk3D(mygrid.DXG,adxx);
         dyg = mk3D(mygrid.DYG,adxx);
         if strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
-            drf = mk3D(mygrid.DRF,adxx);
+            if adjDump
+                drf = mygrid.DRF(klev);
+            else
+                drf = mk3D(mygrid.DRF,adxx);
+            end
             adxx = adxx./dxg./dyg ./ drf;
         else
             adxx = adxx./dxg./dyg;
