@@ -1,4 +1,4 @@
-function[ ] = plotVideo(fld, strs, opts, mygrid )
+function[ ] = plotAdjVideo(fld, strs, opts, mygrid )
 % Make a video through time of mapped field
 % Inputs: 
 %
@@ -10,7 +10,7 @@ function[ ] = plotVideo(fld, strs, opts, mygrid )
 %           vidName : name of video object
 %       opts: data type with fields: 
 %           logFld : plot log of field (default 0)
-%           myCaxis: colorbar limits
+%           caxLim: colorbar scale
 %           saveVideo: default = 0
 %           figType: long or wide(default)
 % -------------------------------------------------------------------------
