@@ -92,6 +92,9 @@ colormap(redblue(Ntick));
 %         caxis([-10^-caxLim(i) 10^-caxLim(i)])
 xlabel(xlbl);
 ylabel(hc,clbl,'rotation',0);
+if ~strcmp(figType,'long')
+    set(c,'paperorientation','landscape')
+end
 if saveFig
         saveas(gcf,figFile,'pdf')
 end
