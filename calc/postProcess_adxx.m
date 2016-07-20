@@ -11,6 +11,7 @@ function[] = postProcess_adxx(adjField, nFact, X, klev, adjDump, runStr, dirs, m
 %       nFact : e.g. 10^-6 for -> Sv
 %       klev : level for 3d terms
 %       X={x,xq} : vector for interpolation of time controls
+%                  {0,0} for no interpolation
 %       adjDump : if 1 (0 is default) then process adj dump files, else
 %                 look for adxx files
 %       runStr : string for particular run 
@@ -41,11 +42,13 @@ for i = 1:Nadj
                     tmp = rdmds2gcmfaces([adjLoadDir 'ADJ' adjField{i}],n);
                     adxx(:,:,n) = tmp(:,:,klev);
                 end
-            elseif strcmp(adjField{i},'ustress') || strcmp(adjField{i},'vstress')
+            elseif strcmp(adjField{i},'tauu') || strcmp(adjField{i},'tauv')
                 if ~exist('adxxU','var')
                     adxxU = rdmds2gcmfaces([adjLoadDir 'ADJustress'],NaN);
                     adxxV = rdmds2gcmfaces([adjLoadDir 'ADJvstress'],NaN);
-                    len_adxx = size(adxx.f1,3);
+                    len_adxx = size(adxxU.f1,3);
+                    adxxU=adxxU.*repmat(mygrid.mskW(:,:,1),[1 1 len_adxx]);
+                    adxxV=adxxV.*repmat(mygrid.mskS(:,:,1),[1 1 len_adxx]);
                     for n = 1:len_adxx
                         [adxxU(:,:,n),adxxV(:,:,n)] = calc_UEVNfromUXVY(adxxU(:,:,n),adxxV(:,:,n));
                     end
@@ -54,7 +57,7 @@ for i = 1:Nadj
                     adxx = adxxV;
                 end
             else
-                adxx = rdmds2gcmfaces([adjLoadDir 'ADJ' adjField{i}],n);
+                adxx = rdmds2gcmfaces([adjLoadDir 'ADJ' adjField{i}],NaN);
             end
         end
         
@@ -77,7 +80,7 @@ for i = 1:Nadj
         adxx = adxx*nFact;
     
         %% Interpolate along 3rd dim
-        if X==0 || strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
+        if X{1}==0 || strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
             fprintf('** adxx post process: no interpolation\n');
         else
             adxx = gcmfaces_interp_1d(3, X{1}, adxx, X{2});
