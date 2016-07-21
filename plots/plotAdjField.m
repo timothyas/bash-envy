@@ -18,7 +18,7 @@ function[ ] = plotAdjField(fld, strs, opts, mygrid )
 %% Sift through options
 if ~isa(fld,'gcmfaces'), convert2gcmfaces(fld); end
 
-if nargin < 2
+if nargin < 2 
     xlbl='';
     clbl='';
     figFile = '';
@@ -28,8 +28,8 @@ else
     figFile = strs.figFile;
 end
 
-if nargin < 3
-    logFld = 1;
+if nargin < 3 
+    logFld = 0;
     caxLim = 0;
     saveFig = 1; 
     figType = 'wide';
@@ -99,6 +99,6 @@ if ~strcmp(figType,'long')
 end
 if saveFig
         saveas(gcf,figFile,'pdf')
+        close(c);
 end
-close(c);
 end
