@@ -59,11 +59,12 @@ end
 
 %% Bin field to nonlinear ticks
 % Prepare ranges
-colscale = logspace(-3,0,30)*10^-caxLim;
+% colscale = [.0001:.00005:.001, .0015:.0005:.01, .015:.005:.1, .1:.05:1]*10^-caxLim;
+colscale=logspace(-4,0,30);%*10^-caxLim;
 ctick = [-colscale(end:-1:1), 0, colscale];
 Ntick = length(ctick);
-colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]*10^-caxLim;
-fld=convert2gcmfaces(fld);
+colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]; %*10^-caxLim;
+fld=convert2gcmfaces(fld)*10^caxLim;
 binFld = fld;
 
 % Do the binning
@@ -83,17 +84,18 @@ binFld=convert2gcmfaces(binFld);
 fld=convert2gcmfaces(fld);
 
 
-?%% Do the plotting
+%% Do the plotting
 c=gcf;
 figure(c), m_map_atl(binFld,5)
 hc=colorbar;
-set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
+% set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
 colormap(redblue(Ntick));
-%         caxis([-10^-caxLim(i) 10^-caxLim(i)])
 xlabel(xlbl);
-ylabel(hc,clbl,'rotation',0);
+ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0 0]);
 if ~strcmp(figType,'long')
     set(c,'paperorientation','landscape')
+    set(c,'paperunits','normalized')
+    set(c,'paperposition',[0 0 1 1])
 end
 if saveFig
         saveas(gcf,figFile,'pdf')

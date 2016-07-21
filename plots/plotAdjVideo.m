@@ -67,12 +67,11 @@ else
 end
 
 % Prepare ranges
-colscale = logspace(-3,0,30)*10^-caxLim;
-% colscale=colscale(end:-1:1);
+colscale = logspace(-4,0,30);%*10^-caxLim;
 ctick = [-colscale(end:-1:1), 0, colscale];
 Ntick = length(ctick); 
-colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]*10^-caxLim;
-fld=convert2gcmfaces(fld);
+colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1];%*10^-caxLim;
+fld=convert2gcmfaces(fld)*10^caxLim;
 binFld = fld;
 for i = 1:Ntick
     if i == 1
@@ -95,12 +94,10 @@ for n=size(fld.f1,3):-1:1
     
     figure(c),m_map_atl(binFld(:,:,n),5)%,{'myCaxis',myCaxis});
     hc=colorbar;
-    set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
+%     set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
     colormap(redblue(Ntick));
     xlabel([xlbl sprintf('t-%d %s',size(fld.f1,3)-n,time)])
-%     ylabel(hc,sprintf('x10^{%d}\n%s',-caxLim,clbl),'rotation',0);
-    ylabel(hc,clbl,'rotation',0);
-%     keyboard
+    ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0 0]);
     if saveVideo 
         currFrame=getframe(c);
         writeVideo(vidObj,currFrame); 
