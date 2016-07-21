@@ -18,9 +18,10 @@ pleiades_haswell=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_ice_nas_ha
 engaging_opt=$root_dir/tools/build_options/linux_amd64_gfortran
 stampede_opt=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_stampede
 lonestar_opt=$WORK/../gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_lonestar
+lonestar_profile_opt=$WORK/gcm-contrib/bash-scripts/linux_amd64_ifort+mpi_lonestar+profile
 
 ## Use the correct opt file here
-build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$pleiades_haswell -mpi"
+build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$lonestar_profile_opt -mpi"
 #tmp="make_junk"$suff".txt"
 
 ## Check which run to set up
