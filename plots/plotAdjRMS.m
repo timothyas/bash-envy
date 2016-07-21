@@ -16,7 +16,7 @@ adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 Nadj = length(adjField);
 Nt = 240;
 
-for i = 4:4
+for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
     figFile = sprintf('%s%sadjRMS_%s',dirs.figs,runStr,adjField{i});
     load(adjFile);
@@ -50,9 +50,10 @@ for i = 4:4
     tmp1 = squeeze(nansum(nansum(adxxArc.^2,1),2));
     adjRMSArc = sqrt(tmp1/tmp2);
     
-    %% 60N 
-    yCond = mygrid.YC > 60;
-    northMsk = mygrid.mskC(:,:,1).*yCond;
+    %% 40N 
+    yCond = mygrid.YC > 40;
+    atlMsk = v4_basin('atlExt');
+    northMsk = mygrid.mskC(:,:,1).*yCond.*atlMsk;
     northMsk=northMsk.*(mygrid.mskC(:,:,1) - arcMsk);
     northMsk(isnan(northMsk))=0;
     adxxNorth = adxx.*repmat(northMsk,[1 1 Nt]);    
@@ -71,8 +72,7 @@ for i = 4:4
     tmp1 = squeeze(nansum(nansum(adxxInd.^2,1),2));
     adjRMSInd = sqrt(tmp1/tmp2);
     
-    %% Atlantic from 60S to 60N 
-    atlMsk = v4_basin('atlExt');
+    %% Atlantic from 60S to 40N 
     atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
     atlMsk(isnan(atlMsk))=0;
     adxxAtl = adxx.*repmat(atlMsk,[1 1 Nt]);
@@ -80,9 +80,9 @@ for i = 4:4
     tmp1 = squeeze(nansum(nansum(adxxAtl.^2,1),2));
     adjRMSAtl = sqrt(tmp1/tmp2);
     
-    %% Pacific 60S to 60N
+    %% Pacific from 60S
     pacMsk = v4_basin('pacExt');
-    pacMsk = pacMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
+    pacMsk = pacMsk.*(mygrid.mskC(:,:,1) - accMsk);
     pacMsk(isnan(pacMsk))=0;
     adxxPac = adxx.*repmat(pacMsk,[1 1 Nt]);
     adxxPac=convert2gcmfaces(adxxPac);
@@ -92,15 +92,16 @@ for i = 4:4
     %% Plot it up 
     figure;
     t = 1:Nt;
-    plot(t, adjRMS,t,adjRMSArc, t, adjRMSNorth, t, adjRMSAtl, ...
+    semilogy(t, adjRMS,t,adjRMSArc, t, adjRMSNorth, t, adjRMSAtl, ...
          t, adjRMSAcc, t, adjRMSInd, t, adjRMSPac)
-    legend('Full RMS','Arctic','>60N - Arc','Atlantic 60S-60N','<60S',...
-        'Indian 60S-60N','Pacific 60S-60N')
+    legend('Full RMS','Arctic','Atlantic >40N','Atlantic 60S-40N','<60S',...
+        'Indian >60S','Pacific >60S','location','best')
     xlabel('Months')
     ylabel('RMS( dJ/du )')
     title(sprintf('RMS of %s sens.',adjField{i}))
     set(gcf,'paperorientation','landscape')
+    set(gcf,'paperunits','normalized')
+    set(gcf,'paperposition',[0 0 1 1])
     saveas(gcf,figFile,'pdf');
-    keyboard
     close;
 end
