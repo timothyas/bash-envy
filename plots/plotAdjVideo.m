@@ -94,10 +94,13 @@ for n=size(fld.f1,3):-1:1
     
     figure(c),m_map_atl(binFld(:,:,n),5)%,{'myCaxis',myCaxis});
     hc=colorbar;
+%     keyboard
 %     set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
+    caxis([-1 1])
     colormap(redblue(Ntick));
     xlabel([xlbl sprintf('t-%d %s',size(fld.f1,3)-n,time)])
     ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0 0]);
+    
     if saveVideo 
         currFrame=getframe(c);
         writeVideo(vidObj,currFrame); 
