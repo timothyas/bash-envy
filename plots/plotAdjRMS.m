@@ -27,6 +27,7 @@ for i = 1:Nadj
     tmp1 = squeeze(nansum(nansum(adxx.^2,1),2));
     tmp2 = squeeze(nansum(nansum(nField,1),2));
     adjRMS = sqrt(tmp1/tmp2);
+%     adjRMS=removeSeasonality(adjRMS);
     adxx=convert2gcmfaces(adxx);
     
     %% Make a mask remove everything South of 60S.
@@ -39,6 +40,7 @@ for i = 1:Nadj
     adxxAcc=convert2gcmfaces(adxxAcc);
     tmp1 = squeeze(nansum(nansum(adxxAcc.^2,1),2));
     adjRMSAcc = sqrt(tmp1/tmp2);
+%     adjRMSAcc=removeSeasonality(adjRMSAcc);
     
     %% Now remove Arctic 
     arcMsk= v4_basin('arct'); %mygrid.mskC(:,:,1).*yCond;
@@ -49,6 +51,7 @@ for i = 1:Nadj
     adxxArc=convert2gcmfaces(adxxArc);
     tmp1 = squeeze(nansum(nansum(adxxArc.^2,1),2));
     adjRMSArc = sqrt(tmp1/tmp2);
+%     adjRMSArc=removeSeasonality(adjRMSArc);
     
     %% 40N 
     yCond = mygrid.YC > 40;
@@ -61,6 +64,7 @@ for i = 1:Nadj
     adxxNorth=convert2gcmfaces(adxxNorth);
     tmp1 = squeeze(nansum(nansum(adxxNorth.^2,1),2));
     adjRMSNorth = sqrt(tmp1/tmp2);
+%     adjRMSNorth=removeSeasonality(adjRMSNorth);
     
     %% Indian Ocean
     indMsk= v4_basin('indExt'); %mygrid.mskC(:,:,1).*yCond;
@@ -71,6 +75,7 @@ for i = 1:Nadj
     adxxInd=convert2gcmfaces(adxxInd);
     tmp1 = squeeze(nansum(nansum(adxxInd.^2,1),2));
     adjRMSInd = sqrt(tmp1/tmp2);
+%     adjRMSInd=removeSeasonality(adjRMSInd);
     
     %% Atlantic from 60S to 40N 
     atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
@@ -79,6 +84,7 @@ for i = 1:Nadj
     adxxAtl=convert2gcmfaces(adxxAtl);
     tmp1 = squeeze(nansum(nansum(adxxAtl.^2,1),2));
     adjRMSAtl = sqrt(tmp1/tmp2);
+%     adjRMSAtl=removeSeasonality(adjRMSAtl);
     
     %% Pacific from 60S
     pacMsk = v4_basin('pacExt');
@@ -88,6 +94,7 @@ for i = 1:Nadj
     adxxPac=convert2gcmfaces(adxxPac);
     tmp1 = squeeze(nansum(nansum(adxxPac.^2,1),2));
     adjRMSPac = sqrt(tmp1/tmp2);
+%     adjRMSPac=removeSeasonality(adjRMSPac);
 
     %% Plot it up 
     figure;
@@ -102,6 +109,7 @@ for i = 1:Nadj
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
+    keyboard
     saveas(gcf,figFile,'pdf');
     close;
 end
