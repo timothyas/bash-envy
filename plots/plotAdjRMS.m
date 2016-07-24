@@ -16,7 +16,7 @@ adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 Nadj = length(adjField);
 Nt = 240;
 
-for i = 1:Nadj
+for i = 4:4
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
     figFile = sprintf('%s%sadjRMS_%s',dirs.figs,runStr,adjField{i});
     load(adjFile);
@@ -102,6 +102,7 @@ for i = 1:Nadj
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
+    keyboard
     saveas(gcf,figFile,'pdf');
     close;
 end
