@@ -33,7 +33,7 @@ for i = 1:Nadj
     if ~exist(adjFile,'file')
         %% Load from file
         if ~adjDump
-            adxx = read_bin([adjLoadDir 'adxx_' adjField '.0000000012.data']);
+            adxx = read_bin([adjLoadDir 'adxx_' adjField{i} '.0000000012.data']);
         else
             if strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
                 adxx = rdmds2gcmfaces([adjLoadDir 'ADJustress'],NaN);
