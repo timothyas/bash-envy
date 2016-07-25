@@ -67,10 +67,11 @@ else
 end
 
 % Prepare ranges
-colscale = logspace(-4,0,30);%*10^-caxLim;
+vv=.25:.25:1;
+colscale = [10^-3*vv 10^-2*vv 10^-1*vv 1*vv];
 ctick = [-colscale(end:-1:1), 0, colscale];
 Ntick = length(ctick); 
-colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1];%*10^-caxLim;
+colbarlbl = [-1, -.1, -.01, -.001, 0 , .001 .01, .1, 1];%*10^-caxLim;
 fld=convert2gcmfaces(fld)*10^caxLim;
 binFld = fld;
 for i = 1:Ntick

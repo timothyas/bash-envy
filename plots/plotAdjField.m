@@ -60,7 +60,8 @@ end
 %% Bin field to nonlinear ticks
 % Prepare ranges
 % colscale = [.0001:.00005:.001, .0015:.0005:.01, .015:.005:.1, .1:.05:1]*10^-caxLim;
-colscale=logspace(-4,0,30);%*10^-caxLim;
+vv=.25:.25:1;
+colscale = [10^-3*vv 10^-2*vv 10^-1*vv 1*vv];
 ctick = [-colscale(end:-1:1), 0, colscale];
 Ntick = length(ctick);
 colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]; %*10^-caxLim;
@@ -92,6 +93,7 @@ hc=colorbar;
 colormap(redblue(Ntick));
 xlabel(xlbl);
 ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0 0]);
+keyboard
 if ~strcmp(figType,'long')
     set(c,'paperorientation','landscape')
     set(c,'paperunits','normalized')
