@@ -261,6 +261,11 @@ elseif proj == 5
     myConv='pcol';
     xtic=[-200:40:110]; ytic=[[-80:20:-40],-34, [-20:20:80]]; xloc='bottom';
     xticlab=0;
+elseif proj == 6
+    m_proj('mollweide','lat',[-80 80],'lon',[-235 115]);
+    myConv='pcol';
+    xtic=[-200:40:110]; ytic=[[-80:20:20], 25, [40:20:80]]; xloc='bottom';
+    xticlab=0;
 else;
     error('undefined projection');
 end;

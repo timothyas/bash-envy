@@ -31,12 +31,14 @@ end
 if nargin < 3 
     logFld = 0;
     caxLim = 0;
-    saveFig = 1; 
+    saveFig = 1;
+    mmapOpt = 5;
     figType = 'wide';
 else
     logFld = opts.logFld;
     caxLim = opts.caxLim;
     saveFig = opts.saveFig;
+    mmapOpt = opts.mmapOpt;
     figType = opts.figType; 
 end
 
@@ -87,13 +89,12 @@ fld=convert2gcmfaces(fld);
 
 %% Do the plotting
 c=gcf;
-figure(c), m_map_atl(binFld,5)
+figure(c), m_map_atl(binFld,mmapOpt)
 hc=colorbar;
 % set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
 colormap(redblue(Ntick));
 xlabel(xlbl);
-ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0 0]);
-keyboard
+ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0.2 0]);
 if ~strcmp(figType,'long')
     set(c,'paperorientation','landscape')
     set(c,'paperunits','normalized')
