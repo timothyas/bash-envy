@@ -20,6 +20,6 @@ end
 % plot(freq,abs(F),freq,abs(F0));
 % keyboard
 
-deSeasonedData=abs(ifft(F,Nt,1)); %,'symmetric'));
+deSeasonedData=(ifft(F,Nt,1)); %,'symmetric'));
 end
 
