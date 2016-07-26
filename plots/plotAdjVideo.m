@@ -71,11 +71,11 @@ end
 % Prepare ranges
 vv=.25:.25:1;
 colscale = [10^-3*vv 10^-2*vv 10^-1*vv 1*vv];
-ctick = [-colscale(end:-1:1), colscale];
+ctick = [-colscale(end:-1:1), 0 colscale];
 Ntick = length(ctick); 
 
-if Ntick==32
-    colbarticks = [-1:8/Ntick:-8/Ntick 0 8/Ntick:8/Ntick:1];
+if Ntick==33
+    colbarticks = [-1:8/Ntick:-8/Ntick 0 9/Ntick:8/Ntick:1];
     colbarlbl = [-1 -.1 -.01 -.001 0 .001 .01 .1 1];
 else
     colbarticks = [-1:8/Ntick:-8/Ntick, 0, 8/Ntick:8/Ntick:1];
