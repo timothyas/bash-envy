@@ -35,11 +35,13 @@ if nargin < 3
     logFld = 1;
     caxLim = 0;
     saveVideo = 0; 
+    mmapOpt = 5;
     figType = 'wide';
 else
     logFld = opts.logFld;
     caxLim = opts.caxLim;
     saveVideo = opts.saveVideo;
+    mmapOpt = opts.mmapOpt;
     figType = opts.figType; 
 end
 
@@ -67,10 +69,18 @@ else
 end
 
 % Prepare ranges
-colscale = logspace(-4,0,30);%*10^-caxLim;
-ctick = [-colscale(end:-1:1), 0, colscale];
+vv=.25:.25:1;
+colscale = [10^-3*vv 10^-2*vv 10^-1*vv 1*vv];
+ctick = [-colscale(end:-1:1), 0 colscale];
 Ntick = length(ctick); 
-colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1];%*10^-caxLim;
+
+if Ntick==33
+    colbarticks = [-1:8/Ntick:-8/Ntick 0 9/Ntick:8/Ntick:1];
+    colbarlbl = [-1 -.1 -.01 -.001 0 .001 .01 .1 1];
+else
+    colbarticks = [-1:8/Ntick:-8/Ntick, 0, 8/Ntick:8/Ntick:1];
+    colbarlbl = [-1, -0.1, -0.01, 0 , 0.01, 0.1, 1];%*10^-caxLim;
+end
 fld=convert2gcmfaces(fld)*10^caxLim;
 binFld = fld;
 for i = 1:Ntick
@@ -92,12 +102,14 @@ fld=convert2gcmfaces(fld);
 c=gcf();
 for n=size(fld.f1,3):-1:1
     
-    figure(c),m_map_atl(binFld(:,:,n),5)%,{'myCaxis',myCaxis});
+    figure(c),m_map_atl(binFld(:,:,n),mmapOpt)%,{'myCaxis',myCaxis});
     hc=colorbar;
-%     set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
+%     keyboard
+    set(hc,'ytick',colbarticks,'yticklabel',colbarlbl);
+    caxis([-1 1])
     colormap(redblue(Ntick));
     xlabel([xlbl sprintf('t-%d %s',size(fld.f1,3)-n,time)])
-    ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0 0]);
+    ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 .2 0]);
     if saveVideo 
         currFrame=getframe(c);
         writeVideo(vidObj,currFrame); 

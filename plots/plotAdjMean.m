@@ -1,5 +1,5 @@
-function [] = plotAdjRMS(runStr,dirs,mygrid)
-% Plot RMS of adjoint sensitivity across globe
+function [] = plotAdjMean(runStr,dirs,mygrid)
+% Plot mean of adjoint sensitivity across globe
 % 
 %   Inputs: 
 %       runStr : which run to look at
@@ -16,18 +16,18 @@ adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 Nadj = length(adjField);
 Nt = 240;
 
-for i = 1:Nadj
+for i = 3:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
-    figFile = sprintf('%s%sadjRMS_%s',dirs.figs,runStr,adjField{i});
+    figFile = sprintf('%s%sadjMean_%s_deseasoned',dirs.figs,runStr,adjField{i});
     load(adjFile);
     
     % Compute spatial RMS of sensitivity
     adxx=convert2gcmfaces(adxx);
     nField=convert2gcmfaces(mygrid.mskC(:,:,1));
-    tmp1 = squeeze(nansum(nansum(adxx.^2,1),2));
+    tmp1 = squeeze(nansum(nansum(adxx,1),2));
     tmp2 = squeeze(nansum(nansum(nField,1),2));
-    adjRMS = sqrt(tmp1/tmp2);
-%     adjRMS=removeSeasonality(adjRMS);
+    adjMean = tmp1/tmp2;
+    adjMean=removeSeasonality(adjMean);
     adxx=convert2gcmfaces(adxx);
     
     %% Make a mask remove everything South of 60S.
@@ -38,9 +38,11 @@ for i = 1:Nadj
     adxxAcc = adxx.*repmat(accMsk,[1 1 Nt]);
     
     adxxAcc=convert2gcmfaces(adxxAcc);
-    tmp1 = squeeze(nansum(nansum(adxxAcc.^2,1),2));
-    adjRMSAcc = sqrt(tmp1/tmp2);
-%     adjRMSAcc=removeSeasonality(adjRMSAcc);
+    nField=convert2gcmfaces(accMsk);
+    tmp2=squeeze(nansum(nansum(nField,1),2));
+    tmp1 = squeeze(nansum(nansum(adxxAcc,1),2));    
+    adjMeanAcc = tmp1/tmp2;
+    adjMeanAcc=removeSeasonality(adjMeanAcc);
     
     %% Now remove Arctic 
     arcMsk= v4_basin('arct'); %mygrid.mskC(:,:,1).*yCond;
@@ -49,9 +51,11 @@ for i = 1:Nadj
     adxxArc = adxx.*repmat(arcMsk,[1 1 Nt]);    
 
     adxxArc=convert2gcmfaces(adxxArc);
-    tmp1 = squeeze(nansum(nansum(adxxArc.^2,1),2));
-    adjRMSArc = sqrt(tmp1/tmp2);
-%     adjRMSArc=removeSeasonality(adjRMSArc);
+    nField=convert2gcmfaces(arcMsk);
+    tmp2=squeeze(nansum(nansum(nField,1),2));
+    tmp1 = squeeze(nansum(nansum(adxxArc,1),2));
+    adjMeanArc = tmp1/tmp2;
+    adjMeanArc=removeSeasonality(adjMeanArc);
     
     %% 40N 
     yCond = mygrid.YC > 40; % & mygrid.YC <= 70;
@@ -63,9 +67,11 @@ for i = 1:Nadj
     adxxNorth = adxx.*repmat(northMsk,[1 1 Nt]);    
 
     adxxNorth=convert2gcmfaces(adxxNorth);
-    tmp1 = squeeze(nansum(nansum(adxxNorth.^2,1),2));
-    adjRMSNorth = sqrt(tmp1/tmp2);
-%     adjRMSNorth=removeSeasonality(adjRMSNorth);
+    nField=convert2gcmfaces(northMsk);
+    tmp2=squeeze(nansum(nansum(nField,1),2));
+    tmp1 = squeeze(nansum(nansum(adxxNorth,1),2));
+    adjMeanNorth = tmp1/tmp2;
+    adjMeanNorth=removeSeasonality(adjMeanNorth);
     
     %% Indian Ocean
     indMsk= v4_basin('indExt'); %mygrid.mskC(:,:,1).*yCond;
@@ -74,18 +80,22 @@ for i = 1:Nadj
     adxxInd = adxx.*repmat(indMsk,[1 1 Nt]);    
 
     adxxInd=convert2gcmfaces(adxxInd);
-    tmp1 = squeeze(nansum(nansum(adxxInd.^2,1),2));
-    adjRMSInd = sqrt(tmp1/tmp2);
-%     adjRMSInd=removeSeasonality(adjRMSInd);
+    nField=convert2gcmfaces(indMsk);
+    tmp2=squeeze(nansum(nansum(nField,1),2));
+    tmp1 = squeeze(nansum(nansum(adxxInd,1),2));
+    adjMeanInd = tmp1/tmp2;
+    adjMeanInd=removeSeasonality(adjMeanInd);
     
     %% Atlantic from 60S to 40N 
     atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
     atlMsk(isnan(atlMsk))=0;
     adxxAtl = adxx.*repmat(atlMsk,[1 1 Nt]);
     adxxAtl=convert2gcmfaces(adxxAtl);
-    tmp1 = squeeze(nansum(nansum(adxxAtl.^2,1),2));
-    adjRMSAtl = sqrt(tmp1/tmp2);
-%     adjRMSAtl=removeSeasonality(adjRMSAtl);
+    nField=convert2gcmfaces(atlMsk);
+    tmp2=squeeze(nansum(nansum(nField,1),2));
+    tmp1 = squeeze(nansum(nansum(adxxAtl,1),2));
+    adjMeanAtl = tmp1/tmp2;
+    adjMeanAtl=removeSeasonality(adjMeanAtl);
     
     %% Pacific from 60S
     pacMsk = v4_basin('pacExt');
@@ -93,24 +103,26 @@ for i = 1:Nadj
     pacMsk(isnan(pacMsk))=0;
     adxxPac = adxx.*repmat(pacMsk,[1 1 Nt]);
     adxxPac=convert2gcmfaces(adxxPac);
-    tmp1 = squeeze(nansum(nansum(adxxPac.^2,1),2));
-    adjRMSPac = sqrt(tmp1/tmp2);
-%     adjRMSPac=removeSeasonality(adjRMSPac);
+    nField=convert2gcmfaces(pacMsk);
+    tmp2=squeeze(nansum(nansum(nField,1),2));
+    tmp1 = squeeze(nansum(nansum(adxxPac,1),2));
+    adjMeanPac = tmp1/tmp2;
+    adjMeanPac=removeSeasonality(adjMeanPac);
 
     %% Plot it up 
     figure;
     t = 1:Nt;
-    semilogy(t, adjRMS,t,adjRMSArc, t, adjRMSNorth, t, adjRMSAtl, ...
-         t, adjRMSAcc, t, adjRMSInd, t, adjRMSPac)
+    plot(t, adjMean,t,adjMeanArc, t, adjMeanNorth, t, adjMeanAtl, ...
+         t, adjMeanAcc, t, adjMeanInd, t, adjMeanPac)
     legend('Full RMS','Arctic','Atlantic >40N','Atlantic 60S-40N','<60S',...
         'Indian >60S','Pacific >60S','location','best')
     xlabel('Months')
-    ylabel('RMS( dJ/du )')
+    ylabel('Spatial Mean ( dJ/du )')
     title(sprintf('RMS of %s sens.',adjField{i}))
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-%     keyboard
+    keyboard
     saveas(gcf,figFile,'pdf');
     close;
 end

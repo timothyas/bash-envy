@@ -31,12 +31,14 @@ end
 if nargin < 3 
     logFld = 0;
     caxLim = 0;
-    saveFig = 1; 
+    saveFig = 1;
+    mmapOpt = 5;
     figType = 'wide';
 else
     logFld = opts.logFld;
     caxLim = opts.caxLim;
     saveFig = opts.saveFig;
+    mmapOpt = opts.mmapOpt;
     figType = opts.figType; 
 end
 
@@ -60,7 +62,8 @@ end
 %% Bin field to nonlinear ticks
 % Prepare ranges
 % colscale = [.0001:.00005:.001, .0015:.0005:.01, .015:.005:.1, .1:.05:1]*10^-caxLim;
-colscale=logspace(-4,0,30);%*10^-caxLim;
+vv=.25:.25:1;
+colscale = [10^-3*vv 10^-2*vv 10^-1*vv 1*vv];
 ctick = [-colscale(end:-1:1), 0, colscale];
 Ntick = length(ctick);
 colbarlbl = [-1, -.1, -.01, 0 , .01, .1, 1]; %*10^-caxLim;
@@ -86,12 +89,12 @@ fld=convert2gcmfaces(fld);
 
 %% Do the plotting
 c=gcf;
-figure(c), m_map_atl(binFld,5)
+figure(c), m_map_atl(binFld,mmapOpt)
 hc=colorbar;
 % set(hc,'ytick',colbarlbl,'yticklabel',colbarlbl);
 colormap(redblue(Ntick));
 xlabel(xlbl);
-ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0 0]);
+ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 0.2 0]);
 if ~strcmp(figType,'long')
     set(c,'paperorientation','landscape')
     set(c,'paperunits','normalized')

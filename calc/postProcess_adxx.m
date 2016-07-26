@@ -33,7 +33,7 @@ for i = 1:Nadj
     if ~exist(adjFile,'file')
         %% Load from file
         if ~adjDump
-            adxx = read_bin([adjLoadDir 'adxx_' adjField '.0000000012.data']);
+            adxx = read_bin([adjLoadDir 'adxx_' adjField{i} '.0000000012.data']);
         else
             if strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
                 adxx = rdmds2gcmfaces([adjLoadDir 'ADJustress'],NaN);
@@ -80,7 +80,7 @@ for i = 1:Nadj
         adxx = adxx*nFact;
     
         %% Interpolate along 3rd dim
-        if X{1}==0 || strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
+        if X{1}(1)==0 || strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
             fprintf('** adxx post process: no interpolation\n');
         else
             adxx = gcmfaces_interp_1d(3, X{1}, adxx, X{2});
@@ -88,6 +88,9 @@ for i = 1:Nadj
         
         %% Save as mat file
         save(adjFile,'adxx')
+
+	%% Print to screen 
+	fprintf('## Post Processing: %s written. ##\n',adjFile);
     end
 end
 end
