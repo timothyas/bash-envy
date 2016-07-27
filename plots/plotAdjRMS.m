@@ -1,10 +1,11 @@
-function [] = plotAdjRMS(runStr,dirs,mygrid)
+function [] = plotAdjRMS(runStr,dirs,mygrid,deseasonFlag)
 % Plot RMS of adjoint sensitivity across globe
 % 
 %   Inputs: 
 %       runStr : which run to look at
 %       dirs : project directory tree
 %       mygrid : 
+%       deseasonFlag : 1 = take out seasonal signal, 0 = don't
 % -------------------------------------------------------------------------
 
 if nargin<2, dirs=establish_samocDirs; end
@@ -18,7 +19,11 @@ Nt = 240;
 
 for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
-    figFile = sprintf('%s%sadjRMS_%s',dirs.figs,runStr,adjField{i});
+    if deseasonFlag
+        figFile = sprintf('%s%sadjRMS_%s_deseasoned',dirs.figs,runStr,adjField{i});
+    else
+        figFile = sprintf('%s%sadjRMS_%s',dirs.figs,runStr,adjField{i});
+    end
     load(adjFile);
     
     % Compute spatial RMS of sensitivity
@@ -27,7 +32,7 @@ for i = 1:Nadj
     tmp1 = squeeze(nansum(nansum(adxx.^2,1),2));
     tmp2 = squeeze(nansum(nansum(nField,1),2));
     adjRMS = sqrt(tmp1/tmp2);
-%     adjRMS=removeSeasonality(adjRMS);
+    if deseasonFlag, adjRMS=removeSeasonality(adjRMS); end
     adxx=convert2gcmfaces(adxx);
     
     %% Make a mask remove everything South of 60S.
@@ -40,7 +45,7 @@ for i = 1:Nadj
     adxxAcc=convert2gcmfaces(adxxAcc);
     tmp1 = squeeze(nansum(nansum(adxxAcc.^2,1),2));
     adjRMSAcc = sqrt(tmp1/tmp2);
-%     adjRMSAcc=removeSeasonality(adjRMSAcc);
+    if deseasonFlag, adjRMSAcc=removeSeasonality(adjRMSAcc); end
     
     %% Now remove Arctic 
     arcMsk= v4_basin('arct'); %mygrid.mskC(:,:,1).*yCond;
@@ -51,7 +56,7 @@ for i = 1:Nadj
     adxxArc=convert2gcmfaces(adxxArc);
     tmp1 = squeeze(nansum(nansum(adxxArc.^2,1),2));
     adjRMSArc = sqrt(tmp1/tmp2);
-%     adjRMSArc=removeSeasonality(adjRMSArc);
+	if deseasonFlag, adjRMSArc=removeSeasonality(adjRMSArc); end
     
     %% 40N 
     yCond = mygrid.YC > 40; % & mygrid.YC <= 70;
@@ -65,7 +70,7 @@ for i = 1:Nadj
     adxxNorth=convert2gcmfaces(adxxNorth);
     tmp1 = squeeze(nansum(nansum(adxxNorth.^2,1),2));
     adjRMSNorth = sqrt(tmp1/tmp2);
-%     adjRMSNorth=removeSeasonality(adjRMSNorth);
+	if deseasonFlag, adjRMSNorth=removeSeasonality(adjRMSNorth); end
     
     %% Indian Ocean
     indMsk= v4_basin('indExt'); %mygrid.mskC(:,:,1).*yCond;
@@ -76,7 +81,7 @@ for i = 1:Nadj
     adxxInd=convert2gcmfaces(adxxInd);
     tmp1 = squeeze(nansum(nansum(adxxInd.^2,1),2));
     adjRMSInd = sqrt(tmp1/tmp2);
-%     adjRMSInd=removeSeasonality(adjRMSInd);
+    if deseasonFlag, adjRMSInd=removeSeasonality(adjRMSInd); end
     
     %% Atlantic from 60S to 40N 
     atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
@@ -85,7 +90,7 @@ for i = 1:Nadj
     adxxAtl=convert2gcmfaces(adxxAtl);
     tmp1 = squeeze(nansum(nansum(adxxAtl.^2,1),2));
     adjRMSAtl = sqrt(tmp1/tmp2);
-%     adjRMSAtl=removeSeasonality(adjRMSAtl);
+    if deseasonFlag, adjRMSAtl=removeSeasonality(adjRMSAtl); end
     
     %% Pacific from 60S
     pacMsk = v4_basin('pacExt');
@@ -95,7 +100,7 @@ for i = 1:Nadj
     adxxPac=convert2gcmfaces(adxxPac);
     tmp1 = squeeze(nansum(nansum(adxxPac.^2,1),2));
     adjRMSPac = sqrt(tmp1/tmp2);
-%     adjRMSPac=removeSeasonality(adjRMSPac);
+    if deseasonFlag, adjRMSPac=removeSeasonality(adjRMSPac); end
 
     %% Plot it up 
     figure;
