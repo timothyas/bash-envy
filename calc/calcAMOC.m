@@ -1,4 +1,4 @@
-function [amoc, depthmax, kmax, ovStf] = calcAMOC(slat, velType, dirs, mygrid)
+function [amoc, depthmax, kmax, ovStf] = calcAMOC(slat, velType, mygrid)
 % Want to compute SAMOC at some latitude 
 %
 %  Inputs (optional): 
@@ -19,13 +19,12 @@ function [amoc, depthmax, kmax, ovStf] = calcAMOC(slat, velType, dirs, mygrid)
 if ~exist('slat','var'), slat=25; fprintf('Defining latitude at 25N\n');end
 if nargin<2, velType='eulerian'; end
 if nargin<3, establish_mygrid; end
-if nargin<4, dirs=establish_samocDirs; end
 
 %% Load or compute overturning streamfunction
-if ~exist(sprintf('%satlOverturn.mat',dirs.mat),'file')
+if ~exist('atlOverturn.mat','file')
     [atlOvStf] = calcAtlOverturn;
 else
-    load(sprntf('%satlOverturn.mat',dirs.mat));
+    load('atlOverturn.mat');
 end
 
 %% Grab samoc latitude
