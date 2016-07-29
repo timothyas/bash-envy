@@ -1,0 +1,69 @@
+function [ ] = avgForcingFields()
+% Want to time average ECCO forcing fields for convolution / reconstruction
+% -------------------------------------------------------------------------
+
+%% Preliminaries
+establish_mygrid; 
+adjFields = {'lwdown','swdown','precip','aqh','atemp','tauu','tauv'};
+forceFields = {'dlw','dsw','rain','spfh2m','tmp2m_degC','ustr','vstr'};
+Nadj = length(adjFields);
+yrs = 1992:2011;
+Nyrs = length(yrs);
+nrecs = 1460*ones(1,Nyrs);
+nrecs(1:4:end) = nrecs(1:4:end)+4;
+prefix = 'eccov4r2';
+readDir = '../../forcing_baseline2/';
+avgPeriod = 2635200/3600/4; % Average period in 6 hr increments (i.e. nrecs per iter)
+nRecsCtrl = 240;
+
+for i = 1:Nadj
+    %% Initialize
+    exfStart = 3;  % Start at 1200hrs, 3rd record
+    iyr = 1;
+    
+    exfCount = exfStart;
+    ctrlCount = 1;
+    xx_fld = 0*repmat(mygrid.mskC(:,:,1),[1 1 nRecsCtrl]);
+    xx_fld(isnan(xx_fld)) = 0;
+    
+    while iyr <= Nyrs
+        %% Read in this time step and add to control vector
+        exf = read_bin([readDir prefix '_' forceFields{i} '_' years(iyr) '.data'], exfCount);
+        xx_fld(:,:,ctrlCount) = xx_fld(:,:,ctrlCount) + exf;
+        
+        %% Increment exf counter and check leap year, end of year, end of avgperiod
+        exfCount = exfCount + 1;
+        if exfCount-exfStart == avgPeriod
+            % At end of averaging period, take avg and get next ctrl rec
+            xx_fld(:,:,ctrlCount) = xx_fld(:,:,ctrlCount)/avgPeriod;
+            ctrlCount = ctrlCount + 1;
+            exfStart = exfCount;
+        elseif exfCount > avgPeriod
+            fprintf('Error: exfCount went above avg period...\n');
+            keyboard
+        end
+        
+        if exfCount > nrecs(iyr)
+            % Hit the end of the year, need to increment year counter
+            exfStart = exfCount - exfStart;
+            exfCount = 1;
+            iyr = iyr + 1;
+            fprintf('\t--Done with yr %d--\n',yrs(iyr));
+        end
+    end
+    if exfCount-exfStart<avgPeriod
+        % Ended with fewer than avgPeriod records in last ctrl element
+        xx_fld(:,:,ctrlCount) = xx_fld(:,:,ctrlCount) / (exfCount - exfStart);
+    end
+    
+    %% Save averaged forcing field
+    ctrlFile = ['xx_' adjFields{i} '.mat'];
+    save(ctrlFile,xx_fld);
+    fprintf('## Saved averaged file for %s ##\n',adjFields{i});
+end
+
+
+exfCount = ctrlStart;
+
+if mod(exfCount,4) ~= exfCount/4
+    
