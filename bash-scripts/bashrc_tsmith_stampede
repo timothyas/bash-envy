@@ -1,6 +1,6 @@
 ### Load modules ### 
-#default: intel/13.0.2.146
-#default: mvapich2/1.9a2
+#default: intel
+#default: mvapich2
 module load netcdf	
 module load parallel-netcdf
 

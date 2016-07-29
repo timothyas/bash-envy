@@ -62,22 +62,25 @@ for i = 1:Nadj
         end
         
 
-        %% Normalize by area or volume
-        dxg = mk3D(mygrid.DXG,adxx);
-        dyg = mk3D(mygrid.DYG,adxx);
-        if strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
-            if adjDump
-                drf = mygrid.DRF(klev);
-            else
-                drf = mk3D(mygrid.DRF,adxx);
-            end
-            adxx = adxx./dxg./dyg ./ drf;
-        else
-            adxx = adxx./dxg./dyg;
-        end        
+%         %% Normalize by area or volume
+%         dxg = mk3D(mygrid.DXG,adxx);
+%         dyg = mk3D(mygrid.DYG,adxx);
+%         if strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
+%             if adjDump
+%                 drf = mygrid.DRF(klev);
+%             else
+%                 drf = mk3D(mygrid.DRF,adxx);
+%             end
+%             adxx = adxx./dxg./dyg ./ drf;
+%         else
+%             adxx = adxx./dxg./dyg;
+%         end        
 
         %% Factor 
         adxx = adxx*nFact;
+        if strcmp(adjField{i},'tauu') || strcmp(adjField{i},'tauv')
+            adxx = -1*adxx;
+        end
     
         %% Interpolate along 3rd dim
         if X{1}(1)==0 || strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')

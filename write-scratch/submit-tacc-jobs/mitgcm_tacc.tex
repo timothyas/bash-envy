@@ -51,7 +51,8 @@
 	  $ module load parallel-netcdf
 	\end{lstlisting}
 
-	Again, it is a good idea to put these in a ~/.bashrc file for safe keeping
+	Again, it is a good idea to put these in a \$HOME/.bashrc (or .cshrc, etc) file so that these modules load in each shell that gets opened. Click \href{http://users.ices.utexas.edu/~tsmith/bash-scripts/bashrc_tsmith_lonestar}{here} for an example bashrc on Lonestar.
+
 
 	Note that there are some other goodies there, described as follows:
 	\begin{enumerate}
@@ -67,7 +68,7 @@
 	
 	\lstinputlisting{../../bash-scripts/submit_on_tacc}
 
-	Each of the flags are as follows: 
+	More sample submission scripts are shown \href{https://portal.tacc.utexas.edu/user-guides/lonestar5#submit-a-batch-job-with-sbatch}{here} in the Lonestar 5 User Guide (which really is a good idea to skim through...). For this example, Each of the flags are as follows: 
 	\begin{enumerate}
 	  \item J: job name
 	  \item o: name for the output file (%j denotes the job ID number)
@@ -95,7 +96,7 @@
 	 	$ PATH=$PATH:$HOME/bin
 	  \end{lstlisting}
 
-	It is a really good idea to put this last line in your ~/.bashrc (or ~/.cshrc, etc) so that every shell you open up looks in this directory for the executable staf. 
+	It is a really good idea to put this last line in your \$HOME/.bashrc (or cshrc, etc) so that every shell you open up looks in this directory for the executable staf. Click \href{http://users.ices.utexas.edu/~tsmith/bash-scripts/bashrc_tsmith_lonestar}{here} for an example bashrc on Lonestar.
 
 	\item Add the taf key given by FastOpt to your .ssh folder (mv /path/to/taf ~/.ssh/ )
 	\item \red{This is the important part} For compiling this taf key must be in your .ssh folder for communication with FastOpt. However, TACC will not allow you to run jobs with it there. My solution is to just have 2 .ssh folders and rename each of them before compiling, and then before submitting jobs. Note that if you rename your .ssh folder something else, logging out and back in to Lonestar will auto-generate a new (and acceptable) .ssh directory. The steps for compiling and running are as follows:  
@@ -116,6 +117,42 @@
 	\end{enumerate}
 	
 
+\section{Stampede}
 
+	\subsection{Optfile and other bash scripts}
+	
+	I've made an optfile located at: 
+	
+	/work/03754/tsmith/gcm-contrib/bash-scripts/linux\_amd64\_ifort+mpi\_stampede
+
+	If you don't have access for some reason, all of the items mentioned here are available at \href{http://users.ices.utexas.edu/~tsmith/bash-scripts/}{my ICES user page}.
+
+	The following modules must be loaded (the first 2 are defaults, but worth mentioning): 
+
+	\begin{lstlisting}[language=bash]
+	  $ module load intel
+	  $ module load mvapich2
+	  $ module load netcdf
+	  $ module load parallel-netcdf
+	\end{lstlisting}
+
+	Again, it is a good idea to put these in a \$HOME/.bashrc (or .cshrc, etc) file so that these modules load in each shell that gets opened. Click \href{http://users.ices.utexas.edu/~tsmith/bash-scripts/bashrc_tsmith_stampede}{here} for an example bashrc on Stampede.
+
+
+	\subsection{Job Submission}
+
+	This process is essentially the same as on Lonestar except that this machine uses (for our purposes) Ivy Bridge processors (Lonestar uses Haswell), which have 16 cores per node (8 cores per socket, 2 sockets per node). This changes the way that resources need to be requested. The above script would need the flags: 
+
+	\begin{lstlisting}[language=bash]
+	...
+	#SBATCH -N 6
+	#SBATCH -n 96
+	...
+
+	\end{lstlisting} 
+
+	Now we're requesting 6 nodes, 16 cores each, rather than 4 nodes with 24 cores each. 
+
+	The various job queues along with more sample submission scripts are located \href{https://portal.tacc.utexas.edu/user-guides/stampede#running}{here}.  
 
 \end{document}

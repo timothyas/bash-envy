@@ -12,4 +12,4 @@
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=end
 
-ibrun -np 96 tacc_affinity ./mitgcmuv_ad
+ibrun tacc_affinity ./mitgcmuv_ad

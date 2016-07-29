@@ -16,7 +16,6 @@ if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 
 adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 Nadj = length(adjField);
-Nt = 240;
 
 for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
@@ -26,6 +25,8 @@ for i = 1:Nadj
         figFile = sprintf('%s%sadjMean_%s',dirs.figs,runStr,adjField{i});
     end
     load(adjFile);
+    Nt = size(adxx.f1,3);
+
     
     % Compute spatial RMS of sensitivity
     adxx=convert2gcmfaces(adxx);
@@ -124,7 +125,7 @@ for i = 1:Nadj
         'Indian >60S','Pacific >60S','location','best')
     xlabel('Months')
     ylabel('Spatial Mean ( dJ/du )')
-    title(sprintf('RMS of %s sens.',adjField{i}))
+    title(sprintf('Mean of %s sens.',adjField{i}))
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
