@@ -1,0 +1,121 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry,amsmath,color,graphicx,listings,hyperref}
+\geometry{margin=1in}
+
+
+%opening
+\title{\vspace{-10ex}Running the MITgcm on TACC}
+\author{Tim Smith}
+\date{\vspace{-3ex}}
+
+%% --- New commands
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\degSym}{$^{\circ}$}
+
+%% --- Figures
+\DeclareGraphicsExtensions{.png,.pdf}
+
+\begin{document}
+
+\maketitle
+
+	This is meant to be a quick document keeping track of tips for submitting jobs on Stampede and Lonestar. I assume that while working on a particular project there are essentially four directories for running the MITgcm. This is just how I organize things, but obviously everyone has their own procedures. These four directories are: 
+
+	\begin{enumerate}
+	  \item \textit{code/} contains header files with compile time options specified for building the executable
+	  \item \textit{build/} where the executable is built and all of the source code is linked
+	  \item \textit{input/} contains the ``data(.*)'' namelists which specify run time options
+	  \item \textit{run/} all the files from \textit{input/} are linked here, along with the executable in \textit{build/} and any external forcing files, bathymetry, etc. 
+	\end{enumerate} 
+
+	I assume these are located inside of a project directory, e.g. \textit{ project-name/code/}. Note that for adjoint runs it is convenient to append the suffix ``\_ad'' to the end of each of these directories. 
+
+\section{Lonestar} 
+\label{lonestar}
+
+	\subsection{Optfile and other bash scripts}
+	
+	I've made an optfile located at: 
+	
+	/work/03754/tsmith/gcm-contrib/bash-scripts/linux\_amd64\_ifort+mpi\_lonestar 
+
+	If you don't have access for some reason, all of the items mentioned here are available at \href{http://users.ices.utexas.edu/~tsmith/bash-scripts/}{my ICES user page}.
+
+	The following modules must be loaded (the first 2 are defaults, but worth mentioning): 
+
+	\begin{lstlisting}[language=bash]
+	  $ module load intel
+	  $ module load cray_mpich
+	  $ module load netcdf
+	  $ module load parallel-netcdf
+	\end{lstlisting}
+
+	Again, it is a good idea to put these in a ~/.bashrc file for safe keeping
+
+	Note that there are some other goodies there, described as follows:
+	\begin{enumerate}
+	  \item \textit{prepare\_code} this grabs the necessary \textit{code/} and \textit{input/} directories necessary for the ECCOv4 set up. 
+	  \item \textit{make\_run} a bash script which builds the executable mitgcmuv\_ad, note that to use this you will want to place it in the directory \textit{project-name/} as described above and it will do the rest. 
+	  \item \textit{link\_run} this is my script for linking all the important files to a run directory.  
+	  \item \textit{submit\_on\_tacc} a sample job submission script for both Lonestar and Stampede described more in the next section.
+	\end{enumerate} 
+
+	\subsection{Job submission} 
+
+	A sample job submission script for TACC is given below: 
+	
+	\lstinputlisting{../../bash-scripts/submit_on_tacc}
+
+	Each of the flags are as follows: 
+	\begin{enumerate}
+	  \item J: job name
+	  \item o: name for the output file (%j denotes the job ID number)
+	  \item e: name for the error file, assuming you need one ;) 
+	  \item N: the number of \textbf{nodes} requested. On Lonestar there are 24 cores per node (12 cores per socket, 2 sockets per node) 
+	  \item n: total number of \textbf{cores} requested.
+	  \item p: the queue requested for the job. The options are discussed \href{https://portal.tacc.utexas.edu/user-guides/lonestar5#production-queues}{here}.
+	  \item t: total time requested 
+	  \item the other lines request the system to mail the user at the beginning and end of the job.
+	\end{enumerate}
+
+	The ``tacc\_affinity'' specification in the executable line is important. This essentially optimizes the requested node/core architecture requested to minimize communication time. It really helps make things run fast ...
+
+	\subsection{Compiling the adjoint} 
+	Building the executable \textit{mitgcmuv} is business as usual for a forward run. For an adjoint run, some extra steps are necessary because TAF uses a DSA security key, which has been deprecated as of OpenSSH 7.0 (Lonestar uses 7.1). On top of this, Lonestar does not allow key based authentication. Here is a step by step guide for how to navigate around this, including how to set up to use TAF in the first place (I'm assuming the \textit{staf} executable is already on the machine). 
+
+
+	\begin{enumerate}
+	  \item Place the TAF executable \textit{staf} in \$HOME/bin/ where \$HOME is the directory ~, and add this to your path as follows (assuming a bash terminal): 
+
+	  \begin{lstlisting}[language=bash]
+		$ cd $HOME
+		$ mkdir bin
+		$ mv /path/to/staf bin/
+	 	$ PATH=$PATH:$HOME/bin
+	  \end{lstlisting}
+
+	It is a really good idea to put this last line in your ~/.bashrc (or ~/.cshrc, etc) so that every shell you open up looks in this directory for the executable staf. 
+
+	\item Add the taf key given by FastOpt to your .ssh folder (mv /path/to/taf ~/.ssh/ )
+	\item \red{This is the important part} For compiling this taf key must be in your .ssh folder for communication with FastOpt. However, TACC will not allow you to run jobs with it there. My solution is to just have 2 .ssh folders and rename each of them before compiling, and then before submitting jobs. Note that if you rename your .ssh folder something else, logging out and back in to Lonestar will auto-generate a new (and acceptable) .ssh directory. The steps for compiling and running are as follows:  
+
+	  \begin{lstlisting}[language=bash]
+		$ mv .ssh .ssh-taf
+		$ exit (log out of Lonestar) 
+		$ ... log back into Lonestar, notice the new .ssh directory
+		$ mv .ssh .ssh-tacc (or .ssh-submit, or anything else) 
+		$ mv .ssh-taf .ssh
+		$ (build mitgcmuv_ad) 
+		$ mv .ssh .ssh-taf 
+		$ mv .ssh-tacc .ssh
+		$ (submit job with no troubles) 
+
+	  \end{lstlisting} 
+
+	\end{enumerate}
+	
+
+
+
+\end{document}
