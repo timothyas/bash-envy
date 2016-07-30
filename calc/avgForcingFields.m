@@ -11,8 +11,6 @@ yrs = 1992:2011;
 Nyrs = length(yrs);
 nrecs = 1460*ones(1,Nyrs);
 nrecs(1:4:end) = nrecs(1:4:end)+4;
-prefix = 'eccov4r2';
-readDir = '../../forcing_baseline2/';
 avgPeriod = 2635200/3600/4; % Average period in 6 hr increments (i.e. nrecs per iter)
 nRecsCtrl = 240;
 
@@ -28,8 +26,8 @@ for i = 1:Nadj
     
     while iyr <= Nyrs
         %% Read in this time step and add to control vector
-        exfFile = sprintf('../../forcing_baseline2/eccov4r2_%s_%d.data',forceFields{i},years(iyr));
-        exf = read_bin(exfFile, exfCount);
+        exfFile = sprintf('../../forcing_baseline2/eccov4r2_%s_%d.data',forceFields{i},yrs(iyr));
+        exf = read_bin(exfFile, exfCount,0);
         xx_fld(:,:,ctrlCount) = xx_fld(:,:,ctrlCount) + exf;
         
         %% Increment exf counter and check leap year, end of year, end of avgperiod
@@ -39,7 +37,7 @@ for i = 1:Nadj
             xx_fld(:,:,ctrlCount) = xx_fld(:,:,ctrlCount)/avgPeriod;
             ctrlCount = ctrlCount + 1;
             exfStart = exfCount;
-        elseif exfCount > avgPeriod
+        elseif exfCount-exfStart > avgPeriod
             fprintf('Error: exfCount went above avg period...\n');
             keyboard
         end
