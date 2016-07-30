@@ -28,7 +28,8 @@ for i = 1:Nadj
     
     while iyr <= Nyrs
         %% Read in this time step and add to control vector
-        exf = read_bin([readDir prefix '_' forceFields{i} '_' years(iyr) '.data'], exfCount);
+        exfFile = sprintf('../../forcing_baseline2/eccov4r2_%s_%d.data',forceFields{i},years(iyr));
+        exf = read_bin(exfFile, exfCount);
         xx_fld(:,:,ctrlCount) = xx_fld(:,:,ctrlCount) + exf;
         
         %% Increment exf counter and check leap year, end of year, end of avgperiod
@@ -58,12 +59,6 @@ for i = 1:Nadj
     
     %% Save averaged forcing field
     ctrlFile = ['xx_' adjFields{i} '.mat'];
-    save(ctrlFile,xx_fld);
+    save(ctrlFile,'xx_fld');
     fprintf('## Saved averaged file for %s ##\n',adjFields{i});
 end
-
-
-exfCount = ctrlStart;
-
-if mod(exfCount,4) ~= exfCount/4
-    
