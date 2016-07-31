@@ -11,6 +11,7 @@ yrs = 1992:2011;
 Nyrs = length(yrs);
 nrecs = 1460*ones(1,Nyrs);
 nrecs(1:4:end) = nrecs(1:4:end)+4;
+nrecs(end)=1459;
 avgPeriod = 2635200/3600/4; % Average period in 6 hr increments (i.e. nrecs per iter)
 nRecsCtrl = 240;
 
@@ -46,8 +47,9 @@ for i = 1:Nadj
             % Hit the end of the year, need to increment year counter
             exfStart = exfCount - exfStart;
             exfCount = 1;
-            iyr = iyr + 1;
+
             fprintf('\t--Done with yr %d--\n',yrs(iyr));
+            iyr = iyr + 1;
         end
     end
     if exfCount-exfStart<avgPeriod
