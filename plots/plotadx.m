@@ -33,8 +33,8 @@ if ~exist([dirs.mat runStr],'dir'), mkdir([dirs.mat runStr]); end
 if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 
 %% Prepare fields
-adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff',...
-            'salt','theta'};
+% Omitting theta and salinity right now
+adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 if ~isempty(strfind(runStr,'366day'))
     caxLim = [13, 13, 13, 17, 18, 18, 9, 9, 4, 4];
 elseif ~isempty(strfind(runStr,'mo'))
@@ -47,6 +47,8 @@ end
 cunits = {sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[kg/kg]'),sprintf('Sv/K'),...
           sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\n[m/s]'),sprintf('Sv/\n[m/s]'),...
           sprintf('Sv/psu'),sprintf('Sv/K')};
+      
+tLims = {[204 240], [204 240], [1 240], [1 240], [1 240], [1 240], [1 240], [1 240]};
 Nadj = length(adjField);
 klev = 5; 
 
@@ -66,7 +68,7 @@ postProcess_adxx(adjField,10^-6, Xinterp, klev, adjDump, runStr, dirs, mygrid);
     
 
 %% Plot and save at various time steps
-for i = 1:Nadj-2
+for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});
     load(adjFile);
     
@@ -101,6 +103,7 @@ for i = 1:Nadj-2
             'clbl',cunits{i},...
             'vidName',sprintf('%s%sadj_%s',dirs.figs,runStr,adjField{i}));
         opts = struct(...
+            'tLims',tLims{i},...
             'logFld',0,...
             'caxLim',caxLim(i),...
             'saveVideo',1,...

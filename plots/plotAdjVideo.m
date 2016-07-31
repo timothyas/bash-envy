@@ -32,12 +32,14 @@ else
 end
 
 if nargin < 3
+    tLims = [1 12];
     logFld = 1;
     caxLim = 0;
     saveVideo = 0; 
     mmapOpt = 5;
     figType = 'wide';
 else
+    tLims = opts.tLims; 
     logFld = opts.logFld;
     caxLim = opts.caxLim;
     saveVideo = opts.saveVideo;
@@ -51,7 +53,7 @@ end
 
 % Prepare ranges for logarithmic plotting
 if logFld
-    [fld] = calcLogField(fld,mygrid);
+    [fld] = calcLogField(fld,caxLim,mygrid);
 end;
     
 % Prep video object
@@ -68,54 +70,29 @@ else
     figureL;
 end
 
-% Prepare ranges
-vv=.25:.25:1;
-colscale = [10^-3*vv 10^-2*vv 10^-1*vv 1*vv];
-ctick = [-colscale(end:-1:1), 0 colscale];
-Ntick = length(ctick); 
-
-if Ntick==33
-    colbarticks = [-1:8/Ntick:-8/Ntick 0 9/Ntick:8/Ntick:1];
-    colbarlbl = [-1 -.1 -.01 -.001 0 .001 .01 .1 1];
-else
-    colbarticks = [-1:8/Ntick:-8/Ntick, 0, 8/Ntick:8/Ntick:1];
-    colbarlbl = [-1, -0.1, -0.01, 0 , 0.01, 0.1, 1];%*10^-caxLim;
-end
-fld=convert2gcmfaces(fld)*10^caxLim;
-binFld = fld;
-for i = 1:Ntick
-    if i == 1
-        bin = fld < ctick(i);
-        binFld(bin) = ctick(i);
-    elseif i == Ntick
-        bin = fld >= ctick(i);
-        binFld(bin) = ctick(i);
-    else
-        bin = fld >= ctick(i-1) & fld < ctick(i);
-        binFld(bin) = (ctick(i-1)+ctick(i))*.5;
-    end
-end
-binFld=convert2gcmfaces(binFld);
-fld=convert2gcmfaces(fld);
+% Bin for nice plots
+[binFld, colbarticks, colbarlbl, Ntick, cmap] = binForPlotting(fld,caxLim,mygrid);
 
 % Do the plotting 
 c=gcf();
-for n=size(fld.f1,3):-1:1
+for n=tLims(2):-1:tLims(1)
     
     figure(c),m_map_atl(binFld(:,:,n),mmapOpt)%,{'myCaxis',myCaxis});
     hc=colorbar;
-%     keyboard
-    set(hc,'ytick',colbarticks,'yticklabel',colbarlbl);
-    caxis([-1 1])
+    set(hc,'ticks',colbarticks,'ticklabels',colbarlbl);
     colormap(redblue(Ntick));
-    xlabel([xlbl sprintf('t-%d %s',size(fld.f1,3)-n,time)])
+    caxis([-1 1])
+    xlabel([xlbl sprintf('t-%d %s',tLims(2)-n,time)])
     ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 .2 0]);
+    keyboard
     if saveVideo 
         currFrame=getframe(c);
         writeVideo(vidObj,currFrame); 
     end
 end
 
-if saveVideo, close(vidObj); end
-close;
+if saveVideo
+    close(vidObj);
+    close;
+end
 end
