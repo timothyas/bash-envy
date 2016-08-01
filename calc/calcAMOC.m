@@ -24,7 +24,7 @@ if nargin<3, establish_mygrid; end
 if ~exist('atlOverturn.mat','file')
     [atlOvStf] = calcAtlOverturn;
 else
-    load('atlOverturn.mat');
+    load('atlOverturn.mat','atlBolusOv','atlOvStf','atlResOv','atlTrVolZon');
 end
 
 %% Grab samoc latitude
@@ -42,6 +42,7 @@ else
 end
 
 %% AMOC is integrated (monthly Eulerian mean) transport at maximized depth
+Nt = size(atlOvStf,3);
 kmax = zeros(1,Nt);
 amoc = zeros(1,Nt);
 depthmax = zeros(1,Nt);
