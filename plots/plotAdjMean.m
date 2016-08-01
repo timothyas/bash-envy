@@ -17,7 +17,7 @@ if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 Nadj = length(adjField);
 
-for i = 1:Nadj
+for i = 5:5
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
     if deseasonFlag
         figFile = sprintf('%s%sadjMean_%s_deseasoned',dirs.figs,runStr,adjField{i});
@@ -65,10 +65,10 @@ for i = 1:Nadj
     if deseasonFlag, adjMeanArc=removeSeasonality(adjMeanArc); end
     
     %% 40N 
-    yCond = mygrid.YC > 40; % & mygrid.YC <= 70;
-%     xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
+    yCond = mygrid.YC > 45 & mygrid.YC <= 70;
+    xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
     atlMsk = v4_basin('atlExt');
-    northMsk = mygrid.mskC(:,:,1).*yCond.*atlMsk;
+    northMsk = mygrid.mskC(:,:,1).*xCond.*yCond.*atlMsk;
     northMsk=northMsk.*(mygrid.mskC(:,:,1) - arcMsk);
     northMsk(isnan(northMsk))=0;
     adxxNorth = adxx.*repmat(northMsk,[1 1 Nt]);    
@@ -118,6 +118,7 @@ for i = 1:Nadj
 
     %% Plot it up 
     figure;
+    if deseasonFlag, Nt=Nt-1; end
     t = 1:Nt;
     plot(t, adjMean,t,adjMeanArc, t, adjMeanNorth, t, adjMeanAtl, ...
          t, adjMeanAcc, t, adjMeanInd, t, adjMeanPac)
