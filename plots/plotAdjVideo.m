@@ -79,12 +79,12 @@ for n=tLims(2):-1:tLims(1)
     
     figure(c),m_map_atl(binFld(:,:,n),mmapOpt)%,{'myCaxis',myCaxis});
     hc=colorbar;
-    set(hc,'ticks',colbarticks,'ticklabels',colbarlbl);
+%     set(hc,'ticks',colbarticks,'ticklabels',colbarlbl);
     colormap(redblue(Ntick));
     caxis([-1 1])
     xlabel([xlbl sprintf('t-%d %s',tLims(2)-n,time)])
     ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 .2 0]);
-    keyboard
+%     keyboard
     if saveVideo 
         currFrame=getframe(c);
         writeVideo(vidObj,currFrame); 

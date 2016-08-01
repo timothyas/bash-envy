@@ -142,12 +142,12 @@ Some interesting finds after computing 20 year adjoint sensitivity fields of AMO
     
     Currently the geostrophic component is not correct, giving an overturning streamfunction profile as shown in Fig. \ref{fig:geoOvStf}
     
-    \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{geoOvStf}
-    \caption{Overturning streamfunction calculated with transport defined in Eqn. \ref{eq:geoTransp}}
-    \label{fig:geoOvStf}
-   \end{figure}
+%    \begin{figure}
+%    \centering
+%    \includegraphics[width=\textwidth]{geoOvStf}
+%    \caption{Overturning streamfunction calculated with transport defined in Eqn. \ref{eq:geoTransp}}
+%    \label{fig:geoOvStf}
+%   \end{figure}
 
    
   \subsection{Linear Sensitivity}
@@ -155,6 +155,50 @@ Some interesting finds after computing 20 year adjoint sensitivity fields of AMO
   
   We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we then compute the sensitivity of the objective function to model inputs. In this case, the inputs consist of external forces: wind stress, heat, and freshwater fluxes. 
   
+
+ \section{Sensitivity Maps}
+
+  Here I want to quickly describe the sensitivity maps of the cost function, $\mathcal{J} = AMOC$, to various forcings $\pderiv{\mathcal{J}}{F}$. 
+
+    \subsection{25N plots}
+    \subsubsection{Zonal Wind Stress}
+    \begin{enumerate}
+	\item T-0 month 
+	 \begin{enumerate}
+	   \item Large negative band around 25N. Increasing zonal winds in this band will produce Ekman transport ``to the right'' (in the Northern Hem.), effectively reducing AMOC. 
+	   \item Signature of Mid-Atlantic ridge visible by negative anomaly in South of 25N and the pocket on the Northern side.
+	   \item Positive anomalies on African (Eastern) coast enter equatorial wave guide, travel rapidly in reverse mode Westward toward SA. Due to rapid equatorial Kelvin waves which connect the two coasts. (going on to T-1 month) it releases the Kelvin dual waves Northward and Southward. As noted in \cite{heimbach_timescales} this is significant because it shows a connection for Western boundary sensitivities which originated on the Eastern boundary near Africa, which traveled rapidly across the equator.
+	   \item \red{Unsure of the lip around Africa.}
+	 \end{enumerate}
+	\item T-2 months
+	 \begin{enumerate}
+	   \item Rossby waves fan out the signal, slanting sensitivities at an angle since waves near the equator travel with a higher phase velocity ($c_p \sim -\beta \sim cos\phi$). 
+	   \item \red{Unsure of why there are alternating bands of sensitivity around the original Ekman band. Curious if this is physical or an artifact of the cost function.} 
+	   \item Negative anomaly forms near SA in wake of positive dual Kelvin signal propagating South and West, \red{unsure of its origin}. But this propagates Westward (in reverse mode) toward the African boundary in a matter of a month, \red{so would this be a barotropic Rossby wave?}  
+	 \end{enumerate}
+    \end{enumerate}
+
+   \subsection{34S Plots}
+   \subsubsection{Zonal Wind Stress}
+	Note how this is essentially the reflection of sensitivity patterns at 25N. 
+    \begin{enumerate}
+	\item The original symmetric band around the cost function latitude is now positive, since an increase in zonal winds will cause net transport ``to the left'' due to the Coriolis effect. 
+	\item The positive anomaly on top of the latitude band (due to baroclinic Rossby waves steering pressure perturbations around the Mid Atlantic Ridge) is of the opposite sign as before. Also, a fainter signal. 
+	\item The Eastern boundary current carries a negative anomaly to the gulf of Guinea, which then travels rapidly along the equatorial wave guide (Kelvin dual waves). the exact opposite sign as in Northern hemisphere.
+	\item In its wake a positive anomaly forms, which travels Westward \red{still unsure of its origin, and why this turns into an oscillating wave structure traveling Westward across the equator}. 
+	\item \red{Baroclinic?} Rossby waves then carry these signals Westward, tilting from SW to NE due to phase speed as mentioned.
+	\item Anomalies which travel Southward die out rapidly, and it seems like they get carried by Rossby waves, into the ACC, and pushed into the rough bathymetry of the Drake Passage. At this point the signal has died out. 
+	\item \red{Fast barotropic waves carry signal rapidly Northward up the Western coast of SA (an Eastern boundary for the Pacific). Why does this signal oscillate up the coast?} 
+    \end{enumerate}
+   \subsubsection{Meridional Wind Stress}
+    \begin{enumerate}
+	\item Can see Mid Atlantic Ridge with + to right, and - to left. 
+	\item \red{Is the dipole on the Western side, just a bit off the coast due to rough topography there? This is at the North of the Argentine Basin where the Rio Grande Rise is located.}
+	\item Also on the Western side is the Wlave ridge surrounding the Cape Basin
+	\item Don't see any other processes communicating these anomalies between coasts other than Rossby waves. 
+	\item \red{baroclinically unstable flanks along subtropical gyres?}
+	\item See damping to viscous dissipation at high latitudes with low rossby wave speeds
+    \end{enumerate} 
 
 \begin{thebibliography}{3}
 
@@ -172,6 +216,9 @@ Some interesting finds after computing 20 year adjoint sensitivity fields of AMO
   
   \bibitem{mcCarthy}
   McCarthy, G. D., et al. ``Measuring the Atlantic meridional overturning circulation at 26 N." Progress in Oceanography 130 (2015): 91-111.
+
+  \bibitem{heimbach_timescales}
+  Heimbach, P., et al. ``Timescales and regions of sensitivity ...''
 
 \end{thebibliography}
 
