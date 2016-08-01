@@ -66,7 +66,7 @@ end
 if ~isempty(strfind(runStr,'five-day')), adjDump=1; else adjDump=0; end
 postProcess_adxx(adjField,10^-6, Xinterp, klev, adjDump, runStr, dirs, mygrid);
     
-
+return 
 %% Plot and save at various time steps
 for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});

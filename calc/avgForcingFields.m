@@ -12,7 +12,7 @@ Nyrs = length(yrs);
 nrecs = 1460*ones(1,Nyrs);
 nrecs(1:4:end) = nrecs(1:4:end)+4;
 nrecs(end)=1459;
-avgPeriod = 2635200/3600/4; % Average period in 6 hr increments (i.e. nrecs per iter)
+avgPeriod = 2635200/3600/6; % Average period in 6 hr increments (i.e. nrecs per iter)
 nRecsCtrl = 240;
 
 for i = 1:Nadj
@@ -36,6 +36,8 @@ for i = 1:Nadj
         if exfCount-exfStart == avgPeriod
             % At end of averaging period, take avg and get next ctrl rec
             xx_fld(:,:,ctrlCount) = xx_fld(:,:,ctrlCount)/avgPeriod;
+	    fprintf('\t-Done with Avg. Pd. %d / %d -\n',ctrlCount,nRecsCtrl);
+	    fprintf('\t ExfStart for next period: %d\n',exfCount);
             ctrlCount = ctrlCount + 1;
             exfStart = exfCount;
         elseif exfCount-exfStart > avgPeriod
@@ -45,7 +47,7 @@ for i = 1:Nadj
         
         if exfCount > nrecs(iyr)
             % Hit the end of the year, need to increment year counter
-            exfStart = exfCount - exfStart;
+            exfStart = exfStart - exfCount;
             exfCount = 1;
 
             fprintf('\t--Done with yr %d--\n',yrs(iyr));
