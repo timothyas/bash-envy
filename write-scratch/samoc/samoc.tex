@@ -156,6 +156,19 @@ Some interesting finds after computing 20 year adjoint sensitivity fields of AMO
   We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we then compute the sensitivity of the objective function to model inputs. In this case, the inputs consist of external forces: wind stress, heat, and freshwater fluxes. 
   
 
+	\subsubsection{Algebra}
+	
+	Defining the cost function $\mathcal{J}$ as monthly mean AMOC. 
+
+	\begin{equation}
+	  \mathcal{J}(t) = \bar{\mathcal{J}}(t) + \mathcal{J}'(t)
+	\end{equation}
+
+	\begin{equation}
+	  \mathcal{J}'_{m,n}(t) = \int\int_{x,y}\int_{1992}^{t}\pderiv{\mathcal{J}_n}{\mathcal{F_n}}(x,y,\tau-t)\mathcal{F}_n'(x,y,\tau)\,dxdyd\tau \forall m \in [Jan, Feb,...], n \in [atemp, precip,...]
+	\end{equation}
+
+
  \section{Sensitivity Maps}
 
   Here I want to quickly describe the sensitivity maps of the cost function, $\mathcal{J} = AMOC$, to various forcings $\pderiv{\mathcal{J}}{F}$. 
@@ -199,6 +212,17 @@ Some interesting finds after computing 20 year adjoint sensitivity fields of AMO
 	\item \red{baroclinically unstable flanks along subtropical gyres?}
 	\item See damping to viscous dissipation at high latitudes with low rossby wave speeds
     \end{enumerate} 
+
+
+ \section{Sensitivity means}
+
+   \begin{figure}
+    \centering
+    \includegraphics[width=.6\textwidth]{dec.240mo/adjMean_atemp}
+    \caption{Mean sensitivity at 34S to atemp, december mean}
+    \label{fig:decatemp}
+   \end{figure}
+
 
 \begin{thebibliography}{3}
 

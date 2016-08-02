@@ -17,7 +17,7 @@ for i = 1:length(seasonalFreq)
     F(ind)=0;
 end
 
-plot(freq,abs(F),freq,abs(F0));
+% plot(freq,abs(F),freq,abs(F0));
 % keyboard
 
 deSeasonedData=(ifft(F,Nt,1)); %,'symmetric'));

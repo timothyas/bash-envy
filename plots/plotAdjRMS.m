@@ -59,10 +59,10 @@ for i = 1:Nadj
 	if deseasonFlag, adjRMSArc=removeSeasonality(adjRMSArc); end
     
     %% 40N 
-    yCond = mygrid.YC > 40; % & mygrid.YC <= 70;
-%     xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
+    yCond = mygrid.YC > 45 & mygrid.YC <= 70;
+    xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
     atlMsk = v4_basin('atlExt');
-    northMsk = mygrid.mskC(:,:,1).*yCond.*atlMsk;
+    northMsk = mygrid.mskC(:,:,1).*xCond.*yCond.*atlMsk;
     northMsk=northMsk.*(mygrid.mskC(:,:,1) - arcMsk);
     northMsk(isnan(northMsk))=0;
     adxxNorth = adxx.*repmat(northMsk,[1 1 Nt]);    
@@ -107,7 +107,7 @@ for i = 1:Nadj
     t = 1:Nt;
     semilogy(t, adjRMS,t,adjRMSArc, t, adjRMSNorth, t, adjRMSAtl, ...
          t, adjRMSAcc, t, adjRMSInd, t, adjRMSPac)
-    legend('Full RMS','Arctic','Atlantic >40N','Atlantic 60S-40N','<60S',...
+    legend('Full RMS','Arctic','North Box','Atlantic 60S-40N','<60S',...
         'Indian >60S','Pacific >60S','location','best')
     xlabel('Months')
     ylabel('RMS( dJ/du )')
@@ -115,7 +115,7 @@ for i = 1:Nadj
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-    keyboard
+%     keyboard
     saveas(gcf,figFile,'pdf');
     close;
 end
