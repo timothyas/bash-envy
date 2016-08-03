@@ -17,7 +17,7 @@ if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 Nadj = length(adjField);
 
-for i = 5:5
+for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
     if deseasonFlag
         figFile = sprintf('%s%sadjMean_%s_deseasoned',dirs.figs,runStr,adjField{i});
@@ -26,6 +26,8 @@ for i = 5:5
     end
     load(adjFile);
     Nt = size(adxx.f1,3);
+    adxx = adxx(:,:,1:Nt-1);
+    Nt = Nt-1;
 
     
     % Compute spatial RMS of sensitivity
@@ -65,10 +67,10 @@ for i = 5:5
     if deseasonFlag, adjMeanArc=removeSeasonality(adjMeanArc); end
     
     %% 40N 
-    yCond = mygrid.YC > 45 & mygrid.YC <= 70;
-    xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
+    yCond = mygrid.YC > 45 & mygrid.YC <= 80;
+%     xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
     atlMsk = v4_basin('atlExt');
-    northMsk = mygrid.mskC(:,:,1).*xCond.*yCond.*atlMsk;
+    northMsk = mygrid.mskC(:,:,1).*yCond.*atlMsk;
     northMsk=northMsk.*(mygrid.mskC(:,:,1) - arcMsk);
     northMsk(isnan(northMsk))=0;
     adxxNorth = adxx.*repmat(northMsk,[1 1 Nt]);    
@@ -118,19 +120,22 @@ for i = 5:5
 
     %% Plot it up 
     figure;
-    if deseasonFlag, Nt=Nt-1; end
+%     if deseasonFlag, Nt=Nt-1; end
     t = 1:Nt;
     plot(t, adjMean,t,adjMeanArc, t, adjMeanNorth, t, adjMeanAtl, ...
          t, adjMeanAcc, t, adjMeanInd, t, adjMeanPac)
-    legend('Full RMS','Arctic','Atlantic >40N','Atlantic 60S-40N','<60S',...
+    legend('Full Mean','Arctic','North Box','Atlantic 60S-45N','<60S',...
         'Indian >60S','Pacific >60S','location','best')
     xlabel('Months')
-    ylabel('Spatial Mean ( dJ/du )')
+    if strcmp(adjField{i},'tauu') || strcmp(adjField{i},'tauv')
+        xlim([Nt-36 Nt])
+    end
+    ylabel('Spatial Mean ( dJ/du(t) )')
     title(sprintf('Mean of %s sens.',adjField{i}))
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-    keyboard
+%     keyboard
     saveas(gcf,figFile,'pdf');
     close;
 end

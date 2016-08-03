@@ -16,3 +16,4 @@ syntax: glob
 *.png
 *.data
 *.out
+*.jpeg
