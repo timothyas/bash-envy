@@ -24,23 +24,23 @@ else
     colbarlbl = round(colbarticks*100)/100;
 %     colbarlbl = [-1, -0.1, -0.01, 0 , 0.01, 0.1, 1];%*10^-caxLim;
 end
-fld=convert2gcmfaces(fld.*mygrid.mskC(:,:,1))*10^caxLim;
+fld=convert2gcmfaces(fld.*repmat(mygrid.mskC(:,:,1),[1 1 size(fld.f1,3)]))*10^caxLim;
 binFld = fld;
-for i = 1:Ntick+1
-    if i == 1
-        bin = fld < ctick(i);
-        binFld(bin) = ctick(i);
-    elseif i == Ntick+1
-        bin = fld >= ctick(i-1);
-        binFld(bin) = ctick(i-1);
-%     elseif i==12
+% for i = 1:Ntick+1
+%     if i == 1
+%         bin = fld < ctick(i);
+%         binFld(bin) = ctick(i);
+%     elseif i == Ntick+1
+%         bin = fld >= ctick(i-1);
+%         binFld(bin) = ctick(i-1);
+% %     elseif i==12
+% %         bin = fld >= ctick(i-1) & fld < ctick(i);
+% %         binFld(bin) = (ctick(i-1)+ctick(i))*.5;
+%     else
 %         bin = fld >= ctick(i-1) & fld < ctick(i);
 %         binFld(bin) = (ctick(i-1)+ctick(i))*.5;
-    else
-        bin = fld >= ctick(i-1) & fld < ctick(i);
-        binFld(bin) = (ctick(i-1)+ctick(i))*.5;
-    end
-end
+%     end
+% end
 binFld=convert2gcmfaces(binFld);
 % fld=convert2gcmfaces(fld);
 end
