@@ -1,4 +1,4 @@
-function [] = plotAdjRMS(runStr,dirs,mygrid,deseasonFlag)
+function [] = plotAdjRMS(runStr,dirs,mygrid,deseasonFlag,saveFig)
 % Plot RMS of adjoint sensitivity across globe
 % 
 %   Inputs: 
@@ -10,6 +10,8 @@ function [] = plotAdjRMS(runStr,dirs,mygrid,deseasonFlag)
 
 if nargin<2, dirs=establish_samocDirs; end
 if nargin<3, establish_mygrid; end
+if nargin<4, deseasonFlag = 0; end
+if nargin<5, saveFig = 0; end
 if ~exist([dirs.mat runStr],'dir'), mkdir([dirs.mat runStr]); end
 if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 
@@ -115,7 +117,7 @@ for i = 1:Nadj
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-%     keyboard
-    saveas(gcf,figFile,'pdf');
+    keyboard
+    if saveFig, saveas(gcf,figFile,'pdf'); end;
     close;
 end
