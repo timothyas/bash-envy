@@ -22,13 +22,25 @@ g = Expression("sin(5*x[0])", degree=2)
 a = inner(grad(u), grad(v))*dx
 L = f*v*dx + g*v*ds
 
+
 # Compute solution
 u = Function(V)
 solve(a == L, u, bc)
 
+# Compute adjoint solution
+#ptrial = TrialFunction(V)
+#ptest = TestFunction(V)
+#a_p = inner(grad(ptrial),grad(ptest))
+#Lv = g*ptest*ds
+#ptrial = Function(V)
+#solve(a_p == Lv, ptrial, bc)
+
 # Save solution in VTK format
-file = File("poisson.pvd")
-file << u
+#file = File("poisson.pvd")
+#file << u
 
 # Plot solution
-plot(u, interactive=True)
+plot(u) #, interactive=True)
+
+# Plot adjoint solution
+#plot(ptrial)
