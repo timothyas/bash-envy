@@ -17,3 +17,5 @@ syntax: glob
 *.data
 *.out
 *.jpeg
+*.asc
+*.txt
