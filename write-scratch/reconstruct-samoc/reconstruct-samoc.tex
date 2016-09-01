@@ -33,12 +33,13 @@
 	  \mathcal{J}_i(t) = \bar{\mathcal{J}_i}(t) + \mathcal{J}_i'(t) \qquad i \in [1, 2, ... 12]
 	\end{equation}
 
-  Here the subscript $i$ denotes the month in which the cost function is evaluated (January, February, etc). We hypothesize that the monthly anomaly in AMOC, $\mathcal{J}_i'(t)$, is linearly dependent on external forcing. Thus, the AMOC anomaly for a given month, $i$, can be reconstructed offline via the convolution integral:
+  Here the subscript $i$ denotes the month in which the cost function is evaluated (January, February, etc). We hypothesize that the monthly anomaly in AMOC, $\mathcal{J}_i'(t)$, is linearly dependent on external forcing such that the AMOC anomaly for a given month, $i$, can be reconstructed offline via the convolution integral:
  
 	\begin{equation}
 	  \mathcal{J}_i'(t) = \int_{1992}^{t}\int_x \int_y\pderiv{\mathcal{J}_i}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\, dxdyd\tau  
 	\end{equation}
 
+  
    
   
   
