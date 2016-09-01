@@ -1,0 +1,46 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry,amsmath,color,graphicx}
+\geometry{margin=1in}
+
+
+%opening
+\title{\vspace{-10ex}Offline SAMOC Reconstruction}
+\author{Tim Smith}
+\date{\vspace{-3ex}}
+
+%% --- New commands
+\newcommand{\pderiv}[3][]{% \pderiv[<order>]{<func>}{<var>} 
+  \ensuremath{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}}
+  
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\degSym}{$^{\circ}$}
+
+%% --- Figures
+\graphicspath{ {../../samoc/figures/} }
+\DeclareGraphicsExtensions{.png,.pdf}
+
+\begin{document}
+
+\maketitle
+  \section{Linear Sensitivity}
+  \label{linearSensitivity}
+  
+  We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we compute the sensitivity of the objective function to external forcing: $\pderiv{\mathcal{J}}{\mathcal{F}}$. In this case, $\mathcal{F}$ consists of the near surface air temperature, humidity, wind stress, precipitation, and radiative forcing.  
+	
+  We take the objective function to be split into its 20 year mean and monthly anomaly components: 
+	\begin{equation}
+	  \mathcal{J}_i(t) = \bar{\mathcal{J}_i}(t) + \mathcal{J}_i'(t) \qquad i \in [1, 2, ... 12]
+	\end{equation}
+
+  Here the subscript $i$ denotes the month in which the cost function is evaluated (January, February, etc). We hypothesize that the monthly anomaly in AMOC, $\mathcal{J}_i'(t)$, is linearly dependent on external forcing. Thus, the AMOC anomaly for a given month, $i$, can be reconstructed offline via the convolution integral:
+ 
+	\begin{equation}
+	  \mathcal{J}_i'(t) = \int_{1992}^{t}\int_x \int_y\pderiv{\mathcal{J}_i}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\, dxdyd\tau  
+	\end{equation}
+
+   
+  
+  
+
+\end{document} 
