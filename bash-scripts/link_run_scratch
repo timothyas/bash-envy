@@ -1,0 +1,114 @@
+#!/bin/bash
+
+## Set up suffix for adjoint run: "_ad"
+#  or leave as "" for forward run
+suff="_ad"
+dir_suff=".june.240mo"
+
+## Set up directories
+root_dir=$HOME/MITgcm
+ver_dir=$WORK/../verification/global_oce_llc90
+
+exp_dir=$PWD
+build_dir=$exp_dir/build$suff
+code_dir=$exp_dir/code$suff
+
+run_dir=$SCRATCH/samoc/run$suff$dir_suff
+wk_dir=$exp_dir/run$suff$dir_suff
+input_dir=$exp_dir/input$suff$dir_suff
+ctrl_dir=$exp_dir/control-vectors
+masks_dir=$input_dir/masks
+
+submit_script=$exp_dir/submit_samoc_scratch
+data_dir=$WORK/../ecco-data
+input_data_dir=$data_dir/inputs_baseline2/input_insitu
+forcing_dir=$data_dir/forcing_baseline2
+
+## Make corresponding directory in WORK
+if [ ! -d $wk_dir ] ; then
+	echo "Making workrun dir: "$wk_dir" ..."
+	mkdir $wk_dir
+fi
+
+
+## Make work directory in SCRATCH
+if [ ! -d $run_dir ] ; then
+	echo "Making "$run_dir" ..."
+        mkdir $run_dir
+fi       
+
+cd $run_dir
+if [ ! -d "diags" ] ; then
+mkdir diags
+mkdir tapes
+fi
+
+## Link ALL of the files
+echo "Grabbing necessary files ..."
+
+# Submission script
+cp $submit_script .
+
+# Executable
+ln -sf $build_dir/mitgcmuv$suff .
+
+# Initial conditions (pickups), control vector (xx_*), grid, etc
+# Using packaged, dimensional results
+ln -sf $ver_dir/input_fields/* .
+  rm -f *.gz
+
+# Copy additional control vectors for this experiment, if dir exists
+if [ -d $ctrl_dir ] ; then 
+  ln -sf $ctrl_dir/* .
+else
+  echo "No additional control vectors ... "
+fi
+
+
+# Copy masks for this particular setup.
+#  dir should be inside inputs
+if [ -d $masks_dir ] ; then
+  ln -sf $masks_dir/* .
+else
+  echo "No masks found in $masks_dir ... "
+fi
+
+# Namelists
+ln -sf $input_dir/* .
+
+# insitu data sets
+ln -sf $input_data_dir/* .
+
+# 6 Hour forcing files
+ln -sf $forcing_dir .
+
+echo "Ready to execute ..."
+
+echo ""
+echo "*** Pro tips: "
+echo "      - Check data.pkg: useAUTODIFF = .true.? usePROFILES = .false.? "
+echo ""
+echo "      - Check data: "
+echo "           nTimeSteps correct? tapes directory uncommented? adjDump = false?"
+echo ""
+echo "      - Check data.ctrl ... mult = 0 for non-optimize run? "
+echo "           have the necessary xx_<parameter> files?"
+echo ""
+echo "      - Check data.diagnostics: have the filenames set with diags/ prefix? "
+echo ""
+echo "      - Check data.exf: directory set for correct forcing files? period correct?"
+echo "" 
+echo "      - Check data.ecco: ... just make sure it looks good"
+echo ""
+echo "      - Check to make sure any masks are set properly ... "
+echo ""
+echo "      - Check submit file for .."
+echo "           Correct queue? "
+echo "           forward run: <exec> mitgcmuv "
+echo "           adjoint: <exec> mitgcmuv_ad "
+echo "           walltime correct? " 
+echo "		 DIFFERENT FOR SCRATCH: change workrun directory in submit file "
+echo ""
+echo "Assuming this is done, ready for launch ... "
+echo ""
+echo ""
