@@ -23,7 +23,7 @@
 \begin{document}
 
 \maketitle
-  \section{Linear Sensitivity}
+  \section{Variability reconstruction}
   \label{linearSensitivity}
   
   We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we compute the sensitivity of the objective function to external forcing: $\pderiv{\mathcal{J}}{\mathcal{F}}$. In this case, $\mathcal{F}$ consists of the near surface air temperature, humidity, wind stress, precipitation, and radiative forcing.  
@@ -40,7 +40,29 @@
 	\end{equation}
 
   
+  \subsection{Sensitivity details}
+  
+  Discussing this in terms of an example. Consider a 6 month run, monthly mean values of $\pderiv{\mathcal{J}}{\mathcal{F}}$ are computed via the control package. This results in a file with 7 records, corresponding to the points in the forward model where the control fields are read in (see fig. \ref{fig:timeline}). At a given point in time during the forward mode, the field \textit{genfld} gets modified by its two neighboring controls, \textit{xxgen0,xxgen1} via linear interpolation:
+
+	\begin{equation}
+	  genfld(x,y,z,t) = \alpha xxgen0 + (1-\alpha) xxgen1
+	\end{equation}
+
+  where $\alpha=1$ at the start of the month, 0 at the end. This is performed in the subroutine \textit{ctrl\_get\_gen}.
+
+  In the reverse mode, the adjoint sensitivity at a given point in time is given by \textit{genfld\_ad}. The monthly mean sensitivities are written to disk as active variables \textit{xxgen0\_ad,xxgen1\_ad}, computed the reverse of the above equation: 
+
+	\begin{equation}
+	  xxgen0\_ad = \alpha genfld\_ad(x,y,z,t)
+	\end{equation}
+	\begin{equation}
+	  xxgen1\_ad = (1-\alpha) genfld\_ad(x,y,z,t) 
+	\end{equation}
+
    
+  This is performed in \textit{ctrl\_get\_gen\_ad}, where \textit{adactive\_file\_read} in reverse mode writes the active variable to disk. \red{My question is: running the code in reverse mode shows that ``adxx'' files are written to when $\alpha = 1$, but the variable that is written to disk is \textit{xxgen1\_ad}. Why is this the case? Wouldn't this result in a file full of zeros?}
+
+  \red{Also, 
   
   
 
