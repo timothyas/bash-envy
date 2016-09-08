@@ -82,40 +82,7 @@
 
 	The ``tacc\_affinity'' specification in the executable line is important. This essentially optimizes the requested node/core architecture requested to minimize communication time. It really helps make things run fast ...
 
-	\subsection{Compiling the adjoint} 
-	Building the executable \textit{mitgcmuv} is business as usual for a forward run. For an adjoint run, some extra steps are necessary because TAF uses a DSA security key, which has been deprecated as of OpenSSH 7.0 (Lonestar uses 7.1). On top of this, Lonestar does not allow key based authentication. Here is a step by step guide for how to navigate around this, including how to set up to use TAF in the first place (I'm assuming the \textit{staf} executable is already on the machine). 
 
-
-	\begin{enumerate}
-	  \item Place the TAF executable \textit{staf} in \$HOME/bin/ where \$HOME is the directory ~, and add this to your path as follows (assuming a bash terminal): 
-
-	  \begin{lstlisting}[language=bash]
-		$ cd $HOME
-		$ mkdir bin
-		$ mv /path/to/staf bin/
-	 	$ PATH=$PATH:$HOME/bin
-	  \end{lstlisting}
-
-	It is a really good idea to put this last line in your \$HOME/.bashrc (or cshrc, etc) so that every shell you open up looks in this directory for the executable staf. Click \href{http://users.ices.utexas.edu/~tsmith/bash-scripts/bashrc_tsmith_lonestar}{here} for an example bashrc on Lonestar.
-
-	\item Add the taf key given by FastOpt to your .ssh folder (mv /path/to/taf ~/.ssh/ )
-	\item \red{This is the important part} For compiling this taf key must be in your .ssh folder for communication with FastOpt. However, TACC will not allow you to run jobs with it there. My solution is to just have 2 .ssh folders and rename each of them before compiling, and then before submitting jobs. Note that if you rename your .ssh folder something else, logging out and back in to Lonestar will auto-generate a new (and acceptable) .ssh directory. The steps for compiling and running are as follows:  
-
-	  \begin{lstlisting}[language=bash]
-		$ mv .ssh .ssh-taf
-		$ exit (log out of Lonestar) 
-		$ ... log back into Lonestar, notice the new .ssh directory
-		$ mv .ssh .ssh-tacc (or .ssh-submit, or anything else) 
-		$ mv .ssh-taf .ssh
-		$ (build mitgcmuv_ad) 
-		$ mv .ssh .ssh-taf 
-		$ mv .ssh-tacc .ssh
-		$ (submit job with no troubles) 
-
-	  \end{lstlisting} 
-
-	\end{enumerate}
-	
 
 \section{Stampede}
 
@@ -155,4 +122,46 @@
 
 	The various job queues along with more sample submission scripts are located \href{https://portal.tacc.utexas.edu/user-guides/stampede#running}{here}.  
 
+	\section{Compiling the adjoint} 
+	Building the executable \textit{mitgcmuv} is business as usual for a forward run. For an adjoint run, some extra steps are necessary because TAF uses a DSA security key, which has been deprecated as of OpenSSH 7.0 (Lonestar and Stampede use 7.1). On top of this, Lonestar does not allow keys in your $\sim$/.ssh directory. Here is a step by step guide for how to navigate around this, including how to set up to use TAF in the first place (I'm assuming the \textit{staf} executable is already on the machine). 
+
+	If you are familiar with getting TAF running on servers, the last two items in the following list are the unique steps for getting this to work on Lonestar and Stampede.
+
+	\begin{enumerate}
+	  \item Place the TAF executable \textit{staf} in \$HOME/bin/ where \$HOME is the directory $\sim$, and add this to your path as follows (assuming a bash terminal): 
+
+	  \begin{lstlisting}[language=bash]
+		$ cd $HOME
+		$ mkdir bin
+		$ mv /path/to/staf bin/
+	 	$ PATH=$PATH:$HOME/bin
+	  \end{lstlisting}
+
+	It is a really good idea to put this last line in your \$HOME/.bashrc (or cshrc, etc) so that every shell you open up looks in this directory for the executable staf. Click \href{http://users.ices.utexas.edu/~tsmith/bash-scripts/bashrc_tsmith_lonestar}{here} for an example bashrc on Lonestar.
+
+	\item Add the taf key given by FastOpt to your .ssh folder (mv /path/to/taf $\sim$/.ssh/ )
+
+	\item Add a file called \textit{config} to your $\sim$/.ssh/ directory with the line:
+
+	PubkeyAcceptedKeyTypes=+ssh-dss
+
+	this is a work around for OpenSSH $>$7.0 to accept DSA keys.
+	
+	\item This step is unique to Lonestar. However, I can foresee it being necessary on Stampede as well in the near future. For compiling this taf key must be in your .ssh folder for communication with FastOpt. However, TACC will not allow you to run jobs with it there. My solution is to just have 2 .ssh folders and rename each of them before compiling, and then before submitting jobs. Note that if you rename your .ssh folder something else, logging out and back in to Lonestar will auto-generate a new (and acceptable) .ssh directory. The steps for compiling and running are as follows:  
+
+	  \begin{lstlisting}[language=bash]
+		$ mv .ssh .ssh-taf
+		$ exit (log out of Lonestar) 
+		$ ... log back into Lonestar, notice the new .ssh directory
+		$ mv .ssh .ssh-tacc (or .ssh-submit, or anything else) 
+		$ mv .ssh-taf .ssh
+		$ (build mitgcmuv_ad) 
+		$ mv .ssh .ssh-taf 
+		$ mv .ssh-tacc .ssh
+		$ (submit job with no troubles) 
+
+	  \end{lstlisting} 
+
+	\end{enumerate}
+	
 \end{document}

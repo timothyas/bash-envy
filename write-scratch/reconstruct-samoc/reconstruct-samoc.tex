@@ -1,6 +1,7 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{geometry,amsmath,color,graphicx}
+\usepackage{listings,algorithmic,algorithm}
 \geometry{margin=1in}
 
 
@@ -37,6 +38,7 @@
  
 	\begin{equation}
 	  \mathcal{J}_i'(t) = \int_{1992}^{t}\int_x \int_y\pderiv{\mathcal{J}_i}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\, dxdyd\tau  
+	  \label{eq:reconstruct}
 	\end{equation}
 
   
@@ -62,8 +64,37 @@
    
   This is performed in \textit{ctrl\_get\_gen\_ad}, where \textit{adactive\_file\_read} in reverse mode writes the active variable to disk. \red{My question is: running the code in reverse mode shows that ``adxx'' files are written to when $\alpha = 1$, but the variable that is written to disk is \textit{xxgen1\_ad}. Why is this the case? Wouldn't this result in a file full of zeros?}
 
-  \red{Also, 
-  
-  
+  \red{Also, it's still unclear how the sensitivities get averaged into these particular records}
+
+ \subsection{Integral details} 
+
+  I perform the integral in Eqn. \ref{eq:reconstruct} as follows:
+
+ \begin{algorithm}
+ \begin{algorithmic}
+  \FOR{$k = 1 \rightarrow N_{\mathcal{F}}$}
+    \STATE
+    \FOR{$m = 1 \rightarrow 12$}
+	\STATE
+	\begin{enumerate}
+	  \item $\pderiv{\mathcal{J}}{\mathcal{F}}_{k,m}(x,y,t) = read\_bin(adxx...)$
+	  \item $\mathcal{F}_{k}(x,y,t) = read\_bin(exf...)$
+	  \item $\,\, if \mathcal{F}_k(x,y,t) \rightarrow tau_{x,y}, flip sign $
+	  \item $\mathcal{F}'_{k}(x,y,t) = \mathcal{F}_k - mean( \mathcal{F}_k ) $
+	\end{enumerate}
+	\STATE
+	  \FOR{$t = m \rightarrow 12 \rightarrow 240$}  
+		\STATE
+		\STATE $ tmp(x,y,t) = \pderiv{\mathcal{J}}{\mathcal{F}}_{k,m}(x,y,t)*\mathcal{F}'_{k}(x,y,t)$ 
+		\STATE at each x,y,t over t-240 $\rightarrow$ t in exf field, where exf isn't defined, NaN's are in place
+		\STATE
+		\STATE $\mathcal{J}'(t)_k = \sum_t\sum_{x,y} tmp(x,y,t)$
+		\STATE
+	  \ENDFOR
+    \ENDFOR
+    \STATE $\mathcal{J}'(t) = \sum_k \mathcal{J}'(t)_k$
+  \ENDFOR
+ \end{algorithmic}
+ \end{algorithm} 
 
 \end{document} 
