@@ -657,17 +657,6 @@ cts adding stuff for sensitivities for evap etc.
            if (xx_gentim2d_file(iarr)(1:9).EQ.'xx_lwflux')
      &       lwflux(i,j,bi,bj)=lwflux(i,j,bi,bj)+
      &                         xx_gentim2d(i,j,bi,bj,iarr)
-#if (defined (CALC_HFLUX_SENS) && defined (ATM_TEMP))
-           if (xx_gentim2d_file(iarr)(1:8).EQ.'xx_hflux')
-     &       hflux(i,j,bi,bj)=hflux(i,j,bi,bj)+
-     &                         xx_gentim2d(i,j,bi,bj,iarr)
-#endif
-#if (defined (CALC_SFLUX_SENS) && defined (ATM_TEMP))
-           if (xx_gentim2d_file(iarr)(1:8).EQ.'xx_sflux')
-     &       sflux(i,j,bi,bj)=sflux(i,j,bi,bj)+
-     &                         xx_gentim2d(i,j,bi,bj,iarr)
-#endif
-
 cts
 c -------------------------------------------------------
            enddo
