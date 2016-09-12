@@ -37,7 +37,7 @@ if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 if ~isempty(strfind(runStr,'366day'))
     caxLim = [13, 13, 13, 17, 18, 18, 9, 9, 4, 4];
-elseif ~isempty(strfind(runStr,'mo'))
+elseif ~isempty(strfind(runStr,'mo')) 
 %     caxLim = [12, 12, 12, 16, 17, 17, 7, 7, 4, 4];
     caxLim = [2, 2, 2, 6, 7, 7, -2, -2, 4, 4];
 elseif ~isempty(strfind(runStr,'five-day'))
@@ -65,7 +65,7 @@ end
     
 if ~isempty(strfind(runStr,'five-day')), adjDump=1; else adjDump=0; end
 postProcess_adxx(adjField,10^-6, Xinterp, klev, adjDump, runStr, dirs, mygrid);
-return;
+
 %% Plot and save at various time steps
 for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});
@@ -93,6 +93,7 @@ for i = 1:Nadj
             adxx = gcmfaces_interp_1d(3,[.5:365.5]/366,adxx,[.5:51.5]/52);
         end
         if ~isempty(strfind(runStr,'mo')), tt='months';
+        elseif ~isempty(strfind(runStr,'flux')), tt='months';
         elseif ~isempty(strfind(runStr,'366day')),tt='days';
         elseif ~isempty(strfind(runStr,'five-day')),tt='hrs';
         end
