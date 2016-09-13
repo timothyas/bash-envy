@@ -33,11 +33,12 @@ Nadj = length(adjField);
 for i = 1:Nadj
     %% First check if it exists
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});
+    resultFile = sprintf('%sadxx_%s.0000000012.data',adjLoadDir,adjField{i});
     
-    if ~exist(adjFile,'file')
+    if ~exist(adjFile,'file') && exist(resultFile,'file')
         %% Load from file
         if ~adjDump
-            adxx = read_bin([adjLoadDir 'adxx_' adjField{i} '.0000000012.data']);
+            adxx = read_bin(resultFile);
         else
             if strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
                 adxx = rdmds2gcmfaces([adjLoadDir 'ADJustress'],NaN);
