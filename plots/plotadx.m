@@ -28,9 +28,7 @@ if nargin<3
     establish_mygrid;
 end
 
-%% Preliminaries
-if ~exist([dirs.mat runStr],'dir'), mkdir([dirs.mat runStr]); end
-if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
+
 
 %% Prepare fields
 % Omitting theta and salinity right now

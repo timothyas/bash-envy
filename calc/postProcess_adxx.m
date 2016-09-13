@@ -23,6 +23,10 @@ function[] = postProcess_adxx(adjField, nFact, X, klev, adjDump, runStr, dirs, m
 %       adxx : the field as gcmfaces object after post processing
 % -------------------------------------------------------------------------
 
+%% Preliminaries
+if ~exist([dirs.mat runStr],'dir'), mkdir([dirs.mat runStr]); end
+if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
+
 adjLoadDir = [dirs.results runStr];
 Nadj = length(adjField);
 
