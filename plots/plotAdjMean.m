@@ -31,7 +31,7 @@ for i = 1:Nadj
     adxx = adxx(:,:,1:Nt-1);
     Nt = Nt-1;
     
-    if strcmp(adjField{i},'hflux')
+    if strcmp(adjField{i},'hflux') || strcmp(adjField{i},'sflux')
         adxx=-adxx;
     end
 

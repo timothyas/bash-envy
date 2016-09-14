@@ -34,19 +34,19 @@ end
 % Omitting theta and salinity right now
 adjField = {'hflux','sflux','tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 if ~isempty(strfind(runStr,'366day'))
-    caxLim = [13, 13, 13, 17, 18, 18, 9, 9, 4, 4];
+    caxLim = [7,-2,13, 13, 13, 17, 18, 18, 9, 9, 4, 4];
 elseif ~isempty(strfind(runStr,'mo')) 
 %     caxLim = [12, 12, 12, 16, 17, 17, 7, 7, 4, 4];
-    caxLim = [2, 2, 2, 6, 7, 7, -2, -2, 4, 4];
+    caxLim = [7, -2, 2, 2, 2, 6, 7, 7, -2, -2, 4, 4];
 elseif ~isempty(strfind(runStr,'five-day'))
-    caxLim = [13, 13, 13, 17, 18, 18, 8, 8, 14, 14];
+    caxLim = [7,-2, 13, 13, 13, 17, 18, 18, 8, 8, 14, 14];
 end
 
-cunits = {sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[kg/kg]'),sprintf('Sv/K'),...
+cunits = {sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\nm/s'),sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[kg/kg]'),sprintf('Sv/K'),...
           sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\n[m/s]'),sprintf('Sv/\n[m/s]'),...
           sprintf('Sv/psu'),sprintf('Sv/K')};
       
-tLims = {[204 240], [204 240], [1 240], [1 240], [1 240], [1 240], [1 240], [1 240]};
+tLims = {[2 241] [2 241] [204 240], [204 240], [2 241], [2 241], [2 241], [2 241], [2 241], [2 241]};
 Nadj = length(adjField);
 klev = 5; 
 
@@ -69,6 +69,9 @@ for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});
     if exist(adjFile,'file')
     load(adjFile);
+    if strcmp(adjField{i},'hflux') || strcmp(adjField{i},'sflux')
+        adxx=-adxx;
+    end
     
     if ~adjDump && (strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta'))
         %% Figure of field at klev for 3d constant fields
@@ -112,7 +115,7 @@ for i = 1:Nadj
             plotAdjVideo(adxx,strs,opts,mygrid);
     end
     else
-        fprintf('* Skipping %s file ... \n')
+        fprintf('* Skipping %s file ... \n',adjField{i})
     end
 end
 end
