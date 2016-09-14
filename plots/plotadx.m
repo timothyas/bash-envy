@@ -32,7 +32,7 @@ end
 
 %% Prepare fields
 % Omitting theta and salinity right now
-adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
+adjField = {'hflux','sflux','tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
 if ~isempty(strfind(runStr,'366day'))
     caxLim = [13, 13, 13, 17, 18, 18, 9, 9, 4, 4];
 elseif ~isempty(strfind(runStr,'mo')) 
@@ -67,6 +67,7 @@ postProcess_adxx(adjField,10^-6, Xinterp, klev, adjDump, runStr, dirs, mygrid);
 %% Plot and save at various time steps
 for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});
+    if exist(adjFile,'file')
     load(adjFile);
     
     if ~adjDump && (strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta'))
@@ -109,6 +110,9 @@ for i = 1:Nadj
             'figType','wide');
 
             plotAdjVideo(adxx,strs,opts,mygrid);
+    end
+    else
+        fprintf('* Skipping %s file ... \n')
     end
 end
 end

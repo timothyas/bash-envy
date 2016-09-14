@@ -15,11 +15,12 @@ if nargin<5, saveFig = 0; end
 if ~exist([dirs.mat runStr],'dir'), mkdir([dirs.mat runStr]); end
 if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 
-adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
+adjField = {'tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff','hflux','sflux'};
 Nadj = length(adjField);
 
 for i = 1:Nadj
     adjFile = sprintf('%s%sadj_%s.mat',dirs.mat,runStr,adjField{i});	
+    if exist(adjFile,'file')
     if deseasonFlag
         figFile = sprintf('%s%sadjRMS_%s_deseasoned',dirs.figs,runStr,adjField{i});
     else
@@ -117,7 +118,8 @@ for i = 1:Nadj
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-    keyboard
+    
     if saveFig, saveas(gcf,figFile,'pdf'); end;
     close;
+    end
 end
