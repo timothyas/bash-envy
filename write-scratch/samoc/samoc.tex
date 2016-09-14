@@ -172,23 +172,7 @@ Here are some main points from \cite{lozier}
 %   \end{figure}
 
    
-  \subsection{Linear Sensitivity}
-  \label{linearSensitivity}
-  
-  We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we then compute the sensitivity of the objective function to model inputs. In this case, the inputs consist of external forces: wind stress, heat, and freshwater fluxes. 
-  
 
-	\subsubsection{Algebra}
-	
-	Defining the cost function $\mathcal{J}$ as monthly mean AMOC. 
-
-	\begin{equation}
-	  \mathcal{J}(t) = \bar{\mathcal{J}}(t) + \mathcal{J}'(t)
-	\end{equation}
-
-	\begin{equation}
-	  \mathcal{J}'(t) = \int\int_{x,y}\int_{1992}^{t}\pderiv{\mathcal{J}}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\,d\tau dxdy
-	\end{equation}
 
 
  \section{Sensitivity Maps}
@@ -254,10 +238,62 @@ Here are some main points from \cite{lozier}
 
    \begin{figure}
     \centering
+    \includegraphics[width=\textwidth]{nov.240mo/adjRMS_hflux}
+    \caption{RMS of sensitivity at 34S to net heat flux downward ( $ >0 \implies $ ocean heating induces positive AMOC anomaly). November cost function. Interesting that there is some decay of the original signal, and we do see a barotropic response in this sensitivity. This is not seen in the Pillar study \cite{pillar}. Is thermal expansion accounted for in ECCO but not in the model they used?}
+    \label{fig:novhfluxRMS}
+   \end{figure}
+
+   \begin{figure}
+    \centering
     \includegraphics[width=\textwidth]{nov.240mo/adjMean_sflux}
     \caption{Mean sensitivity at 34S to net fresh water flux ( $>0 \implies$ net freshening induces positive AMOC anomaly). November cost function.}
     \label{fig:novsflux}
    \end{figure}
+
+  \subsection{Linear Sensitivity}
+  \label{linearSensitivity}
+  
+  We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we compute the sensitivity of the objective function to external forcing: $\pderiv{\mathcal{J}}{\mathcal{F}}$. In this case, $\mathcal{F}$ consists of the near surface air temperature, humidity, wind stress, precipitation, and radiative forcing.  
+	
+  We take the objective function to be split into its 20 year mean and monthly anomaly components: 
+	\begin{equation}
+	  \mathcal{J}_i(t) = \bar{\mathcal{J}_i}(t) + \mathcal{J}_i'(t) \qquad i \in [1, 2, ... 12]
+	\end{equation}
+
+  Here the subscript $i$ denotes the month in which the cost function is evaluated (January, February, etc). We hypothesize that the monthly anomaly in AMOC, $\mathcal{J}_i'(t)$, is linearly dependent on external forcing such that the AMOC anomaly for a given month, $i$, can be reconstructed offline via the convolution integral:
+ 
+	\begin{equation}
+	  \mathcal{J}_i'(t) = \int_{1992}^{t}\int_x \int_y\pderiv{\mathcal{J}_i}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\, dxdyd\tau  
+	  \label{eq:reconstruct}
+	\end{equation}
+
+  \subsubsection{Reconstructions}
+
+  First is a successful reconstruction of sea level anomaly in the tropical pacific. Details regarding the cost function and physical aspects are found in a separate pdf. 
+
+  Next are plots showing the reconstruction of AMOC at 34S. 
+
+   \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../../tpsla/plots/36mo/fig1}
+    \caption{Tropical Pacific Sea Level Anomaly reconstruction with wind stress files only. ``Memory'' time is 3 years. Note that this was created using the same accumulation period (30.5 days) as for the AMOC cost function.}
+    \label{fig:tpsla}
+   \end{figure}
+
+  
+ %  \begin{figure}
+ %   \centering
+ %   \includegraphics[width=\textwidth]{reconstruction/full}
+ %   \caption{SAMOC reconstructed with monthly accumulated sensitivities and forcing files (wind stress, air temperature, humidity, lw/sw down, precip. ``Memory'' time is 20 years.}
+ %   \label{fig:fullSamoc}
+ %  \end{figure}
+
+ %  \begin{figure}
+ %   \centering
+ %   \includegraphics[width=\textwidth]{reconstruction/full_fluxes}
+ %   \caption{SAMOC reconstructed with monthly accumulated sensitivities and forcing files (wind stress, net heat flux, and net salt flux). ``Memory'' time is 20 years.}
+ %   \label{fig:fullSamoc_fluxes}
+ %  \end{figure}
 
 \begin{thebibliography}{3}
 
@@ -281,6 +317,9 @@ Here are some main points from \cite{lozier}
 
   \bibitem{heimbach_timescales}
   Heimbach, P., et al. ``Timescales and regions of sensitivity ...''
+
+  \bibitem{pillar}
+  Pillar et al ``Dynamical Attribution of Recent Variability in Atlantic Overturning''
 
 \end{thebibliography}
 
