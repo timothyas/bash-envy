@@ -21,3 +21,6 @@ syntax: glob
 *.txt
 *.meta
 *.data
+*.tgz
+*.gz
+ax*
