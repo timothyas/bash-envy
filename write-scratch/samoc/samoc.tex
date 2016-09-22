@@ -57,8 +57,32 @@
 \label{setup}
   \subsection{Model Configuration}
 
-	Cite gael and Patrick a lot. ECCO ftw. TAF. 
-  
+	\begin{enumerate}
+	  \item Here we study the sensitivity of AMOC over a twenty year period using the MIT general circulation model (MITgcm) in a global ocean configuration.
+	  \item The grid used is llc90: roughly $1^{\circ} x 1^{\circ}$ with Lat/Lon configuration from 70$^{\circ}$S and 57$^{\circ}$N, with a cubed sphere configuration on either pole
+	  \item 50 layers in the vertical 
+	  \item ggl90 vertical mixing scheme \cite{ggl90}
+	  \item Gent McWilliams parameterization of unresolved eddies (bolus velocity) \cite{GM}
+	  \item Isopycnal diffusivity discretized via \cite{Redi}
+	  \item Parameters take on values from 12 optimization cycles from ECCO framework \red{maximum a posteriori??}
+	  \item External forcing from Era Interim .. files after smoothing and post processing in \cite{forgetECCOv4}. These can be downloaded from ecco-group.org.
+	  \item more details in \cite{forgetECCOv4}
+	\end{enumerate}
+
+  \subsection{Sensitivities in an adjoint framework}
+
+	\begin{enumerate}
+	  \item An adjoint inverse modeling framework has been used in many previous studies to investigate the sensitivity of a physically meaningful quantity, evaluated as a cost or objective function \cite{marotzke} \cite{heimbach_timescales} \cite{pillar} \cite{czeschel}
+	  \item Adjoint (reverse) mode of the model is computed via the automatic differentiation package TAF Giering 2005 (see forget), FastOpt, heimbach hill and Giering 2005 (efficient exact adjoint )
+
+	  \item Here we define the objective function as AMOC at 34$^{\circ}$S as in Eqn. \ref{amoc}. This is the closest latitude band resolved in the model configuration to 34.5$^{\circ}$S: the most Southern latitude band in the Atlantic that touches both African and South American continents. 
+
+	  \item We compute sensitivities using the adjoint mode of the MITgcm, based on the same framework as in the ECCO version 4 project (where here sensitivities are computed with respect to a model-data misfit objective function). 
+	  \item Using the generalized framework for establishing controls and objective functions as outlined in \cite{forgetECCOv4} makes this process highly streamlined.
+	  \item We are interested in the sensitivity of amoc to external forcing. The framework described above allows us to generally define the controls and cost function as such, and compute sensitivities directly through the adjoint framework.
+	  \item this builds the gradient dJ/du, which is computed much tractably than if we perturbed each external forcing control at each point in the globe to find its response in dJ after 20 years of integration ... 
+	\end{enumerate}
+
   \subsection{AMOC definition}
   
     The domain of interest is the zonal cross section of the Atlantic ocean at 34$^{\circ}$S, from the Western coast in the Aghulas Basin to the Cape of Good Hope Basin in the East. In cartesian coordinates, we denote this as: $x \in [x_W,x_E], y = y(\phi=34^{\circ}S), z \in [-H,\eta(y,t)]$ (spherical coordinates are used in the computation, however).  We define the meridional overturning stream function as follows: 
@@ -97,6 +121,9 @@
     \caption{(Top) AMOC computed at 34\degSym S, using monthly mean velocity fields from ECCOv4r2. (Bottom) The maximizing depth at which AMOC is computed during that month. The mean value and +/-1$\sigma$ values are given by the solid gray and dashed gray lines, respectively.}
     \label{fig:samocStats}
    \end{figure}
+
+
+  
 
    \subsection{Observers SAMOC}
     \label{obsSAMOC}
@@ -233,7 +260,7 @@
   \bibitem{meinenSamoc}
   Meinen, et al. MOC Variability at 34.5S...
   
-  \bibitem{forgetEccov4}
+  \bibitem{forgetECCOv4}
   Forget, Gael, et al. \textit{ECCO version 4: an integrated framework for non-linear inverse modeling and global ocean state estimation.} Geoscientific Model Development 8 (2015): 3071-3104.
   
   \bibitem{wunschLinear}
@@ -253,6 +280,21 @@
 
   \bibitem{pillar}
   Pillar et al ``Dynamical Attribution of Recent Variability in Atlantic Overturning''
+
+  \bibitem{czeschel}
+  Czeschel et al: oscillatory sensitivity 
+
+  \bibitem{redi}
+  Redi, 1982
+
+  \bibitem{ggl90}
+  Gaspar et al., 1990
+
+  \bibitem{gm}
+  Gent and McWilliams, 1990
+
+  \bibitem{marotzke}
+  Marotzke's paper on sensitivity for physically meaningful objective function
 
 \end{thebibliography}
 
