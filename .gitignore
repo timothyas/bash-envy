@@ -3,6 +3,7 @@ syntax: glob
 *.pdf
 *.tar.gz
 *.mat
+!matlab/m_map/private/m_coasts.mat
 *.avi
 *~
 *.o
