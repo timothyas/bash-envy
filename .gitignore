@@ -26,8 +26,8 @@ syntax: glob
 ax*
 *.exe
 *.old
-matlab-repo/GSW/html/*
-matlab-repo/GSW/pdf/*
+matlab/GSW/html/*
+matlab/GSW/pdf/*
 *.pdf
 *.avi
 m_map/*.html
