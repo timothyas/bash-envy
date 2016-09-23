@@ -24,3 +24,14 @@ syntax: glob
 *.tgz
 *.gz
 ax*
+*.exe
+*.old
+matlab-repo/GSW/html/*
+matlab-repo/GSW/pdf/*
+*.pdf
+*.avi
+m_map/*.html
+.DS_Store
+
+syntax: regexp
+.*\#.*\#$
