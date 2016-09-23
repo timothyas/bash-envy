@@ -66,6 +66,8 @@
 	  \item Isopycnal diffusivity discretized via \cite{Redi}
 	  \item Parameters take on values from 12 optimization cycles from ECCO framework \red{maximum a posteriori??}
 	  \item External forcing from Era Interim .. files after smoothing and post processing in \cite{forgetECCOv4}. These can be downloaded from ecco-group.org.
+	  \item External forcing describes the atmospheric state: air temperature at 2 meters above sea level, radiative surface fluxes (longwave and shortwave), humidity, precipitation, and wind stress. Runoff is input as a binary file \red{climatological mean?} 
+	  \item From the atmospheric state inputs, the net heat and salt fluxes (including evaporation) are computed through the Bulk Formula \cite{yaeger2004}
 	  \item more details in \cite{forgetECCOv4}
 	\end{enumerate}
 
@@ -74,6 +76,7 @@
 	\begin{enumerate}
 	  \item An adjoint inverse modeling framework has been used in many previous studies to investigate the sensitivity of a physically meaningful quantity, evaluated as a cost or objective function \cite{marotzke} \cite{heimbach_timescales} \cite{pillar} \cite{czeschel}
 	  \item Adjoint (reverse) mode of the model is computed via the automatic differentiation package TAF Giering 2005 (see forget), FastOpt, heimbach hill and Giering 2005 (efficient exact adjoint )
+	  \item Some processes are approximated (e.g. Arctic ice melt, ggl90? )
 
 	  \item Here we define the objective function as AMOC at 34$^{\circ}$S as in Eqn. \ref{amoc}. This is the closest latitude band resolved in the model configuration to 34.5$^{\circ}$S: the most Southern latitude band in the Atlantic that touches both African and South American continents. 
 
@@ -185,6 +188,7 @@
 	\item \red{Baroclinic?} Rossby waves then carry these signals Westward, tilting from SW to NE due to phase speed as mentioned.
 	\item Anomalies which travel Southward die out rapidly, and it seems like they get carried by Rossby waves, into the ACC, and pushed into the rough bathymetry of the Drake Passage. At this point the signal has died out. 
 	\item \red{Fast barotropic waves carry signal rapidly Northward up the Western coast of SA (an Eastern boundary for the Pacific). Why does this signal oscillate up the coast?} 
+	\item \red{Interestingly, the sensitivities in zonal wind stress do not go farther south than $\sim$36$^{\circ}$S, which should be the mechanism for wind driven upwelling. Kuhlbrodt mentions that in the Southern ocean wind driven upwelling is an important mechanism for AMOC circulation, but in terms of measuring this we can't see any contribution from this component. Could be due to the highly localized effect of wind stress (non local component is left over from rapid barotropic response, should probably do experiments to confirm this).}
     \end{enumerate}
    \subsubsection{Meridional Wind Stress}
     \begin{enumerate}
@@ -201,6 +205,10 @@
 	\item Note how there is no oscillation and it doesn't matter how far back in time we go after the readjustment period, the signatures look the same with a different magnitude
 	\item Important regions ... where is the memory? it's where the water needs to sink ... 
 	\item note that Greenland area does not incorporate any ice melt processes 
+	\item After the initial readjustment period:
+	\item A seasonal cycle develops, going backward in time. 
+	\item Main difference here is the connection with the global ocean: the Pacific and Indian oceans remain strongly sensitive regions over decadal timescales because of the connection to the Southern Ocean at 34S. Even though these patterns are not particularly strong, it takes roughly 10 years or more for the basin-wide signals to decay by an order of magnitude. (when considering the spatial RMS of sensitivity as a function of time).  
+	\item The strong ACC overpowers the reverse Rossby waves, and sensitivities are carried Westward. The signal dissipates 
     \end{enumerate} 
    \subsubsection{FWF}
     \begin{enumerate}
@@ -295,6 +303,9 @@
 
   \bibitem{marotzke}
   Marotzke's paper on sensitivity for physically meaningful objective function
+
+  \bibitem{yaeger2004}
+  Yaeger's bulk formula paper
 
 \end{thebibliography}
 
