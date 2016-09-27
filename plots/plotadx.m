@@ -32,21 +32,21 @@ end
 
 %% Prepare fields
 % Omitting theta and salinity right now
-adjField = {'hflux','sflux','tauu','tauv','aqh','atemp','swdown','lwdown','precip','runoff'};
+adjField = {'tauu','tauv','hflux','sflux','aqh','atemp','swdown','lwdown','precip','runoff'};
 if ~isempty(strfind(runStr,'366day'))
     caxLim = [7,-2,13, 13, 13, 17, 18, 18, 9, 9, 4, 4];
 elseif ~isempty(strfind(runStr,'mo')) 
 %     caxLim = [12, 12, 12, 16, 17, 17, 7, 7, 4, 4];
-    caxLim = [7, -2, 2, 2, 2, 6, 7, 7, -2, -2, 4, 4];
+    caxLim = [2, 2, 7, -2, 2, 6, 7, 7, -2, -2, 4, 4];
 elseif ~isempty(strfind(runStr,'five-day'))
     caxLim = [7,-2, 13, 13, 13, 17, 18, 18, 8, 8, 14, 14];
 end
 
-cunits = {sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\nm/s'),sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[kg/kg]'),sprintf('Sv/K'),...
+cunits = {sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[N/m^2]'),sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\nm/s'),sprintf('Sv/\n[kg/kg]'),sprintf('Sv/K'),...
           sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\n[W/m^2]'),sprintf('Sv/\n[m/s]'),sprintf('Sv/\n[m/s]'),...
           sprintf('Sv/psu'),sprintf('Sv/K')};
       
-tLims = {[2 241] [2 241] [204 240], [204 240], [2 241], [2 241], [2 241], [2 241], [2 241], [2 241]};
+tLims = {[205 241], [205 241], [2 241] [2 241]  [2 241], [2 241], [2 241], [2 241], [2 241], [2 241]};
 Nadj = length(adjField);
 klev = 5; 
 
