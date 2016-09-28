@@ -28,8 +28,6 @@ if nargin<3
     establish_mygrid;
 end
 
-
-
 %% Prepare fields
 % Omitting theta and salinity right now
 adjField = {'tauu','tauv','hflux','sflux','aqh','atemp','swdown','lwdown','precip','runoff'};
@@ -50,18 +48,7 @@ tLims = {[205 241], [205 241], [2 241] [2 241]  [2 241], [2 241], [2 241], [2 24
 Nadj = length(adjField);
 klev = 5; 
 
-%% Make sure post processing is done
-if ~isempty(strfind(runStr,'240mo'))
-%     Xinterp = {[0.5:240.5]/240, [0.5:239.5]/240}; 
-    Xinterp = {0,0};
-
-elseif ~isempty(strfind(runStr,'12mo'))
-    Xinterp = {[0.5:12.5]/12, [0.5:11.5]/12};
-else
-    Xinterp = {0,0};
-end
-    
-if ~isempty(strfind(runStr,'five-day')), adjDump=1; else adjDump=0; end
+%% Pull data to mat files
 postProcess_adxx(adjField,10^-6, Xinterp, klev, adjDump, runStr, dirs, mygrid);
 
 %% Plot and save at various time steps
