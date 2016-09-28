@@ -179,47 +179,30 @@
     \end{enumerate} 
 
 
- \section{Sensitivity means}
-
-   \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{nov.240mo/adjMean_hflux}
-    \caption{Mean sensitivity at 34S to net heat flux downward ( $ >0 \implies $ ocean heating induces positive AMOC anomaly). November cost function. }
-    \label{fig:novhflux}
-   \end{figure}
-
-   \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{nov.240mo/adjMean_sflux}
-    \caption{Mean sensitivity at 34S to net fresh water flux ( $>0 \implies$ net freshening induces positive AMOC anomaly). November cost function.}
-    \label{fig:novsflux}
-   \end{figure}
-
-  \subsection{Linear Sensitivity}
+  \section{Linear Sensitivity}
   \label{linearSensitivity}
   
-  We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we compute the sensitivity of the objective function to external forcing: $\pderiv{\mathcal{J}}{\mathcal{F}}$. In this case, $\mathcal{F}$ consists of the near surface air temperature, humidity, wind stress, precipitation, and radiative forcing.  
+  We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we compute the sensitivity of the objective function to external forcing: $\pderiv{\mathcal{J}}{\mathcal{F}_k}$, where $\mathcal{F}_k$ is the wind stress and net heat and salt fluxes. These fluxes are computed based on the near surface atmospheric state provided by the ERA-Interim re-analysis fields from 1992-2011 \red{Dee et al, from ECCOv4}. 
 	
   We take the objective function to be split into its 20 year mean and monthly anomaly components: 
+
 	\begin{equation}
-	  \mathcal{J}_i(t) = \bar{\mathcal{J}_i}(t) + \mathcal{J}_i'(t) \qquad i \in [1, 2, ... 12]
+	  \mathcal{J}(t) = \bar{\mathcal{J}} + \delta\mathcal{J}(t) 
 	\end{equation}
 
-  Here the subscript $i$ denotes the month in which the cost function is evaluated (January, February, etc). We hypothesize that the monthly anomaly in AMOC, $\mathcal{J}_i'(t)$, is linearly dependent on external forcing such that the AMOC anomaly for a given month, $i$, can be reconstructed offline via the convolution integral:
+  The monthly anomaly in AMOC, $\delta\mathcal{J}(t)$, depends on external forcing such that the AMOC anomaly for a given month can be reconstructed offline via the \red{cross-correlation} integral:
  
 	\begin{equation}
-	  \mathcal{J}_i'(t) = \int_{1992}^{t}\int_x \int_y\pderiv{\mathcal{J}_i}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\, dxdyd\tau  
+	  \delta\mathcal{J}(t) = \int_{1992}^{t}\int_x \int_y\pderiv{\mathcal{J}_i}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\, dxdyd\tau  
 	  \label{eq:reconstruct}
 	\end{equation}
 
-  \subsubsection{Reconstructions}
-
-  reconstruction of AMOC at 34S. ain't it pretty.
+  \red{Proof for why this works?}  
 
    \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{reconstruct.34S.exf_orig/full_reconstruct_mean}
-    \caption{SAMOC reconstructed with monthly accumulated sensitivities and forcing files (wind stress, air temperature, humidity, lw/sw down, precip. ``Memory'' time is 20 years.}
+    \includegraphics[width=\textwidth]{reconstruct.34S/full_reconstruct_mean_flux}
+    \caption{SAMOC reconstructed with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{4 years}.}
     \label{fig:fullReconstruction}
    \end{figure}
 
