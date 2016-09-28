@@ -1,4 +1,4 @@
-function[] = postProcess_adxx(adjField, nFact, X, klev, adjDump, runStr, dirs, mygrid)
+function[] = postProcess_adxx(adjField, nFact, klev, runStr, dirs, mygrid)
 % Want to post process adxx files as follows: 
 %   1. Normalize by area or volume
 %   2. Factor (e.g. transport to Sv
@@ -10,10 +10,6 @@ function[] = postProcess_adxx(adjField, nFact, X, klev, adjDump, runStr, dirs, m
 %       adjFields : tauu, tauv, aqh, precip ... 
 %       nFact : e.g. 10^-6 for -> Sv
 %       klev : level for 3d terms
-%       X={x,xq} : vector for interpolation of time controls
-%                  {0,0} for no interpolation
-%       adjDump : if 1 (0 is default) then process adj dump files, else
-%                 look for adxx files
 %       runStr : string for particular run 
 %       dirs : project directory tree
 %       mygrid : yup
@@ -27,6 +23,18 @@ function[] = postProcess_adxx(adjField, nFact, X, klev, adjDump, runStr, dirs, m
 if ~exist([dirs.mat runStr],'dir'), mkdir([dirs.mat runStr]); end
 if ~exist([dirs.figs runStr],'dir'), mkdir([dirs.figs runStr]); end
 
+%% Make set interp levels. This is usually not done. 
+if ~isempty(strfind(runStr,'240mo'))
+%     Xinterp = {[0.5:240.5]/240, [0.5:239.5]/240}; 
+    Xinterp = {0,0};
+
+elseif ~isempty(strfind(runStr,'12mo'))
+    Xinterp = {[0.5:12.5]/12, [0.5:11.5]/12};
+else
+    Xinterp = {0,0};
+end
+    
+if ~isempty(strfind(runStr,'five-day')), adjDump=1; else adjDump=0; end
 adjLoadDir = [dirs.results runStr];
 Nadj = length(adjField);
 
@@ -88,10 +96,10 @@ for i = 1:Nadj
         end
     
         %% Interpolate along 3rd dim
-        if X{1}(1)==0 || strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
+        if Xinterp{1}(1)==0 || strcmp(adjField{i},'salt') || strcmp(adjField{i},'theta')
             fprintf('** adxx post process: no interpolation\n');
         else
-            adxx = gcmfaces_interp_1d(3, X{1}, adxx, X{2});
+            adxx = gcmfaces_interp_1d(3, Xinterp{1}, adxx, Xinterp{2});
         end
         
         %% Save as mat file

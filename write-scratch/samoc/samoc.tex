@@ -177,29 +177,31 @@
   Similarities in immediate response between all 4 sensitivities 
   
 
-   \subsection{34S Plots}
-   \subsubsection{Zonal Wind Stress}
-	Note how this is essentially the reflection of sensitivity patterns at 25N. 
+   \subsection{Zonal Wind Stress}
     \begin{enumerate}
-	\item The original symmetric band around the cost function latitude is now positive, since an increase in zonal winds will cause net transport ``to the left'' due to the Coriolis effect. 
-	\item The positive anomaly on top of the latitude band (due to baroclinic Rossby waves steering pressure perturbations around the Mid Atlantic Ridge) is of the opposite sign as before. Also, a fainter signal. 
-	\item The Eastern boundary current carries a negative anomaly to the gulf of Guinea, which then travels rapidly along the equatorial wave guide (Kelvin dual waves). the exact opposite sign as in Northern hemisphere.
-	\item In its wake a positive anomaly forms, which travels Westward \red{still unsure of its origin, and why this turns into an oscillating wave structure traveling Westward across the equator}. 
-	\item \red{Baroclinic?} Rossby waves then carry these signals Westward, tilting from SW to NE due to phase speed as mentioned.
-	\item Anomalies which travel Southward die out rapidly, and it seems like they get carried by Rossby waves, into the ACC, and pushed into the rough bathymetry of the Drake Passage. At this point the signal has died out. 
+	\item In the month prior to evaluating the cost function, there is a positive band around 34$^{\circ}$S, indicating that an increase in zonal winds will increase AMOC strength. This positive sensitivity band indicates that a stronger zonal wind will increase Ekman transport locally, which is ``to the left'' in the Southern hemisphere. 
+	\item The sensitivity signals are much stronger across the Pacific and Indian ocean basins when compared to AMOC sensitivities measured around 26$^{\circ}$N, (compare to e.g. \cite{pillar} \cite{heimbach_timescales}). \red{... how to interpret these regions? unsure of the processes which are responsible for transporting these sensitivities.}
+	\item Note that the sensitivities in shallow water regions (e.g. near the Bering Strait, North of Australia) are left over from the initial barotropic response. In reverse, a barotropic wave propagates from the objective function evaluation through the global ocean in roughly a day. However, since the barotropic wave speed is $\sqrt{gH}$, $H$ the water depth, these waves propagate slowly in these regions and linger for roughly a week or two. 
 	\item \red{Fast barotropic waves carry signal rapidly Northward up the Western coast of SA (an Eastern boundary for the Pacific). Why does this signal oscillate up the coast?} 
-	\item \red{Interestingly, the sensitivities in zonal wind stress do not go farther south than $\sim$36$^{\circ}$S, which should be the mechanism for wind driven upwelling. Kuhlbrodt mentions that in the Southern ocean wind driven upwelling is an important mechanism for AMOC circulation, but in terms of measuring this we can't see any contribution from this component. Could be due to the highly localized effect of wind stress (non local component is left over from rapid barotropic response, should probably do experiments to confirm this).}
+	\item From a lead time of 1 to 2 months, the Eastern boundary current carries a negative anomaly to the gulf of Guinea, which then travels rapidly along the equatorial wave guide as a Kelvin dual wave. This signal is exactly as seen in e.g. \cite{pillar}, highlighting the importance of these linear wave dynamics as a sensitivity pathway throughout the Atlantic basin.
+	\item In its wake a positive anomaly forms, which travels Eastward via (dual) baroclinic Rossby waves. These patterns are easily detected by their tilting from the Southwest to Northeast, due to the wave speed which is proportional to $\beta$. \red{could this be due to Ekman upwelling? why does this turn into an oscillating wave structure traveling Westward across the equator}.
+	\item Similarly, these baroclinic Rossby waves can be seen near the equator of the Pacific and Indian ocean basins. The signals in the Pacific die out beyond roughly $\pm10^{\circ}$ beyond the equator, again indicating the importance of the equator as an important pathway for communicating anomalies on monthly timescales. The equatorial communication in the Indian ocean is much more apparent with higher frequency output (not shown).
+	\item Anomalies which travel Southward die out rapidly as they are carried by dual Rossby waves into the ACC and pushed into the rough bathymetry of the Drake Passage. 
+	\item \red{Interestingly, the sensitivities in zonal wind stress do not go farther south than $\sim$36$^{\circ}$S, which should be the mechanism for wind driven upwelling. Kuhlbrodt mentions that in the Southern ocean wind driven upwelling is an important mechanism for AMOC circulation, but in terms of measuring this we can't see any contribution from this component. Could be due to the strength of the ACC in this region. Beyond one month don't see any sensitivities in the Southern Ocean. Also could just be that 34S is too far away from this upwelling to be important.}
     \end{enumerate}
-   \subsubsection{Meridional Wind Stress}
+   \subsection{Meridional Wind Stress}
     \begin{enumerate}
-	\item Can see Mid Atlantic Ridge with + to right, and - to left. 
-	\item \red{Is the dipole on the Western side, just a bit off the coast due to rough topography there? This is at the North of the Argentine Basin where the Rio Grande Rise is located.}
-	\item Also on the Western side is the Wlave ridge surrounding the Cape Basin
-	\item Don't see any other processes communicating these anomalies between coasts other than Rossby waves. 
+	\item At a lead time of one month, we can see the Mid Atlantic Ridge in between a positive sensitivity to the East and negative to the West. 
+	\item \red{Is the dipole on the Western side, just a bit off the coast due to rough topography there? This is at the North of the Argentine Basin where the Rio Grande Rise is located. This could be similar to the pressure steering mentioned in Pillar, except from all four sides: the rise seems to be around the center of 2 dipoles at one month lead time. }
+	\item \red{Could the dipole to the East of the Mid Atlantic ridge be caused by the Walvis ridge? The line seems to follow Northeast just along where the ridge would be.}
+	\item \red{Then is positive strip along African coast from Ekman upwelling? Increase the strength of the Benguela current.}
+	\item \red{Why would an increase in wind stress along the Agulhas current increase AMOC?}
+	\item Can see coastally trapped sensitivities a
+	\item After one month, baroclinic Rossby waves can be seen tilting the sensitivity patterns to the Northeast. 
 	\item \red{baroclinically unstable flanks along subtropical gyres?}
 	\item See damping to viscous dissipation at high latitudes with low rossby wave speeds
     \end{enumerate} 
-   \subsubsection{Heat Flux} 
+   \subsection{Heat Flux} 
     \begin{enumerate} 
 	\item Note that this does have a seasonal signal 
 	\item Note how there is no oscillation and it doesn't matter how far back in time we go after the readjustment period, the signatures look the same with a different magnitude
@@ -210,7 +212,7 @@
 	\item Main difference here is the connection with the global ocean: the Pacific and Indian oceans remain strongly sensitive regions over decadal timescales because of the connection to the Southern Ocean at 34S. Even though these patterns are not particularly strong, it takes roughly 10 years or more for the basin-wide signals to decay by an order of magnitude. (when considering the spatial RMS of sensitivity as a function of time).  
 	\item The strong ACC overpowers the reverse Rossby waves, and sensitivities are carried Westward. The signal dissipates 
     \end{enumerate} 
-   \subsubsection{FWF}
+   \subsection{FWF}
     \begin{enumerate}
 	\item Note that there is no seasonal cycle
 	\item Note that after a readjustment period there is a ''breathing`` in the important regions but for the most part things stay the same 
@@ -261,6 +263,32 @@
     \caption{SAMOC reconstructed with monthly accumulated sensitivities and forcing files (wind stress, air temperature, humidity, lw/sw down, precip. ``Memory'' time is 20 years.}
     \label{fig:fullReconstruction}
    \end{figure}
+
+  \subsubsection{Monthly variability propagation}
+
+  My goal here is to get a measure of the variability in momentum and buoyancy fluxes and determine how this variation effects the AMOC at 34S. Which component sees the most variation? Is the variation in AMOC explained by deviations from climatological mean values for e.g. wind stress? For each flux denoted by subscript $k$:
+
+  \begin{equation}
+	\mathcal{F}_k(x,y,t) = \bar{\mathcal{F}_k}(x,y)_{20yr} + \delta\mathcal{F}_k(x,y,t)
+  \end{equation}
+
+  \begin{equation}
+	\delta\mathcal{F}_k(x,y,t) = \delta\mathcal{F}_{km}^{clim}(x,y) + \delta\mathcal{F}_{k}^{anom}(x,y,t)
+  \end{equation}
+
+  \begin{equation}
+	\delta\mathcal{F}_{km}^{clim}(x,y) = \dfrac{1}{20}\sum_n\delta\mathcal{F}_k(x,y,t=m+n) \qquad n \in [0,12,24,...,240]
+  \end{equation}
+
+  So what I tried is to reconstruct $\mathcal{J}(t)'$ with:
+
+  \begin{equation}
+	\delta\mathcal{F}_k(x,y,t) = \delta\mathcal{F}_{km}^{clim}(x,y) \pm \sigma_{km}(x,y)	
+  \end{equation}
+
+  where $\sigma_{km}(x,y)$ is the standard deviation of $\delta\mathcal{F}_k(x,y,t)$, my measure of deviation from climatological mean. 
+
+  \red{Need to try this again when taking std of F\_k not the anomaly from F\_clim}
 
   
 \begin{thebibliography}{3}
