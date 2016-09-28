@@ -15,7 +15,12 @@ end
 if strcmp(projectStr,'samoc')
     dirs=establish_samocDirs;
     fprintf('** Change directory to ... /gcm-contrib/samoc/\n')
-    mmapOpt = 5; 
+    
+    if ~isempty(strfind(runStr,'26N'))
+        mmapOpt=6;
+    else
+        mmapOpt = 5; 
+    end
 elseif strcmp(projectStr,'rapid')
     dirs=establish_rapidDirs;
     fprintf('** Change directory to ... /gcm-contrib/rapid/\n')
