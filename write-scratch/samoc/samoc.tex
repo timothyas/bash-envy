@@ -208,9 +208,25 @@
     \label{fig:fullReconstruction}
    \end{figure}
 
-  \subsection{Exploring reconstruction memory}
+  \subsection{Exploring reconstruction memory \& buoyancy contributions}
 
-  The contribution to $\delta\mathcal{J}(t)$ from heat and salt flux show a very different behavior than in Pillar \cite{pillar}. 
+  The contribution to $\delta\mathcal{J}(t)$ from heat and salt flux show a very different behavior than in Pillar \cite{pillar}. In the Pillar paper there seems to be a roughly decadal mode appearing from heat flux reconstruction, with very little variation due to salt flux.
+
+  Here I want to talk about:
+
+  \begin{enumerate}
+	\item The heat and salt flux oscillat with about a yearly period. When integrating for the reconstruction, changing the memory time causes a phase change in the heat/salt flux contribution.
+	\item this seems false: the ocean ``doesn't care''... 
+	\item This means there is an optimal ``memory time'' because after that the reconstruction degrades
+	\item this is especially true for using each individual component of the atmospheric state, since adding multiple components that oscillate with about a yearly period. 
+	\item Is there really an optimal memory time? What does this represent. 
+	\item ALSO: wind stress dominates the reconstruction
+	\item Looking at the residual between the forward model and wind stress reconstruction gives:
+	\item white noise at 34S
+	\item decadal type oscillations at 26N 
+	\item what do these mean? why would the reconstruction for HF and FWF not account for this low frequency oscillation?
+	\item Either a bug (potentially I am mixing up signs in sensitivity or forcing in reconstruction) or some component is missing from the reconstruction. 
+  \end{enumerate}
 
   \subsection{Monthly variability propagation}
 
