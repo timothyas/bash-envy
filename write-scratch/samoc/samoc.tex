@@ -193,20 +193,26 @@
   The monthly anomaly in AMOC, $\delta\mathcal{J}(t)$, depends on external forcing such that the AMOC anomaly for a given month can be reconstructed offline via the \red{cross-correlation} integral:
  
 	\begin{equation}
-	  \delta\mathcal{J}(t) = \int_{1992}^{t}\int_x \int_y\pderiv{\mathcal{J}_i}{\mathcal{F}}(x,y,\tau-t)\mathcal{F}'(x,y,\tau)\, dxdyd\tau  
+	  \delta\mathcal{J}(t) = \sum_k\int_{t_0}^{t}\int_x \int_y\pderiv{\mathcal{J}}{\mathcal{F}_k}(x,y,\tau-t)\delta\mathcal{F}_k(x,y,\tau)\, dxdyd\tau  
 	  \label{eq:reconstruct}
 	\end{equation}
 
+  where the subscript $k$ refers to each of the momentum and buoyancy fluxes. The integral in time is carried out over the interval $[t_0, t]$ so that this range denotes the ``memory'' of the objective function. In reality each of these integrals are a summation over each dimension, where time is discretized into monthly values. The reconstruction for AMOC at 34$^{\circ}$ is shown in Fig. \ref{fig:fullReconstruction}, where the memory time interval is roughly \red{4 years}.
+ 
   \red{Proof for why this works?}  
 
    \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{reconstruct.34S/full_reconstruct_mean_flux}
-    \caption{SAMOC reconstructed with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{4 years}.}
+    \caption{SAMOC reconstructed as in Eqn. \ref{eq:reconstruct} with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{4 years}.}
     \label{fig:fullReconstruction}
    \end{figure}
 
-  \subsubsection{Monthly variability propagation}
+  \subsection{Exploring reconstruction memory}
+
+  The contribution to $\delta\mathcal{J}(t)$ from heat and salt flux show a very different behavior than in Pillar \cite{pillar}. 
+
+  \subsection{Monthly variability propagation}
 
   My goal here is to get a measure of the variability in momentum and buoyancy fluxes and determine how this variation effects the AMOC at 34S. Which component sees the most variation? Is the variation in AMOC explained by deviations from climatological mean values for e.g. wind stress? For each flux denoted by subscript $k$:
 
