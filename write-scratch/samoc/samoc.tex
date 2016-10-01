@@ -162,6 +162,7 @@
     \end{enumerate} 
    \subsection{Heat Flux} 
     \begin{enumerate} 
+	\item In the first month, sensitivity patterns cover the entire globe as part of a fast barotropic readjustment period. Note that this is not exhibited by Pillar or Czeschel \cite{pillar}, \cite{czeschel} since the model configuration used does not include volume changes to thermal expansion. 
 	\item Note that this does have a seasonal signal 
 	\item Note how there is no oscillation and it doesn't matter how far back in time we go after the readjustment period, the signatures look the same with a different magnitude
 	\item Important regions ... where is the memory? it's where the water needs to sink ... 
@@ -204,13 +205,13 @@
    \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{reconstruct.34S/full_reconstruct_mean_flux}
-    \caption{SAMOC reconstructed as in Eqn. \ref{eq:reconstruct} with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{4 years}.}
+    \caption{SAMOC reconstructed as in Eqn. \ref{eq:reconstruct} with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{1 year}.}
     \label{fig:fullReconstruction}
    \end{figure}
 
   \subsection{Exploring reconstruction memory \& buoyancy contributions}
 
-  The contribution to $\delta\mathcal{J}(t)$ from heat and salt flux show a very different behavior than in Pillar \cite{pillar}. In the Pillar paper there seems to be a roughly decadal mode appearing from heat flux reconstruction, with very little variation due to salt flux.
+  The contribution to $\delta\mathcal{J}(t)$ from heat and salt flux show a very different behavior than in Pillar \cite{pillar}. In the Pillar paper there seems to be a roughly decadal mode appearing from heat flux reconstruction, with very little variation due to salt flux. In my reconstructions, I get strictly oscillatory behavior on roughly at annual time scales. 
 
   Here I want to talk about:
 
@@ -222,10 +223,25 @@
 	\item Is there really an optimal memory time? What does this represent. 
 	\item ALSO: wind stress dominates the reconstruction
 	\item Looking at the residual between the forward model and wind stress reconstruction gives:
-	\item white noise at 34S
+	\item white noise at 34S 
 	\item decadal type oscillations at 26N 
 	\item what do these mean? why would the reconstruction for HF and FWF not account for this low frequency oscillation?
 	\item Either a bug (potentially I am mixing up signs in sensitivity or forcing in reconstruction) or some component is missing from the reconstruction. 
+  \end{enumerate}
+
+   \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{reconstruct.34S/for_minus_wind}
+    \caption{SAMOC reconstructed as in Eqn. \ref{eq:reconstruct} with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{4 years}.}
+    \label{fig:fullReconstruction}
+   \end{figure}
+
+
+  Considering signs: I am using the following variables for reconstruction with fluxes. 
+  \begin{enumerate}
+	\item Wind stress: dJdF corresponds to tauutauv, dF corresponds to the diagnostics oceTAUXY or ExfTauxy. Either seems to produce the same result. 
+	\item Heat flux: dJ/dF corresponds to exf variable hflux ($>0 => $decrease in Temp.). dF corresponding to oceQnet ($>0 => $ocean heating, increase in Temp), exfQnet ($>0 =>$ ocean cooling, decrease in Temp). The profiles of these look very different in the Arctic... what is the difference? 
+	\item Salt flux: dJ/dF corresponds to exf variable sflux ($>0 =>$ increase in salt). dF corresponds to exfEmpmr ($>0 => $increase in salinity). 
   \end{enumerate}
 
   \subsection{Monthly variability propagation}
