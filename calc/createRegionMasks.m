@@ -38,5 +38,5 @@ northMsk(isnan(northMsk))=0;
 atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
 atlMsk(isnan(atlMsk))=0;
 
-msks = struct('acc',accMsk,'arc',arcMsk,'ind',indMsk,'pac',pacMsk,'atl',atlMsk);
+msks = struct('acc',accMsk,'arc',arcMsk,'ind',indMsk,'pac',pacMsk,'atl',atlMsk,'north',northMsk);
 end

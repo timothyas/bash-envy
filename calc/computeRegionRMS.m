@@ -13,7 +13,7 @@ end;
 
 %% Get mean
 nField = convert2gcmfaces(msk);
-tmp1 = squeeze(nansum(nansum(fld.^2,1),2));
+tmp1 = squeeze(nansum(nansum((fld.*msk).^2,1),2));
 tmp2 = squeeze(nansum(nansum(nField,1),2));
 fldMean = sqrt(tmp1/tmp2)';
 
