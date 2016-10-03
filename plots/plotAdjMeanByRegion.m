@@ -30,7 +30,7 @@ for i = 1:Nadj
     adjMeanInd=zeros(Nmo,240);
     adjMeanAtl=zeros(Nmo,240);
     adjMeanPac=zeros(Nmo,240);
-    for m = 1:3:Nmo
+    for m = 6:6:Nmo
     adjFile = sprintf('%s%s.240mo/adj_%s.mat',dirs.mat,monthStr{m},adjField{i});	
     if exist(adjFile,'file')    
     load(adjFile);
