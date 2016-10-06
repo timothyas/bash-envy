@@ -1,5 +1,5 @@
-addpath ../../../utils/matlab
-runDir = '../run_eq/';
+%Not necessary on thorneaddpath ../../../MITgcmutils/matlab
+runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_eq/';
 
 
 %% Get the grid and time steps
@@ -42,16 +42,16 @@ end
 figureW;
 subplot(2,1,1),plot(iters,SSTavg)
     xlabel('Hours')
-    ylabel('Global Mean SST (Volumetric avg.)')
+    ylabel('SST Vol. Avg.')
 subplot(2,1,2),plot(iters,Qavg)
     xlabel('Hours')
-    ylabel('Global Mean Heat Content (Volumetric avg.)')
+    ylabel('Mean Heat Content')
     
+    title('Global Mean SST & Heat Content')
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
     saveas(gcf,'GlobalAvg_pTau','pdf')
-    saveas(gcf,'GlobalAvg_pTau','fig')
    
 close;
 
@@ -64,54 +64,99 @@ eta=rdmds([runDir 'Eta'],Inf);
 
 figure;
 contourf(xc,yc,T(:,:,1))
-saveas(gcf,'Tsnap_20m','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Temp. Snapshot: 20m')
 saveas(gcf,'Tsnap_20m','pdf')
 close;
 
 figure;
 contourf(xc,yc,T(:,:,5))
-saveas(gcf,'Tsnap_1350m','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Temp. Snapshot: 1350m')
 saveas(gcf,'Tsnap_1350m','pdf')
 close;
 
 figure;
 contourf(xc,yc,S(:,:,1))
-saveas(gcf,'Ssnap_20m','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Salinity Snapshot: 20m')
 saveas(gcf,'Ssnap_20m','pdf')
 close;
 
 figure;
 contourf(xc,yc,S(:,:,5))
-saveas(gcf,'Ssnap_20m','fig')
-saveas(gcf,'Ssnap_20m','pdf')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Salinity Snapshot: 1350m')
+saveas(gcf,'Ssnap_1350m','pdf')
 close;
 
 figure;
 contourf(xc,yc,u(:,:,1))
-saveas(gcf,'Usnap_20m','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Zonal Vel. Snapshot: 20m')
 saveas(gcf,'Usnap_20m','pdf')
 close;
 
 figure;
 contourf(xc,yc,u(:,:,5))
-saveas(gcf,'Usnap_1350m','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Zonal Vel. Snapshot: 1350m')
 saveas(gcf,'Usnap_1350m','pdf')
 close;
 
 figure;
 contourf(xc,yc,v(:,:,1))
-saveas(gcf,'Vsnap_20m','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Meridional Vel. Snapshot: 20m')
 saveas(gcf,'Vsnap_20m','pdf')
 close;
 
 figure;
 contourf(xc,yc,v(:,:,1))
-saveas(gcf,'Vsnap_1350m','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('Meridional Vel. Snapshot: 1350m')
 saveas(gcf,'Vsnap_1350m','pdf')
 close;
 
 figure;
 contourf(xc,yc,eta)
-saveas(gcf,'EtaSnap','fig')
+set(gcf,'paperorientation','landscape')
+set(gcf,'paperunits','normalized')
+set(gcf,'paperposition',[0 0 1 1])
+xlabel('Longitude (Deg)')
+ylabel('Latitude (Deg)')
+title('SSH Snapshot')
 saveas(gcf,'EtaSnap','pdf')
 close;
