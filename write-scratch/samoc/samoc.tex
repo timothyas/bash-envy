@@ -142,10 +142,11 @@
 	\item The sensitivity signals are much stronger across the Pacific and Indian ocean basins when compared to AMOC sensitivities measured around 26$^{\circ}$N, (compare to e.g. \cite{pillar} \cite{heimbach_timescales}). \red{... how to interpret these regions? unsure of the processes which are responsible for transporting these sensitivities.}
 	\item Note that the sensitivities in shallow water regions (e.g. near the Bering Strait, North of Australia) are left over from the initial barotropic response. In reverse, a barotropic wave propagates from the objective function evaluation through the global ocean in roughly a day. However, since the barotropic wave speed is $\sqrt{gH}$, $H$ the water depth, these waves propagate slowly in these regions and linger for roughly a week or two. 
 	\item \red{Fast barotropic waves carry signal rapidly Northward up the Western coast of SA (an Eastern boundary for the Pacific). Why does this signal oscillate up the coast?} 
+	\item \red{Dipole around mid atlantic ridge showing the steering of pressure perturbations around the mid atlantic ridge. How to know this for sure? Access to Pillar's dissertation?}
 	\item From a lead time of 1 to 2 months, the Eastern boundary current carries a negative anomaly to the gulf of Guinea, which then travels rapidly along the equatorial wave guide as a Kelvin dual wave. This signal is exactly as seen in e.g. \cite{pillar}, highlighting the importance of these linear wave dynamics as a sensitivity pathway throughout the Atlantic basin.
-	\item In its wake a positive anomaly forms, which travels Eastward via (dual) baroclinic Rossby waves. These patterns are easily detected by their tilting from the Southwest to Northeast, due to the wave speed which is proportional to $\beta$. \red{could this be due to Ekman upwelling? why does this turn into an oscillating wave structure traveling Westward across the equator}.
-	\item Similarly, these baroclinic Rossby waves can be seen near the equator of the Pacific and Indian ocean basins. The signals in the Pacific die out beyond roughly $\pm10^{\circ}$ beyond the equator, again indicating the importance of the equator as an important pathway for communicating anomalies on monthly timescales. The equatorial communication in the Indian ocean is much more apparent with higher frequency output (not shown).
-	\item Anomalies which travel Southward die out rapidly as they are carried by dual Rossby waves into the ACC and pushed into the rough bathymetry of the Drake Passage. 
+	\item As the reverse Kelvin waves travel poleward along the coast, a positive anomaly forms in its wake, which travels Eastward via (dual) baroclinic Rossby waves. These patterns are easily detected by their tilting from the Southwest to Northeast, due to the wave speed which is proportional to $\beta$. \red{could this be due to Ekman upwelling? why does this turn into an oscillating wave structure traveling Westward across the equator}.
+	\item Similarly, these baroclinic Rossby waves can be seen near the equator of the Pacific and Indian ocean basins. The signals in the Pacific die out beyond roughly $\pm10^{\circ}$ beyond the equator, again indicating the importance of the equatorial region as a key pathway for communicating anomalies on monthly timescales. The baroclinic Rossby waves in the Indian ocean are much more apparent with higher frequency output (not shown).
+	\item Anomalies which travel Southward dissipate rapidly as they are carried by dual Rossby waves into the ACC and pushed into the rough bathymetry of the Drake Passage. 
 	\item \red{Interestingly, the sensitivities in zonal wind stress do not go farther south than $\sim$36$^{\circ}$S, which should be the mechanism for wind driven upwelling. Kuhlbrodt mentions that in the Southern ocean wind driven upwelling is an important mechanism for AMOC circulation, but in terms of measuring this we can't see any contribution from this component. Could be due to the strength of the ACC in this region. Beyond one month don't see any sensitivities in the Southern Ocean. Also could just be that 34S is too far away from this upwelling to be important.}
     \end{enumerate}
    \subsection{Meridional Wind Stress}
@@ -153,9 +154,9 @@
 	\item At a lead time of one month, we can see the Mid Atlantic Ridge in between a positive sensitivity to the East and negative to the West. 
 	\item \red{Is the dipole on the Western side, just a bit off the coast due to rough topography there? This is at the North of the Argentine Basin where the Rio Grande Rise is located. This could be similar to the pressure steering mentioned in Pillar, except from all four sides: the rise seems to be around the center of 2 dipoles at one month lead time. }
 	\item \red{Could the dipole to the East of the Mid Atlantic ridge be caused by the Walvis ridge? The line seems to follow Northeast just along where the ridge would be.}
-	\item \red{Then is positive strip along African coast from Ekman upwelling? Increase the strength of the Benguela current.}
+	\item \red{What does the positive strip along the African coast represent? Does this increase the strength of the Benguela current, and potentially cause Ekman upwelling which feeds into the South Equatorial Current?}
 	\item \red{Why would an increase in wind stress along the Agulhas current increase AMOC?}
-	\item Can see coastally trapped sensitivities a
+	\item Can see residual from barotropic response in shallow waters around the globe. 
 	\item After one month, baroclinic Rossby waves can be seen tilting the sensitivity patterns to the Northeast. 
 	\item \red{baroclinically unstable flanks along subtropical gyres?}
 	\item See damping to viscous dissipation at high latitudes with low rossby wave speeds
@@ -204,14 +205,14 @@
 
    \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{reconstruct.34S/full_reconstruct_mean_flux}
-    \caption{SAMOC reconstructed as in Eqn. \ref{eq:reconstruct} with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{1 year}.}
+    \includegraphics[width=\textwidth]{reconstruct.34S/monthly/full_reconstruct_mean_atemp}
+    \caption{SAMOC reconstructed as in Eqn. \ref{eq:reconstruct} with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{4 years}. Monthly values are reconstructed with their associated sensitivities.}
     \label{fig:fullReconstruction}
    \end{figure}
 
   \subsection{Exploring reconstruction memory \& buoyancy contributions}
 
-  When reconstructing AMOC as in Eqn. \ref{eq:reconstruct} with only December sensitivities ($\pderiv{\mathcal{J}}{\mathcal{F}_k}$), increasing the memory time significantly changes the quality and phase of the reconstruction (see Fig. \ref{fig:phaseChangeAqh}). \red{This phase change arises because the ocean responds to changes in heat flux related variables differently enough (to be detected) during different times of the year.} See Fig. \ref{fig:bigPlotHflux} for how June and December sensitivities look in different regions of the world. Notably in the area around Greenland and in the Atlantic. See Fig. \ref{fig:bigPlotTauu} for how these sensitivities are almost identical for wind stress. Thus, when performing the heat flux reconstruction with monthly sensitivities (but removing the zeros this time ...), the phase change goes away, only amplitude increases with memory time (see Fig. \ref{fig:aqh}). 
+  When reconstructing AMOC as in Eqn. \ref{eq:reconstruct} with only December sensitivities ($\pderiv{\mathcal{J}}{\mathcal{F}_k}$), increasing the memory time significantly changes the quality and phase of the reconstruction (see Fig. \ref{fig:phaseChangeAqh}). This phase change arises because the ocean responds to changes in buoyancy flux related variables differently during different months of the year, so the sensitivity profiles are different depending on the month when AMOC is evaluated. See Fig. \ref{fig:bigPlotHflux} for how June and December sensitivities look in different regions of the world. Notably in the ACC, Atlantic, Arctic, and the area around Greenland. See Fig. \ref{fig:bigPlotTauu} for how these sensitivities are almost identical for wind stress. Thus, when performing the heat flux reconstruction with monthly sensitivities (but removing the zeros this time ...), the phase change goes away, only amplitude increases with memory time (see Fig. \ref{fig:aqh}). It makes sense that using December only would cause a phase change in the reconstructed signal, because the $\delta\mathcal{F}_k(x,y,t)$ \& $\pderiv{\mathcal{J}}{\mathcal{F}_k}$ fields may introduce interference for summer vs winter months (for example).
 
   
    \begin{figure}
@@ -242,7 +243,9 @@
     \label{fig:aqh}
    \end{figure}
 
-  So this seems to imply that it is actually important to compute monthly sensitivities for an accurate reconstruction. However, the reconstruction from wind stress essentially ``nails it''. See Fig. \ref{fig:windReconstruct}. The absolute error between the forward model reconstruction and wind stress reconstruction is \red{indistinguishable from white noise} \ref{fig:windRecError} \red{talk about fourier transform here}. Additionally, when considering the two norm of the reconstruction error from the forward model, the quality only gets worse when buoyancy fluxes are added (Fig. \ref{fig:reconstructError}).  However, when considering the reconstruction at 26N, there seems to be a roughly decadal mode in the error between the two: Fig \ref{fig:windRecError26N}. We can't say anything about adding heat/salt flux here though because I only have December evaluated objective functions completed. 
+  So this seems to imply that it is actually important to compute monthly sensitivities for an accurate reconstruction. However, the reconstruction from wind stress essentially ``nails it''. See Fig. \ref{fig:windReconstruct}. The error $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$ is quite noisy and has no notable peaks in its frequency spectrum other than at $1 \& 2 yr^{-1}$, see Figs. \ref{fig:windRecError} \& \ref{fig:freqWindRecError}. Additionally, when considering the two norm of the reconstruction error from the forward model, the quality only gets worse when buoyancy fluxes are added (Fig. \ref{fig:reconstructError}). This makes me curious 'what is missing' from the wind only reconstruction. Is this the only important mechanism that we can detect at 34S? Is this the only latitude where this is true or is this the same for all southern latitudes?  
+
+  Compare the reconstruction at 34S to that at 26N. There we can see a notable pattern in the error $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$, Fig \ref{fig:windRecError26N}, and there is a strong peak at 1/10 $yr^{-1}$ in the frequency spectrum (Fig. \ref{fig:freqWindRecError26N}). I can't say anything about adding heat/salt flux here to make up for this component though because I only have December evaluated objective functions completed. However, the shape looks similar to that in Pillar \cite{pillar}, although the amplitude is smaller. 
 
    \begin{figure}
     \centering
@@ -254,16 +257,16 @@
    \begin{figure}
     \centering
     \includegraphics[width=.7\textwidth]{reconstruct.34S/for_minus_wind}
-    \caption{34S: Absolute error between the full forward model and the reconstruction only using wind. Reconstruction is with only December sensitivity so that no gaps exist and we can look at the frequency spectrum in the next plot. }
+    \caption{34S: $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Reconstruction is with only December sensitivity so that no gaps exist and we can look at the frequency spectrum in the next plot. For low pass filter, all frequencies $\geq2$ cycles per year were removed. 1 cycle per year was also set to 0. }
     \label{fig:windRecError}
    \end{figure}
 
-%   \begin{figure}
-%    \centering
-%    \includegraphics[width=.7\textwidth]{reconstruct.34S/freq_for_minus_wind}
-%    \caption{34S: Frequency domain of absolute error between the full forward model and the reconstruction only using wind. Reconstruction only with December sens.}
-%    \label{fig:freqWindRecError}
-%   \end{figure}
+   \begin{figure}
+    \centering
+    \includegraphics[width=.7\textwidth]{reconstruct.34S/freq_for_minus_wind}
+    \caption{34S: Frequency domain of $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Reconstruction only with December sens. There are no notable peaks other than the seasonal cycle peaks.}
+    \label{fig:freqWindRecError}
+   \end{figure}
 
    \begin{figure}
     \centering
@@ -275,20 +278,25 @@
    \begin{figure}
     \centering
     \includegraphics[width=.7\textwidth]{reconstruct.26N/for_minus_wind}
-    \caption{26N: Absolute error between the full forward model and the reconstruction only using wind.}
-    \label{fig:windReconstruct26N}
+    \caption{26N: $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Same low pass filter as with 34S.}
+    \label{fig:windRecError26N}
+   \end{figure}
+
+   \begin{figure}
+    \centering
+    \includegraphics[width=.7\textwidth]{reconstruct.26N/freq_for_minus_wind}
+    \caption{26N: Frequency domain of $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Reconstruction only with December sens. Here we see a strong peak at 1/10 $yr^{-1}$. Supposedly this should be reconstructed with heat flux as in Pillar \cite{pillar}.}
+    \label{fig:freqWindRecError26N}
    \end{figure}
 
   This leaves a lot of questions: 
   \begin{enumerate}
 	\item Is wind stress the only important component in AMOC variability that is detectable over a 20 yr time frame? and with ECCO
+	\item Is this true for the Southern hemisphere or only at 34S? \red{This I could answer quickly} 
 	\item why does the reconstruction get worse with buoyancy fluxes, and why does divergence happen after only 4-5 years? (as opposed to Pillar, 15 yrs)?
 	\item Why is there a decadal mode in the north? is this recirculation in the sub tropical gyre? equatorial buffer? 
 	\item Why does the hflux contribution only look like a seasonally oscillating cycle while in Pillar they didn't see this andor saw decadal mode? Does this just dominate, and are my plotting scales making this seem like it is the case? 
  \end{enumerate}
-
-
-  The contribution to $\delta\mathcal{J}(t)$ from heat and salt flux show a very different behavior than in Pillar \cite{pillar}. In the Pillar paper there seems to be a roughly decadal mode appearing from heat flux reconstruction, with very little variation due to salt flux. In my reconstructions, I get strictly oscillatory behavior on roughly at annual time scales. 
 
   Considering signs: I am using the following variables for reconstruction with fluxes. 
   \begin{enumerate}
