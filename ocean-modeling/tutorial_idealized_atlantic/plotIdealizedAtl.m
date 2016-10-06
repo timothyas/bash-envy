@@ -1,5 +1,7 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
 runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_eq/';
+plotDir = 'flip-tau/'
+if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
 %% Get the grid and time steps
@@ -21,7 +23,7 @@ SST = squeeze(T(:,:,1,:)); % Grab SST
 
 %% Assume constant density and heat capacity for heat content
 rho_0 = 1035; 
-Cp = 3.985; % kJ/kg*K
+Cp = 3.994; % kJ/kg*K from set_defaults
 Q = rho_0*Cp* T .* repmat(dV,[1 1 1 Nt]);
 
 %% Compute SST and Q mean globally
@@ -51,7 +53,7 @@ subplot(2,1,2),plot(iters,Qavg)
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-    saveas(gcf,'GlobalAvg_pTau','pdf')
+    saveas(gcf,[plotDir 'GlobalAvg_pTau'],'pdf')
    
 close;
 
@@ -90,7 +92,7 @@ title('V 1350m')
 set(gcf,'paperorientation','landscape')
 set(gcf,'paperunits','normalized')
 set(gcf,'paperposition',[0 0 1 1])
-saveas(gcf,'vol_snapshots','pdf')
+saveas(gcf,[plotDir 'vol_snapshots'],'pdf')
 close;
 
 
@@ -102,5 +104,5 @@ set(gcf,'paperposition',[0 0 1 1])
 xlabel('Longitude (Deg)')
 ylabel('Latitude (Deg)')
 title('SSH Snapshot')
-saveas(gcf,'EtaSnap','pdf')
+saveas(gcf,[plotDir 'EtaSnap'],'pdf')
 close;
