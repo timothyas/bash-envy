@@ -62,93 +62,37 @@ u = rdmds([runDir 'U'],Inf);
 v = rdmds([runDir 'V'],Inf);
 eta=rdmds([runDir 'Eta'],Inf);
 
-figure;
-contourf(xc,yc,T(:,:,1))
-set(gcf,'paperorientation','landscape')
-set(gcf,'paperunits','normalized')
-set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
+figureW;
+subplot(2,3,1),contourf(xc,yc,T(:,:,1))
 title('Temp. Snapshot: 20m')
-saveas(gcf,'Tsnap_20m','pdf')
-close;
 
-figure;
-contourf(xc,yc,T(:,:,5))
-set(gcf,'paperorientation','landscape')
-set(gcf,'paperunits','normalized')
-set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
+subplot(2,4,2),contourf(xc,yc,T(:,:,5))
 title('Temp. Snapshot: 1350m')
-saveas(gcf,'Tsnap_1350m','pdf')
-close;
 
-figure;
-contourf(xc,yc,S(:,:,1))
-set(gcf,'paperorientation','landscape')
-set(gcf,'paperunits','normalized')
-set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
+subplot(2,4,3),contourf(xc,yc,S(:,:,1))
 title('Salinity Snapshot: 20m')
-saveas(gcf,'Ssnap_20m','pdf')
-close;
 
-figure;
-contourf(xc,yc,S(:,:,5))
-set(gcf,'paperorientation','landscape')
-set(gcf,'paperunits','normalized')
-set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
-title('Salinity Snapshot: 1350m')
+subplot(2,4,4),contourf(xc,yc,S(:,:,5))
 saveas(gcf,'Ssnap_1350m','pdf')
-close;
 
-figure;
-contourf(xc,yc,u(:,:,1))
-set(gcf,'paperorientation','landscape')
-set(gcf,'paperunits','normalized')
-set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
+subplot(2,4,5),contourf(xc,yc,u(:,:,1))
 title('Zonal Vel. Snapshot: 20m')
-saveas(gcf,'Usnap_20m','pdf')
-close;
 
-figure;
-contourf(xc,yc,u(:,:,5))
-set(gcf,'paperorientation','landscape')
-set(gcf,'paperunits','normalized')
-set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
+subplot(2,4,6),contourf(xc,yc,u(:,:,5))
 title('Zonal Vel. Snapshot: 1350m')
-saveas(gcf,'Usnap_1350m','pdf')
-close;
 
-figure;
-contourf(xc,yc,v(:,:,1))
-set(gcf,'paperorientation','landscape')
-set(gcf,'paperunits','normalized')
-set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
+subplot(2,4,7),contourf(xc,yc,v(:,:,1))
 title('Meridional Vel. Snapshot: 20m')
-saveas(gcf,'Vsnap_20m','pdf')
-close;
 
-figure;
-contourf(xc,yc,v(:,:,1))
+subplot(2,4,8),contourf(xc,yc,v(:,:,5))
+title('Meridional Vel. Snapshot: 1350m')
+
 set(gcf,'paperorientation','landscape')
 set(gcf,'paperunits','normalized')
 set(gcf,'paperposition',[0 0 1 1])
-xlabel('Longitude (Deg)')
-ylabel('Latitude (Deg)')
-title('Meridional Vel. Snapshot: 1350m')
-saveas(gcf,'Vsnap_1350m','pdf')
+saveas(gcf,'vol_snapshots','pdf')
 close;
+
 
 figure;
 contourf(xc,yc,eta)
