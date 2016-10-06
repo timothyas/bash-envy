@@ -63,29 +63,29 @@ v = rdmds([runDir 'V'],Inf);
 eta=rdmds([runDir 'Eta'],Inf);
 
 figureW;
-subplot(2,3,1),contourf(xc,yc,T(:,:,1))
-title('Temp. Snapshot: 20m')
+subplot(2,4,1),contourf(xc,yc,T(:,:,1))
+title('T 20m')
 
-subplot(2,4,2),contourf(xc,yc,T(:,:,5))
-title('Temp. Snapshot: 1350m')
+subplot(2,4,5),contourf(xc,yc,T(:,:,5))
+title('T 1350m')
 
-subplot(2,4,3),contourf(xc,yc,S(:,:,1))
-title('Salinity Snapshot: 20m')
+subplot(2,4,2),contourf(xc,yc,S(:,:,1))
+title('S 20m')
 
-subplot(2,4,4),contourf(xc,yc,S(:,:,5))
-saveas(gcf,'Ssnap_1350m','pdf')
+subplot(2,4,6),contourf(xc,yc,S(:,:,5))
+title('S 1350m')
 
-subplot(2,4,5),contourf(xc,yc,u(:,:,1))
-title('Zonal Vel. Snapshot: 20m')
+subplot(2,4,3),contourf(xc,yc,u(:,:,1))
+title('U 20m')
 
-subplot(2,4,6),contourf(xc,yc,u(:,:,5))
-title('Zonal Vel. Snapshot: 1350m')
+subplot(2,4,7),contourf(xc,yc,u(:,:,5))
+title('U 1350m')
 
-subplot(2,4,7),contourf(xc,yc,v(:,:,1))
-title('Meridional Vel. Snapshot: 20m')
+subplot(2,4,4),contourf(xc,yc,v(:,:,1))
+title('V 20m')
 
 subplot(2,4,8),contourf(xc,yc,v(:,:,5))
-title('Meridional Vel. Snapshot: 1350m')
+title('V 1350m')
 
 set(gcf,'paperorientation','landscape')
 set(gcf,'paperunits','normalized')
