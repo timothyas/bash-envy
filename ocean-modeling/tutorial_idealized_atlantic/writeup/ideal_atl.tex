@@ -1,0 +1,66 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry,amsmath,color,graphicx}
+\geometry{margin=1in}
+
+
+%opening
+\title{\vspace{-10ex}100 Year Idealized Atlantic}
+\author{Tim Smith}
+\date{\vspace{-3ex}}
+
+%% --- Figures
+\DeclareGraphicsExtensions{.png,.pdf}
+
+\begin{document} 
+
+\section{Original Wind Stress}
+	First is the output from running 100 years with the original set up. 
+
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{../orig-tau/GlobalAvg_pTau}
+\caption{Global mean Sea Surface Temperature (top) and Heat Content (bottom) as yearly time averaged quantities. The global averages are computed as volume weighted averages.}
+\label{fig:globalAvgs}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{../orig-tau/vol_snapshots}
+\caption{Snapshots of temperature (left), salinity (middle left), zonal velocity (middle right), and vertical velocity (right) at 20m depth (top row) and 1350m depth (bottom row). Snapshot taken at the end of 100, 360 day years.}
+\label{fig:volSnaps}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=.5\textwidth]{../orig-tau/EtaSnap}
+\caption{Snapshot of $\eta$, the sea surface height anomaly, taken at the end of 100, 360 day years.} 
+\label{fig:etaSnap}
+\end{figure}
+
+\section{Flipped Wind Stress}
+
+	These next plots show the results after flipping the sign of the horizontal wind stress. 
+
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{../flip-tau/GlobalAvg_pTau}
+\caption{Global mean Sea Surface Temperature (top) and Heat Content (bottom) as yearly time averaged quantities. The global averages are computed as volume weighted averages.}
+\label{fig:flipGlobalAvgs}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{../flip-tau/vol_snapshots}
+\caption{Snapshots of temperature (left), salinity (middle left), zonal velocity (middle right), and vertical velocity (right) at 20m depth (top row) and 1350m depth (bottom row). Snapshot taken at the end of 100, 360 day years.}
+\label{fig:flipVolSnaps}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=.5\textwidth]{../flip-tau/EtaSnap}
+\caption{Snapshot of $\eta$, the sea surface height anomaly, taken at the end of 100, 360 day years.} 
+\label{fig:flipEtaSnap}
+\end{figure}
+
+\end{document}
