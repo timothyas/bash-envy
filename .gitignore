@@ -33,6 +33,7 @@ matlab/GSW/pdf/*
 *.avi
 m_map/*.html
 .DS_Store
+*.fig
 
 syntax: regexp
 .*\#.*\#$
