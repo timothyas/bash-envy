@@ -35,7 +35,7 @@ for n=1:Nt
 	%SST = squeeze(T(:,:,1,:));
 	%Q = rho_0*Cp* T .* dV
 	SSTavg(n) = squeeze(sum(sum(SST(:,:,n) .* dV(:,:,1),1),2))/surfVol;
-  	Qavg(n) = squeeze(sum(sum(sum(Q(:,:,:,n),1),2),3))/(Nx*Ny*Nz);
+  	Qavg(n) = squeeze(sum(sum(sum(Q(:,:,:,n) .* dV,1),2),3))/(totVol);
 end
 
 %% Make dem plots
