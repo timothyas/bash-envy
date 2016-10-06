@@ -61,7 +61,7 @@ close;
 T = rdmds([runDir 'T'],Inf);
 S = rdmds([runDir 'S'],Inf);
 u = rdmds([runDir 'U'],Inf);
-v = rdmds([runDir 'V'],Inf);
+w = rdmds([runDir 'W'],Inf);
 eta=rdmds([runDir 'Eta'],Inf);
 
 figureW;
@@ -83,11 +83,11 @@ title('U 20m')
 subplot(2,4,7),contourf(xc,yc,u(:,:,5))
 title('U 1350m')
 
-subplot(2,4,4),contourf(xc,yc,v(:,:,1))
-title('V 20m')
+subplot(2,4,4),contourf(xc,yc,w(:,:,1))
+title('W 20m')
 
-subplot(2,4,8),contourf(xc,yc,v(:,:,5))
-title('V 1350m')
+subplot(2,4,8),contourf(xc,yc,w(:,:,5))
+title('W 1350m')
 
 set(gcf,'paperorientation','landscape')
 set(gcf,'paperunits','normalized')
