@@ -1,5 +1,7 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
 runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_eq/';
+plotDir = 'orig-tau/'
+if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
 %% Get the grid and time steps
@@ -21,7 +23,7 @@ SST = squeeze(T(:,:,1,:)); % Grab SST
 
 %% Assume constant density and heat capacity for heat content
 rho_0 = 1035; 
-Cp = 3.985; % kJ/kg*K
+Cp = 3.994; % kJ/kg*K from set_defaults
 Q = rho_0*Cp* T .* repmat(dV,[1 1 1 Nt]);
 
 %% Compute SST and Q mean globally
@@ -51,7 +53,7 @@ subplot(2,1,2),plot(iters,Qavg)
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-    saveas(gcf,'GlobalAvg_pTau','pdf')
+    saveas(gcf,[plotDir 'GlobalAvg_pTau'],'pdf')
    
 close;
 
@@ -63,34 +65,34 @@ v = rdmds([runDir 'V'],Inf);
 eta=rdmds([runDir 'Eta'],Inf);
 
 figureW;
-subplot(2,3,1),contourf(xc,yc,T(:,:,1))
-title('Temp. Snapshot: 20m')
+subplot(2,4,1),contourf(xc,yc,T(:,:,1))
+title('T 20m')
 
-subplot(2,4,2),contourf(xc,yc,T(:,:,5))
-title('Temp. Snapshot: 1350m')
+subplot(2,4,5),contourf(xc,yc,T(:,:,5))
+title('T 1350m')
 
-subplot(2,4,3),contourf(xc,yc,S(:,:,1))
-title('Salinity Snapshot: 20m')
+subplot(2,4,2),contourf(xc,yc,S(:,:,1))
+title('S 20m')
 
-subplot(2,4,4),contourf(xc,yc,S(:,:,5))
-saveas(gcf,'Ssnap_1350m','pdf')
+subplot(2,4,6),contourf(xc,yc,S(:,:,5))
+title('S 1350m')
 
-subplot(2,4,5),contourf(xc,yc,u(:,:,1))
-title('Zonal Vel. Snapshot: 20m')
+subplot(2,4,3),contourf(xc,yc,u(:,:,1))
+title('U 20m')
 
-subplot(2,4,6),contourf(xc,yc,u(:,:,5))
-title('Zonal Vel. Snapshot: 1350m')
+subplot(2,4,7),contourf(xc,yc,u(:,:,5))
+title('U 1350m')
 
-subplot(2,4,7),contourf(xc,yc,v(:,:,1))
-title('Meridional Vel. Snapshot: 20m')
+subplot(2,4,4),contourf(xc,yc,v(:,:,1))
+title('V 20m')
 
 subplot(2,4,8),contourf(xc,yc,v(:,:,5))
-title('Meridional Vel. Snapshot: 1350m')
+title('V 1350m')
 
 set(gcf,'paperorientation','landscape')
 set(gcf,'paperunits','normalized')
 set(gcf,'paperposition',[0 0 1 1])
-saveas(gcf,'vol_snapshots','pdf')
+saveas(gcf,[plotDir 'vol_snapshots'],'pdf')
 close;
 
 
@@ -102,5 +104,5 @@ set(gcf,'paperposition',[0 0 1 1])
 xlabel('Longitude (Deg)')
 ylabel('Latitude (Deg)')
 title('SSH Snapshot')
-saveas(gcf,'EtaSnap','pdf')
+saveas(gcf,[plotDir 'EtaSnap'],'pdf')
 close;
