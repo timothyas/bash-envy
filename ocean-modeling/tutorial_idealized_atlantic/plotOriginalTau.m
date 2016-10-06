@@ -43,11 +43,11 @@ figureW;
 subplot(2,1,1),plot(iters,SSTavg)
     xlabel('Hours')
     ylabel('SST Vol. Avg.')
+    title('Global Mean SST & Heat Content')
 subplot(2,1,2),plot(iters,Qavg)
     xlabel('Hours')
     ylabel('Mean Heat Content')
-    
-    title('Global Mean SST & Heat Content')
+
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
