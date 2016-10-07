@@ -1,6 +1,6 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
-runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_eq/';
-plotDir = 'orig-tau/'
+runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_flip/';
+plotDir = 'flip-tau/'
 if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
@@ -67,27 +67,36 @@ eta=rdmds([runDir 'Eta'],Inf);
 figureW;
 subplot(2,4,1),contourf(xc,yc,T(:,:,1))
 title('T 20m')
+colorbar
 
 subplot(2,4,5),contourf(xc,yc,T(:,:,5))
 title('T 1350m')
+colorbar
 
-subplot(2,4,2),contourf(xc,yc,S(:,:,1))
+sc=34:.1:36;
+subplot(2,4,2),contourf(xc,yc,S(:,:,1),sc)
 title('S 20m')
+colorbar
 
-subplot(2,4,6),contourf(xc,yc,S(:,:,5))
+subplot(2,4,6),contourf(xc,yc,S(:,:,5),sc)
 title('S 1350m')
+colorbar
 
 subplot(2,4,3),contourf(xc,yc,u(:,:,1))
 title('U 20m')
+colorbar
 
 subplot(2,4,7),contourf(xc,yc,u(:,:,5))
 title('U 1350m')
+colorbar
 
 subplot(2,4,4),contourf(xc,yc,w(:,:,1))
 title('W 20m')
+colorbar
 
 subplot(2,4,8),contourf(xc,yc,w(:,:,5))
 title('W 1350m')
+colorbar
 
 set(gcf,'paperorientation','landscape')
 set(gcf,'paperunits','normalized')
@@ -98,6 +107,7 @@ close;
 
 figure;
 contourf(xc,yc,eta)
+colorbar
 set(gcf,'paperorientation','landscape')
 set(gcf,'paperunits','normalized')
 set(gcf,'paperposition',[0 0 1 1])
