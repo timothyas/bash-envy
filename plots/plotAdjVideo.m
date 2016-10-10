@@ -1,4 +1,4 @@
-function[ ] = plotAdjVideo(fld, strs, opts, mygrid )
+function[ ] = plotAdjVideo(fld, strs, opts, mygrid , exfOpt )
 % Make a video through time of mapped field
 % Inputs: 
 %
@@ -13,6 +13,7 @@ function[ ] = plotAdjVideo(fld, strs, opts, mygrid )
 %           caxLim: colorbar scale
 %           saveVideo: default = 0
 %           figType: long or wide(default)
+%       exfOpt: 1 => exf plotting, 0 => adj plotting
 % -------------------------------------------------------------------------
 
 
@@ -51,6 +52,10 @@ if nargin < 4
     establish_mygrid;
 end
 
+if nargin<5
+    exfOpt=0;
+end
+
 % Prepare ranges for logarithmic plotting
 if logFld
     [fld] = calcLogField(fld,caxLim,mygrid);
@@ -74,21 +79,43 @@ end
 % [binFld, colbarticks, colbarlbl, Ntick, cmap] = binForPlotting(fld,caxLim,mygrid);
 binFld = fld*10^caxLim; 
 
+caxMax=round(nanmax(abs(fld)));
+% caxMin=round(nanmin(fld));
+
 % Do the plotting 
 c=gcf();
-for n=tLims(2):-1:tLims(1)
+if exfOpt
+    for n=tLims(1):tLims(2)
+        
+        figure(c),m_map_atl(fld(:,:,n),mmapOpt)%,{'myCaxis',myCaxis});
+        hc=colorbar;
+        %     set(hc,'ticks',colbarticks,'ticklabels',colbarlbl);
+        colormap(redblue);
+        caxis([-caxMax caxMax])
+        xlabel([xlbl sprintf('t = %d %s',n,time)])
+        ylabel(hc,sprintf('x 10^{%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 .2 0]);
+        %     keyboard
+        if saveVideo
+            currFrame=getframe(c);
+            writeVideo(vidObj,currFrame);
+        end
+    end
+else
     
-    figure(c),m_map_atl(binFld(:,:,n),mmapOpt)%,{'myCaxis',myCaxis});
-    hc=colorbar;
-%     set(hc,'ticks',colbarticks,'ticklabels',colbarlbl);
-    colormap(redblue);
-    caxis([-1 1])
-    xlabel([xlbl sprintf('t-%d %s',tLims(2)-n,time)])
-    ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 .2 0]);
-%     keyboard
-    if saveVideo 
-        currFrame=getframe(c);
-        writeVideo(vidObj,currFrame); 
+    for n=tLims(2):-1:tLims(1)
+        
+        figure(c),m_map_atl(binFld(:,:,n),mmapOpt)%,{'myCaxis',myCaxis});
+        hc=colorbar;
+        %     set(hc,'ticks',colbarticks,'ticklabels',colbarlbl);
+        colormap(redblue);
+        caxis([-1 1])
+        xlabel([xlbl sprintf('t-%d %s',tLims(2)-n,time)])
+        ylabel(hc,sprintf('x 10^{-%d}\n%s',caxLim,clbl),'rotation',0,'position',[4 .2 0]);
+        %     keyboard
+        if saveVideo
+            currFrame=getframe(c);
+            writeVideo(vidObj,currFrame);
+        end
     end
 end
 
