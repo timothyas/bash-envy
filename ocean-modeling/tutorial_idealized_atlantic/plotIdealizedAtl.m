@@ -1,6 +1,6 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
-runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_orig/';
-plotDir = 'orig-tau/'
+runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_flip/';
+plotDir = 'flip-tau/'
 if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
@@ -83,19 +83,11 @@ subplot(2,4,6),contourf(xc,yc,S(:,:,5),sc)
 title('S 1350m')
 colorbar
 
-subplot(2,4,3),contourf(xc,yc,divergence(xc,yc,u(:,:,1),v(:,:,1)))
-hold on
-quiver(xc,yc,u(:,:,1),v(:,:,1))
-hold off 
+subplot(2,4,3), quiver(xc,yc,u(:,:,1),v(:,:,1))
 title('(U,V) 20m')
-colorbar
 
-subplot(2,4,7),contourf(xc,yc,divergence(xc,yc,u(:,:,5),v(:,:,5)))
-hold on
-quiver(xc,yc,u(:,:,5),v(:,:,5))
-hold off 
+subplot(2,4,7),quiver(xc,yc,u(:,:,5),v(:,:,5))
 title('(U,V) 1350m')
-colorbar
 
 subplot(2,4,4),contourf(xc,yc,w(:,:,1))
 title('W 20m')
