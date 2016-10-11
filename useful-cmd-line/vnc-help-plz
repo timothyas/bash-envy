@@ -1,0 +1,16 @@
+
+I'm trying the following to view Thorne (ICES machine) from my Mac
+
+On thorne, start up vnc server: 
+	vncserver
+
+-> this gives me :1, say. Do I make both of the below ports the same? does it matter?
+
+On Mac,
+
+	ssh -p 8704 -f -N -L 5901:thorne.ices.utexas.edu:5901 thorne.ices.utexas.edu
+	open vnc://thorne.ices.utexas.edu:1
+
+-f: run ssh in the background 
+-N: Doesn't execute a remote command, for forwarding ports
+
