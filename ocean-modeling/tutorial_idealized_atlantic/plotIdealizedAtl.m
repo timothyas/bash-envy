@@ -1,6 +1,6 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
-runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_flip/';
-plotDir = 'flip-tau/'
+runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_orig/';
+plotDir = 'orig-tau/'
 if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
@@ -61,6 +61,7 @@ close;
 T = rdmds([runDir 'T'],Inf);
 S = rdmds([runDir 'S'],Inf);
 u = rdmds([runDir 'U'],Inf);
+v = rdmds([runDir 'V'],Inf);
 w = rdmds([runDir 'W'],Inf);
 eta=rdmds([runDir 'Eta'],Inf);
 
@@ -82,12 +83,18 @@ subplot(2,4,6),contourf(xc,yc,S(:,:,5),sc)
 title('S 1350m')
 colorbar
 
-subplot(2,4,3),contourf(xc,yc,u(:,:,1))
-title('U 20m')
+subplot(2,4,3),contourf(xc,yc,divergence(xc,yc,u(:,:,1),v(:,:,1)))
+hold on
+quiver(xc,yc,u(:,:,1),v(:,:,1))
+hold off 
+title('(U,V) 20m')
 colorbar
 
-subplot(2,4,7),contourf(xc,yc,u(:,:,5))
-title('U 1350m')
+subplot(2,4,7),contourf(xc,yc,divergence(xc,yc,u(:,:,5),v(:,:,5)))
+hold on
+quiver(xc,yc,u(:,:,5),v(:,:,5))
+hold off 
+title('(U,V) 1350m')
 colorbar
 
 subplot(2,4,4),contourf(xc,yc,w(:,:,1))
