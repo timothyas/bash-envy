@@ -61,6 +61,7 @@ close;
 T = rdmds([runDir 'T'],Inf);
 S = rdmds([runDir 'S'],Inf);
 u = rdmds([runDir 'U'],Inf);
+v = rdmds([runDir 'V'],Inf); 
 w = rdmds([runDir 'W'],Inf);
 eta=rdmds([runDir 'Eta'],Inf);
 
