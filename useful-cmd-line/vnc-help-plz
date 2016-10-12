@@ -1,16 +1,24 @@
 
-I'm trying the following to view Thorne (ICES machine) from my Mac
+On server, start up vnc: 
 
-On thorne, start up vnc server: 
-	vncserver
+	$ vncserver -localhost -geometry 1200x650
 
--> this gives me :1, say. Do I make both of the below ports the same? does it matter?
+This gives you a session number (let's call it n) and sets everything up. Good idea to comment out the last line in ~/.vnc/xstartup from "twm &" to "/usr/bin/gnome-session" 
 
-On Mac,
+Then back in the command line on the server: 
 
-	ssh -p 8704 -f -N -L 5901:thorne.ices.utexas.edu:5901 thorne.ices.utexas.edu
-	open vnc://thorne.ices.utexas.edu:1
+	$ press enter a few times
+	$ (SHIFT + ~)
+	$ (SHIFT + C)
+	$ L 590(m):localhost:590(n)
 
--f: run ssh in the background 
--N: Doesn't execute a remote command, for forwarding ports
+When typing the second two commands, you shouldn't see any output on the screen. If you do, hit enter a few times and redo it.
 
+When you type in the first command, it gives you the vnc session number (n). E.g. 1, 2 .. This has to be the same in the second number in the last command. The first number (m) refers to your machine (e.g. laptop). Usually it works fine to pick the same number, but sometimes if a session fails that number won't work from an old session.
+
+On laptop terminal (Mac),
+
+	$ open vnc://localhost:5902
+
+
+Then to re open an existing vnc session, the very first line is not necessary
