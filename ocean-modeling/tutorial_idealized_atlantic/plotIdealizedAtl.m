@@ -1,11 +1,15 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
-runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_flip/';
-plotDir = 'flip-tau/'
+runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_8f/';
+plotDir = 'run-8f/'
 if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
 %% Get the grid and time steps
-iters = 8640:8640:864000;
+if ~isempty(strfind(plotDir,'8f'))
+	iters=17280:17280:1728000;
+else
+	iters = 8640:8640:864000;
+end
 Nt = length(iters); 
 xc = rdmds([runDir 'XC']);
 yc = rdmds([runDir 'YC']); 
