@@ -39,7 +39,11 @@ atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
 atlMsk(isnan(atlMsk))=0;
 
 %% Czeschel et al's north box
-ycond = mygrid.YC > 45 & mygrid 
+ycond = mygrid.YC >= 45 & mygrid.YC <= 70;
+xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
+czeMsk = mygrid.mskC(:,:,1).*yCond.*xCond.*atlMsk;
+czeMsk=czeMsk.*(mygrid.mskC(:,:,1));
+czeMsk(isnan(czeMsk))=0;
 
-msks = struct('acc',accMsk,'arc',arcMsk,'ind',indMsk,'pac',pacMsk,'atl',atlMsk,'north',northMsk);
+msks = struct('acc',accMsk,'arc',arcMsk,'ind',indMsk,'pac',pacMsk,'atl',atlMsk,'north',northMsk,'czeschel',czeMsk);
 end
