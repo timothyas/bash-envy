@@ -34,16 +34,26 @@ northMsk = mygrid.mskC(:,:,1).*yCond.*atlMsk;
 northMsk=northMsk.*(mygrid.mskC(:,:,1) - arcMsk);
 northMsk(isnan(northMsk))=0;
 
-%% Atlantic without North box 
-atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
-atlMsk(isnan(atlMsk))=0;
-
 %% Czeschel et al's north box
-ycond = mygrid.YC >= 45 & mygrid.YC <= 70;
+yCond = mygrid.YC >= 45 & mygrid.YC <= 70;
 xCond = mygrid.XC >= -90 & mygrid.XC <= 10;
 czeMsk = mygrid.mskC(:,:,1).*yCond.*xCond.*atlMsk;
 czeMsk=czeMsk.*(mygrid.mskC(:,:,1));
 czeMsk(isnan(czeMsk))=0;
 
-msks = struct('acc',accMsk,'arc',arcMsk,'ind',indMsk,'pac',pacMsk,'atl',atlMsk,'north',northMsk,'czeschel',czeMsk);
+%% Greenland area
+yCond = mygrid.YC >= 50 & mygrid.YC <= 80;
+xCond = mygrid.XC >= -60 & mygrid.XC <= -20;
+greenMsk = mygrid.mskC(:,:,1).*yCond.*xCond.*atlMsk;
+greenMsk=greenMsk.*(mygrid.mskC(:,:,1));
+greenMsk(isnan(greenMsk))=0;
+
+%% Atlantic without North box 
+atlMsk = atlMsk.*(mygrid.mskC(:,:,1) - northMsk - accMsk);
+atlMsk(isnan(atlMsk))=0;
+
+
+
+msks = struct('acc',accMsk,'arc',arcMsk,'ind',indMsk,'pac',pacMsk,'atl',atlMsk,...
+    'north',northMsk,'czeschel',czeMsk,'greenland',greenMsk);
 end
