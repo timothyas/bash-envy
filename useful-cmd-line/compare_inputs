@@ -1,0 +1,27 @@
+#! /usr/bin/env bash
+
+# Purpose is to compare check the differences between files in
+# ver_dir and current dir
+# Output those differences to diff.txt
+
+
+ver_dir=$WORK/verification/global_oce_llc90/input.ecco_v4
+
+if [[ -r diff.txt ]] ; then
+  > diff.txt
+fi
+
+if [ -d $ver_dir ] ; then
+  fileList=`(ls -1 .)`
+  for xx in $fileList
+  do 
+    if [[ -r ${ver_dir}/$xx && $xx != "CVS" ]] ; then 
+      echo $xx >> diff.txt
+      echo "" >> diff.txt
+      diff $xx ${ver_dir}/$xx >> diff.txt
+      echo "" >> diff.txt
+      echo "" >> diff.txt
+
+    fi
+  done
+fi
