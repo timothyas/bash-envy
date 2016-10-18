@@ -2,12 +2,12 @@
 
 ## Set up suffix for adjoint run: "_ad"
 #  or leave as "" for forward run
-suff="_ad"
-dir_suff=".12mo"
+suff=""
+dir_suff=".hflux"
 
 ## Set up directories
 root_dir=$HOME/MITgcm
-ver_dir=$WORK/verification/global_oce_llc90
+ver_dir=$WORK/../verification/global_oce_llc90
 
 exp_dir=$PWD
 build_dir=$exp_dir/build$suff
@@ -18,8 +18,8 @@ input_dir=$exp_dir/input$suff$dir_suff
 ctrl_dir=$exp_dir/control-vectors
 masks_dir=$input_dir/masks
 
-submit_script=$exp_dir/submit_rapid
-data_dir=$WORK/ecco-data
+submit_script=$exp_dir/submit_samoc$suff
+data_dir=$WORK/../ecco-data
 input_data_dir=$data_dir/inputs_baseline2/input_insitu
 forcing_dir=$data_dir/forcing_baseline2
 
@@ -41,7 +41,7 @@ echo "Grabbing necessary files ..."
 cp $submit_script .
 
 # Executable
-ln -sf $build_dir/mitgcmuv$suff .
+ln -sfv $build_dir/mitgcmuv$suff .
 
 # Initial conditions (pickups), control vector (xx_*), grid, etc
 # Using packaged, dimensional results
@@ -50,18 +50,18 @@ ln -sf $ver_dir/input_fields/* .
 
 # Copy additional control vectors for this experiment, if dir exists
 if [ -d $ctrl_dir ] ; then 
-  ln -sf $ctrl_dir/* .
+  ln -sfv $ctrl_dir/* .
 else
-  echo "No additional control vectors ... "
+  echo "** No additional control vectors ... "
 fi
 
 
 # Copy masks for this particular setup.
 #  dir should be inside inputs
 if [ -d $masks_dir ] ; then
-  ln -sf $masks_dir/* .
+  ln -sfv $masks_dir/* .
 else
-  echo "No masks found in $masks_dir ... "
+  echo "** No masks found in $masks_dir ... "
 fi
 
 # Namelists
