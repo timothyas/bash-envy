@@ -1,13 +1,15 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
-runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_8f/';
-plotDir = 'run-8f/'
+runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_2f/';
+plotDir = 'run-2f/'
 if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
 %% Get the grid and time steps
-if ~isempty(strfind(plotDir,'8f'))
+if ~isempty(strfind(plotDir,'4f'))
 	iters=17280:17280:1728000;
-else
+elseif ~isempty(strfind(plotDir,'8f'))
+	iters = 34560:34560:3456000;
+else 
 	iters = 8640:8640:864000;
 end
 Nt = length(iters); 
@@ -22,7 +24,7 @@ Nz = size(drf,3);
 dV = repmat(dxg,[1 1 Nz]).*repmat(dyg,[1 1 Nz]).*repmat(drf,[Nx, Ny, 1]);
 
 %% Grab SST
-T = rdmds([runDir 'Ttave'],NaN);
+T = rdmds([runDir 'Ttave'],iters);
 SST = squeeze(T(:,:,1,:)); % Grab SST
 
 %% Assume constant density and heat capacity for heat content
