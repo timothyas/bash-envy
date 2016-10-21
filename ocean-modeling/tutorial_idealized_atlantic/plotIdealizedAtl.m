@@ -1,6 +1,6 @@
 %Not necessary on thorneaddpath ../../../MITgcmutils/matlab
-runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_2f/';
-plotDir = 'run-2f/'
+runDir = '../../../MITgcm/mysetups/tutorial_idealized_atlantic/run_flip_all/';
+plotDir = 'run-flip-all/'
 if ~exist(plotDir,'dir'),mkdir(plotDir);end;
 
 
