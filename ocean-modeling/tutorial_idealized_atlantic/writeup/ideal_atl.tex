@@ -7,13 +7,14 @@
 %opening
 \title{\vspace{-10ex}100 Year Idealized Atlantic}
 \author{Tim Smith}
-\date{\vspace{-3ex}}
+\date{\vspace{-5ex}}
 
 %% --- Figures
 \DeclareGraphicsExtensions{.png,.pdf}
 \newcommand{\degSym}{$^{\circ}$}
 
 \begin{document} 
+\maketitle
 
 %\section{Original Wind Stress}
 %	First is the output from running 100 years with the original set up. 
@@ -22,7 +23,7 @@
 % Original set up
 %%%%%%%%%%%%%%%%
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{../run-orig/GlobalAvg_pTau}
 \caption{\textbf{Original Setup}. Global mean Sea Surface Temperature (top) and Heat Content (bottom) as yearly time averaged quantities. The global averages are computed as volume weighted averages. Here the original wind field is used. The SST seems to stablize long before Heat Content. It seems like global heat content needs another 50-100 years to truly reach equilibrium. }
@@ -43,14 +44,14 @@
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-2f/GlobalAvg_pTau}
-\caption{\textbf{Double rotation rate}. Same as in Fig. \ref{fig:globalAvgs}}
+\caption{\textbf{Double rotation rate}. Same as in Fig. \ref{fig:globalAvgs}. Note the heat content seems to level out more so than with the original rotation rate. }
 \label{fig:2f_globalAvgs}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-2f/vol_snapshots}
-\caption{\textbf{Double rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Note }
+\caption{\textbf{Double rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Note how the contours in each field are much sharper, particularly at 20m depth. }
 \label{fig:2f_volSnaps}
 \end{figure}
 
@@ -61,14 +62,14 @@
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-4f/GlobalAvg_pTau}
-\caption{\textbf{Quadruple rotation rate}. Same as in Fig. \ref{fig:globalAvgs}}
+\caption{\textbf{Quadruple rotation rate}. Same as in Fig. \ref{fig:globalAvgs}. Oddly there is a large deviation about half way through the spin up period. }
 \label{fig:4f_globalAvgs}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-4f/vol_snapshots}
-\caption{\textbf{Quadruple rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Note }
+\caption{\textbf{Quadruple rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Here the contour lines are even sharper than the previous set up, and this is true all the way down the water column (e.g. salinity has a similar form at 20m and 1350m depth).}
 \label{fig:4f_volSnaps}
 \end{figure}
 
@@ -79,14 +80,14 @@
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-8f/GlobalAvg_pTau}
-\caption{\textbf{8 x rotation rate}. Same as in Fig. \ref{fig:globalAvgs}}
+\caption{\textbf{8 x rotation rate}. Same as in Fig. \ref{fig:globalAvgs}. Note the SST mean stays relatively stable, but the heat content diverges over time. The ocean is gaining heat. }
 \label{fig:8f_globalAvgs}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-8f/vol_snapshots}
-\caption{\textbf{8 x rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Note }
+\caption{\textbf{8 x rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Here the contour lines are extremely steep, and a second gyre circulation begins to develop at higher latitudes. }
 \label{fig:8f_volSnaps}
 \end{figure}
 
@@ -98,14 +99,14 @@
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-flip/GlobalAvg_pTau}
-\caption{\textbf{Flipped horizontal wind, original rotation rate}. Same as in Fig. \ref{fig:globalAvgs}}
+\caption{\textbf{Flipped horizontal wind, original rotation rate}. Same as in Fig. \ref{fig:globalAvgs}. }
 \label{fig:flipGlobalAvgs}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-flip/vol_snapshots}
-\caption{\textbf{Flipped horizontal wind, original rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Note }
+\caption{\textbf{Flipped horizontal wind, original rotation rate}. Same as in Fig. \ref{fig:volSnaps}. The general structure of the fields at 20m depth are mostly the same, except that there is more ``clumping'' on the Eastern boundary. This is particularly noticeable in the salinity field. Note that there is no noticeable change in the fields at 1350m depth, as we would expect, since rotation plays a much more important role than the wind at this depth.}
 \label{fig:flipVolSnaps}
 \end{figure}
 
@@ -123,7 +124,7 @@
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-flip4/vol_snapshots}
-\caption{\textbf{Flipped and quadrupled horizontal wind, original rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Note }
+\caption{\textbf{Flipped and quadrupled horizontal wind, original rotation rate}. Same as in Fig. \ref{fig:volSnaps}. The clumping on the Eastern boundary is now more dramatic, and the Western boundary current (``Gulf stream'') is hardly noticeable or pronounced. }
 \label{fig:flip4_olSnaps}
 \end{figure}
 
@@ -141,7 +142,7 @@
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../run-flip-all/vol_snapshots}
-\caption{\textbf{Flipped horizontal wind and rotation rate}. Same as in Fig. \ref{fig:volSnaps}. Note }
+\caption{\textbf{Flipped horizontal wind and rotation rate}. Same as in Fig. \ref{fig:volSnaps}. This looks exactly the same as in the original setup, just mirrored down the center. Note the only exception is salinity at surface level, which is due to the boundary conditions. }
 \label{fig:flip_all_volSnaps}
 \end{figure}
 
