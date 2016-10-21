@@ -42,8 +42,8 @@ czeMsk=czeMsk.*(mygrid.mskC(:,:,1));
 czeMsk(isnan(czeMsk))=0;
 
 %% Greenland area
-yCond = mygrid.YC >= 50 & mygrid.YC <= 80;
-xCond = mygrid.XC >= -60 & mygrid.XC <= -20;
+yCond = mygrid.YC >= 45 & mygrid.YC <= 65;
+xCond = mygrid.XC >= -65 & mygrid.XC <= -30;
 greenMsk = mygrid.mskC(:,:,1).*yCond.*xCond.*atlMsk;
 greenMsk=greenMsk.*(mygrid.mskC(:,:,1));
 greenMsk(isnan(greenMsk))=0;
