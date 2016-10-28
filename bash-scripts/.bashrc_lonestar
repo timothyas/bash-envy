@@ -1,11 +1,13 @@
 ### Load modules ### 
-#default: module load intel
-#default: module load cray-mpich
+#default: module load intel/16.0.1
+#default: module load cray-mpich/7.3.0 
+module load TACC
 module load netcdf	
 module load parallel-netcdf
 
 ### Add staf to path ### 
-PATH=$PATH:$HOME/bin:$HOME/local/bin
+PATH=$PATH:$HOME/local/bin
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 
 ### CVS Stuff ###
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
@@ -20,3 +22,8 @@ export NETCDF_LIB=$TACC_NETCDF_LIB
 
 ## Misc terminal ##
 export PS1='[lonestar \W]\$ '
+export WORKS=$WORK/../
+export contrib=$WORK/../gcm-contrib
+export ph_data=/work/03263/heimbach/data
+alias cdc='cd $contrib'
+alias ll='ls -al'

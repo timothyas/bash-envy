@@ -1,0 +1,155 @@
+#!/bin/bash
+
+## Set up suffix for adjoint run: "_ad"
+#  or leave as "" for forward run
+proj="enso"
+suff=""
+dir_suff=".eig_out"
+perturbation=""
+xxext="_it45"
+xxiter="0000000045"
+
+## Set up directories
+root_dir=$HOME/MITgcm_c65q
+
+exp_dir=$PWD
+build_dir=$exp_dir/build$suff
+code_dir=$exp_dir/code$suff
+
+run_dir=$SCRATCH/$proj/run$suff$dir_suff
+wk_dir=$exp_dir/run$suff$dir_suff
+input_dir=$exp_dir/input$suff$dir_suff
+ctrl_dir=$WORK/../ecco-data/control-vectors-zero
+masks_dir=$input_dir/masks
+perturb_dir=$input_dir/$perturbation
+
+submit_script=$exp_dir/submit_samoc_scratch$suff
+data_dir=/work/03263/heimbach/data
+input_data_dir=$data_dir/input_v4_rls2.025l.iter59
+forcing_dir=$data_dir/forcing-EIG-plus-ECCOv4r2
+
+# ----- 1. Set up directories and submission script
+## Make corresponding directory in WORK
+if [ ! -d $wk_dir ] ; then
+	echo "Making workrun dir: "$wk_dir" ..."
+	mkdir $wk_dir
+fi
+## Make work directory in SCRATCH
+if [ ! -d $run_dir ] ; then
+	echo "Making "$run_dir" ..."
+        mkdir $run_dir
+	mkdir $run_dir/diags
+	mkdir $run_dir/tapes
+	mkdir $run_dir/profiles
+fi       
+## Submission script
+cp $submit_script .
+sed -i "s/workrun=/workrun=\$WORK\/samoc\/run${suff}${dir_suff}/g" $run_dir/submit_${proj}_scratch$suff
+#=================================================================================
+
+####
+## Link ALL of the files
+####
+cd $run_dir
+echo "Grabbing necessary files ..."
+
+
+#--- 2. linking binary ---------
+ln -s ${input_data_dir}/input_binaries/*.bin .
+ln -s ${input_data_dir}/GRID/tile*.mitgrid .
+ln -s ${input_data_dir}/input* .
+ln -s ${input_data_dir}/input_insitu/*.nc .
+ln -s ${input_data_dir}/input_weight/* .
+#ln -s ${input_data_dir}/input/my_input .
+###
+ln -s ${input_data_dir}/input_smooth/smooth2Dscales001${extsmooth} ./smooth2Dscales001
+ln -s ${input_data_dir}/input_smooth/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
+ln -s ${input_data_dir}/input_smooth/smooth3DscalesZ001 ./
+ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
+ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
+ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001.meta ./
+ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001.meta ./
+#=================================================================================
+
+#=================================================================================
+#--- 3. linking xx_ fields ------
+ln -s ${input_data_dir}/ADXXfiles${xxext}/xx*${xxiter}* ./
+##=================================================================================
+
+#--- 4. NAMELISTS ---------
+ln -sf ${input_dir}/* ./
+#=================================================================================
+
+#--- 5. executable --------
+ln -sf ${build_dir}/mitgcmuv${suff} ./
+#=================================================================================
+
+#--- 6. pickups -----------
+#NOTE: for pickup: copy instead of link to prevent accidental over-write
+cp -f ${input_data_dir}/input_pickup/pickup* ./
+#=================================================================================
+
+# #--- 7. Copy additional control vectors for this experiment, if dir exists
+# if [ -d $ctrl_dir ] ; then 
+#   ln -sv $ctrl_dir/* .
+# else
+#   echo "** No additional control vectors ... "
+# fi
+#=================================================================================
+
+#--- 8. Look for perturbation directory
+if [ -d $perturb_dir ] ; then
+  ln -sv $perturb_dir/* .
+else
+  echo "** Could not find perturbation directory: $perturb_dir ... "
+fi
+#=================================================================================
+
+#--- 9. Copy masks for this particular setup.
+#  dir should be inside inputs
+if [ -d $masks_dir ] ; then
+  ln -sv $masks_dir/* .
+else
+  echo "** No masks found in $masks_dir ... "
+fi
+#=================================================================================
+
+#--- 9. make a list of all linked files ------
+\rm -f command_ln_input
+ls -l input*/input_* > command_ln_input
+
+\rm -f command_ln_binary
+ls -l *.nc > command_ln_binary
+#=================================================================================
+
+
+echo "Ready to execute ..."
+
+echo ""
+echo "*** Pro tips: "
+echo "      - Check data.pkg: useAUTODIFF = .true.? usePROFILES = .false.? "
+echo ""
+echo "      - Check data: "
+echo "           nTimeSteps correct? tapes directory uncommented? adjDump = false?"
+echo ""
+echo "      - Check data.ctrl ... mult = 0 for non-optimize run? "
+echo "           have the necessary xx_<parameter> files?"
+echo ""
+echo "      - Check data.diagnostics: have the filenames set with diags/ prefix? "
+echo ""
+echo "      - Check data.exf: directory set for correct forcing files? period correct?"
+echo "" 
+echo "      - Check data.ecco: ... just make sure it looks good"
+echo ""
+echo "      - Check to make sure any masks are set properly ... "
+echo ""
+echo "      - Check submit file for .."
+echo "           Correct queue? "
+echo "           forward run: <exec> mitgcmuv "
+echo "           adjoint: <exec> mitgcmuv_ad "
+echo "           walltime correct? " 
+echo "		 DIFFERENT FOR SCRATCH: change workrun directory in submit file "
+echo ""
+echo "Assuming this is done, ready for launch ... "
+echo ""
+echo ""
