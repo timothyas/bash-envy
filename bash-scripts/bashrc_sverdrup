@@ -1,0 +1,28 @@
+## Modify the path
+export PATH=$PATH:~/local/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/local/lib
+
+### Terminal Stuff ###
+export WORK=/workspace
+export contrib=$HOME/gcm-contrib
+alias cdc='cd $contrib'
+alias cdh='cd $HOME'
+alias cdw='cd $WORK'
+alias la='ls -a'
+alias ll='ls -al'
+export PS1='[\h \W]\$ '
+alias lpq3='lpq -P cp3se'
+
+### SCP Ports ###
+alias scpthorne='scp -P 8704'
+
+### For MITgcm ###
+export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
+export CVSEDITOR=vim
+# export NETCDF_ROOT=/usr/local/Cellar/netcdf/4.3.3.1
+
+### Modules ###
+module load c7
+module load intel/16.0 	#Note, mpich 3.1.4 build with intel 16.0
+module load mpich2/3.1.4
+module load matlab/r2016b
