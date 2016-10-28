@@ -1,0 +1,14 @@
+Taking this from Stack Exchange: 
+
+A stopped job is one that has been temporarily put into the background and is no longer running, but is still using resources such (i.e. system memory). Because that job is not attached to the current terminal, it cannot produce output and is not receiving input from the user.
+
+You can see jobs you have running using the jobs builtin command in bash, probably other shells as well. Example:
+
+[tsmith ~]$ jobs
+[1]+  Stopped                 mosh tsmith@login2.stampede.tacc.utexas.edu
+
+You can resume a stopped job by using the fg (foreground) bash built-in command. If you have multiple commands that have been stopped you must specify which one to resume by passing jobspec number on the command line with fg.
+
+[tsmith ~]$ fg 1
+
+This took me to a "frozen" screen. I think my session with stampede was closed but the job was re-entered. Using 'ctrl+d' killed the shell just fine.
