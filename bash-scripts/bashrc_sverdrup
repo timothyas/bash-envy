@@ -1,20 +1,3 @@
-# ~/.bashrc
-
-# used for bash non-login shells.
-# non-login shells include:
-# * X sessions (xdm, gdm, kdm)
-# * X Terminals (xterm, konsole, gnome-terminal)
-# * running remote commands via ssh
-
-# NOTE: some programs (ie, winscp) fail if this generates any output.
-
-# first, source the system bashrc
-if [ -r /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-
-source $HOME/gcm-contrib/bash-scripts/bashrc_sverdrup
-
 ## Modify the path
 export PATH=$PATH:~/local/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/local/lib
