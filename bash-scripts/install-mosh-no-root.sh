@@ -65,7 +65,7 @@ echo "============="
 echo "building mosh"
 echo "============="
 
-cd ${mosh_dir}
+cd ${build_dir}/${mosh_dir}
 export PROTOC=${local_dir}/bin/protoc
 export protobuf_CFLAGS="-I${local_dir}/include"
 export protobuf_LIBS="-lprotobuf"
