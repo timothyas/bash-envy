@@ -1,0 +1,27 @@
+#!/bin/bash
+
+## Add staf to path ##
+PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/local/bin
+
+## CVS Stuff ##
+export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
+export CVSEDITOR=vim
+
+## Misc. ##
+alias ls='ls --color=auto'
+alias la='ls -a'
+alias ll='ls -l'
+alias cdh='cd $HOME'
+export WORK=/nobackupp2/tasmit12
+export contrib=$WORK/gcm-contrib
+alias cdw='cd $WORK'
+alias cdc='cd $contrib'
+export PS1='[\h \W]\$ '
+
+## Modules ##
+module load comp-intel
+module load mpi-sgi/mpt
+module load netcdf/4.1.2
+module load vim
+module load git
