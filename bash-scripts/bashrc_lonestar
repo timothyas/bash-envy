@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ### Load modules ### 
 #default: module load intel/16.0.1
 #default: module load cray-mpich/7.3.0 
