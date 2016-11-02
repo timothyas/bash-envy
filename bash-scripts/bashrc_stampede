@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ### Load modules ### 
 #default: intel/13.0.2.146
 #default: mvapich2/1.9a2
