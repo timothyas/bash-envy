@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Add staf to path ##
-PATH=$PATH:$HOME/bin
 PATH=$PATH:$HOME/local/bin
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 
 ## CVS Stuff ##
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
