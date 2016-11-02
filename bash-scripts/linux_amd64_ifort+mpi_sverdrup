@@ -3,18 +3,14 @@
 #  $Header: /u/gcmpack/MITgcm/tools/build_options/linux_amd64_ifort,v 1.10 2013/07/22 18:40:45 jmc Exp $
 #  $Name:  $
 #  
-# For running on TACC's Lonestar 5 
-#  Compiler optimizations for Intel E5-2690 (Haswell) Processors
+# For running on the ICES cluster Sverdrup
+#  Compiler optimizations for Intel E5-2695 v3 (Haswell) Processors
+#  Note: only difference from lonestar opt file is the netcdf module load
 #
 # Note: be sure to load the following modules
 #
-#  module load netcdf
-#  module load parallel-netcdf
-#  
-#  (default) module load intel
-#  (default) module load 
-#
-#
+#  module load intel/17.0
+#  module load mpich2
 #
 # a) For more speed, provided your data size doesn't exceed 2GB you can
 # remove -fPIC which carries a performance penalty of 2-6%.
@@ -75,21 +71,8 @@ F90FLAGS=$FFLAGS
 F90OPTIM=$FOPTIM
 CFLAGS='-O0 -ip -fPIC'
 
-# Test if MPICH is set
-if [ -z ${MPICH_DIR} ] ; then
-	echo "MPICH unset ... "
-else
-	INCLUDEDIRS="${MPICH_DIR}/include"
-	INCLUDES="-I${MPICH_DIR}/include"
-	LIBS="-L${MPICH_DIR}/lib -lmpich"
-	MPIINCLUDEDIR="${MPICH_DIR}"
-fi
-
-# Now test for netcdf 
-if [ -z ${TACC_NETCDF_INC} ] ; then
-	echo "NETCDF unset ... "	
-else
-	INCLUDEDIRS="${INCLUDEDIRS} ${TACC_NETCDF_INC}"
-	INCLUDES="${INCLUDES} -I${TACC_NETCDF_INC}"
-	LIBS="${LIBS} -L${TACC_NETCDF_LIB} -lnetcdf -lnetcdff"
-fi
+INCLUDEDIRS="${MPI_DIR}/include"
+INCLUDES="-I${MPI_DIR}/include"
+LIBS="-L${MPI_DIR}/lib -lmpich"
+#- used for parallel (MPI) DIVA
+MPIINCLUDEDIR="${MPI_DIR}"

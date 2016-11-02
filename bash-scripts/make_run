@@ -19,6 +19,7 @@ engaging_opt=$root_dir/tools/build_options/linux_amd64_gfortran
 stampede_opt=$contrib/bash-scripts/linux_amd64_ifort+mpi_stampede
 lonestar_opt=$contrib/bash-scripts/linux_amd64_ifort+mpi_lonestar
 lonestar_profile_opt=$contrib/bash-scripts/linux_amd64_ifort+mpi_lonestar+profile
+sverdrup_opt=$contrib/bash-scripts/linux_amd64_ifort+mpi_sverdrup
 
 ## Use the correct opt file here
 build_cmd="$root_dir/tools/genmake2 -rd=$root_dir -mods=$code_dir -optfile=$lonestar_opt -mpi"
