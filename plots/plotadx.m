@@ -62,6 +62,9 @@ for i = 1:Nadj
     if exist(adjFile,'file')
     load(adjFile);
     if strcmp(adjField{i},'hflux') || strcmp(adjField{i},'sflux')
+	% This sign change makes plotting of the adjoint variable s.t. 
+	% adxx>0 => heating will increase J()
+	% adxx<0 => cooling will increase J()
         adxx=-adxx;
     end
     
