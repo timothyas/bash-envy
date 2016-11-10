@@ -31,6 +31,6 @@ subplot(1,2,2),plot(nProcs,SpAll,'*-',nProcs,SpForward,'-*',nProcs,SpAdjoint,'-*
     set(gcf,'paperorientation','landscape')
     set(gcf,'paperunits','normalized')
     set(gcf,'paperposition',[0 0 1 1])
-    saveas(gcf,'../write-scratch/samoc/lonestar-mitgcm-scaling','pdf')
+    saveas(gcf,'../write-scratch/parallel-lecture/figures/ecco_ls5_scaling','pdf')
 
 end

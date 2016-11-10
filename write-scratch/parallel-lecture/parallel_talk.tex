@@ -1,0 +1,248 @@
+\documentclass[pdf]{beamer}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[english]{babel}
+\usepackage[export]{adjustbox}
+\usepackage{listings}
+\usetheme{Warsaw}
+%\mode<presentation>{}
+
+\title{Parallel Computing}
+\author{Tim Smith}
+
+%% --- New commands
+\newcommand{\pderiv}[3][]{% \pderiv[<order>]{<func>}{<var>} 
+  \ensuremath{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}}
+  
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\graphicspath{{figures/}}
+
+\begin{document}
+ %% title frame
+ \begin{frame}
+  \titlepage
+ \end{frame}
+ 
+ %% outline frame
+ \setbeamertemplate{section in toc}[ball unnumbered]
+ \begin{frame}{Overview}
+
+  \tableofcontents
+ \end{frame}
+ 
+%% --------------------------------------------------------------------------------
+%% Single Processor concepts
+ \section{Single Processor Concepts}
+ \begin{frame}
+   %% \setbeamercovered{transparent}
+  \begin{itemize} % [<+->]
+	\item To some extent, parallel computing consists of a lot of single processors following instructions, pulling data into memory, performing computation, and storing results. Need to know how these 
+	\item Von Neumann architecture considers 
+	\item Important terminology: 
+	\item Register
+   \end{itemize}
+  \end{frame}
+
+
+%% --------------------------------------------------------------------------------
+%% Parallel Computing 
+
+ \section{Parallel Computing Concepts}
+ \begin{frame}{Hardware Terminology}
+  \begin{itemize}
+	\item \textbf{Core}: A single processing unit. 
+	\item \textbf{Socket}: The physical processor chip which holds many cores.
+	\item \textbf{Node}: A computing unit containing one or more sockets. Memory is shared across the node. 
+	\item \textbf{Cluster}: The server or supercomputer consisting of many nodes.
+	\item \textbf{Processor}: an ambiguous term ...
+  \end{itemize} 	
+  
+  Example: 
+  \begin{itemize}
+	\item Lonestar 5 is a cluster with 1252 compute nodes 
+	\item 2 sockets per node
+	\item 12 cores per socket (shared memory among 24 cores)
+	\item 64 GB memory per node, so $>2$ GB per core in a pure MPI model 
+  \end{itemize}
+ \end{frame} 
+
+ \begin{frame}{Virtual Terminology}
+  \begin{itemize}
+	\item \textbf{Process}: A running executable
+	\item \textbf{Thread}: More abstract, a set of instructions being followed
+  \end{itemize} 	
+  
+  Example: 
+  \begin{itemize}
+	\item In a typical parallel MITgcm run, one will call $N_{px}\, \mathrm{x}\, N_{py}$ processes each on individual cores with separate memory spaces
+	\item One process can open up a number of threads to simultaneously complete a do loop 
+  \end{itemize}
+ \end{frame} 
+
+ \begin{frame}{Performance Terminology}
+  \begin{itemize}
+	\item $p \equiv $ Number of processes
+	\item $T_1 \equiv $ Wall clock time on 1 process
+	\item $T_p \equiv $ Wall cock time on $p$ processes
+	\item Speedup: 
+	 \begin{equation}
+		S_p = \frac{T_1}{T_p} \leq p
+	 \end{equation}
+	\item Efficiency: 
+	 \begin{equation}
+		E_p = \frac{S_p}{p} \in (0,1]
+	 \end{equation}
+  \end{itemize}
+ \end{frame}
+
+ \begin{frame}{ECCO Speedup on Lonestar 5}
+	\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{ecco_ls5_scaling}
+	\end{figure}
+ \end{frame}
+
+ \begin{frame}{ORCA Scaling}
+	\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{orca_scaling.jpg}
+	\end{figure}
+	Note: $2^{\circ}\,\mathrm{x}\,2^{\circ}$ horizontal grid resolution
+ \end{frame}
+
+ \begin{frame}{Limiting Factors to Speedup}
+  \begin{itemize}
+	\item Amdahl's law: 
+		\begin{equation}
+			T_p = T_1(F_s + \frac{F_p}{p}) + T_c
+		\end{equation}
+		\begin{equation}
+			S_p = \frac{T_1}{T_1/p + T_c}
+		\end{equation}
+	\item Gustafson's law
+		\begin{equation}
+			T_p = T(F_s + F_p)		
+		\end{equation}
+		\begin{equation}
+			T_1 = T(F_s + pF_p)		
+		\end{equation}
+		\begin{equation}
+			S_p = p(1 - \frac{T_c}{T_1}p)		
+		\end{equation}
+		
+  \end{itemize} 
+ \end{frame}
+
+ \begin{frame}{Characterizing Performance: Scalability}
+	How well does a code perform on parallel architecture? Consider two types of problems:
+  \begin{enumerate}
+	\item For a fixed problem size, increase the number of processes to improve the performance. The model here shows \textbf{strong scaling} if the speedup increases linearly with added processes. 
+	\item As the number of available processes increases, the problem size increases (e.g. refining grid resolution). Keeping data per process constant, the speed in ops per second on each process remains constant as problem size and number of processes grows if the model shows \textbf{weak scaling}.
+  \end{enumerate}
+ \end{frame}
+
+ \begin{frame}{Strong Scaling}
+
+	\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{wallTime_strong.png}
+	\end{figure}
+
+   This model scales up to 1024 cores (roughly), relative to 4 cores.
+   It still isn't always clear how to compare runs! Should we compare the performance of this code by simply running with all the MPI commands on 1 core? Should we rewrite the code in serial? 
+ \end{frame}
+
+ %  \begin{frame}{Weak Scaling}
+ %   This is hard to pin down, even when talking to highly experienced people. See \cite{Eijkhout_introToHpc}, section 2.3.5 where a model for performance is formulated which looks at available memory 
+ %  \end{frame}
+
+%% --------------------------------------------------------------------------------
+%% Parallel implementation 
+\section{Implementation}
+
+ \begin{frame}{OpenMP in One Slide}
+  \begin{itemize}
+	\item Parallelization scheme for \textbf{shared} memory model
+	\item Shared memory: over at most one node, a scheduler assigns tasks to threads which are completed simultaneously 
+	\item Parallelization is under the hood
+	\item Code is easy to write
+  \end{itemize}
+ \end{frame}
+
+ \begin{frame}{MPI}
+  \begin{itemize}
+	\item Parallelization scheme for \textbf{distributed} memory model.
+	\item Distributed memory: each process only has a local view of global data set 
+	\item Much harder to write code than OpenMP
+	\item User must specify how information is passed between processes 
+	\item This gives clear picture and full control
+  \end{itemize}
+ \end{frame}
+
+ \begin{frame}{Workflow}
+  A general process for flow for parallel code:
+  \begin{enumerate}
+	\item Initialize processes, establish rank 
+	\item Perform domain decomposition
+	\item Do computation
+	\item Communicate among processes 
+	\item ...
+	\item Finalize
+  \end{enumerate}
+ \end{frame}
+
+ \begin{frame}{Domain Decomposition}
+	\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{domain_decomp_2}
+	\caption{In the initialization process, the global grid is split into tiles and tiles are assigned to MPI processes. Each process is initialized with a unique identifier called it's \textbf{rank}, this is used in the communication routines.} 
+	\end{figure}
+
+ \end{frame}
+
+ \begin{frame}{Domain Decomposition}
+	\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{domain_decomp_1}
+	\caption{For our purposes, each tile is assigned to an MPI process and we use one MPI process per core. Tiles without ocean are neglected, and this is handled by the \textit{exch2} package, reducing the number of cores required.}
+	\end{figure}
+ \end{frame}
+
+ \begin{frame}{Domain Decomposition}
+	\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{domain_decomp_3}
+	\end{figure}
+ \end{frame}
+
+ \begin{frame}{Point to Point Communication: Halo region}
+	\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{colHaloExchange}
+	\caption{Neighboring tiles exchange overlapping data to update halo region (red and blue). Here $OLx=2$. This must be performed e.g. at each time step for spatial gradients, each time forcing data is updated (every 6 hours in ECCO), and also in the linear solve for pressure.}
+	\end{figure}
+	MITgcm example: exchange scalar across halo region at level r
+	exch\_3d\_r8( phi, r, myThid )
+ \end{frame}
+
+ \begin{frame}[fragile]
+ \frametitle{Collectives}
+	\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{collectives}
+	\end{figure}
+	MITgcm example: allreduce = reduce + broadcast \\
+	global\_sum\_tile( local\_data, global\_sum, myThid )
+\end{frame}
+
+ \begin{frame}
+  For sample batch scripts check out my bash-scripts directory: 
+  \begin{block}
+  https://bitbucket.org/timothys/gcm-contrib
+  \end{block}
+ \end{frame}
+
+\end{document}
