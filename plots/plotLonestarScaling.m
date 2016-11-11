@@ -16,16 +16,18 @@ SpWOaffinity = tWallAll(2)./tWOtaccaffinity;
 
 
 figureW;
-subplot(1,2,1),plot(nProcs,tWallAll,'-*',nProcs,tWallForward,'-*',nProcs,tWallAdjoint,'-*',96,tWOtaccaffinity,'k*')
+subplot(1,2,1),plot(nProcs,tWallAll,'-*',nProcs,tWallForward,'-*',nProcs,tWallAdjoint,'-*'); %,96,tWOtaccaffinity,'k*')
     xlabel('Num. Cores')
     set(gca,'xtick',nProcs,'xticklabel',nProcs)
     ylabel('Wall Clock Time (s)')
+    grid on
+    legend('All','Forward','Adjoint','Location','Northeast')
 
-subplot(1,2,2),plot(nProcs,SpAll,'*-',nProcs,SpForward,'-*',nProcs,SpAdjoint,'-*',96,SpWOaffinity,'k*')
+subplot(1,2,2),plot(nProcs,SpAll,'*-',nProcs,SpForward,'-*',nProcs,SpAdjoint,'-*',nProcs,nProcs/96,'k--')%,96,SpWOaffinity,'k*')
     xlabel('Num. Cores')
     set(gca,'xtick',nProcs,'xticklabel',nProcs)
     ylabel('Speedup (T_{96}/T_p)')
-    legend('All','Forward','Adjoint','Without tacc\_affinity','location','northwest')
+    grid on
 
     
     set(gcf,'paperorientation','landscape')
