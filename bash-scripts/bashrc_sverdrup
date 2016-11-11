@@ -25,8 +25,8 @@ export CVSEDITOR=vim
 
 ### Modules ###
 module load c7
-module load intel/17.0 	#Note, mpich 3.1.4 build with intel 16.0
-module load mpich2/3.1.4
+module load intel/17.0 	
+module load openmpi
 #module load matlab/r2016b
 
 ## MITgcm environment variables
