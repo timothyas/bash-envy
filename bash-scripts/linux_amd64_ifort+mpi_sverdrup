@@ -1,36 +1,15 @@
 #!/bin/bash
 #
-#  $Header: /u/gcmpack/MITgcm/tools/build_options/linux_amd64_ifort,v 1.10 2013/07/22 18:40:45 jmc Exp $
-#  $Name:  $
-#  
 # For running on the ICES cluster Sverdrup
 #  Compiler optimizations for Intel E5-2695 v3 (Haswell) Processors
 #  Note: only difference from lonestar opt file is the netcdf module load
 #
 # Note: be sure to load the following modules
 #
+#  module load c7
 #  module load intel/17.0
-#  module load mpich2
+#  module load openmpi
 #
-# a) For more speed, provided your data size doesn't exceed 2GB you can
-# remove -fPIC which carries a performance penalty of 2-6%.
-# b) Provided that the libraries you link to are compiled with -fPIC this
-# optfile should work.
-# c) You can replace -fPIC with -mcmodel=medium which may perform faster
-# than -fPIC and still support data sizes over 2GB per process but all
-# the libraries you link to must be compiled with -fPIC or -mcmodel=medium
-#
-#-------
-# run with OpenMP: needs to set environment var. OMP_NUM_THREADS
-#    and generally, needs to increase the stack-size:
-#   -  sh,bash:
-#     > export OMP_NUM_THREADS=2
-#     > export KMP_STACKSIZE=400m
-#   - csh,tcsh:
-#     > setenv OMP_NUM_THREADS 2
-#     > setenv KMP_STACKSIZE 400m
-#  NOTE: with MPI+OpenMP, need to set KMP_STACKSIZE in ~/.tcshrc (but curiously,
-#        works without OMP_NUM_THREADS in ~/.tcshrc).
 #-------
 
 CC=icc
@@ -73,6 +52,6 @@ CFLAGS='-O0 -ip -fPIC'
 
 INCLUDEDIRS="${MPI_DIR}/include"
 INCLUDES="-I${MPI_DIR}/include"
-LIBS="-L${MPI_DIR}/lib -lmpich"
+LIBS="-L${MPI_DIR}/lib -lmpi"
 #- used for parallel (MPI) DIVA
 MPIINCLUDEDIR="${MPI_DIR}"
