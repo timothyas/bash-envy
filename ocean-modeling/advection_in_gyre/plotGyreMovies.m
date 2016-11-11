@@ -15,13 +15,6 @@ for i = 1:length(adv)
     Nt = length(iters); 
     xc = rdmds([runDir 'XC']);
     yc = rdmds([runDir 'YC']); 
-    % dxg = rdmds([runDir 'XG']);
-    % dyg = rdmds([runDir 'YG']);
-    % drf = rdmds([runDir 'DRF']);
-    Nx = size(xc,1);
-    Ny = size(xc,2);
-    % Nz = size(drf,3);
-    % dV = repmat(dxg,[1 1 Nz]).*repmat(dyg,[1 1 Nz]).*repmat(drf,[Nx, Ny, 1]);
     
     %% Grab the tracers
     trac{i} = rdmds([runDir 'tracers'],NaN,'rec',tt);
