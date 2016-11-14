@@ -1,10 +1,8 @@
 #!/bin/bash
 #
-#  $Header: /u/gcmpack/MITgcm/tools/build_options/linux_amd64_ifort,v 1.10 2013/07/22 18:40:45 jmc Exp $
-#  $Name:  $
-#  
 # For running on TACC's Lonestar 5 with profiler
 #  Compiler optimizations for Intel E5-2690 (Haswell) Processors
+#
 #  Uses mpiP: lightweight profiling software
 #
 # Note: be sure to load the following modules
@@ -17,27 +15,6 @@
 #  (default) module load intel
 #  (default) module load 
 #
-#
-#
-# a) For more speed, provided your data size doesn't exceed 2GB you can
-# remove -fPIC which carries a performance penalty of 2-6%.
-# b) Provided that the libraries you link to are compiled with -fPIC this
-# optfile should work.
-# c) You can replace -fPIC with -mcmodel=medium which may perform faster
-# than -fPIC and still support data sizes over 2GB per process but all
-# the libraries you link to must be compiled with -fPIC or -mcmodel=medium
-#
-#-------
-# run with OpenMP: needs to set environment var. OMP_NUM_THREADS
-#    and generally, needs to increase the stack-size:
-#   -  sh,bash:
-#     > export OMP_NUM_THREADS=2
-#     > export KMP_STACKSIZE=400m
-#   - csh,tcsh:
-#     > setenv OMP_NUM_THREADS 2
-#     > setenv KMP_STACKSIZE 400m
-#  NOTE: with MPI+OpenMP, need to set KMP_STACKSIZE in ~/.tcshrc (but curiously,
-#        works without OMP_NUM_THREADS in ~/.tcshrc).
 #-------
 
 CC=icc

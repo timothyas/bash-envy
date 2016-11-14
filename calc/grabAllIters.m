@@ -1,4 +1,4 @@
-function [iters] = grabIterNumbers( searchDir, fileName )
+function [iters] = grabAllIters( searchDir, fileName )
 %
 % MITgcm output (e.g. from diagnostics) is listed with iteration stamps
 % This script grabs all iteration numbers in 'searchDir'.
