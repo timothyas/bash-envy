@@ -2,38 +2,33 @@
 
 ## Set up suffix for adjoint run: "_ad"
 #  or leave as "" for forward run
-proj="enso"
 suff=""
-dir_suff=".eig_out"
-perturbation=""
-xxext="_it45"
-xxiter="0000000045"
+dir_suff=".hflux.m10"
+perturbation="hf-perturbation"
+use_masks="true"
+extra_ctrls="true"
 
 ## Set up directories
-root_dir=$HOME/MITgcm_c65q
+root_dir=$HOME/MITgcm_c65x+
+ver_dir=$root_dir/verification/global_oce_llc90
 
 exp_dir=$PWD
 build_dir=$exp_dir/build$suff
 code_dir=$exp_dir/code$suff
 
-run_dir=$SCRATCH/$proj/run$suff$dir_suff
-wk_dir=$exp_dir/run$suff$dir_suff
+run_dir=$exp_dir'/run'$suff$dir_suff
 input_dir=$exp_dir/input$suff$dir_suff
-ctrl_dir=$SCRATCH/data/control-vectors-zero
+
 masks_dir=$input_dir/masks
 perturb_dir=$input_dir/$perturbation
 
-submit_script=$exp_dir/submit_samoc_scratch$suff
-data_dir=/work/03263/heimbach/data
-input_data_dir=$data_dir/input_v4_rls2.025l.iter59
-forcing_dir=$data_dir/forcing-EIG-plus-ECCOv4r2
+submit_script=$exp_dir/submit_samoc$suff
+data_dir=$SCRATCH/data
+ctrl_dir=$data_dir/control-vectors-zero
+input_data_dir=$ph_data/data_v4/input_obs/input_insitu
+forcing_dir=$data_dir/forcing_baseline2
 
 # ----- 1. Set up directories and submission script
-## Make corresponding directory in WORK
-if [ ! -d $wk_dir ] ; then
-	echo "Making workrun dir: "$wk_dir" ..."
-	mkdir $wk_dir
-fi
 ## Make work directory in SCRATCH
 if [ ! -d $run_dir ] ; then
 	echo "Making "$run_dir" ..."
@@ -42,10 +37,6 @@ if [ ! -d $run_dir ] ; then
 	mkdir $run_dir/tapes
 	mkdir $run_dir/profiles
 fi       
-## Submission script
-cp $submit_script .
-sed -i "s/workrun=/workrun=\$WORK\/samoc\/run${suff}${dir_suff}/g" $run_dir/submit_${proj}_scratch$suff
-#=================================================================================
 
 ####
 ## Link ALL of the files
@@ -53,31 +44,35 @@ sed -i "s/workrun=/workrun=\$WORK\/samoc\/run${suff}${dir_suff}/g" $run_dir/subm
 cd $run_dir
 echo "Grabbing necessary files ..."
 
+cp $submit_script .
 
 #--- 2. linking binary ---------
-ln -s ${input_data_dir}/input_binaries/*.bin .
-ln -s ${input_data_dir}/GRID/tile*.mitgrid .
-ln -s ${input_data_dir}/input* .
-ln -s ${input_data_dir}/input_insitu/*.nc .
-ln -s ${input_data_dir}/input_weight/* .
-#ln -s ${input_data_dir}/input/my_input .
-###
-ln -s ${input_data_dir}/input_smooth/smooth2Dscales001${extsmooth} ./smooth2Dscales001
-ln -s ${input_data_dir}/input_smooth/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
-ln -s ${input_data_dir}/input_smooth/smooth3DscalesZ001 ./
-ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
-ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
-ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001.meta ./
-ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001.meta ./
+ln -s ${ver_dir}/input_fields/*.bin .
+ln -s ${ver_dir}/input_fields/tile*.mitgrid .
+#  ###
+ln -s ${ver_dir}/input_fields/smooth2Dscales001${extsmooth} ./smooth2Dscales001
+ln -s ${ver_dir}/input_fields/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
+ln -s ${ver_dir}/input_fields/smooth3DscalesZ001 ./
+ln -s ${ver_dir}/input_fields/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
+ln -s ${ver_dir}/input_fields/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
+ln -s ${ver_dir}/input_fields/smooth2Dnorm001.meta ./
+ln -s ${ver_dir}/input_fields/smooth3Dnorm001.meta ./
 #=================================================================================
 
+#--- 2.1. ECCO control vectors -----
+ln -s ${ver_dir}/input_fields/xx_* .
 #=================================================================================
-#--- 3. linking xx_ fields ------
-ln -s ${input_data_dir}/ADXXfiles${xxext}/xx*${xxiter}* ./
-##=================================================================================
+
+#--- 2.2 Insitu observations ------
+ln -s ${input_data_dir}/*.nc .
+#=================================================================================
+
+#--- 3. linking forcing dir ------
+ln -s $forcing_dir ./
+#=================================================================================
 
 #--- 4. NAMELISTS ---------
-ln -sf ${input_dir}/* ./
+ln -s ${input_dir}/* ./
 #=================================================================================
 
 #--- 5. executable --------
@@ -86,42 +81,45 @@ ln -sf ${build_dir}/mitgcmuv${suff} ./
 
 #--- 6. pickups -----------
 #NOTE: for pickup: copy instead of link to prevent accidental over-write
-cp -f ${input_data_dir}/input_pickup/pickup* ./
+cp -f ${ver_dir}/input_fields/pickup* ./
 #=================================================================================
 
-# #--- 7. Copy additional control vectors for this experiment, if dir exists
-# if [ -d $ctrl_dir ] ; then 
-#   ln -sv $ctrl_dir/* .
-# else
-#   echo "** No additional control vectors ... "
-# fi
+#--- 7. Copy additional control vectors for this experiment, if dir exists
+if [ ! "$extra_ctrls" == "" ] ; then
+  if [ -d $ctrl_dir ] ; then 
+    ln -sv $ctrl_dir/* .
+  else
+    echo "** No additional control vectors ... "
+  fi
+else 
+  echo "** Extra controls not added ... "
+fi
 #=================================================================================
 
 #--- 8. Look for perturbation directory
-if [ -d $perturb_dir ] ; then
-  ln -sv $perturb_dir/* .
-else
-  echo "** Could not find perturbation directory: $perturb_dir ... "
+if [ ! "$perturbation" == "" ] ; then
+  if [ -d $perturb_dir ] ; then
+    ln -sfv $perturb_dir/* .
+  else
+    echo "** Could not find perturbation directory: $perturb_dir ... "
+  fi
+else 
+  echo "** Perturbations not added ... " 
 fi
 #=================================================================================
 
 #--- 9. Copy masks for this particular setup.
 #  dir should be inside inputs
-if [ -d $masks_dir ] ; then
-  ln -sv $masks_dir/* .
+if [ ! "$use_masks" == "" ] ; then
+  if [ -d $masks_dir ] ; then
+    ln -sv $masks_dir/* .
+  else
+    echo "** Could not find mask dir: $masks_dir ... "
+  fi
 else
-  echo "** No masks found in $masks_dir ... "
+  echo "** Masks not used ... "
 fi
 #=================================================================================
-
-#--- 9. make a list of all linked files ------
-\rm -f command_ln_input
-ls -l input*/input_* > command_ln_input
-
-\rm -f command_ln_binary
-ls -l *.nc > command_ln_binary
-#=================================================================================
-
 
 echo "Ready to execute ..."
 
@@ -148,7 +146,6 @@ echo "           Correct queue? "
 echo "           forward run: <exec> mitgcmuv "
 echo "           adjoint: <exec> mitgcmuv_ad "
 echo "           walltime correct? " 
-echo "		 DIFFERENT FOR SCRATCH: change workrun directory in submit file "
 echo ""
 echo "Assuming this is done, ready for launch ... "
 echo ""
