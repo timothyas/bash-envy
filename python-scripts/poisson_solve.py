@@ -1,6 +1,8 @@
 # demo from fenicsproject.org for solving poisson equation
 
 from dolfin import *
+import matplotlib.pyplot as plt
+import pylab as pyl
 
 # Create mesh and define function space
 mesh = UnitSquareMesh(32, 32)
@@ -11,7 +13,7 @@ def boundary(x):
     return x[0] < DOLFIN_EPS or x[0] > 1.0 - DOLFIN_EPS
 
 # Define boundary condition
-u0 = Constant(0.0)
+u0 = Function(V) #Constant(0.0)
 bc = DirichletBC(V, u0, boundary)
 
 # Define variational problem
@@ -25,7 +27,31 @@ L = f*v*dx + g*v*ds
 
 # Compute solution
 u = Function(V)
-solve(a == L, u, bc)
+
+# Define goal function and tol
+M = u*dx()
+M = sqrt(inner(grad(u),grad(u)))*dx 
+tol = 1.e-4
+
+# Solve a = L
+problem = LinearVariationalProblem(a,L,u,bc)
+solver = AdaptiveLinearVariationalSolver(problem,M)
+solver.parameters["error_control"]["dual_variational_solver"]["linear_solver"]="cg"
+solver.parameters["error_control"]["dual_variational_solver"]["symmetric"]=True
+solver.solve(tol)
+
+solver.summary()
+
+plt.figure()
+plot(u.root_node(),title="Solution on initial mesh",interactive=True)
+#plt.savefig('figures/u_0.png') #, bbox_inches='tight')
+
+plot(u.leaf_node(),title="Solution on final mesh",interactive=True)
+#pyl.savefig('figures/u_f.png', bbox_inches='tight')
+
+plot(mesh.root_node(),title="coarsest mesh",interactive=True)
+plot(mesh.leaf_node(),title="finest mesh",interactive=True)
+
 
 # Compute adjoint solution
 #ptrial = TrialFunction(V)
@@ -39,8 +65,3 @@ solve(a == L, u, bc)
 #file = File("poisson.pvd")
 #file << u
 
-# Plot solution
-plot(u) #, interactive=True)
-
-# Plot adjoint solution
-#plot(ptrial)
