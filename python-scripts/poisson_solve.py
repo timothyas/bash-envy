@@ -20,7 +20,10 @@ bc = DirichletBC(V, u0, boundary)
 u = TrialFunction(V)
 v = TestFunction(V)
 f = Expression("10*exp(-(pow(x[0] - 0.5, 2) + pow(x[1] - 0.5, 2)) / 0.02)", degree=2)
-g = Expression("sin(5*x[0])", degree=2)
+g_1 = Expression("sin(5*x[0])", degree=2)
+g_2 = Expression("x[0] + x[1]",degree=2)
+g_3 = Expression("x[0]*x[0]", degree=2)
+g=g_3
 a = inner(grad(u), grad(v))*dx
 L = f*v*dx + g*v*ds
 
@@ -30,8 +33,7 @@ u = Function(V)
 
 # Define goal function and tol
 M = u*dx()
-M = sqrt(inner(grad(u),grad(u)))*dx 
-tol = 1.e-4
+tol = 1.e-5
 
 # Solve a = L
 problem = LinearVariationalProblem(a,L,u,bc)
@@ -41,6 +43,9 @@ solver.parameters["error_control"]["dual_variational_solver"]["symmetric"]=True
 solver.solve(tol)
 
 solver.summary()
+
+# res = div(grad(u.root_node())) + f
+# plot(res,mesh.root_node(),title='residual',interactive=True)
 
 plt.figure()
 plot(u.root_node(),title="Solution on initial mesh",interactive=True)
