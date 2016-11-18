@@ -23,7 +23,7 @@ f = Expression("10*exp(-(pow(x[0] - 0.5, 2) + pow(x[1] - 0.5, 2)) / 0.02)", degr
 g_1 = Expression("sin(5*x[0])", degree=2)
 g_2 = Expression("x[0] + x[1]",degree=2)
 g_3 = Expression("x[0]*x[0]", degree=2)
-g=g_3
+g=g_2
 a = inner(grad(u), grad(v))*dx
 L = f*v*dx + g*v*ds
 
@@ -36,7 +36,7 @@ M = u*dx()
 tol = 1.e-5
 
 # Solve a = L
-problem = LinearVariationalProblem(a,L,u,bc)
+problem = LinearVariationalProblem(a,L,u,bcs=none)
 solver = AdaptiveLinearVariationalSolver(problem,M)
 solver.parameters["error_control"]["dual_variational_solver"]["linear_solver"]="cg"
 solver.parameters["error_control"]["dual_variational_solver"]["symmetric"]=True
