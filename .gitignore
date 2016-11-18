@@ -41,6 +41,8 @@ m_map/*.html
 *.vrb
 *.jpg
 *.gif
+*.fls
+*.fdb_latexmk
 
 syntax: regexp
 .*\#.*\#$
