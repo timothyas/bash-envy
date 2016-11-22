@@ -204,14 +204,14 @@
 
    \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{reconstruct.34S/monthly/full_reconstruct_mean_atemp}
+    \includegraphics[width=\textwidth]{reconstruct.34S/monthly_flux/full_reconstruct}
     \caption{SAMOC reconstructed as in Eqn. \ref{eq:reconstruct} with monthly accumulated sensitivities and atmospheric forcing due to the wind stress and net heat and salt fluxes. ``Memory'' time is \red{4 years}. Monthly values are reconstructed with their associated sensitivities.}
     \label{fig:fullReconstruction}
    \end{figure}
 
   \subsection{Exploring reconstruction memory \& buoyancy contributions}
 
-  When reconstructing AMOC as in Eqn. \ref{eq:reconstruct} with only December sensitivities ($\pderiv{\mathcal{J}}{\mathcal{F}_k}$), increasing the memory time significantly changes the quality and phase of the reconstruction (see Fig. \ref{fig:phaseChangeAqh}). This phase change arises because the ocean responds to changes in buoyancy flux related variables differently during different months of the year, so the sensitivity profiles are different depending on the month when AMOC is evaluated. See Fig. \ref{fig:bigPlotHflux} for how June and December sensitivities look in different regions of the world. Notably in the ACC, Atlantic, Arctic, and the area around Greenland. See Fig. \ref{fig:bigPlotTauu} for how these sensitivities are almost identical for wind stress. Thus, when performing the heat flux reconstruction with monthly sensitivities (but removing the zeros this time ...), the phase change goes away, only amplitude increases with memory time (see Fig. \ref{fig:aqh}). It makes sense that using December only would cause a phase change in the reconstructed signal, because the $\delta\mathcal{F}_k(x,y,t)$ \& $\pderiv{\mathcal{J}}{\mathcal{F}_k}$ fields may introduce interference for summer vs winter months (for example).
+  When reconstructing AMOC as in Eqn. \ref{eq:reconstruct} with only December sensitivities ($\pderiv{\mathcal{J}}{\mathcal{F}_k}$), increasing the memory time significantly changes the quality and phase of the reconstruction (see Fig. \ref{fig:phaseChangeAqh}). This phase change arises because the ocean responds to changes in buoyancy flux related variables differently during different months of the year, so the sensitivity profiles are different depending on the month when AMOC is evaluated. See Fig. \ref{fig:bigPlotHflux} for how June and December sensitivities look in different regions of the world. Notably in the ACC, Atlantic, Arctic, and the area around Greenland. See Fig. \ref{fig:bigPlotTauu} for how these sensitivities are almost identical for wind stress. Thus, when performing the heat flux reconstruction with monthly sensitivities (but removing the zeros this time ...), the phase change goes away, only amplitude increases with memory time (see Fig. \ref{fig:hflux}). It makes sense that using December only would cause a phase change in the reconstructed signal, because the $\delta\mathcal{F}_k(x,y,t)$ \& $\pderiv{\mathcal{J}}{\mathcal{F}_k}$ fields may introduce interference for summer vs winter months (for example).
 
   
    \begin{figure}
@@ -237,9 +237,9 @@
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly/aqh_reconstruct}
-    \caption{SAMOC variability at 34S with contribution from reconstructing only with air humidity contribution. Here the monthly variability is reconstructed using a sensitivity based on that month's objective function evaluation. Note how no phase change arises. }
-    \label{fig:aqh}
+    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/hflux_reconstruct}
+    \caption{SAMOC variability at 34S with reconstruction contribution from heat flux. Here the monthly variability is reconstructed using a sensitivity based on that month's objective function evaluation. Note how no phase change arises. }
+    \label{fig:hflux}
    \end{figure}
 
   So this seems to imply that it is actually important to compute monthly sensitivities for an accurate reconstruction. However, the reconstruction from wind stress essentially ``nails it''. See Fig. \ref{fig:windReconstruct}. The error $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$ is quite noisy and has no notable peaks in its frequency spectrum other than at $1 \& 2 yr^{-1}$, see Figs. \ref{fig:windRecError} \& \ref{fig:freqWindRecError}. Additionally, when considering the two norm of the reconstruction error from the forward model, the quality only gets worse when buoyancy fluxes are added (Fig. \ref{fig:reconstructError}). This makes me curious 'what is missing' from the wind only reconstruction. Is this the only important mechanism that we can detect at 34S? Is this the only latitude where this is true or is this the same for all southern latitudes?  
@@ -248,28 +248,28 @@
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.34S/wind_vs_full}
+    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/wind_vs_full}
     \caption{Reconstruction only using wind stress}
     \label{fig:windReconstruct}
    \end{figure}
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.34S/for_minus_wind}
+    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/fwd_minus_wind}
     \caption{34S: $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Reconstruction is with only December sensitivity so that no gaps exist and we can look at the frequency spectrum in the next plot. For low pass filter, all frequencies $\geq2$ cycles per year were removed. 1 cycle per year was also set to 0. }
     \label{fig:windRecError}
    \end{figure}
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.34S/freq_for_minus_wind}
+    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/freq_fwd_minus_wind}
     \caption{34S: Frequency domain of $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Reconstruction only with December sens. There are no notable peaks other than the seasonal cycle peaks.}
     \label{fig:freqWindRecError}
    \end{figure}
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly/norm_error}
+    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/norm_error}
     \caption{2 Norm of total error incurred for reconstruction as a function of memory time. Reconstruction using monthly sensitivity fields, months without these data are omitted.}
     \label{fig:reconstructError}
    \end{figure}
