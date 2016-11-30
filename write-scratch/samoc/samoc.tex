@@ -270,7 +270,7 @@
    \begin{figure}
     \centering
     \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/norm_error}
-    \caption{2 Norm of total error incurred for reconstruction as a function of memory time. Reconstruction using monthly sensitivity fields, months without these data are omitted.}
+    \caption{2 Norm of total error incurred for reconstruction as a function of memory time. Reconstruction using monthly sensitivity fields.}
     \label{fig:reconstructError}
    \end{figure}
 
@@ -291,7 +291,7 @@
   This leaves a lot of questions: 
   \begin{enumerate}
 	\item Is wind stress the only important component in AMOC variability that is detectable over a 20 yr time frame? and with ECCO
-	\item Is this true for the Southern hemisphere or only at 34S? \red{This I could answer quickly} 
+	\item Is this true for the Southern hemisphere or only at 34S? 
 	\item why does the reconstruction get worse with buoyancy fluxes, and why does divergence happen after only 4-5 years? (as opposed to Pillar, 15 yrs)?
 	\item Why is there a decadal mode in the north? is this recirculation in the sub tropical gyre? equatorial buffer? 
 	\item Why does the hflux contribution only look like a seasonally oscillating cycle while in Pillar they didn't see this andor saw decadal mode? Does this just dominate, and are my plotting scales making this seem like it is the case? 
@@ -335,7 +335,7 @@
   In order to test the linearity assumption in the reconstruction I perturbed the heat flux in a forward model similarly to \cite{czeschel}. Here I added a perturbation of $10 W/m^2$ to the region around Greenland (the area with the longest lasting sensitivities). 
   \begin{figure}
 	\centering
-	\includegraphics[width=.7\textwidth]{hf-perturb/oceqnet__m10}
+	\includegraphics[width=.7\textwidth]{hf-perturb/hflux}
 	\caption{Perturbation in the variable oceQnet is $10 W/m^2$ over the box $45-80^{\circ}N$, inside the Atlantic. Note that since this is just oceQnet the perturbation doesn't show up where there is ice.}
 	\label{fig:oceqnet_m10}
   \end{figure}
