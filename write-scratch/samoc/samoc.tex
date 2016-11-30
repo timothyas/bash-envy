@@ -248,7 +248,7 @@
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/wind_vs_full}
+    \includegraphics[width=.7\textwidth]{reconstruct.34S/monthly_flux/wind_reconstruct}
     \caption{Reconstruction only using wind stress}
     \label{fig:windReconstruct}
    \end{figure}
@@ -276,14 +276,14 @@
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.26N/for_minus_wind}
+    \includegraphics[width=.7\textwidth]{reconstruct.26N/fwd_minus_wind}
     \caption{26N: $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Same low pass filter as with 34S.}
     \label{fig:windRecError26N}
    \end{figure}
 
    \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{reconstruct.26N/freq_for_minus_wind}
+    \includegraphics[width=.7\textwidth]{reconstruct.26N/freq_fwd_minus_wind}
     \caption{26N: Frequency domain of $\delta\mathcal{J}(t)_{full} - \delta\mathcal{J}(t)_{wind}$. Reconstruction only with December sens. Here we see a strong peak at 1/10 $yr^{-1}$. Supposedly this should be reconstructed with heat flux as in Pillar \cite{pillar}.}
     \label{fig:freqWindRecError26N}
    \end{figure}
@@ -329,6 +329,23 @@
   where $\sigma_{km}(x,y)$ is the standard deviation of $\delta\mathcal{F}_k(x,y,t)$, my measure of deviation from climatological mean. 
 
   \red{Need to try this again when taking std of F\_k not the anomaly from F\_clim}
+
+  \subsection{Forward Perturbation Experiments} 
+
+  In order to test the linearity assumption in the reconstruction I perturbed the heat flux in a forward model similarly to \cite{czeschel}. Here I added a perturbation of $10 W/m^2$ to the region around Greenland (the area with the longest lasting sensitivities). 
+  \begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{hf-perturb/oceqnet__m10}
+	\caption{Perturbation in the variable oceQnet is $10 W/m^2$ over the box $45-80^{\circ}N$, inside the Atlantic. Note that since this is just oceQnet the perturbation doesn't show up where there is ice.}
+	\label{fig:oceqnet_m10}
+  \end{figure}
+
+  \begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{hf-perturb/amocDiff_}
+	\caption{Difference in the AMOC between perturbed and reference experiments. Different responses are shown for 34S and 26N. Both ``hot'' and ``cold'' experiments are shown. \red{Unsure of why the reconstruction turns to an oscillating square wave...}}
+	\label{fig:amocDiff}
+  \end{figure}
 
   
 \begin{thebibliography}{3}
