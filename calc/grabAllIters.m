@@ -20,7 +20,7 @@ function [iters] = grabAllIters( searchDir, fileName )
 if ~strcmp(searchDir(end),'/')
 	searchDir = [searchDir '/'];
 end
-searchStr = sprintf('dir %s*.meta',[searchDir fileName]);
+searchStr = sprintf('dir -1 %s*.meta',[searchDir fileName]);
 [status,list] = system(searchStr); 
 res=textscan( list, '%s', 'delimiter', '\n' );
 fileList = res{1};
