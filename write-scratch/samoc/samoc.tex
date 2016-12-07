@@ -1,12 +1,12 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{geometry,amsmath,color,graphicx}
+\usepackage{authblk}
 \geometry{margin=1in}
 
 
-%opening
-\title{\vspace{-10ex}AMOC at 34S}
-\author{Tim Smith}
+% %opening
+% \title{\vspace{-10ex}AMOC at 34S}
 \date{\vspace{-3ex}}
 
 %% --- New commands
@@ -16,17 +16,25 @@
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 \newcommand{\degSym}{$^{\circ}$}
 
+\renewcommand\Authfont{\small}
+\renewcommand\Affilfont{\itshape\footnotesize}
+
 %% --- Figures
 \graphicspath{ {../../samoc/figures/} }
 \DeclareGraphicsExtensions{.png,.pdf}
 
 \begin{document}
 
+\title{Reconstructing AMOC Variability at 34$^{\circ}$S}
+\author[1]{Timothy Smith}
+\author[1,2]{Patrick Heimbach\footnote{Corresponding author}}
+\affil[1]{Institute for Computational Engineering and Sciences, The University of Texas at Austin, Austin, Texas}
+\affil[2]{Jackson School of Geosciences, The University of Texas at Austin, Austin, Texas}
 \maketitle
 
 \begin{abstract}
 
-  The Atlantic meridional overturning circulation (AMOC) is widely regarded as a single metric for global ocean circulation, and understanding the dynamics responsible for its variability is thus crucial for determining its role in a global climate system. Here we attribute changes in the AMOC to surface wind, thermal, and freshwater fluxes by computing the influence of forcing anomalies on the AMOC from 1992 to 2011. The ECCO version 4 framework is used for computing sensitivities as an adjoint variable of the AMOC objective function to surface fluxes. We reconstruct the AMOC at the Southernmost latitude band, 34$^{\circ}$S, to show how this region is heavily influenced by processes in the Pacific, Southern, and Indian Ocean basins. \red{This is in} contrast to the AMOC in the North Atlantic (e.g. 26$^{\circ}$N), where the domain of influence is largely in the Atlantic and Subpolar gyre. \red{While observations in this region are even sparser than in the North Atlantic, we show comparisons between the ECCOv4 nonlinear forward model output, linear reconstruction, and observational data from the GoodHope program and Southwest Atlantic MOC array.} Most importantly, heat flux sensitivities are shown to be inaccurate and accumulate error nearly linearly with increasing sensitivity memory time. This accumulation suggests that recirculation of thermal anomalies is not modeled well \red{in the adjoint} and must be improved for AMOC predictability to remain a realistic goal, \red{particularly when projections based on rising air temperature and heat fluxes are of interest.}
+  The Atlantic meridional overturning circulation (AMOC) is widely regarded as a single metric for global ocean circulation, and understanding the dynamics responsible for its variability is thus crucial for determining its role in a global climate system. Here we attribute changes in the AMOC to surface wind, thermal, and fresh water fluxes by computing the influence of forcing anomalies on the AMOC from 1992 to 2011. The ECCO version 4 framework is used for computing sensitivities as an adjoint variable of the AMOC objective function to surface fluxes. We reconstruct the AMOC at the Southernmost latitude band, 34$^{\circ}$S, to show how this region is heavily influenced by processes in the Pacific, Southern, and Indian Ocean basins. \red{This is in} contrast to the AMOC in the North Atlantic (e.g. 26$^{\circ}$N), where the domain of influence is largely in the Atlantic and Subpolar gyre. \red{While observations in this region are even sparser than in the North Atlantic, we show comparisons between the ECCOv4 nonlinear forward model output, linear reconstruction, and observational data from the GoodHope program and Southwest Atlantic MOC array.} Most importantly, heat flux sensitivities are shown to be inaccurate and accumulate error nearly linearly with increasing sensitivity memory time. This accumulation suggests that recirculation of thermal anomalies is not modeled well \red{in the adjoint} and must be improved for AMOC predictability to remain a realistic goal, \red{particularly when projections based on rising air temperature and heat fluxes are of interest.}
   
 %  We are interested in the variability of AMOC at 34$^{\circ}$S over time scales ranging from a few months to ~10-20 years. This location is of particular interest because there are two pilot boundary arrays located here (at 34.5$^{\circ}$): on the Eastern boundary two sensors as part of the GoodHope program (Feb2008-Dec2010) and the Southwest Atlantic MOC array (deployed March 2009) on the Western boundary \cite{meinenSamoc}. These systems are made up of Inverted Echo Sounders (IES), with a pressure sensor (PIES), and in some places a current meter (CPIES). While these arrays were not put in place to monitor AMOC, we use the data provided to compare computer model calculations of the AMOC. Here we use the MITgcm parameters fit to observations as in ECCO v4 r2 (much more here) \cite{forgetEccov4}. Defining the AMOC as an objective function and using the adjoint mode of this code allows us to compute sensitivities of AMOC to various external forcings (wind stress, buoyancy fluxes, ...). The purpose here is to find the causal mechanisms of variability and the timescales on which they act. While a 20 year time frame is not nearly enough to establish statistically meaningful trends in AMOC's behavior, it is certainly true that continuing or reestablishing observation systems will give a clearer picture of AMOC's low frequency variability and trends. 
 
@@ -35,11 +43,19 @@
 \section{Introduction} 
 \label{intro}
 	
-	The Atlantic meridional overturning circulation (AMOC) has been the focus of many studies over the past decades because of its acceptance as representation for ocean circulation and studies showing its correlation to the climate system (Pardaens 2011 ... Meinen refs). While the causal relation between AMOC variability and climatic events (e.g. hurricane activity, rainfall, air temperature) has been disputed \cite{wunschAndHeimbach_AMOC}, understanding the influence of external forcing and the mechanisms responsible for its variability are crucial for understanding its role in the climate system and usefulness in prediction.  
+	The Atlantic meridional overturning circulation (AMOC) has been the focus of many studies because of its acceptance as a representation for ocean circulation its correlation to the climate system (Pardaens 2011 ... Meinen refs). While the causal relation between AMOC variability and climatic events (e.g. hurricane activity, rainfall, air temperature) is not clear \cite{wunschAndHeimbach_AMOC}, decomposing the influence of external forcing and understanding the mechanisms responsible for its variability are crucial for determining its role in the climate system and usefulness in prediction.  
 
-	The AMOC in the North Atlantic has been the subject of numerous studies (e.g. \cite{mcCarthy}, \cite{pillar}, or \cite{meinenSamoc} for a more complete list) because of its proximity to the formation of North Atlantic Deep Water \red{cite Stommel, Stouffer? from Dong SAMOCfromSSH} and the observation arrays in the basin \red{e.g. RAPID cite rayner 2011, wunschpg3}. In contrast, we study the MOC in the South Atlantic (SAMOC) because it sits at the ``mouth'' of the Atlantic, funneling warm, salty water from the neighboring ocean basins to the Northern hemisphere (Biastoch et al. 2008; Lee et al. 2011; Kelly et al., 2014, all from Dong) and distributing cold, salty North Atlantic Deep Water at depth \red{def need refs}. Variability in the region is complicated by rough topography to the South, Agulhas rings and the Benguela current to the East, and the Brazil and Malvinas confluence on the West. \cite{meinenSamoc} investigate high frequency variability in the SAMOC based on a 20 month record of daily mooring observations and show that Ekman processes are responsible for variability on the order of 20 days while the geostrophic component is responsible for variation from 20 to 90 days. They report an average daily SAMOC value of \red{ Sv}  \red{Dong et al} use altimetry derived TS profiles  
+	The AMOC measured in the North Atlantic has been the subject of numerous studies (e.g. \cite{mcCarthy}, \cite{pillar}, or \cite{meinenSamoc} for a more complete list) because of its proximity to the formation of North Atlantic Deep Water \red{cite Stommel, Stouffer? from Dong SAMOCfromSSH} and the observation arrays in the basin \red{e.g. RAPID cite rayner 2011, wunschpg3}. In contrast, we study the MOC in the South Atlantic (SAMOC) because it sits at the ``mouth'' of the Atlantic, funneling warm, salty water from the neighboring ocean basins to the Northern hemisphere (Biastoch et al. 2008; Lee et al. 2011; Kelly et al., 2014, all from Dong) and distributing cold, salty North Atlantic Deep Water at depth \red{def need refs}. \red{Variability in the region is complicated by rough topography, Agulhas ring ejection from the Cape of Good Hope, and the boundary currents: the Benguela current to the East, and the Brazil and Malvinas confluence on the West.} \cite{meinenSamoc} investigate high frequency variability in the SAMOC based on a 20 month record of daily mooring observations and show that Ekman processes are responsible for variability on the order of 20 days while the geostrophic component is responsible for variation from 20 to 90 days. Based on daily measurements, they report an average value of 21.3 Sv with standard deviation ranging 3.9 to 8.7 Sv depending on the filter used. \red{talk about the other studies} Importantly, \cite{dong20to35} show that SAMOC at 34.5$^{\circ}$S exhibits the most variability of the latitudes investigated, (20$^{\circ}$S-34.5$^{\circ}$S).
 
-	Our goal is to: show the physical processes and geographical regions which play a key role in governing variability of SAMOC; quantitatively show the contribution of external forcing variability on SAMOC including the time scales over which these processes are effective at governing this variation; discuss the similarities and differences between AMOC at 34S and in the North Atlantic, motivating efforts in setting up reliable observation systems; remark on the errors present in this modeling process; discuss future efforts for improving oceanographic inverse modeling.
+	In the present study we investigate the behavior of the monthly mean MOC at 34$^{\circ}$S using the observation informed MIT general circulation model (MITgcm) under the version 4 release 2 framework developed by the Estimating the Circulation and Climate of the Ocean (ECCO) Consortium (referred to as ECCOv4r2 from here on, see Section \ref{theModel} for more details) \cite{forgetECCOv4}. Here we define the monthly mean MOC at 34$^{\circ}$S as an objective function, and use the inverse modeling framework developed in \cite{forgetECCOv4} to compute the gradient of this objective function to momentum, thermal, and fresh water forcing evolving backward in time. These sensitivity or influence maps (lagrange multipliers in the context of the adjoint \red{cite}) evolving backward in time show the linear wave dynamics which carry perturbations to the latitude band where the MOC is evaluated. In the context of observing variability, this procedure allows us to quantitatively evaluate the impact of each atmospheric state variable on the variability of SAMOC as well as the \red{effective time scale over which this influence is carried}.  
+
+	Adjoint modeling has proven to be a useful technique for exploring the important dynamics and regional pathways for integrated transport properties. Recently, \cite{czeschelFlorida} implemented an adjoint model for determining the external forcing behind the annual cycle of the Florida Current transport. Here the authors showed that wind stress is the predominant forcing mechanism which determines the annual variability, and that the region of influence is mostly North of the Florida strait, along the Eastern coast. In a similar study to the present \red{one}, \cite{pillar} attribute variability in AMOC computed at 25$^{\circ}$N and quantitatively show that wind stress dominates high frequency variability (one month to one year), thermal forcing provides low frequency variability (roughly decadal), and fresh water fluxes provide little contributions to variability. Additionally, the reconstructed AMOC (see \cite{pillar} Eqn. 1) shows good agreement with independent observations provided by the RAPID project \red{cite?}. 
+
+	In this study we follow a similar approach for SAMOC at 34$^{\circ}$S, but use a realistic atmospheric state rather than climatological forcing, model parameters optimized to observations as in ECCOv4r2, and non-truncated model. The computational framework and mathematical model are described in section \ref{theModel}. In section \ref{sensitivityMaps} we provide a qualitative discussion of the sensitivity maps, and compare the behavior to conclusions from the North Atlantic based on previous work. We then show a quantitative attribution of variability to each of the forcing mechanisms in section \ref{reconstruction}. Lastly, we discuss limitations and errors in section \ref{limitations} and draw concluding remarks in section \ref{conclusions}.
+
+%\cite{marotzke} present the first implementation of the adjoint model for compute sensitivities of Atlantic heat transport in a 2$^{\circ}$x2$^{\circ}$ resolution model of a truncated Atlantic. \cite{heimbach_timescales} use a larger model and provide physical interpretations for the dynamics in the adjoint model.  
+
+	Our goal is to: show the physical processes and geographical regions which play a key role in governing variability of SAMOC; quantitatively show the contribution of external forcing variability on SAMOC including the time scales over which these processes are effective at governing this variation; discuss the similarities and differences between AMOC at 34S and in the North Atlantic, motivating efforts in setting up reliable observation systems; remark on the errors present in this modeling process; discuss future efforts for improving oceanographic inverse modeling
 
 	\begin{enumerate} 
 
@@ -57,7 +73,7 @@
 	\end{enumerate} 
 
 \section{Set up}
-\label{setup}
+\label{theModel}
   \subsection{Model Configuration}
 
 	\begin{enumerate}
@@ -131,7 +147,7 @@
 
 
  \section{Sensitivity Maps}
-
+ \label{sensitivityMaps}
   
   Here I want to describe the sensitivity maps of the cost function, $\mathcal{J} = AMOC$, to various forcings $\pderiv{\mathcal{J}}{F}$. 
   Also I want to talk about the differences between what is seen in Pillar 
@@ -183,8 +199,8 @@
     \end{enumerate} 
 
 
-  \section{Linear Sensitivity}
-  \label{linearSensitivity}
+  \section{Reconstruction and Attribution of Variability}
+  \label{reconstruction}
   
   We define an objective function $\mathcal{J}$ as the monthly mean value of AMOC as in Eqn. \ref{eq:amoc}. Using the adjoint mode of the MITgcm, we compute the sensitivity of the objective function to external forcing: $\pderiv{\mathcal{J}}{\mathcal{F}_k}$, where $\mathcal{F}_k$ is the wind stress and net heat and salt fluxes. These fluxes are computed based on the near surface atmospheric state provided by the ERA-Interim re-analysis fields from 1992-2011 \red{Dee et al, from ECCOv4}. 
 	
@@ -212,6 +228,8 @@
     \label{fig:fullReconstruction}
    \end{figure}
 
+ \section{Limitations}
+ \label{limitations}
   \subsection{Exploring reconstruction memory \& buoyancy contributions}
 
   When reconstructing AMOC as in Eqn. \ref{eq:reconstruct} with only December sensitivities ($\pderiv{\mathcal{J}}{\mathcal{F}_k}$), increasing the memory time significantly changes the quality and phase of the reconstruction (see Fig. \ref{fig:phaseChangeAqh}). This phase change arises because the ocean responds to changes in buoyancy flux related variables differently during different months of the year, so the sensitivity profiles are different depending on the month when AMOC is evaluated. See Fig. \ref{fig:bigPlotHflux} for how June and December sensitivities look in different regions of the world. Notably in the ACC, Atlantic, Arctic, and the area around Greenland. See Fig. \ref{fig:bigPlotTauu} for how these sensitivities are almost identical for wind stress. Thus, when performing the heat flux reconstruction with monthly sensitivities (but removing the zeros this time ...), the phase change goes away, only amplitude increases with memory time (see Fig. \ref{fig:hflux}). It makes sense that using December only would cause a phase change in the reconstructed signal, because the $\delta\mathcal{F}_k(x,y,t)$ \& $\pderiv{\mathcal{J}}{\mathcal{F}_k}$ fields may introduce interference for summer vs winter months (for example).
@@ -345,7 +363,7 @@
   In order to test the linearity assumption in the reconstruction I perturbed the heat flux in a forward model similarly to \cite{czeschel}. Here I added a perturbation of $10 W/m^2$ to the region around Greenland (the area with the longest lasting sensitivities). 
   \begin{figure}
 	\centering
-	\includegraphics[width=.7\textwidth]{hf-perturb/hflux}
+	\includegraphics[width=.7\textwidth]{hf-perturb/hflux__m10}
 	\caption{Perturbation in the variable oceQnet is $10 W/m^2$ over the box $45-80^{\circ}N$, inside the Atlantic. Note that since this is just oceQnet the perturbation doesn't show up where there is ice.}
 	\label{fig:oceqnet_m10}
   \end{figure}
@@ -356,6 +374,9 @@
 	\caption{Difference in the AMOC between perturbed and reference experiments. Different responses are shown for 34S and 26N. Both ``hot'' and ``cold'' experiments are shown. \red{Unsure of why the reconstruction turns to an oscillating square wave...}}
 	\label{fig:amocDiff}
   \end{figure}
+
+ \section{Conclusions}
+ \label{conclusions}
 
   
 \begin{thebibliography}{3}
