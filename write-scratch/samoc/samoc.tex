@@ -45,7 +45,16 @@
 	
 	The Atlantic meridional overturning circulation (AMOC) has been the focus of many studies because of its acceptance as a representation for ocean circulation its correlation to the climate system (Pardaens 2011 ... Meinen refs). While the causal relation between AMOC variability and climatic events (e.g. hurricane activity, rainfall, air temperature) is not clear \cite{wunschAndHeimbach_AMOC}, decomposing the influence of external forcing and understanding the mechanisms responsible for its variability are crucial for determining its role in the climate system and usefulness in prediction.  
 
-	The AMOC measured in the North Atlantic has been the subject of numerous studies (e.g. \cite{mcCarthy}, \cite{pillar}, or \cite{meinenSamoc} for a more complete list) because of its proximity to the formation of North Atlantic Deep Water \red{cite Stommel, Stouffer? from Dong SAMOCfromSSH} and the observation arrays in the basin \red{e.g. RAPID cite rayner 2011, wunschpg3}. In contrast, we study the MOC in the South Atlantic (SAMOC) because it sits at the ``mouth'' of the Atlantic, funneling warm, salty water from the neighboring ocean basins to the Northern hemisphere (Biastoch et al. 2008; Lee et al. 2011; Kelly et al., 2014, all from Dong) and distributing cold, salty North Atlantic Deep Water at depth \red{def need refs}. \red{Variability in the region is complicated by rough topography, Agulhas ring ejection from the Cape of Good Hope, and the boundary currents: the Benguela current to the East, and the Brazil and Malvinas confluence on the West.} \cite{meinenSamoc} investigate high frequency variability in the SAMOC based on a 20 month record of daily mooring observations and show that Ekman processes are responsible for variability on the order of 20 days while the geostrophic component is responsible for variation from 20 to 90 days. Based on daily measurements, they report an average value of 21.3 Sv with standard deviation ranging 3.9 to 8.7 Sv depending on the filter used. \red{talk about the other studies} Importantly, \cite{dong20to35} show that SAMOC at 34.5$^{\circ}$S exhibits the most variability of the latitudes investigated, (20$^{\circ}$S-34.5$^{\circ}$S).
+	The AMOC measured in the North Atlantic has been the subject of numerous studies (e.g. \cite{mcCarthy}, \cite{pillar}, or \cite{lozier} for a more complete list) because of its proximity to the formation of North Atlantic Deep Water \red{cite Stommel, Stouffer? from Dong SAMOCfromSSH} and the observation arrays in the basin \red{e.g. RAPID cite rayner 2011, wunschpg3}. In contrast, we study the MOC in the South Atlantic (SAMOC) because it sits at the ``mouth'' of the Atlantic, funneling warm, salty water from the neighboring ocean basins to the Northern hemisphere (Biastoch et al. 2008; Lee et al. 2011; Kelly et al., 2014, all from Dong) and distributing cold, salty North Atlantic Deep Water at depth \red{def need refs}. \red{Variability in the region is complicated by rough topography, Agulhas ring ejection from the Cape of Good Hope, and the boundary currents: the Benguela current to the East, and the Brazil and Malvinas confluence on the West.} \cite{meinenSamoc} investigate high frequency variability in the SAMOC based on a 20 month record of daily mooring observations and show that Ekman processes are responsible for variability on the order of 20 days while the geostrophic component is responsible for variation from 20 to 90 days. Based on daily measurements, they report an average value of 21.3 Sv with standard deviation ranging 3.9 to 8.7 Sv depending on the filter used. \red{talk about the other studies} Importantly, \cite{dong20to35} show that SAMOC at 34.5$^{\circ}$S exhibits the most variability of the latitudes investigated, (20$^{\circ}$S-34.5$^{\circ}$S).
+
+	\begin{enumerate}
+	\item Dong 2009: XBT from AX18 line to estimate MOC/MHT 2002-2007 at 35S. Mean: 17.9 +/-2.2 Sv. Critical to monitor interior as well as bdy currents. SA unique b.c. mixes, exchanges, redistributes water between ocean basins and only basin to move heat from pole to equator (talley 2003). model studies show inter ocean exchanges alter MOC. Roughly 89\% of the AMOC is captured by XBT observations (800m depth). Show NHT and MOC are strongly correlated at 35S. 
+	\item Dong 2015: Argo data 1degree on 34S to form T/S climatologies 2004-2013. Climatology below 2000m from WOA13. GFDL and CCSM4 model output from last 50 years used to generate T/S monthly climatologies (not much variation between this method and direct method from velocities). Ekman vary = geo vary in observations, Ekman > geo in model. Observations give SAMOC at 34S at 18.4 Sv, 17.7 Sv from CCSM and 19.2 Sv from GFDL. Plot narration... Similar to 26.5N, eastern bdy variation of wind stress curl > western bdy. In observations, Malvinas current responsible for large variation in geostrophic transport. Not represented well in models b.c. separates from SAmerica too soon, and erroneously large vertical density shear. These are coupled models. 
+	\item Dong 2015: SSHA to MOC/MHT for 20S to 35S. Shows that SSHA is used ``successfully'' for estimating MOC/MHT compared to XBT lines (linear coefficients regressed to Argo, XBT, and CTD temp data, S = f(T,p,x,y), all to 850m depth, climatologies below this removing variability below this point). MOC/MHT estimates agree with XBT estimated values. 2002-2011. MOC estimated at 34.5S as 19.45 +/- 3.48 from 2002-2011 ... \red{unsure of frequency of observations, snapshots? averages?}... 34.5S shows most variability between latitudes analyzed. 
+	
+	 
+	\end{enumerate}
+
 
 	In the present study we investigate the behavior of the monthly mean MOC at 34$^{\circ}$S using the observation informed MIT general circulation model (MITgcm) under the version 4 release 2 framework developed by the Estimating the Circulation and Climate of the Ocean (ECCO) Consortium (referred to as ECCOv4r2 from here on, see Section \ref{theModel} for more details) \cite{forgetECCOv4}. Here we define the monthly mean MOC at 34$^{\circ}$S as an objective function, and use the inverse modeling framework developed in \cite{forgetECCOv4} to compute the gradient of this objective function to momentum, thermal, and fresh water forcing evolving backward in time. These sensitivity or influence maps (lagrange multipliers in the context of the adjoint \red{cite}) evolving backward in time show the linear wave dynamics which carry perturbations to the latitude band where the MOC is evaluated. In the context of observing variability, this procedure allows us to quantitatively evaluate the impact of each atmospheric state variable on the variability of SAMOC as well as the \red{effective time scale over which this influence is carried}.  
 
@@ -55,24 +64,9 @@
 
 %\cite{marotzke} present the first implementation of the adjoint model for compute sensitivities of Atlantic heat transport in a 2$^{\circ}$x2$^{\circ}$ resolution model of a truncated Atlantic. \cite{heimbach_timescales} use a larger model and provide physical interpretations for the dynamics in the adjoint model.  
 
-	Our goal is to: show the physical processes and geographical regions which play a key role in governing variability of SAMOC; quantitatively show the contribution of external forcing variability on SAMOC including the time scales over which these processes are effective at governing this variation; discuss the similarities and differences between AMOC at 34S and in the North Atlantic, motivating efforts in setting up reliable observation systems; remark on the errors present in this modeling process; discuss future efforts for improving oceanographic inverse modeling
+	Our goal is to: show the physical processes and geographical regions which play a key role in governing variability of SAMOC; quantitatively show the contribution of external forcing variability on SAMOC including the time scales over which these processes are effective at governing this variation; discuss the similarities and differences between AMOC at 34S and in the North Atlantic, motivating efforts in setting up reliable observation systems; remark on the errors present in this modeling process; discuss future efforts for improving oceanographic inverse modeling.
 
-	\begin{enumerate} 
-
-	  \item Understanding its fluctuations (e.g. as white noise or as deterministic trends) is essential in forecasting for example the transport of heat in a warming climate
-	  \item We are interested in attributing variation in AMOC to external forcing fields such as wind stress, heat, and freshwater fluxes.
-	  \item We do this by defining an objective function for AMOC at 34S (closest grid point on MITgcm to 34.5S) and compute sensitivities 
-	  \item Use MITgcm, TAF, to compute sensitivities of objective function to external forcing fields
-	  \item ECCO v4 r2 model set up and parameter values \red{Gael ftw}
-	  \item Sensitivity experiments have been performed many many times for producing physically meaningful information into underlying important mechanisms (e.g. Patrick's timescales, Czeschel, Pillar, Marotzke, ... )
-	  \item See robust behavior in sensitivity fields (compared to 25N) in wind stress especially 
-	  \item Interestingly we do not see oscillatory behavior in the sensitivity patterns going backward in time as Czeschel does
-	  \item We don't see similar physical patterns to \ref{pillar} in FWF
-	  \item We find that the wind stress sensitivity patterns are not seasonally dependent, while the heat flux and fresh water flux sensitivities  reconstruction as in \ref{pillar}
- 
-	\end{enumerate} 
-
-\section{Set up}
+\section{Experimental Setup}
 \label{theModel}
   \subsection{Model Configuration}
 
@@ -152,6 +146,9 @@
   Here I want to describe the sensitivity maps of the cost function, $\mathcal{J} = AMOC$, to various forcings $\pderiv{\mathcal{J}}{F}$. 
   Also I want to talk about the differences between what is seen in Pillar 
   Similarities in immediate response between all 4 sensitivities 
+	  We don't see similar physical patterns to \ref{pillar} in FWF
+	  We find that the wind stress sensitivity patterns are not seasonally dependent, while the heat flux and fresh water flux sensitivities  reconstruction as in \ref{pillar}
+	  Interestingly we do not see oscillatory behavior in the sensitivity patterns going backward in time as Czeschel does
   
 
    \subsection{Zonal Wind Stress}
@@ -379,50 +376,9 @@
  \label{conclusions}
 
   
-\begin{thebibliography}{3}
-
-  \bibitem{meinenSamoc}
-  Meinen, et al. MOC Variability at 34.5S...
-  
-  \bibitem{forgetECCOv4}
-  Forget, Gael, et al. \textit{ECCO version 4: an integrated framework for non-linear inverse modeling and global ocean state estimation.} Geoscientific Model Development 8 (2015): 3071-3104.
-  
-  \bibitem{wunschLinear}
-  Carl Wunsch, ``Covariances and linear predictability of the Atlantic Ocean'', Deep Sea Research Part II: Topical Studies in Oceanography, Volume 85, January 2013, Pages 228-243, ISSN 0967-0645, http://dx.doi.org/10.1016/j.dsr2.2012.07.015.
-  
-  \bibitem{wunschAndHeimbach_AMOC}
-  Wunsch, Carl, and Patrick Heimbach. ``Two decades of the Atlantic meridional overturning circulation: Anatomy, variations, extremes, prediction, and overcoming its limitations." Journal of Climate 26.18 (2013): 7167-7186.
-  
-  \bibitem{lozier}
-  Lozier, ``Overturning assumptions.'' 
-
-  \bibitem{mcCarthy}
-  McCarthy, G. D., et al. ``Measuring the Atlantic meridional overturning circulation at 26 N." Progress in Oceanography 130 (2015): 91-111.
-
-  \bibitem{heimbach_timescales}
-  Heimbach, P., et al. ``Timescales and regions of sensitivity ...''
-
-  \bibitem{pillar}
-  Pillar et al ``Dynamical Attribution of Recent Variability in Atlantic Overturning''
-
-  \bibitem{czeschel}
-  Czeschel et al: oscillatory sensitivity 
-
-  \bibitem{redi}
-  Redi, 1982
-
-  \bibitem{ggl90}
-  Gaspar et al., 1990
-
-  \bibitem{gm}
-  Gent and McWilliams, 1990
-
-  \bibitem{marotzke}
-  Marotzke's paper on sensitivity for physically meaningful objective function
-
-  \bibitem{yaeger2004}
-  Yaeger's bulk formula paper
-
-\end{thebibliography}
+\section{References}
+\label{references}
+{\bibliography{samoc}
+\bibliographystyle{plain}}
 
 \end{document}
