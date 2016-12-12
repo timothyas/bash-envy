@@ -5,8 +5,7 @@
 suff="_ad"
 
 ## Set up directories
-root_dir=$HOME/MITgcm
-ver_dir=$WORK/verification/global_oce_llc90
+root_dir=$HOME/MITgcm_c65x+
 exp_dir=$PWD
 build_dir=$exp_dir/build$suff
 code_dir=$exp_dir/code$suff

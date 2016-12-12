@@ -23,10 +23,13 @@ syntax: glob
 *.meta
 *.data
 *.tgz
+*.tarz
 *.gz
 ax*
 *.exe
 *.old
+*STDOUT.0000
+*STDERR.0000
 matlab/GSW/html/*
 matlab/GSW/pdf/*
 *.pdf
