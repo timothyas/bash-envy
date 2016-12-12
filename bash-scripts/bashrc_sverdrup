@@ -24,10 +24,13 @@ export CVSEDITOR=vim
 # export NETCDF_ROOT=/usr/local/Cellar/netcdf/4.3.3.1
 
 ### Modules ###
-module load c7
-module load intel/17.0 	
-module load openmpi
-#module load matlab/r2016b
+module use /share/modulefiles/intel
+#module load c7 intel/17.0 17.0/openmpi/1.10.2-hfi
+module load c7 intel/17.0 17.0/openmpi/2.0.1 
+## module load c7
+## module load intel/17.0 	
+## module load openmpi
+## #module load matlab/r2016b
 
 ## MITgcm environment variables
 export MPI_INC_DIR=$MPI_DIR/include
