@@ -7,6 +7,7 @@ cost_forcing.f
 cost_generic.f
 cost_gencost_all.f
 cost_gencost_amoc.f
+cost_gencost_rhomoc.f
 cost_gencost_assignperiod.f
 cost_gencost_customize.f
 cost_gencost_sshv4.f
