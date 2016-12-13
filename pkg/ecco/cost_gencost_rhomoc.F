@@ -58,11 +58,9 @@ cts std for ecco ---
       integer irec
       integer il
       integer kmax
-
       integer kmaxdepth, kmaxdense, Nlayers
       parameter( Nlayers = 15 )
       integer kgv(sNx+1,sNy+1)
-
       logical doglobalread
       logical ladinit
       character*(MAX_LEN_MBUF) msgbuf
