@@ -192,7 +192,6 @@ c-- Read barfile
      &                       1, mythid )
 #endif /* ALLOW_AUTODIFF */ 
 
-c CADJ STORE kgv = tapelev_init, key = 1
 c-- Initialize after read
           DO bj = jtlo,jthi
             DO bi = itlo,ithi
@@ -252,7 +251,6 @@ c-- Compute cost only if nonzero temporal mask
              do j=1,sNy
               do i=1,sNx
                do k = 1, Nr
-c CADJ STORE kgv = tapelev_init, key = 1
 
 c=============== PART 2.1: Compute T,S,rho ===================
 c This directly follows Yavor's density space amoc function
