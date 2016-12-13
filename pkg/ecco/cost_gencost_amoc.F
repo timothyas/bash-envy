@@ -46,15 +46,15 @@ c      integer nnzobs, nnzbar
       integer nrecloc, localrec, ioUnit
 
       _RL mybar     (1-olx:snx+olx,1-oly:sny+oly,nr,nsx,nsy)
-
       _RL dummyRL, gencost_mskTemporal
       _RS dummyRS(1)
-
       _RL tmpCumSumTile(nr,nSx,nSy),tmpNumTile(nSx,nSy)
       _RL tmpCumSumGlo(nr),tmpNumGlo
       _RL myTempMax
 
       character*(MAX_LEN_FNAM) mybarfile
+      character*(MAX_LEN_MBUF) msgbuf
+      character*(128) fname0
 
       integer kgen, kg3
       integer bi,bj
@@ -66,12 +66,8 @@ c      integer nnzobs, nnzbar
       integer irec
       integer il
       integer kmax
-
       logical doglobalread
       logical ladinit
-      character*(MAX_LEN_MBUF) msgbuf
-      character*(128) fname0
-
       logical exst
 
 c     == external functions ==
