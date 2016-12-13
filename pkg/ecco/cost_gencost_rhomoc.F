@@ -28,6 +28,8 @@ c     == global variables ==
 #include "SIZE.h"
 #include "PARAMS.h"
 #include "GRID.h"
+cts- seems necessary from Yavor's code
+#include "DYNVARS.h"
 #ifdef ALLOW_CAL
 # include "cal.h"
 #endif
@@ -57,6 +59,10 @@ cts std for ecco ---
       integer il
       integer kmax
 
+      integer kmaxdepth, kmaxdense, Nlayers
+      parameter( Nlayers = 15 )
+      integer kgv(sNx+1,sNy+1)
+
       logical doglobalread
       logical ladinit
       character*(MAX_LEN_MBUF) msgbuf
@@ -65,21 +71,19 @@ cts std for ecco ---
       logical exst
 
       _RL mybar     (1-olx:snx+olx,1-oly:sny+oly,nr,nsx,nsy)
-
+      _RL tmpCumSumTile(Nlayers,nSx,nSy),tmpNumTile(nSx,nSy)
+      _RL tmpCumSumGlo(Nlayers),tmpNumGlo
+      _RL myTempMax
       _RL dummyRL, gencost_mskTemporal
       _RS dummyRS(1)
 
-cts------
-
 cts- for dens space calcs
-      integer kmaxdepth, knmaxdense, Nlayers
-      integer kgv(sNx+1,sNy+1)
+
       _RL TatU, TatV, SalV, RhoV
       _RL layers_G(Nlayers)
       _RL layers_VFlux(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nlayers,nSx,nSy)
       _RL Vflux_bar(Nlayers)
       _RL petawatt, Kelvin2Celsius
-      _RL sum
       _RL     eosJMDCFw_1
       _RL     eosJMDCFw_2
       _RL     eosJMDCFw_3
@@ -96,9 +100,6 @@ cts- for dens space calcs
       _RL     eosJMDCSw_8
       _RL     eosJMDCSw_9
 
-      _RL tmpCumSumTile(Nlayers,nSx,nSy),tmpNumTile(nSx,nSy)
-      _RL tmpCumSumGlo(Nlayers),tmpNumGlo
-      _RL myTempMax
 
       parameter( petawatt = 1. _d +15 )
       parameter( Kelvin2Celsius = 2.7315 _d 02 )
@@ -122,11 +123,7 @@ C density of sea water at at the surface ref. level p = 0
       parameter ( eosJMDCSw_9 =    4.831400 _d -4 )
 
 cts - max depth from ECCOv4 setup
-      parameter( Nlayers = 15 )
       parameter ( kmaxdepth = 50 )
-
-      DATA layers_G / 21, 21.5, 22, 22.5, 23, 23.5,
-     & 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28 /
 cts ------------
 
 c     == external functions ==
@@ -135,6 +132,9 @@ c     == external functions ==
       external ilnblnk
 
 c     == end of interface ==
+
+      layers_G = (/ 21.0, 21.5, 22.0, 22.5, 23.0, 23.5,
+     & 24.0, 24.5, 25.0, 25.5, 26.0, 26.5, 27.0, 27.5, 28.0 /)
 
       jtlo = mybylo(mythid)
       jthi = mybyhi(mythid)
@@ -352,7 +352,7 @@ c=============== PART 2.3: Compute vol flux in density space  ==================
 c 
                 layers_VFlux(i,j,kgv(i,j),bi,bj) =
      &           layers_VFlux(i,j,kgv(i,j),bi,bj)
-                 + mybar(i,j,kgv(i,j),bi,bj)
+     &           + mybar(i,j,kgv(i,j),bi,bj)
 
                 WRITE(msgBuf,'(A,1E14.6)')
      &           'S/R: In this iteration layers_VFlux=',
@@ -363,20 +363,20 @@ c=============== PART 2.4: Take cumulative sum through layers  =================
 c Take cumulative sum of my layers_vflux from surface down
 c i.e. compute the streamfunction (assuming mybar = trvol) 
 c 
-                do kn = 1, Nlayers
-                 Vflux_bar(kn) = Vflux_bar(kn)
-     &            + layers_VFlux(i,j,kn,bi,bj)
+                do k = 1, Nlayers
+                 Vflux_bar(k) = Vflux_bar(k)
+     &            + layers_VFlux(i,j,k,bi,bj)
 
-                 tmpCumSumTile(kn,bi,bj)=
-     &            tmpCumSumTile(kn,bi,bj) +
-     &            mybar(i,j,kn,bi,bj)*gencost_mskTemporal
+                 tmpCumSumTile(k,bi,bj)=
+     &            tmpCumSumTile(k,bi,bj) +
+     &            mybar(i,j,k,bi,bj)*gencost_mskTemporal
 
                  tmpNumTile(bi,bj)=
      &            tmpNumTile(bi,bj)+1. _d 0
 
-                 if( kn .gt. 1 ) then 
-                    tmpCumSumTile(kn,bi,bj)=tmpCumSumTile(kn,bi,bj) +
-     &                tmpCumSumTile(kn+1,bi,bj)
+                 if( k .gt. 1 ) then 
+                    tmpCumSumTile(k,bi,bj)=tmpCumSumTile(k,bi,bj) +
+     &                tmpCumSumTile(k+1,bi,bj)
                  endif
                 enddo ! k=1,Nlayers
                enddo ! i = 1,sNx

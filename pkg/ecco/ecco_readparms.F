@@ -662,6 +662,14 @@ cts amoc cost function using gencost framework
            CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &     SQUEEZE_RIGHT , 1)
         
+         elseif ( gencost_name(k)(1:6).EQ.'rhomoc' ) then
+           gencost_flag(k)=-6
+           using_gencost(k)=.TRUE.
+           il=ilnblnk(gencost_name(k))
+           WRITE(msgBuf,'(A,i2,2A,L5)') 'gencost k_rhomoc=',
+     &     k,gencost_name(k)(1:il),': ',using_gencost(k)
+           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &     SQUEEZE_RIGHT , 1)
 c----------------------------------------------------------------
 
 c pre-specified generic cost terms that create their own barfile

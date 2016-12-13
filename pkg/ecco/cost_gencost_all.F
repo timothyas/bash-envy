@@ -93,6 +93,7 @@ c     == end of interface ==
       call cost_gencost_boxmean( mythid )
       call cost_gencost_bpv4( mythid )
       call cost_gencost_amoc( mythid )
+      call cost_gencost_rhomoc( mythid )
       IF (using_cost_transp) call cost_gencost_transp( mythid )
       IF (using_cost_altim) call cost_gencost_sshv4( mythid )
       IF (using_cost_sst) call cost_gencost_sstv4( mythid )
