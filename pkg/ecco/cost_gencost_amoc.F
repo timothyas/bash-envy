@@ -87,16 +87,17 @@ c     == end of interface ==
       jmax = sNy
 
 
-      write(msgbuf,'(A)') 'Inside cost_gencost_amoc ...'
-      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                    SQUEEZE_RIGHT, myThid )
-
       do kgen=1,NGENCOST
         kg3 = gencost_pointer3d(kgen)
 
 c-- detect the relevant gencost indices
         if ( (gencost_name(kgen)(1:4).EQ.'amoc').AND.
      &     (using_gencost(kgen)) ) then
+
+          write(msgbuf,'(A)') 'Inside cost_gencost_amoc ...'
+          CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                    SQUEEZE_RIGHT, myThid )
+
           il=ilnblnk(gencost_barfile(kgen))
           write(msgbuf,'(A,i4,A,A)') 'Cost ',kgen,
      &    ': ',gencost_barfile(kgen)(1:il)

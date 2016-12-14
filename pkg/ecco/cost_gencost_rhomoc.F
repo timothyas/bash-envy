@@ -144,17 +144,19 @@ c     == end of interface ==
       jmax = sNy
 
 
-      write(msgbuf,'(A)') 'Inside cost_gencost_rhomoc ...'
-      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                    SQUEEZE_RIGHT, myThid )
 
       do kgen=1,NGENCOST
         kg3 = gencost_pointer3d(kgen)
 
 c-- detect the relevant gencost indices
-        if ( (gencost_name(kgen)(1:4).EQ.'amoc').AND.
+        if ( (gencost_name(kgen)(1:6).EQ.'rhomoc').AND.
      &     (using_gencost(kgen)) ) then
           il=ilnblnk(gencost_barfile(kgen))
+
+          write(msgbuf,'(A)') 'Inside cost_gencost_rhomoc ...'
+          CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                    SQUEEZE_RIGHT, myThid )
+
           write(msgbuf,'(A,i4,A,A)') 'Cost ',kgen,
      &    ': ',gencost_barfile(kgen)(1:il)
           CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
@@ -440,7 +442,7 @@ c-- Print out what actually is used as cost function
             CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                          SQUEEZE_RIGHT, myThid )
 
-          endif ! gencost_name(kgen)=amoc
+          endif ! gencost_name(kgen)=rhomoc
         enddo ! kgen=1->NGENCOST
 
 #endif /* ALLOW_GENCOST_CONTRIBUTION */

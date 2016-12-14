@@ -678,7 +678,7 @@ c
 cts
 c--------------------------------------
 
-          endif!errfile
+          endif!errfile .ne. ' '
 c-- check barfile
           if(.not.( (gencost_barfile(k)(1:7).EQ.'m_trVol') .OR.
      &              (gencost_barfile(k)(1:8).EQ.'m_trHeat').OR.
@@ -697,8 +697,9 @@ c-- check barfile
            WRITE(msgBuf,'(2A)') gencost_name(k)(1:il),' is switched off'
            CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
      &                         SQUEEZE_RIGHT, myThid )
-          endif !barfile
-c---------------- block -5 ----------------------------
+          endif !barfile .not. m_trvol ... etc
+
+c---------------- block -6 ----------------------------
 c-- transs: require [err,bar][W,S]file, can have datafile, but
 c-- not checked here. also not checked for variwei at the moment
          elseif ( gencost_flag(k).eq. -6 ) then
@@ -810,7 +811,7 @@ c
 cts
 c--------------------------------------
 
-          endif!errfile
+          endif!errfile .ne. ' ' 
 c-- check barfile
           if(.not.( (gencost_barfile(k)(1:7).EQ.'m_trVol') .OR.
      &              (gencost_barfile(k)(1:8).EQ.'m_trHeat').OR.
@@ -829,8 +830,13 @@ c-- check barfile
            WRITE(msgBuf,'(2A)') gencost_name(k)(1:il),' is switched off'
            CALL PRINT_MESSAGE( msgBuf, errorMessageUnit,
      &                         SQUEEZE_RIGHT, myThid )
-          endif !barfile
+          endif !barfile .not. m_trVol etc ... 
+
          endif  !gencost_flag
+
+cts  
+cts Done with checking the gencost flag
+c--------------------------------------
 
          endif !if ( gencost_datafile(k) .ne. ' ' ) then
       enddo
