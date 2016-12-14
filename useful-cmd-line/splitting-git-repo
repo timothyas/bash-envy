@@ -1,0 +1,13 @@
+Directions for splitting a git repo were somewhat incomplete online. Here I want to split 'original-repo' with directory 'bigdir' and 'lildir1' and 'lildir2' such that 'bigdir' now gets put in its own repo 'new-repo' and 'original-repo' only has 'lildir1' and 'lildir2'. 
+
+1. Create 'new-repo' on bitbucket. Don't make a README or do anything. It makes stuff messy later.
+2. in a command line clone 'original-repo' to 'new repo': git clone bitbucket.website/original-repo new-repo
+3. cd new-repo
+4. ls and see the 3 directories
+5. Remove link back to original repo: 
+	git remote rm origin
+6. Remove anything not in 'bigdir' ... don't worry, this isn't tied to original-repo ... it's safe
+	git filter-branch --force --index-filter 'git rm -r --cached --ignore-unmatch lildir1 lildir2' -- --all
+
+7. Link local 'new-repo' to the remote repository on bitbucket
+	git remote add origin https://timothys@bitbucket.org/timothys/new-repo.git
