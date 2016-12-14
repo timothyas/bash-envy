@@ -14,4 +14,7 @@ Directions for splitting a git repo were somewhat incomplete online. Here I want
 7. Link local 'new-repo' to the remote repository on bitbucket
 	git remote add origin https://timothys@bitbucket.org/timothys/new-repo.git
 
-8. Now you can delete 'bigdir' from 'original-repo' as it's totally separate from 'new-repo'
+8. Push to repo back at bitbucket
+	git push origin master
+
+9. Now you can delete 'bigdir' from 'original-repo' as it's totally separate from 'new-repo'
