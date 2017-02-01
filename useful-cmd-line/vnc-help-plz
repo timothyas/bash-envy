@@ -22,3 +22,12 @@ On laptop terminal (Mac),
 
 
 Then to re open an existing vnc session, the very first line is not necessary
+
+Feb1, 2017 edit: 
+- When restarting a machine, need to log in on the physical desktop to open up an X session which vnc can connect to (Prakash thinks...)
+
+- do not use gnome-session in the .vnc/xstartup file, it doesn't like it
+
+- don't need -x while ssh'ing in
+
+- delete and recreate the .vnc/passwd file
