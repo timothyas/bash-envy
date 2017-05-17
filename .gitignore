@@ -1,10 +1,8 @@
 syntax: glob
 */masks/*
-*.pdf
 *.tar.gz
 *.mat
 !matlab/m_map/private/m_coasts.mat
-*.avi
 *~
 *.o
 *.aux
@@ -34,6 +32,7 @@ matlab/GSW/html/*
 matlab/GSW/pdf/*
 *.pdf
 *.avi
+*.mp4
 m_map/*.html
 .DS_Store
 *.fig
