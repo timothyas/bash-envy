@@ -83,7 +83,7 @@ ax*
 ## Exceptions ##
 ################
 !matlab/m_map/private/m_coasts.mat
-!samoc/text-data/*
+!samoc/index-data/*
         
 
 syntax: regexp
