@@ -1,53 +1,90 @@
 syntax: glob
-*/masks/*
-*.tar.gz
+## Data files ## 
+################
 *.mat
-!matlab/m_map/private/m_coasts.mat
-*~
-*.o
+*.txt
+*.meta
+*.data
+
+## Zipped directories ##
+########################
+*.tar.gz
+*.tgz
+*.gz
+*.zip
+*.tarz
+
+## Vim ##
+########
+*.swp
+*.swo
+
+## Latex ##
+###########
 *.aux
 *.log
 *.backup
 *.bak
-*.swp
-*.orig
-*.mod
-*.png
-*.data
-*.out
-*.jpeg
-*.asc
-*.txt
-*.meta
-*.data
-*.tgz
-*.tarz
-*.gz
-ax*
-*.exe
-*.old
-*STDOUT.0000
-*STDERR.0000
+*.toc
+*.vrb
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+
+## m_map ##
+############
 matlab/GSW/html/*
 matlab/GSW/pdf/*
+m_map/*.html
+
+## System ##
+############
+*.DS_Store
+
+## Figures/Docs/Videos ##
+#########################
+*.png
+*.jpeg
 *.pdf
 *.avi
 *.mp4
-m_map/*.html
-.DS_Store
-*.fig
-*/hf-perturbation/*
-*.nav
-*.snm
-*.toc
-*.vrb
 *.jpg
 *.gif
-*.fls
-*.fdb_latexmk
-*.bbl
-*.blg
+*.fig
 
+## Modified/old files ##
+########################
+*~
+*.orig
+*.mod
+*.old
+
+## Output ##
+############
+*.o
+*.out
+*.exe
+*STDOUT.0000
+*STDERR.0000
+
+## Project Specific ##
+######################
+*/masks/*
+*/hf-perturbation/*
+
+## MISC ##
+##########
+*.asc
+ax*
+*.nav
+*.snm
+
+## Exceptions ##
+################
+!matlab/m_map/private/m_coasts.mat
+!samoc/text-data/*
+        
 
 syntax: regexp
 .*\#.*\#$
