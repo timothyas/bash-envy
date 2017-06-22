@@ -222,7 +222,6 @@ cts -- Adj diagnostics
           fields_ad(m,l) = blkName
         ENDDO
       ENDDO
-      dumpAtLast_ad   = .FALSE.
 #endif
 
 C-    Track diagnostics pkg activation status:
