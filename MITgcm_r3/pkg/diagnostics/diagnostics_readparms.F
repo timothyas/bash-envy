@@ -115,12 +115,14 @@ C--   per level statistics output:
      &     diagSt_regMaskFile, nSetRegMskFile
 
 cts - 3rd namelist for adjoint of state variables output
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
 C--   adj output:
       NAMELIST / DIAGNOSTICS_ADJ_LIST /
      &     frequency_ad, timePhase_ad,
      &     averagingFreq_ad, averagingPhase_ad, repeatCycle_ad,
      &     levels_ad, fields_ad, fileName_ad,
      &     dumpAtLast_ad
+#endif
 
       IF ( .NOT.useDiagnostics ) THEN
 C-    pkg DIAGNOSTICS is not used
@@ -203,6 +205,7 @@ c       missing_value(l)     = UNSET_RL
       ENDDO
 
 cts -- Adj diagnostics
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
 
       DO l = 1,ldimLoc
         frequency_ad(l)  = 0.
@@ -220,7 +223,7 @@ cts -- Adj diagnostics
         ENDDO
       ENDDO
       dumpAtLast_ad   = .FALSE.
-
+#endif
 
 C-    Track diagnostics pkg activation status:
       diag_pkgStatus = 1
@@ -256,6 +259,7 @@ C-    set default for statistics output according to the main flag
       CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                    SQUEEZE_RIGHT , 1)
 
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
 Cts   read ADJ diag list        
       WRITE(msgBuf,'(2A)') 'S/R DIAGNOSTICS_READPARMS,',
      &     ' read namelist "DIAGNOSTICS_ADJ_LIST": start'
@@ -266,6 +270,7 @@ Cts   read ADJ diag list
      &     ' read namelist "DIAGNOSTICS_ADJ_LIST": OK'
       CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                    SQUEEZE_RIGHT , 1)
+#endif
 
       CLOSE (ku)
 
@@ -560,6 +565,8 @@ c        write(6,*) 'stat-list summary:',n,diagSt_nbFlds(n),regionCount
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 
 C     Initialise DIAG_ADJ common block (except pointers)
+
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
       nlists_ad = 0
       DO n = 1,numLists
         freq_ad(n) = 0.
@@ -670,6 +677,9 @@ c        write(6,*) 'list summary:',n,nfields(n),nlevels(n)
          STOP 'ABNORMAL END: S/R DIAGNOSTICS_READPARMS'
        ENDIF
       ENDDO
+
+#endif
+
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 C     Echo History List Data Structure
       stdUnit = standardMessageUnit
@@ -790,6 +800,7 @@ c    &       ' ; F-Flags="', fflags(n),'"'
      & '-----------------------------------------------------'
       CALL PRINT_MESSAGE( msgBuf, stdUnit,SQUEEZE_RIGHT, myThid)
 
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
      &     ' DIAGNOSTICS_READPARMS: ADJ diagnostics summary:'
       CALL PRINT_MESSAGE( msgBuf, stdUnit,SQUEEZE_RIGHT, myThid)
       WRITE(msgBuf,'(A)')
@@ -834,6 +845,8 @@ c    &       ' ; F-Flags="', fflags(n),'"'
           CALL PRINT_MESSAGE( msgBuf, stdUnit,SQUEEZE_RIGHT, myThid)
         ENDDO
       ENDDO
+#endif
+
       WRITE(msgBuf,'(A)')
      & '-----------------------------------------------------'
       CALL PRINT_MESSAGE( msgBuf, stdUnit,SQUEEZE_RIGHT, myThid)
