@@ -103,22 +103,22 @@ C     fnames(n)   :: output file name for output stream # n
 C     fflags(n)   :: character string with per-file flags
 C useMissingValue :: put MissingValue where mask = 0 (NetCDF output only)
 
-      _RL freq(numLists), phase(numLists)
-      _RL averageFreq(numLists), averagePhase(numLists)
-      _RL misValFlt(numLists)
-      _RL levs (numLevels,numLists)
-      INTEGER averageCycle(numLists)
-c     INTEGER misValInt(numLists)
-      INTEGER nlevels(numLists)
-      INTEGER nfields(numLists)
-      INTEGER nActive(numLists)
+      _RL freq(2*numLists), phase(2*numLists)
+      _RL averageFreq(2*numLists), averagePhase(2*numLists)
+      _RL misValFlt(2*numLists)
+      _RL levs (numLevels,2*numLists)
+      INTEGER averageCycle(2*numLists)
+c     INTEGER misValInt(2*numLists)
+      INTEGER nlevels(2*numLists)
+      INTEGER nfields(2*numLists)
+      INTEGER nActive(2*numLists)
       INTEGER nlists
-      INTEGER idiag(numperList,numLists)
-      INTEGER mdiag(numperList,numLists)
-      INTEGER jdiag(numperList,numLists)
-      CHARACTER*8  flds  (numperList,numLists)
-      CHARACTER*80 fnames(numLists)
-      CHARACTER*8  fflags(numLists)
+      INTEGER idiag(numperList,2*numLists)
+      INTEGER mdiag(numperList,2*numLists)
+      INTEGER jdiag(numperList,2*numLists)
+      CHARACTER*8  flds  (numperList,2*numLists)
+      CHARACTER*80 fnames(2*numLists)
+      CHARACTER*8  fflags(2*numLists)
       LOGICAL diag_mdsio, diag_mnc, useMissingValue
 
       COMMON / DIAG_SELECT_R /
@@ -201,53 +201,7 @@ C     diagSt_Fname(n)  :: output file name for output stream # n
       COMMON / DIAG_STATIS_L /
      &     diagSt_Ascii, diagSt_mnc
 
-C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 
-C--   DIAG_ADJ common block:
-C     freq_ad(n)     :: frequency (in s) to write output stream # n
-C     phase_ad(n)    :: phase     (in s) to write output stream # n
-C     averageFreq_ad :: frequency (in s) for periodic averaging interval
-C     averagePhase_ad:: phase     (in s) for periodic averaging interval
-C     averageCycle_ad:: number of averaging intervals in 1 cycle
-C     levs_ad(:,n)   :: list of selected levels to write for output stream # n
-C     nlevels_ad(n)  :: number of levels to write for output stream # n
-C     nfields_ad(n)  :: number of active diagnostics for output stream # n
-C     nActive_ad(n)  :: number of active diagnostics (including counters)
-C                    for output stream # n
-C     nlists_ad      :: effective number of output streams
-C     idiag_ad(:,n)  :: list of diag slot number in long-list of available diag.
-C     mdiag_ad(:,n)  :: list of mate slot number in long-list of available diag.
-C     jdiag_ad(:,n)  :: short-list (active diag.) to long-list (available diag.) pointer
-C     flds_ad(:,n)   :: list of field names in output stream # n
-C     fnames_ad(n)   :: output file name for output stream # n
-C     fflags_ad(n)   :: character string with per-file flags
-
-      _RL freq_ad(numLists), phase_ad(numLists)
-      _RL averageFreq_ad(numLists), averagePhase_ad(numLists)
-      _RL misValFlt_ad(numLists)
-      _RL levs_ad(numLevels,numLists)
-      INTEGER averageCycle_ad(numLists)
-c     INTEGER misValInt_ad(numLists)
-      INTEGER nlevels_ad(numLists)
-      INTEGER nfields_ad(numLists)
-      INTEGER nActive_ad(numLists)
-      INTEGER nlists_ad
-      INTEGER idiag_ad(numperList,numLists)
-      INTEGER mdiag_ad(numperList,numLists)
-      INTEGER jdiag_ad(numperList,numLists)
-      CHARACTER*8  flds_ad(numperList,numLists)
-      CHARACTER*80 fnames_ad(numLists)
-      CHARACTER*8  fflags_ad(numLists)
-
-      COMMON / DIAG_ADJ_R /
-     &     freq_ad, phase_ad, averageFreq_ad, averagePhase_ad,
-     &     levs_ad
-      COMMON / DIAG_ADJ_I /
-     &     averageCycle_ad,
-     &     nlevels_ad, nfields_ad, nActive_ad,
-     &     nlists_ad, idiag_ad, mdiag_ad, jdiag_ad
-      COMMON / DIAG_ADJ_C /
-     &     flds_ad, fnames_ad, fflags_ad
 CEH3 ;;; Local Variables: ***
 CEH3 ;;; mode:fortran ***
 CEH3 ;;; End: ***
