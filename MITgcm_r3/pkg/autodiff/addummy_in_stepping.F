@@ -11,7 +11,6 @@ C $Name:  $
 #include "AD_CONFIG.h"
 
 #ifdef ALLOW_DIAGNOSTICS
-# include "DIAGNOSTICS.h"
 # include "DIAG_OPTIONS.h"
 #endif
 
@@ -122,6 +121,7 @@ c put this here to avoid needing adjDumpFreq
         CALL DIAGNOSTICS_FILL(theta%d, 'ADJtheta', 0,Nr,0,1,1,myThid)
         CALL DIAGNOSTICS_FILL(salt%d, 'ADJsalt ', 0,Nr,0,1,1,myThid)
 
+#  endif /* ALLOW_OPENAD */
 # endif /* DIAGNOSTICS_ADJ_OUTPUT */
 #endif /* ALLOW_DIAGNOSTICS */ 
 
