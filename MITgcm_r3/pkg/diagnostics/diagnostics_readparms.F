@@ -86,13 +86,15 @@ C     stat_fName  :: List of statistics output Filename
       INTEGER j,k,l,n,m,nf
       INTEGER iLen, regionCount
 
-      _RL         frequency_ad(ldimLoc), timePhase_ad(ldimLoc)
-      _RL         averagingFreq_ad(ldimLoc), averagingPhase_ad(ldimLoc)
-      INTEGER     repeatCycle_ad(ldimLoc)
-      _RL         levels_ad(kdimLoc,ldimLoc)
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
+      _RL frequency_ad(ldimLoc), timePhase_ad(ldimLoc)
+      _RL averagingFreq_ad(ldimLoc), averagingPhase_ad(ldimLoc)
+      INTEGER repeatCycle_ad(ldimLoc)
+      _RL levels_ad(kdimLoc,ldimLoc)
       CHARACTER*8 fields_ad(fdimLoc,ldimLoc)
       CHARACTER*80 fileName_ad(ldimLoc)
       CHARACTER*8 fileFlags_ad(ldimLoc)
+#endif
 
 C--   full level output:
       NAMELIST / DIAGNOSTICS_LIST /
@@ -120,8 +122,7 @@ C--   adj output:
       NAMELIST / DIAGNOSTICS_ADJ_LIST /
      &     frequency_ad, timePhase_ad,
      &     averagingFreq_ad, averagingPhase_ad, repeatCycle_ad,
-     &     levels_ad, fields_ad, fileName_ad,
-     &     dumpAtLast_ad
+     &     levels_ad, fields_ad, fileName_ad
 #endif
 
       IF ( .NOT.useDiagnostics ) THEN
@@ -222,7 +223,6 @@ cts -- Adj diagnostics
           fields_ad(m,l) = blkName
         ENDDO
       ENDDO
-      dumpAtLast_ad   = .FALSE.
 #endif
 
 C-    Track diagnostics pkg activation status:
@@ -570,7 +570,7 @@ C     block. Allows us to use all the diagnostics infrastructure.
 #ifdef DIAGNOSTICS_ADJ_OUTPUT
 
       DO l = 1,ldimLoc
-       iLen = ILNBLNK(fileName(l))
+       iLen = ILNBLNK(fileName_ad(l))
 C-     Only lists with non-empty file name (iLen>0) are considered
 C
 C note: here nlists starts where it left off with fwd diagnostics
@@ -583,11 +583,13 @@ C       new max is 2*numLists
          ELSEIF ( frequency_ad(l) .LT. 0. ) THEN
            phase(n) = -0.5 _d 0 * frequency_ad(l)
          ENDIF
-         IF ( averagingFreq_ad(l).GT.0. .AND. repeatCycle_ad(l).GT.1 ) THEN
+         IF ( averagingFreq_ad(l).GT.0 
+     &  .AND. repeatCycle_ad(l).GT.1 ) THEN
            averageFreq(n)  = averagingFreq_ad(l)
            averagePhase(n) = averagingPhase_ad(l)
            averageCycle(n) = repeatCycle_ad(l)
-         ELSEIF (averagingFreq_ad(l).NE.0. .OR. repeatCycle_ad(l).NE.0) THEN
+         ELSEIF (averagingFreq_ad(l).NE.0 
+     &  .OR. repeatCycle_ad(l).NE.0) THEN
            WRITE(msgBuf,'(2A,F18.6,I4)') 'DIAGNOSTICS_READPARMS: ',
      &       'unvalid Average-Freq & Cycle:',
      &       averagingFreq_ad(l), repeatCycle_ad(l)
@@ -603,27 +605,21 @@ C       new max is 2*numLists
            averageFreq(n)  = frequency_ad(l)
            averagePhase(n) = phase(n)
          ENDIF
-c        IF ( missing_value_ad(l) .NE. UNSET_RL )
-c    &        misValFlt(n) = missing_value_ad(l)
-c        IF ( missing_value_int_ad(l) .NE. UNSET_I )
-c    &        misValInt(n) = missing_value_int_ad(l)
-         IF ( missing_value_ad(l) .NE. oneRL )
-     &        misValFlt(n) = missing_value_ad(l)
-         fnames(n)  = fileName _ad(l)
+         fnames(n)  = fileName_ad(l)
          fflags(n)  = fileFlags_ad(l)
          nlevels(n) = 0
-         IF ( levels(1,l).NE.UNSET_RL ) THEN
+         IF ( levels_ad(1,l).NE.UNSET_RL ) THEN
            DO k=1,kdimLoc
-             IF ( levels(k,l).NE.UNSET_RL .AND.
+             IF ( levels_ad(k,l).NE.UNSET_RL .AND.
      &            nlevels(n).LT.numLevels ) THEN
                nlevels(n) = nlevels(n) + 1
-               levs(nlevels(n),n) = levels(k,l)
-             ELSEIF ( levels(k,l).NE.UNSET_RL ) THEN
+               levs(nlevels(n),n) = levels_ad(k,l)
+             ELSEIF ( levels_ad(k,l).NE.UNSET_RL ) THEN
               WRITE(msgBuf,'(2A,I4)') 'DIAGNOSTICS_READPARMS: ',
      &         'Exceed Max.Num. of Levels numLevels=', numLevels
               CALL PRINT_ERROR( msgBuf , myThid )
               WRITE(msgBuf,'(2A,I4,A,F8.0)') 'DIAGNOSTICS_READPARMS: ',
-     &         'when trying to add level(k=', k, ' )=', levels(k,l)
+     &         'when trying to add level(k=', k, ' )=', levels_ad(k,l)
               CALL PRINT_ERROR( msgBuf , myThid )
               WRITE(msgBuf,'(2A,I4,2A)') 'DIAGNOSTICS_READPARMS: ',
      &         ' for list l=', l, ', fileName: ', fileName_ad(l)
@@ -637,16 +633,16 @@ C-       will set levels later, once the Nb of levels of each diag is known
          ENDIF
          nfields(n) = 0
          DO m=1,fdimLoc
-           IF ( fields(m,l).NE.blkName .AND.
+           IF ( fields_ad(m,l).NE.blkName .AND.
      &          nfields(n).LT.numperList ) THEN
              nfields(n) = nfields(n) + 1
-             flds(nfields(n),n) = fields(m,l)
-           ELSEIF ( fields(m,l).NE.blkName ) THEN
+             flds(nfields(n),n) = fields_ad(m,l)
+           ELSEIF ( fields_ad(m,l).NE.blkName ) THEN
              WRITE(msgBuf,'(2A,I4)') 'DIAGNOSTICS_READPARMS: ',
      &        'Exceed Max.Num. of Fields/list numperList=', numperList
              CALL PRINT_ERROR( msgBuf , myThid )
              WRITE(msgBuf,'(2A,I4,3A,I4,2A)') 'DIAGNOSTICS_READPARMS: ',
-     &        'when trying to add field (m=', m, ' ): ',fields(m,l)
+     &        'when trying to add field (m=', m, ' ): ',fields_ad(m,l)
              CALL PRINT_ERROR( msgBuf , myThid )
              WRITE(msgBuf,'(2A,I4,2A)') 'DIAGNOSTICS_READPARMS: ',
      &        ' in list l=', l, ', fileName: ', fileName_ad(l)
