@@ -86,6 +86,7 @@ C     stat_fName  :: List of statistics output Filename
       INTEGER j,k,l,n,m,nf
       INTEGER iLen, regionCount
 
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
       _RL         frequency_ad(ldimLoc), timePhase_ad(ldimLoc)
       _RL         averagingFreq_ad(ldimLoc), averagingPhase_ad(ldimLoc)
       INTEGER     repeatCycle_ad(ldimLoc)
@@ -93,6 +94,7 @@ C     stat_fName  :: List of statistics output Filename
       CHARACTER*8 fields_ad(fdimLoc,ldimLoc)
       CHARACTER*80 fileName_ad(ldimLoc)
       CHARACTER*8 fileFlags_ad(ldimLoc)
+#endif
 
 C--   full level output:
       NAMELIST / DIAGNOSTICS_LIST /
@@ -120,8 +122,7 @@ C--   adj output:
       NAMELIST / DIAGNOSTICS_ADJ_LIST /
      &     frequency_ad, timePhase_ad,
      &     averagingFreq_ad, averagingPhase_ad, repeatCycle_ad,
-     &     levels_ad, fields_ad, fileName_ad,
-     &     dumpAtLast_ad
+     &     levels_ad, fields_ad, fileName_ad
 #endif
 
       IF ( .NOT.useDiagnostics ) THEN
