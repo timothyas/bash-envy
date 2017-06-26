@@ -37,12 +37,12 @@ C     !USES:
       IMPLICIT NONE
 
 C     == Global variables ===
-#ifdef ALLOW_OPENAD
-      use OAD_active
-      use OAD_rev
-      use OAD_tape
-      use OAD_cp
-#endif
+C#ifdef ALLOW_OPENAD
+C      use OAD_active
+C      use OAD_rev
+C      use OAD_tape
+C      use OAD_cp
+C#endif
 #include "SIZE.h"
 #include "EEPARAMS.h"
 #include "PARAMS.h"
