@@ -8,20 +8,23 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
 export CVSEDITOR=vim
 
+## Useful Directories
+# Directory containing full ERA-Interim dataset, 1979-2014
+export WORK=/nobackupp2/tasmit12
+export contrib=$WORK/gcm-contrib
+export computing=$WORK/computing
+export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
+
 ## Misc. ##
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
 alias cdh='cd $HOME'
-export WORK=/nobackupp2/tasmit12
-export contrib=$WORK/gcm-contrib
 alias cdw='cd $WORK'
 alias cdc='cd $contrib'
 export PS1='[\h \W]\$ '
 
-## Useful Directories
-# Directory containing full ERA-Interim dataset, 1979-2014
-export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
+
 
 ## Modules ##
 module load comp-intel
