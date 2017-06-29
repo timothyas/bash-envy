@@ -1,16 +1,22 @@
 
+NOTE: this all must be done over ssh. For now there is no way to do this over mosh 
+
+
 On server, start up vnc: 
 
 	$ vncserver -localhost -geometry 1200x650
 
 This gives you a session number (let's call it n) and sets everything up. Good idea to comment out the last line in ~/.vnc/xstartup from "twm &" to "/usr/bin/gnome-session" 
 
-Then back in the command line on the server: 
+Then back in the command line on the server, open up the ssh prompt: 
 
 	$ press enter a few times
 	$ (SHIFT + ~)
 	$ (SHIFT + C)
 	$ L 590(m):localhost:590(n)
+
+e.g.
+        $ L 5901:localhost:5901
 
 When typing the second two commands, you shouldn't see any output on the screen. If you do, hit enter a few times and redo it.
 
@@ -22,3 +28,12 @@ On laptop terminal (Mac),
 
 
 Then to re open an existing vnc session, the very first line is not necessary
+
+Feb1, 2017 edit: 
+- When restarting a machine, need to log in on the physical desktop to open up an X session which vnc can connect to (Prakash thinks...)
+
+- do not use gnome-session in the .vnc/xstartup file, it doesn't like it
+
+- don't need -x while ssh'ing in
+
+- delete and recreate the .vnc/passwd file
