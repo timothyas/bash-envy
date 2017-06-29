@@ -19,6 +19,10 @@ alias cdw='cd $WORK'
 alias cdc='cd $contrib'
 export PS1='[\h \W]\$ '
 
+## Useful Directories
+# Directory containing full ERA-Interim dataset, 1979-2014
+export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
+
 ## Modules ##
 module load comp-intel
 module load mpi-sgi/mpt
