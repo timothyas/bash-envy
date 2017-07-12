@@ -103,6 +103,8 @@ c put this here to avoid needing adjDumpFreq
 #ifdef ALLOW_DIAGNOSTICS
 # ifdef DIAGNOSTICS_ADJ_OUTPUT
 
+        CALL DIAGNOSTICS_SWITCH_ONOFF( myTime, myIter, myThid )
+
 #  ifndef ALLOW_OPENAD
 
         CALL DIAGNOSTICS_FILL(adEtaN, 'ADJetan ', 0,1,0,1,1,myThid)
