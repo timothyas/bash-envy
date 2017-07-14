@@ -22,10 +22,8 @@ C     !USES:
 #include "GRID.h"
 #include "DIAGNOSTICS_SIZE.h"
 #include "DIAGNOSTICS.h"
-#ifdef ALLOW_ADJOINT_RUN
-# ifdef DIAGNOSTICS_ADJ_OUTPUT
-#include "AUTODIFF_PARAMS.h"
-# endif
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
+# include "AUTODIFF_PARAMS.h"
 #endif
 
       INTEGER NrMax
@@ -215,12 +213,11 @@ C         => skip computation and just write qtmp2
             ENDIF
             isComputed = 0
 C- Case for adj state diagnostics
-#ifdef ALLOW_ADJOINT_RUN
-# ifdef DIAGNOSTICS_ADJ_OUTPUT
-          ELSEIF ( fnames(1:3).EQ.'ADJ' .AND. inAdMode.EQ.inAdFalse )
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
+          ELSEIF ( fnames(listId)(1:3).EQ.'ADJ' .AND. 
+     &             inAdMode.EQ.inAdFalse ) THEN
 C do nothing ... just don't want to fill diagnostic with zeros during
 C forward run
-# endif
 #endif
           ELSEIF ( ndiag(ip,1,1).EQ.0 ) THEN
 C-        Empty diagnostics case :
@@ -404,11 +401,10 @@ C--     End of empty diag / not-empty diag block
 C--     Ready to write field "md", element "lm" in averageCycle(listId)
 
 C- Case for adj state diagnostics
-#ifdef ALLOW_ADJOINT_RUN
-# ifdef DIAGNOSTICS_ADJ_OUTPUT
-         IF ( fnames(1:3).NE.'ADJ' .AND. inAdMode.NE.inAdFalse )
-C Skip all of this ... 
-# endif
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
+      IF ( (fnames(listId)(1:3).NE.'ADJ' .AND. inAdMode.EQ.inAdFalse) 
+     & .OR.(fnames(listId)(1:3).EQ.'ADJ' .AND. inAdMode.EQ.inAdTrue) )
+     & THEN
 #endif
 
 C-        write to binary file, using MDSIO pkg:
@@ -450,11 +446,9 @@ C         a hack not to write meta files now: pass -nRec < 0 to MDS_WRITE S/R
           ENDIF
 #endif /*  ALLOW_MNC  */
 
-#ifdef ALLOW_ADJOINT_RUN
-# ifdef DIAGNOSTICS_ADJ_OUTPUT
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
          ENDIF
 C End if statement to skip output for adj variables in forward mode ... 
-# endif
 #endif
 
 C--     end of Processing Fld # md
@@ -464,11 +458,10 @@ C--     end of Processing Fld # md
 C--   end loop on lm counter (= averagePeriod)
       ENDDO
 
-#ifdef ALLOW_ADJOINT_RUN
-# ifdef DIAGNOSTICS_ADJ_OUTPUT
-      IF ( fnames(1:3).NE.'ADJ' .AND. inAdMode.NE.inAdFalse )
-C Skip making the meta file
-# endif
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
+      IF ( (fnames(listId)(1:3).NE.'ADJ' .AND. inAdMode.EQ.inAdFalse) 
+     & .OR.(fnames(listId)(1:3).EQ.'ADJ' .AND. inAdMode.EQ.inAdTrue) )
+     & THEN
 #endif
 
 #ifdef ALLOW_MDSIO
@@ -487,11 +480,9 @@ C     meta files but with more informations in it.
 #endif /*  ALLOW_MDSIO  */
 
 
-#ifdef ALLOW_ADJOINT_RUN
-# ifdef DIAGNOSTICS_ADJ_OUTPUT
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
       ENDIF
 C End if statement to skip output for adj variables in forward mode ... 
-# endif
 #endif
 
       RETURN

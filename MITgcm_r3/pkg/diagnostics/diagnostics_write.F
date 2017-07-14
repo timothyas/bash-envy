@@ -153,10 +153,12 @@ c         IF ( diag_pkgStatus.NE.ready2fillDiags ) STOP
           _BARRIER
           _BEGIN_MASTER(myThid)
 C Don't want
-#ifndef ALLOW_ADJOINT_RUN 
-# ifndef DIAGNOSTICS_ADJ_OUTPUT
+#ifdef DIAGNOSTICS_ADJ_OUTPUT
+         IF ( fnames(n)(1:3).NE.'ADJ' ) THEN
           diag_pkgStatus = 99
-# endif
+         ENDIF
+#else
+          diag_pkgStatus = 99
 #endif
           _END_MASTER(myThid)
           _BARRIER
