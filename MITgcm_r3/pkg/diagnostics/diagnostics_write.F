@@ -152,12 +152,8 @@ C-      Track diagnostics pkg activation status:
 c         IF ( diag_pkgStatus.NE.ready2fillDiags ) STOP
           _BARRIER
           _BEGIN_MASTER(myThid)
-C Don't want
-#ifdef DIAGNOSTICS_ADJ_OUTPUT
-         IF ( fnames(n)(1:3).NE.'ADJ' ) THEN
-          diag_pkgStatus = 99
-         ENDIF
-#else
+C Don't want to disable adj output
+#ifndef DIAGNOSTICS_ADJ_OUTPUT
           diag_pkgStatus = 99
 #endif
           _END_MASTER(myThid)
