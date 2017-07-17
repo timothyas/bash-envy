@@ -92,6 +92,12 @@ C     msgBuf  :: Error message buffer
       _RL foo3D (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
       _RS dumRS(1)
       _RL dumRL(1)
+
+#ifdef ALLOW_DIAGNOSTICS
+# ifdef DIAGNOSTICS_ADJ_OUTPUT
+      LOGICAL modelEnd
+# endif
+#endif
 CEOP
 
 
@@ -103,6 +109,7 @@ c put this here to avoid needing adjDumpFreq
 #ifdef ALLOW_DIAGNOSTICS
 # ifdef DIAGNOSTICS_ADJ_OUTPUT
 
+        modelEnd = myTime.EQ.endTime .OR. myIter.EQ.nEndIter
         CALL DIAGNOSTICS_SWITCH_ONOFF( myTime, myIter, myThid )
 
 #  ifndef ALLOW_OPENAD
@@ -124,6 +131,9 @@ c put this here to avoid needing adjDumpFreq
         CALL DIAGNOSTICS_FILL(salt%d, 'ADJsalt ', 0,Nr,0,1,1,myThid)
 
 #  endif /* ALLOW_OPENAD */
+
+        CALL DIAGNOSTICS_WRITE( modelEnd, myTime, myIter, myThid )
+
 # endif /* DIAGNOSTICS_ADJ_OUTPUT */
 #endif /* ALLOW_DIAGNOSTICS */ 
 

@@ -29,5 +29,5 @@ alias cdc='cd $contrib'
 
 ## Aliases ##
 alias la='ls -a'
-alias ll='ls -al'
+alias ll='ls -alh'
 export PS1="[stampede \W]\$ "

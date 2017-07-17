@@ -18,7 +18,7 @@ export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
 ## Misc. ##
 alias ls='ls --color=auto'
 alias la='ls -a'
-alias ll='ls -l'
+alias ll='ls -alh'
 alias cdh='cd $HOME'
 alias cdw='cd $WORK'
 alias cdc='cd $contrib'
