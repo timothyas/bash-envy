@@ -95,19 +95,6 @@ C---  set file properties
       ioUnit= standardMessageUnit
       undefRL = misValFlt(listId)
 
-      IF ( rwSuffixType.EQ.0 ) THEN
-        WRITE(suff,'(I10.10)') myIter
-      ELSE
-        CALL RW_GET_SUFFIX( suff, myTime, myIter, myThid )
-      ENDIF
-      iLen = ILNBLNK(fnames(listId))
-      WRITE( fn, '(A,A,A)' ) fnames(listId)(1:iLen),'.',suff
-      IF ( diag_mdsio.AND.(diagMdsDir.NE.' ') ) THEN
-        jLen = ILNBLNK(diagMdsDir)
-        WRITE( fn, '(5A)' ) diagMdsDir(1:jLen),'/',
-     &                       fnames(listId)(1:iLen),'.',suff
-      ENDIF
-
 C-    for now, if integrate vertically, output field has just 1 level:
       nLevOutp = nlevels(listId)
       IF ( fflags(listId)(2:2).EQ.'I' ) nLevOutp = 1
@@ -212,14 +199,23 @@ C         => skip computation and just write qtmp2
      &         ' from previous computation of Diag # ', isComputed
             ENDIF
             isComputed = 0
-C- Case for adj state diagnostics
+
+
 #ifdef DIAGNOSTICS_ADJ_OUTPUT
-          ELSEIF ( fnames(listId)(1:3).EQ.'ADJ' .AND. 
-     &             inAdMode.EQ.inAdFalse ) THEN
+          ELSEIF (  ndiag(ip,1,1).EQ.0  .AND.
+     &            fnames(listId)(1:3).EQ.'ADJ' ) THEN 
+
+            WRITE(msgBuf,'(A,I10,A)')
+     &        'from DIAGNOSTICS_OUT at iter=', myIter,
+     &        ' in adj special case'
+            CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                          SQUEEZE_RIGHT, myThid)
 C do nothing ... just don't want to fill diagnostic with zeros during
 C forward run
-#endif
+
+#else
           ELSEIF ( ndiag(ip,1,1).EQ.0 ) THEN
+#endif
 C-        Empty diagnostics case :
             isComputed = 0
 
@@ -253,7 +249,7 @@ C-        Empty diagnostics case :
               DO bi = myBxLo(myThid), myBxHi(myThid)
                 DO k = 1,nLevOutp
                   DO j = 1-OLy,sNy+OLy
-                    DO i = 1-OLx,sNx+OLx
+                    DO i = 1-OLx,sNx+OLx 
                       qtmp1(i,j,k,bi,bj) = 0. _d 0
                     ENDDO
                   ENDDO
@@ -402,9 +398,8 @@ C--     Ready to write field "md", element "lm" in averageCycle(listId)
 
 C- Case for adj state diagnostics
 #ifdef DIAGNOSTICS_ADJ_OUTPUT
-      IF ( (fnames(listId)(1:3).NE.'ADJ' .AND. inAdMode.EQ.inAdFalse) 
-     & .OR.(fnames(listId)(1:3).EQ.'ADJ' .AND. inAdMode.EQ.inAdTrue) )
-     & THEN
+      IF ( (ndiag(ip,1,1).NE.0 .AND. fnames(listId)(1:3).EQ.'ADJ')
+     & .OR. (fnames(listId)(1:3).NE.'ADJ') ) THEN
 #endif
 
 C-        write to binary file, using MDSIO pkg:
@@ -459,9 +454,8 @@ C--   end loop on lm counter (= averagePeriod)
       ENDDO
 
 #ifdef DIAGNOSTICS_ADJ_OUTPUT
-      IF ( (fnames(listId)(1:3).NE.'ADJ' .AND. inAdMode.EQ.inAdFalse) 
-     & .OR.(fnames(listId)(1:3).EQ.'ADJ' .AND. inAdMode.EQ.inAdTrue) )
-     & THEN
+      IF ( (ndiag(ip,1,1).NE.0 .AND. fnames(listId)(1:3).EQ.'ADJ')
+     & .OR. (fnames(listId)(1:3).NE.'ADJ') ) THEN
 #endif
 
 #ifdef ALLOW_MDSIO
