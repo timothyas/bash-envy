@@ -28,4 +28,4 @@ export WORKS=$WORK/../
 export contrib=$WORK/../gcm-contrib
 export ph_data=/work/03263/heimbach/data
 alias cdc='cd $contrib'
-alias ll='ls -al'
+alias ll='ls -alh'
