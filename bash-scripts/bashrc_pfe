@@ -23,7 +23,7 @@ alias cdh='cd $HOME'
 alias cdw='cd $WORK'
 alias cdc='cd $contrib'
 export PS1='[\h \W]\$ '
-
+export GREP_OPTIONS='--color=always'
 
 
 ## Modules ##
