@@ -7,6 +7,7 @@ dir_suff=".hflux.m10"
 perturbation="hf-perturbation"
 use_masks="true"
 extra_ctrls="true"
+use_clim_relax="true"
 
 ## Set up directories
 root_dir=$HOME/MITgcm_c65x+
@@ -21,6 +22,7 @@ input_dir=$exp_dir/input$suff$dir_suff
 
 masks_dir=$input_dir/masks
 perturb_dir=$input_dir/$perturbation
+clim_relax_dir=$input_dir/clim
 
 submit_script=$exp_dir/submit_samoc$suff
 data_dir=$SCRATCH/data
@@ -48,6 +50,7 @@ cp $submit_script .
 
 #--- 2. linking binary ---------
 ln -s ${ver_dir}/input_fields/*.bin .
+ln -s ${ver_dir}/input_fields/wt_ones.data .
 ln -s ${ver_dir}/input_fields/tile*.mitgrid .
 #  ###
 ln -s ${ver_dir}/input_fields/smooth2Dscales001${extsmooth} ./smooth2Dscales001
@@ -118,6 +121,19 @@ if [ ! "$use_masks" == "" ] ; then
   fi
 else
   echo "** Masks not used ... "
+fi
+#=================================================================================
+
+#--- 10. link to climatological relaxation
+#  dir should be inside inputs
+if [ ! "$use_clim_relax" == "" ] ; then
+  if [ -d $clim_relax_dir ] ; then
+    ln -sv $clim_relax_dir/* .
+  else
+    echo "** Could not find clim_relax dir: $clim_relax_dir ... "
+  fi
+else
+  echo "** Climatological relaxation not used ... "
 fi
 #=================================================================================
 
