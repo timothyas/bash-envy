@@ -22,10 +22,16 @@ export NETCDF_ROOT=$TACC_NETCDF_DIR
 export NETCDF_INC=$TACC_NETCDF_INC
 export NETCDF_LIB=$TACC_NETCDF_LIB
 
-## Misc terminal ##
-export PS1='[lonestar \W]\$ '
+## Directories
 export WORKS=$WORK/../
 export contrib=$WORK/../gcm-contrib
 export ph_data=/work/03263/heimbach/data
+export an_work=/work/03901/atnguyen
+export an_scratch=/scratch/03901/atnguyen
+
+## Misc commands and specs ##
+export PS1='[lonestar \W]\$ '
 alias cdc='cd $contrib'
 alias ll='ls -alh'
+export GREP_OPTIONS='--color=always'
+
