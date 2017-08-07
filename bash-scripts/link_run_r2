@@ -2,12 +2,17 @@
 
 ## Set up suffix for adjoint run: "_ad"
 #  or leave as "" for forward run
-suff=""
-dir_suff=".hflux.m10"
-perturbation="hf-perturbation"
+suff="_ad"
+dir_suff=".dec.240mo"
+
+use_perturbation="false"
 use_masks="true"
-extra_ctrls="true"
+use_extra_ctrls="false"
 use_clim_relax="true"
+use_ecco_mixing_params="false"
+use_ecco_binary_inputs="true"
+use_ecco_insitu_obs="false"
+use_ecco_pickups="true"
 
 ## Set up directories
 root_dir=$HOME/MITgcm_c65x+
@@ -20,15 +25,18 @@ code_dir=$exp_dir/code$suff
 run_dir=$exp_dir'/run'$suff$dir_suff
 input_dir=$exp_dir/input$suff$dir_suff
 
+ctrl_dir=$WORK/ecco-data/control-vectors-zero
 masks_dir=$input_dir/masks
 perturb_dir=$input_dir/$perturbation
-clim_relax_dir=$input_dir/clim
+clim_relax_dir=$input_dir/relax
+ecco_binary_input_dir=${ver_dir}/input_fields
+ecco_insitu_dir=$data_dir/inputs_baseline2/input_insitu
+ecco_pickup_dir=${ver_dir}/input_fields
 
-submit_script=$exp_dir/submit_samoc$suff
-data_dir=$SCRATCH/data
-ctrl_dir=$data_dir/control-vectors-zero
-input_data_dir=$ph_data/data_v4/input_obs/input_insitu
-forcing_dir=$data_dir/forcing_baseline2
+submit_script=$exp_dir/submit_oscillatory$suff
+data_dir=$WORK/ecco-data
+
+forcing_dir=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
 
 # ----- 1. Set up directories and submission script
 ## Make work directory in SCRATCH
@@ -49,25 +57,32 @@ echo "Grabbing necessary files ..."
 cp $submit_script .
 
 #--- 2. linking binary ---------
-ln -s ${ver_dir}/input_fields/*.bin .
-ln -s ${ver_dir}/input_fields/wt_ones.data .
-ln -s ${ver_dir}/input_fields/tile*.mitgrid .
-#  ###
-ln -s ${ver_dir}/input_fields/smooth2Dscales001${extsmooth} ./smooth2Dscales001
-ln -s ${ver_dir}/input_fields/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
-ln -s ${ver_dir}/input_fields/smooth3DscalesZ001 ./
-ln -s ${ver_dir}/input_fields/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
-ln -s ${ver_dir}/input_fields/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
-ln -s ${ver_dir}/input_fields/smooth2Dnorm001.meta ./
-ln -s ${ver_dir}/input_fields/smooth3Dnorm001.meta ./
+if [ "use_ecco_input_binaries" == "true" ] ; then 
+  ln -s ${ecco_binary_input_dir}/*.bin .
+  
+  ln -s ${ecco_binary_input_dir}${ver_dir}/input_fields/tile*.mitgrid .
+  #  ###
+  ln -s ${ecco_binary_input_dir}/smooth2Dscales001${extsmooth} ./smooth2Dscales001
+  ln -s ${ecco_binary_input_dir}/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
+  ln -s ${ecco_binary_input_dir}/smooth3DscalesZ001 ./
+  ln -s ${ecco_binary_input_dir}/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
+  ln -s ${ecco_binary_input_dir}/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
+  ln -s ${ecco_binary_input_dir}/smooth2Dnorm001.meta ./
+  ln -s ${ecco_binary_input_dir}/smooth3Dnorm001.meta ./
+fi
 #=================================================================================
 
 #--- 2.1. ECCO control vectors -----
-ln -s ${ver_dir}/input_fields/xx_* .
+if [ "$use_ecco_mixing_params" == "true" ] ; then
+  ln -s ${ecco_binary_input_dir}/wt_ones.data .
+  ln -s ${ecco_binary_input_dir}/xx_* .
+fi
 #=================================================================================
 
 #--- 2.2 Insitu observations ------
-ln -s ${input_data_dir}/*.nc .
+if [ "$use_ecco_insitu_obs" == "true" ] ; then
+  ln -s ${ecco_insitu_dir}/*.nc .
+fi
 #=================================================================================
 
 #--- 3. linking forcing dir ------
@@ -84,11 +99,14 @@ ln -sf ${build_dir}/mitgcmuv${suff} ./
 
 #--- 6. pickups -----------
 #NOTE: for pickup: copy instead of link to prevent accidental over-write
-cp -f ${ver_dir}/input_fields/pickup* ./
+if [ "$use_ecco_pickups" == "true" ] ; then
+  cp -f ${ecco_pickup_dir}/pickup* ./
+  cp -f ${ver_dir}/input_fields/pickup* ./
+fi
 #=================================================================================
 
 #--- 7. Copy additional control vectors for this experiment, if dir exists
-if [ ! "$extra_ctrls" == "" ] ; then
+if [ "$use_extra_ctrls" == "true" ] ; then
   if [ -d $ctrl_dir ] ; then 
     ln -sv $ctrl_dir/* .
   else
@@ -100,7 +118,7 @@ fi
 #=================================================================================
 
 #--- 8. Look for perturbation directory
-if [ ! "$perturbation" == "" ] ; then
+if [ "$use_perturbation" == "true" ] ; then
   if [ -d $perturb_dir ] ; then
     ln -sfv $perturb_dir/* .
   else
@@ -113,7 +131,7 @@ fi
 
 #--- 9. Copy masks for this particular setup.
 #  dir should be inside inputs
-if [ ! "$use_masks" == "" ] ; then
+if [ "$use_masks" == "true" ] ; then
   if [ -d $masks_dir ] ; then
     ln -sv $masks_dir/* .
   else
@@ -126,7 +144,7 @@ fi
 
 #--- 10. link to climatological relaxation
 #  dir should be inside inputs
-if [ ! "$use_clim_relax" == "" ] ; then
+if [ "$use_clim_relax" == "true" ] ; then
   if [ -d $clim_relax_dir ] ; then
     ln -sv $clim_relax_dir/* .
   else
