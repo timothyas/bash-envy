@@ -5,6 +5,7 @@ syntax: glob
 *.txt
 *.meta
 *.data
+*.bin
 
 ## Zipped directories ##
 ########################
@@ -70,8 +71,9 @@ m_map/*.html
 
 ## Project Specific ##
 ######################
-*/masks/*
-*/hf-perturbation/*
+masks
+hf-perturbation
+relax
 
 ## MISC ##
 ##########
