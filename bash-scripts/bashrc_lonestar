@@ -3,7 +3,7 @@
 ### Load modules ### 
 #default: module load intel/16.0.1
 #default: module load cray-mpich/7.3.0 
-module load TACC
+#module load TACC
 module load netcdf	
 module load parallel-netcdf
 
@@ -23,15 +23,17 @@ export NETCDF_INC=$TACC_NETCDF_INC
 export NETCDF_LIB=$TACC_NETCDF_LIB
 
 ## Directories
-export WORKS=$WORK/../
+#export WORKS=$WORK/../
 export contrib=$WORK/../gcm-contrib
 export ph_data=/work/03263/heimbach/data
 export an_work=/work/03901/atnguyen
 export an_scratch=/scratch/03901/atnguyen
+export computing=$WORK/../computing
 
 ## Misc commands and specs ##
 export PS1='[lonestar \W]\$ '
 alias cdc='cd $contrib'
 alias ll='ls -alh'
-export GREP_OPTIONS='--color=always'
 
+#Essential for making git diff not look crazy
+export LESS=-R\ $LESS
