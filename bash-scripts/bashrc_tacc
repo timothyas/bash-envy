@@ -1,0 +1,29 @@
+#!/bin/bash
+
+## Modules
+#Stampede default: intel/13.0.2.146
+#Stampede default: mvapich2/1.9a2
+#ls5 default: module load intel
+#ls5 default: module load cray-mpich 
+#ls5 default: module load TACC
+module load netcdf	
+module load parallel-netcdf
+
+### MITgcm stuff 
+export MPI_INC_DIR=$MPICH_DIR/include
+export NETCDF_BIN=$TACC_NETCDF_BIN
+export NETCDF_ROOT=$TACC_NETCDF_DIR
+export NETCDF_INC=$TACC_NETCDF_INC
+export NETCDF_LIB=$TACC_NETCDF_LIB
+
+## Directories
+export contrib=/work/03754/tsmith/gcm-contrib
+export computing=/work/03754/tsmith/computing
+export ph_data=/work/03263/heimbach/data
+export an_work=/work/03901/atnguyen
+export an_scratch=/scratch/03901/atnguyen
+
+## Commands
+export LESS=-R\ $LESS # For git diff
+alias qu='squeue -u tsmith'
+export PS1='[$TACC_DOMAIN \W]\$ '
