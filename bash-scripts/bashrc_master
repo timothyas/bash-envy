@@ -2,25 +2,14 @@
 
 
 if [ "$HOSTNAME" == "login2" ] ; then
-# -------------------------------------------------------------
-# TACC
-# -------------------------------------------------------------
 
   source /work/03754/tsmith/gcm-contrib/bash-scripts/bashrc_tacc
 
-
-elif [[ "$HOSTNAME" -eq "pfe"* ]] ; then
-# -------------------------------------------------------------
-# Pleiades
-# -------------------------------------------------------------
+elif [[ "$HOSTNAME" == "pfe"* ]] ; then
 
   source /nobackupp2/tasmit12/gcm-contrib/bash-scripts/bashrc_pfe
 
-
 elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
-# -------------------------------------------------------------
-# Sverdrup
-# -------------------------------------------------------------
 
   source /home/tsmith/gcm-contrib/bash-scripts/bashrc_sverdrup
 
