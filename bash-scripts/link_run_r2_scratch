@@ -2,17 +2,14 @@
 
 ## Set up suffix for adjoint run: "_ad"
 #  or leave as "" for forward run
-suff="_ad"
-dir_suff=".dec.240mo"
-
-use_perturbation="false"
-use_masks="true"
-use_extra_ctrls="false"
-use_clim_relax="true"
-use_ecco_mixing_params="false"
-use_ecco_binary_inputs="true"
-use_ecco_insitu_obs="false"
-use_ecco_pickups="true"
+proj="jra55"
+suff=""
+dir_suff=".gpcp"
+perturbation=""
+use_masks=""
+use_extra_ctrls=""
+use_clim_relax=""
+use_diff_pickups="true"
 
 ## Set up directories
 root_dir=$HOME/MITgcm_c65x+
@@ -22,24 +19,31 @@ exp_dir=$PWD
 build_dir=$exp_dir/build$suff
 code_dir=$exp_dir/code$suff
 
-run_dir=$exp_dir'/run'$suff$dir_suff
+proj_dir=$SCRATCH/${proj}
+run_dir=$proj_dir/run$suff$dir_suff
+wk_dir=$exp_dir/run$suff$dir_suff
 input_dir=$exp_dir/input$suff$dir_suff
 
-ctrl_dir=$WORK/ecco-data/control-vectors-zero
+pickup_dir=$exp_dir/pickups
 masks_dir=$input_dir/masks
 perturb_dir=$input_dir/$perturbation
-clim_relax_dir=$input_dir/relax
-ecco_binary_input_dir=${ver_dir}/input_fields
-ecco_insitu_dir=$data_dir/inputs_baseline2/input_insitu
-ecco_pickup_dir=${ver_dir}/input_fields
+clim_relax_dir=$input_dir/clim
 
-submit_script=$exp_dir/submit_oscillatory$suff
-data_dir=$WORK/ecco-data
+submit_script=$exp_dir/submit_${proj}_scratch$suff
+data_dir=$WORK/../ecco-data
+ctrl_dir=$data_dir/control-vectors-zero
+input_data_dir=$data_dir/inputs_baseline2/input_insitu
 
-forcing_dir=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
+## For JRA 55 forcing
+forcing_dir=/scratch/03901/atnguyen/jra55
 
 # ----- 1. Set up directories and submission script
 ## Make work directory in SCRATCH
+if [ ! -d $proj_dir ] ; then
+	echo "Making "$proj_dir" ..."
+	mkdir $proj_dir
+fi
+
 if [ ! -d $run_dir ] ; then
 	echo "Making "$run_dir" ..."
         mkdir $run_dir
@@ -48,6 +52,11 @@ if [ ! -d $run_dir ] ; then
 	mkdir $run_dir/profiles
 fi       
 
+if [ ! -d $wk_dir ] ; then
+	echo "Making " $wk_dir" ..."
+	mkdir $wk_dir
+fi
+
 ####
 ## Link ALL of the files
 ####
@@ -55,38 +64,34 @@ cd $run_dir
 echo "Grabbing necessary files ..."
 
 cp $submit_script .
+## Important for scratch version
+sed -i "s/workrun=/workrun=\$WORK\/${proj}\/run${suff}${dir_suff}/g" ${run_dir}/submit_${proj}_scratch${suff}
 
 #--- 2. linking binary ---------
-if [ "use_ecco_input_binaries" == "true" ] ; then 
-  ln -s ${ecco_binary_input_dir}/*.bin .
-  
-  ln -s ${ecco_binary_input_dir}${ver_dir}/input_fields/tile*.mitgrid .
-  #  ###
-  ln -s ${ecco_binary_input_dir}/smooth2Dscales001${extsmooth} ./smooth2Dscales001
-  ln -s ${ecco_binary_input_dir}/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
-  ln -s ${ecco_binary_input_dir}/smooth3DscalesZ001 ./
-  ln -s ${ecco_binary_input_dir}/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
-  ln -s ${ecco_binary_input_dir}/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
-  ln -s ${ecco_binary_input_dir}/smooth2Dnorm001.meta ./
-  ln -s ${ecco_binary_input_dir}/smooth3Dnorm001.meta ./
-fi
+ln -s ${ver_dir}/input_fields/*.bin .
+ln -s ${ver_dir}/input_fields/wt_ones.data .
+ln -s ${ver_dir}/input_fields/tile*.mitgrid .
+#  ###
+ln -s ${ver_dir}/input_fields/smooth2Dscales001${extsmooth} ./smooth2Dscales001
+ln -s ${ver_dir}/input_fields/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
+ln -s ${ver_dir}/input_fields/smooth3DscalesZ001 ./
+ln -s ${ver_dir}/input_fields/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
+ln -s ${ver_dir}/input_fields/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
+ln -s ${ver_dir}/input_fields/smooth2Dnorm001.meta ./
+ln -s ${ver_dir}/input_fields/smooth3Dnorm001.meta ./
 #=================================================================================
 
 #--- 2.1. ECCO control vectors -----
-if [ "$use_ecco_mixing_params" == "true" ] ; then
-  ln -s ${ecco_binary_input_dir}/wt_ones.data .
-  ln -s ${ecco_binary_input_dir}/xx_* .
-fi
+ln -sv ${ver_dir}/input_fields/xx_* .
+rm xx_*.gz
 #=================================================================================
 
 #--- 2.2 Insitu observations ------
-if [ "$use_ecco_insitu_obs" == "true" ] ; then
-  ln -s ${ecco_insitu_dir}/*.nc .
-fi
+ln -s ${input_data_dir}/*.nc .
 #=================================================================================
 
 #--- 3. linking forcing dir ------
-ln -s $forcing_dir ./
+ln -sv $forcing_dir ./
 #=================================================================================
 
 #--- 4. NAMELISTS ---------
@@ -94,14 +99,20 @@ ln -s ${input_dir}/* ./
 #=================================================================================
 
 #--- 5. executable --------
-ln -sf ${build_dir}/mitgcmuv${suff} ./
+ln -sfv ${build_dir}/mitgcmuv${suff} ./
 #=================================================================================
 
 #--- 6. pickups -----------
 #NOTE: for pickup: copy instead of link to prevent accidental over-write
-if [ "$use_ecco_pickups" == "true" ] ; then
-  cp -f ${ecco_pickup_dir}/pickup* ./
-  cp -f ${ver_dir}/input_fields/pickup* ./
+if [ "$use_diff_pickups" == "true" ] ; then 
+  if [ -d $pickup_dir ] ; then 
+    cp -fv $pickup_dir/pickup* ./
+  else
+    echo "** Couldn't find pickup dir ${pickup_dir} ... "
+  fi
+else
+  echo "** Using regular ECCOv4r2 pickups ... "
+  cp -fv ${ver_dir}/input_fields/pickup* ./
 fi
 #=================================================================================
 
@@ -118,7 +129,7 @@ fi
 #=================================================================================
 
 #--- 8. Look for perturbation directory
-if [ "$use_perturbation" == "true" ] ; then
+if [ ! "$perturbation" == "" ] ; then
   if [ -d $perturb_dir ] ; then
     ln -sfv $perturb_dir/* .
   else

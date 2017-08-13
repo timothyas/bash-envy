@@ -1,32 +1,17 @@
 #!/bin/bash
 
-## Add staf to path ##
-PATH=$PATH:$HOME/local/bin
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
-
-## CVS Stuff ##
-export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
-export CVSEDITOR=vim
+## Modules 
+module load comp-intel
+module load mpi-sgi/mpt
+module load hdf4 hdf5 netcdf
 
 ## Useful Directories
-# Directory containing full ERA-Interim dataset, 1979-2014
 export WORK=/nobackupp2/tasmit12
 export contrib=$WORK/gcm-contrib
 export computing=$WORK/computing
+# Directory containing full ERA-Interim dataset, 1979-2014
 export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
 
-## Misc. ##
-alias ls='ls --color=auto'
-alias la='ls -a'
-alias ll='ls -alh'
-alias cdh='cd $HOME'
-alias cdw='cd $WORK'
-alias cdc='cd $contrib'
+## Commands
+alias qu='qstat -u tasmit12'
 export PS1='[\h \W]\$ '
-
-
-
-## Modules ##
-module load comp-intel
-module load mpi-sgi/mpt
-module load netcdf
