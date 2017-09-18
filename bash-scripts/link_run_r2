@@ -57,7 +57,7 @@ echo "Grabbing necessary files ..."
 cp $submit_script .
 
 #--- 2. linking binary ---------
-if [ "use_ecco_input_binaries" == "true" ] ; then 
+if [ "$use_ecco_input_binaries" == "true" ] ; then 
   ln -s ${ecco_binary_input_dir}/*.bin .
   
   ln -s ${ecco_binary_input_dir}${ver_dir}/input_fields/tile*.mitgrid .
@@ -101,7 +101,6 @@ ln -sf ${build_dir}/mitgcmuv${suff} ./
 #NOTE: for pickup: copy instead of link to prevent accidental over-write
 if [ "$use_ecco_pickups" == "true" ] ; then
   cp -f ${ecco_pickup_dir}/pickup* ./
-  cp -f ${ver_dir}/input_fields/pickup* ./
 fi
 #=================================================================================
 

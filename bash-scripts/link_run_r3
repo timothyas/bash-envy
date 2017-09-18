@@ -2,20 +2,24 @@
 
 ## Set up suffix for adjoint run: "_ad"
 #  or leave as "" for forward run
-proj="test-adj-diags"
+proj="adj-viz"
 suff="_ad"
 build_suff=""
 dir_suff=""
-perturbation=""
-extra_ctrls=""
+use_perturbation=""
+use_extra_ctrls="true"
 use_masks="true"
 use_diff_pickup=""
+use_ecco_mixing_params="true"
+use_ecco_initial_conditions="true"
+use_ecco_binary_inputs="true"
+use_ecco_insitu_obs="false"
+use_ecco_pickups="true"
 pickup_iter=1
 xxext="_it59"
-xxiter="0000000059"
 
 ## Set up directories
-root_dir=$HOME/MITgcm_r3
+root_dir=$HOME/MITgcm_c66i+
 
 exp_dir=$PWD
 build_dir=$exp_dir/build$suff$build_suff
@@ -25,15 +29,20 @@ code_dir=$exp_dir/code$suff$build_suff
 run_dir=$exp_dir/run$suff$dir_suff
 input_dir=$exp_dir/input$suff$dir_suff
 
-ctrl_dir=/scratch/tsmith/data/ctrls-zero-1992-to-2018
+data_dir=/scratch/tsmith/data
+input_data_dir=$data_dir/input_v4_rls2.025l.iter59
 
+ecco_binary_input_dir=$input_data_dir/input_binaries
+ecco_insitu_dir=$input_data_dir/input_insitu
+ecco_pickup_dir=$input_data_dir/input_pickup
+
+ctrl_dir=$data_dir/ctrls-zero-1992-to-2018
 masks_dir=$input_dir/masks
 perturb_dir=$input_dir/$perturbation
 extra_pickup_dir=/scratch/tsmith/enso2/run.eig_ref
+clim_relax_dir=$input_dir/relax
 
 submit_script=$exp_dir/submit_${proj}$suff
-data_dir=$ph_data
-input_data_dir=$SCRATCH/data/input_v4_rls2.025l.iter59
 
 forcing_dir=/scratch/tsmith/data/forcing-release3
 
@@ -55,30 +64,69 @@ echo "Grabbing necessary files ..."
 
 cp $submit_script .
 
-#--- 2. linking binary ---------
-ln -s ${input_data_dir}/input_binaries/*.bin .
-ln -s ${input_data_dir}/GRID/tile*.mitgrid .
-ln -s ${input_data_dir}/input* .
-ln -s ${input_data_dir}/input_insitu/*.nc .
-ln -s ${input_data_dir}/input_weight/* .
-#ln -s ${input_data_dir}/input/my_input .
-###
-ln -s ${input_data_dir}/input_smooth/smooth2Dscales001${extsmooth} ./smooth2Dscales001
-ln -s ${input_data_dir}/input_smooth/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
-ln -s ${input_data_dir}/input_smooth/smooth3DscalesZ001 ./
-ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
-ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
-ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001.meta ./
-ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001.meta ./
+#--- 1. linking binary ---------
+if [ "$use_ecco_binary_inputs" == "true" ] ; then
+  echo "** Copying ECCO binaries, llc90 grid, and smoothing ..."
+  ln -s ${input_data_dir}/input_binaries .
+  ln -s ${input_data_dir}/GRID/tile*.mitgrid .
+  ###
+  ln -s ${input_data_dir}/input_smooth/smooth2Dscales001${extsmooth} ./smooth2Dscales001
+  ln -s ${input_data_dir}/input_smooth/smooth3DscalesH001${extsmooth} ./smooth3DscalesH001
+  ln -s ${input_data_dir}/input_smooth/smooth3DscalesZ001 ./
+  ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001${extsmooth}.data ./smooth2Dnorm001.data
+  ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001${extsmooth}.data ./smooth3Dnorm001.data
+  ln -s ${input_data_dir}/input_smooth/smooth2Dnorm001.meta ./
+  ln -s ${input_data_dir}/input_smooth/smooth3Dnorm001.meta ./
+fi
 #=================================================================================
 
-#--- 3. linking forcing dir ------
+#--- 2. linking forcing dir ------
+echo "** linking forcing dir"
 ln -sf $forcing_dir ./
 #=================================================================================
 
-#--- 3. linking xx_ fields ------
-ln -s ${input_data_dir}/ADXXfiles${xxext}/xx*${xxiter}* ./
-rm xx*effective*
+#--- 3.1 link ECCO mixing params ------
+if [ "$use_ecco_mixing_params" == "true" ] ; then
+  echo "** Grabbing ECCO mixing parameters ... "
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_kapgm.00* ./
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_kapredi.00* ./
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_diffkr.00* ./
+  ln -s ${input_data_dir}/input_weight .
+fi
+#--- 3.2 Link ECCO initial conditions ------
+if [ "$use_ecco_initial_conditions" == "true" ] ; then
+  echo "** Grabbing ECCO initial conditions ... "
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_etan.00* ./
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_theta.00* ./
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_salt.00* ./
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_uvel.00* ./
+  ln -s ${input_data_dir}/ADXXfiles${xxext}/xx_vvel.00* ./
+  if [ ! -d "./input_weight" ] ; then
+    ln -s ${input_data_dir}/input_weight .
+  fi
+fi
+
+#--- 3.3 ECCO insitu obs ------
+if [ "$use_ecco_insitu_obs" == "true" ] ; then
+  echo "** Grabbing ECCO insitu observations ... " 
+  ln -s ${input_data_dir}/input_insitu/*.nc .
+fi
+
+#--- 3.4 ECCO Pickups ------
+if [ "$use_ecco_pickups" == "true" ] ; then
+  echo "** Grabbing ECCO Pickups ... " 
+  cp $ecco_pickup_dir/pickup* .
+elif [ "$use_diff_pickups" == "true" ] ; then 
+  if [ -d $extra_pickup_dir ] ; then
+    echo "** Grabbing other pickups ..."
+    cp $extra_pickup_dir/pickup*$pickup_iter* .
+  else
+    echo "** Could not find pickup dir: $extra_pickup_dir ... "
+  fi
+else
+  echo "** No pickups selected ... "
+fi
+
 ##=================================================================================
 
 #--- 4. NAMELISTS ---------
@@ -95,16 +143,17 @@ else
 fi
 #=================================================================================
 
-#--- 6. pickups -----------
-#NOTE: for pickup: copy instead of link to prevent accidental over-write
-cp -f ${input_data_dir}/input_pickup/pickup* ./
-#=================================================================================
-
 #--- 7. Copy additional control vectors for this experiment, if dir exists
-if [ ! "$extra_ctrls" == "" ] ; then
+if [ "$use_extra_ctrls" == "true" ] ; then
   if [ -d $ctrl_dir ] ; then 
-    ln -sfv $ctrl_dir/* .
-    ln -sfv $HOME/MITgcm_c65q/verification/global_oce_llc90/input_fields/wt_ones* .
+    echo "** Grabbing sensitivity ctrls ..."
+    for ff in $ctrl_dir/xx_*
+    do
+        newfile=${ff/$ctrl_dir\//}
+        newfile=${newfile/12/59}
+        ln -sf $ff ./$newfile
+    done
+    ln -sf $ctrl_dir/wt_ones* ./
   else
     echo "** No additional control vectors ... "
   fi
@@ -114,9 +163,10 @@ fi
 #=================================================================================
 
 #--- 8. Look for perturbation directory
-if [ ! "$perturbation" == "" ] ; then
+if [ "$use_perturbation" == "true" ] ; then
   if [ -d $perturb_dir ] ; then
-    ln -sfv $perturb_dir/* .
+    echo "** Grabbing perturbation ... "
+    ln -sf $perturb_dir/* .
   else
     echo "** Could not find perturbation directory: $perturb_dir ... "
   fi
@@ -127,9 +177,10 @@ fi
 
 #--- 9. Copy masks for this particular setup.
 #  dir should be inside inputs
-if [ ! "$use_masks" == "" ] ; then
+if [ "$use_masks" == "true" ] ; then
   if [ -d $masks_dir ] ; then
-    ln -sv $masks_dir/* .
+    echo "** Grabbing masks ... "
+    ln -s $masks_dir/* .
   else
     echo "** No masks found in $masks_dir ... "
   fi
@@ -137,27 +188,6 @@ else
   echo "** Masks not used ... "
 fi
 #=================================================================================
-
-#--- 10. Grab pickups from a different folder.
-#  dir should be inside inputs
-if [ ! "$use_diff_pickup" == "" ] ; then
-  if [ -d $extra_pickup_dir ] ; then
-    cp -v $extra_pickup_dir/pickup*$pickup_iter* .
-  else
-    echo "** No pickups found in $extra_pickup_dir ... "
-  fi
-else
-  echo "** Extra pickups not used ... "
-fi
-#=================================================================================
-#--- 9. make a list of all linked files ------
-\rm -f command_ln_input
-ls -l input*/input_* > command_ln_input
-
-\rm -f command_ln_binary
-ls -l *.nc > command_ln_binary
-#=================================================================================
-
 
 echo "Ready to execute ..."
 

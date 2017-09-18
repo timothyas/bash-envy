@@ -53,6 +53,7 @@ m_map/*.html
 *.jpg
 *.gif
 *.fig
+*.mj2
 
 ## Modified/old files ##
 ########################
@@ -74,6 +75,8 @@ m_map/*.html
 masks
 hf-perturbation
 relax
+boundary_conditions_flt
+llc_reg_270_11
 
 ## MISC ##
 ##########
