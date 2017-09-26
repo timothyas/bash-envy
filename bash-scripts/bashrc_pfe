@@ -10,6 +10,7 @@ export WORK=/nobackupp2/tasmit12
 export contrib=$WORK/gcm-contrib
 export computing=$WORK/computing
 # Directory containing full ERA-Interim dataset, 1979-2014
+export ph_work=/nobackupp8/pheimbac
 export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
 
 ## Commands
