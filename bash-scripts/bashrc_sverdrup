@@ -19,7 +19,7 @@ export mitgcm=~/MITgcm_c66i+
 export PS1='[\h \W]\$ '
 alias scpthorne='scp -P 8704'
 alias qu='squeue -u tsmith'
-
+alias cda='cd $ase'
 
 ## Netcdf workaround
 #NETCDF C
