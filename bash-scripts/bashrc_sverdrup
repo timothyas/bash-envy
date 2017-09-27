@@ -13,11 +13,13 @@ export computing=/home/tsmith/computing
 export MPI_INC_DIR=$MPI_DIR/include
 export ph_data=/scratch/heimbach/data
 export ase=/scratch/tsmith/MITgcm_c66i+/ase
+export mitgcm=~/MITgcm_c66i+
 
 ## Commands
 export PS1='[\h \W]\$ '
 alias scpthorne='scp -P 8704'
 alias qu='squeue -u tsmith'
+
 
 ## Netcdf workaround
 #NETCDF C
