@@ -1,0 +1,18 @@
+#! /bin/bash
+
+## tmux ftw
+#tmux source-file /Users/tim/work/gcm-contrib/bash-scripts/tmux.conf
+
+## Other machines
+alias ekman='mosh --ssh="ssh -p 8704" tsmith@ekman.ices.utexas.edu'
+alias rsyncek="rsync -ave 'ssh -p 8704'"
+
+## Directories
+export HOME=/Users/tim
+export WORK=/Users/tim/work
+export contrib=$WORK/gcm-contrib
+export computing=/work/03754/tsmith/computing
+
+## Commands
+export PS1='[mac \W]\$ '
+alias o='open'
