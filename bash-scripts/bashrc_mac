@@ -17,6 +17,10 @@ export computing=/work/03754/tsmith/computing
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
 
+### For MITgcm ###
+export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
+export CVSEDITOR=vim
+
 ## Commands
 export PS1='[tim \W]\$ '
 alias o='open'
