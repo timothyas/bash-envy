@@ -1,0 +1,23 @@
+
+This is to switch python version within python 
+e.g. standard I run python 3.6, but to use a module in 2.7 need to switch
+
+1. Switch to a python version 2.7 environment
+    
+    $ conda create -n py27 python=2.7 anaconda
+
+    -- If this version is not already installed, anaconda will get to work installing    -- go get a coffee or distract your friends from working to pass the time
+
+2. Activate the environment, this will show up in the prompt, but here's how to check
+
+    $ source activate py27
+
+3. Verify you're in the right environment
+
+    $ conda info --envs
+
+4. Check python version
+    
+    $ python --version
+
+5. To switch back, exit the terminal 
