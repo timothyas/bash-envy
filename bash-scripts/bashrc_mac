@@ -1,0 +1,26 @@
+#! /bin/bash
+
+## tmux ftw
+#tmux source-file /Users/tim/work/gcm-contrib/bash-scripts/tmux.conf
+
+## Other machines
+alias ekman='mosh --ssh="ssh -p 8704" ekman.ices.utexas.edu'
+alias rsyncek="rsync -ave 'ssh -p 8704'"
+alias scpek="scp -P 8704"
+
+## Directories
+export HOME=/Users/tim
+export WORK=/Users/tim/work
+export contrib=$WORK/gcm-contrib
+export computing=/work/03754/tsmith/computing
+
+## Path and LD_LIBRARY
+export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
+
+### For MITgcm ###
+export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
+export CVSEDITOR=vim
+
+## Commands
+export PS1='[tim \W]\$ '
+alias o='open'

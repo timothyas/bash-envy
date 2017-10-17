@@ -13,6 +13,10 @@ elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 
   source /home/tsmith/gcm-contrib/bash-scripts/bashrc_sverdrup
 
+elif [ "$HOSTNAME" == "Timothys-MacBook-Pro.local" ] ; then
+
+  source /Users/tim/work/gcm-contrib/bash-scripts/bashrc_mac
+
 fi
 
 # -------------------------------------------------------------
@@ -33,5 +37,6 @@ alias cdw='cd $WORK'
 alias cdc='cd $contrib'
 alias cds='cd $SCRATCH'
 alias cdm='cd $mitgcm'
-alias ls='ls --color=auto' 
+
+alias ls='ls -G' 
 alias ll='ls -alh'
