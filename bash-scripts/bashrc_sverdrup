@@ -13,6 +13,7 @@ export computing=/home/tsmith/computing
 export MPI_INC_DIR=$MPI_DIR/include
 export ph_data=/scratch/heimbach/data
 export ase=/scratch/tsmith/MITgcm_c66i+/ase
+export pig=/scratch/tsmith/MITgcm_c66i+/pig
 export mitgcm=~/MITgcm_c66i+
 
 ## Commands
