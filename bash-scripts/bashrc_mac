@@ -13,7 +13,11 @@ alias sshek="ssh -p 8704 ekman.ices.utexas.edu"
 export HOME=/Users/tim
 export WORK=/Users/tim/work
 export contrib=$WORK/gcm-contrib
-export computing=/work/03754/tsmith/computing
+export computing=$WORK/computing
+export write_repo=$WORK/write-repo
+
+## Nonlocal directories
+export thamoc=/workspace/gcmpack/gcm-contrib/samoc
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
