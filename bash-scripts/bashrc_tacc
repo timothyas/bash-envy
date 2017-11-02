@@ -24,6 +24,7 @@ export an_work=/work/03901/atnguyen
 export an_scratch=/scratch/03901/atnguyen
 export sean_work=/work/01268/seanw
 export sean_scratch=/scratch/01268/seanw
+export mitgcm=~/MITgcm_c66i+
 
 ## Commands
 export LESS=-R\ $LESS # For git diff
