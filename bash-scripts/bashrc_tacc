@@ -22,6 +22,8 @@ export computing=/work/03754/tsmith/computing
 export ph_data=/work/03263/heimbach/data
 export an_work=/work/03901/atnguyen
 export an_scratch=/scratch/03901/atnguyen
+export sean_work=/work/01268/seanw
+export sean_scratch=/scratch/01268/seanw
 
 ## Commands
 export LESS=-R\ $LESS # For git diff
