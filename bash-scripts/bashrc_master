@@ -13,7 +13,7 @@ elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 
   source /home/tsmith/gcm-contrib/bash-scripts/bashrc_sverdrup
 
-elif [ "$HOSTNAME" == "Timothys-MacBook-Pro.local" ] ; then
+elif [ "$USER" == "tim" ] ; then
 
   source /Users/tim/work/gcm-contrib/bash-scripts/bashrc_mac
 

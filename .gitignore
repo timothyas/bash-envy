@@ -61,6 +61,7 @@ m_map/*.html
 *.orig
 *.mod
 *.old
+.ipynb_checkpoints
 
 ## Output ##
 ############
