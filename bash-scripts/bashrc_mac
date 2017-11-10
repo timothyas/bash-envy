@@ -8,6 +8,9 @@ alias ekman='mosh --ssh="ssh -p 8704" ekman.ices.utexas.edu'
 alias rsyncek="rsync -ave 'ssh -p 8704'"
 alias scpek="scp -P 8704"
 alias sshek="ssh -p 8704 ekman.ices.utexas.edu"
+alias arctowski='mosh --ssh"ssh -p 8704" arctowski.ices.utexas.edu'
+alias amundsen='mosh --ssh"ssh -p 8704" amundsen.ices.utexas.edu'
+alias nansen='mosh --ssh"ssh -p 8704" nansen.ices.utexas.edu'
 
 ## Directories
 export HOME=/Users/tim

@@ -13,6 +13,10 @@ elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 
   . /home/tsmith/gcm-contrib/bash-scripts/bashrc_sverdrup
 
+elif [[ "$HOSTNAME" == "ekman"* ]] ; then
+
+  source /workspace/gcmpack/gcm-contrib/bash-scripts/bashrc_ekman
+
 elif [ "$USER" == "tim" ] ; then
 
   . /Users/tim/work/gcm-contrib/bash-scripts/bashrc_mac
@@ -35,8 +39,10 @@ export CVSEDITOR=vim
 alias cdh='cd $HOME'
 alias cdw='cd $WORK'
 alias cdc='cd $contrib'
-alias cds='cd $SCRATCH'
 alias cdm='cd $mitgcm'
+if [[ "$HOSTNAME" != "ekman"* ]] ; then
+  alias cds='cd $SCRATCH'
+fi
 
 alias ls='ls -G --color=auto' 
 alias ll='ls -alh'
