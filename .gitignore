@@ -61,6 +61,7 @@ m_map/*.html
 *.orig
 *.mod
 *.old
+.ipynb_checkpoints
 
 ## Output ##
 ############
@@ -77,6 +78,7 @@ hf-perturbation
 relax
 boundary_conditions_flt
 llc_reg_270_11
+.ipynb_checkpoints
 
 ## MISC ##
 ##########
