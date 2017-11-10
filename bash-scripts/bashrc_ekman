@@ -27,6 +27,9 @@ alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.ed
 alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 alias sverdrup='mosh sverdrup.ices.utexas.edu'
 alias glacier='mosh timothys@glacier0.mit.edu'
+alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
+alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
+alias nansen='mosh --ssh"ssh -p 8704" nansen'
 
 ### Modules ###
 module load c7 intel mpich/3.0.4 matlab/r2015b
