@@ -1,0 +1,46 @@
+#!/bin/bash 
+
+### Environment Variables ###
+PATH=$PATH:/h2/tsmith/local/bin
+PATH=/h2/tsmith/.local/bin:$PATH
+export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python/site-packages
+export TERM=xterm-256color
+export WORK=/workspace
+export contrib=/workspace/gcmpack/gcm-contrib
+export sv=/workspace/sv-mnt
+export computing=/workspace/gcmpack/computing
+export mitgcm=/workspace/gcmpack/MITgcm_c66l
+
+### Aliases
+alias cds='cd $sv'
+alias o='&>/dev/null kde-open '
+export PS1='[\h \W]\$ '
+alias lpq3='lpq -P cp3se'
+alias lp='lp -o fit-to-page'
+
+### SSH Ports ###
+alias pfe='ssh pfe'
+alias stampede='mosh tsmith@login2.stampede.tacc.utexas.edu'
+alias lonestar='ssh login2.ls5.tacc.utexas.edu'
+alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
+alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
+alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
+alias sverdrup='mosh sverdrup.ices.utexas.edu'
+alias glacier='mosh timothys@glacier0.mit.edu'
+
+### Modules ###
+module load c7 intel mpich/3.0.4 matlab/r2015b
+
+### Parallel Algorithms Class stuff ###
+export pcse_repo='https://bitbucket.org/VictorEijkhout/pcse2016'
+
+### Directories for servers
+export pfework='/nobackupp2/tasmit12'
+export lswork='/work/03754/tsmith/lonestar'
+export stampwork=$lswork/..
+export eofework='/nobackup1/timothys'
+export svwork='/scratch/tsmith'
+
+### Increase stack size
+ulimit -s hard
+ulimit -u hard
