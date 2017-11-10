@@ -3,15 +3,15 @@
 
 if [ "$HOSTNAME" == "login2" ] ; then
 
-  source /work/03754/tsmith/gcm-contrib/bash-scripts/bashrc_tacc
+  . /work/03754/tsmith/gcm-contrib/bash-scripts/bashrc_tacc
 
 elif [[ "$HOSTNAME" == "pfe"* ]] ; then
 
-  source /nobackupp2/tasmit12/gcm-contrib/bash-scripts/bashrc_pfe
+  . /nobackupp2/tasmit12/gcm-contrib/bash-scripts/bashrc_pfe
 
 elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 
-  source /home/tsmith/gcm-contrib/bash-scripts/bashrc_sverdrup
+  . /home/tsmith/gcm-contrib/bash-scripts/bashrc_sverdrup
 
 elif [[ "$HOSTNAME" == "ekman"* ]] ; then
 
@@ -19,7 +19,7 @@ elif [[ "$HOSTNAME" == "ekman"* ]] ; then
 
 elif [ "$USER" == "tim" ] ; then
 
-  source /Users/tim/work/gcm-contrib/bash-scripts/bashrc_mac
+  . /Users/tim/work/gcm-contrib/bash-scripts/bashrc_mac
 
 fi
 
@@ -44,5 +44,5 @@ if [[ "$HOSTNAME" != "ekman"* ]] ; then
   alias cds='cd $SCRATCH'
 fi
 
-alias ls='ls -G' 
+alias ls='ls -G --color=auto' 
 alias ll='ls -alh'

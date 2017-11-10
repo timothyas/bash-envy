@@ -22,6 +22,10 @@ alias scpthorne='scp -P 8704'
 alias qu='squeue -u tsmith'
 alias cda='cd $ase'
 
+## Increase stack size
+ulimit -s hard
+ulimit -u hard
+
 ## Netcdf workaround
 #NETCDF C
 export NETCDFC_ROOT=/share/netcdf-4.4.1.1/

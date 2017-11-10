@@ -1,0 +1,25 @@
+Lets say (hypothetically) you're running the MITgcm and 
+it exits with a segfault that is not very helpful ... 
+
+e.g. nothing getting sent to STDOUT/STDERR that's helpful
+and slurm stdout/stderr files are giving nothing ... 
+
+even more specific e.g. the following issue on Sverdrup:
+
+STDOUT.0000 ends with (with debuglevel=4):
+(PID.TID 0000.0001) ADWRITE: tid,vid, irec, length, prec(x2)=    14     2     1   558000  8 64 fname=tapes/tapelev3_2_the_main_loop_storedynvars3d.it0000
+
+pig_ad.1234.out (slurm stdout file) shows:
+--------------------------------------------------------------------------
+mpiexec noticed that process rank 0 with PID 139803 on node c1-2 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+
+This doesn't help us at all ....
+(Note this ran perfectly on ekman and lonestar5 ... )
+
+Then run: 
+
+strace -o logfile.out /exact/path/to/mitgcmuv_ad
+
+This writes a lot of info to logfile.out, specifying all machine calls
+
