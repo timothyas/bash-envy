@@ -43,6 +43,7 @@ export lswork='/work/03754/tsmith/lonestar'
 export stampwork=$lswork/..
 export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
+export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
 
 ### Increase stack size
 ulimit -s hard
