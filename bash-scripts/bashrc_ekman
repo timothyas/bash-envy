@@ -46,9 +46,12 @@ export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
 export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
 
-### Increase stack size
+### Increase stack size ###
 ulimit -s hard
 ulimit -u hard
 
-### Refresh tmux environment variables
+### Refresh tmux environment variables ###
 . $contrib/bash-scripts/refresh_tmux_env
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand
