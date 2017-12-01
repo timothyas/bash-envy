@@ -44,5 +44,9 @@ if [[ "$HOSTNAME" != "ekman"* ]] ; then
   alias cds='cd $SCRATCH'
 fi
 
-alias ls='ls -G --color=auto' 
+if [ "$USER" != "tim" ] ; then
+  alias ls='ls -G --color=auto' 
+else
+  alias ls='ls -G'
+fi
 alias ll='ls -alh'
