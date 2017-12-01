@@ -28,8 +28,8 @@ fi
 # -------------------------------------------------------------
 
 ### Add local bin/lib to path ### 
-PATH=$PATH:$HOME/local/bin
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
+export PATH=$PATH:$HOME/local/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 
 ### CVS Stuff ###
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'

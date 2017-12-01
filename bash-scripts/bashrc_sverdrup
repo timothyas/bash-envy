@@ -1,5 +1,8 @@
 #!/bin/bash 
 
+## set terminal
+export TERM=xterm-256color
+
 ## Modules
 module load c7
 module load intel/17.0
@@ -38,6 +41,9 @@ export NETCDFF_INC=$NETCDFF_ROOT/include
 export NETCDFF_BIN=$NETCDFF_ROOT/bin
 export NETCDFF_LIB=$NETCDFF_ROOT/lib
 
-export LD_LIBRARY_PATH=$NETCDFC_LIB:$NETCDFF_LIB:$LD_LIBRARY_PATH
-export PATH=$NETCDFC_BIN:$NETCDFF_BIN:$PATH
-export INCLUDE=$NETCDFC_INC:$NETCDFF_INC:$INCLUDE
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NETCDFC_LIB:$NETCDFF_LIB
+export PATH=$PATH:$NETCDFC_BIN:$NETCDFF_BIN:$PATH
+export INCLUDE=$INCLUDE:$NETCDFC_INC:$NETCDFF_INC
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand
