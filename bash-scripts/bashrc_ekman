@@ -25,7 +25,7 @@ alias lonestar='ssh login2.ls5.tacc.utexas.edu'
 alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
 alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
 alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
-alias sverdrup='mosh sverdrup.ices.utexas.edu'
+alias sverdrup='mosh --ssh="ssh -p 8704" sverdrup.ices.utexas.edu'
 alias glacier='mosh timothys@glacier0.mit.edu'
 alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
@@ -46,9 +46,12 @@ export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
 export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
 
-### Increase stack size
+### Increase stack size ###
 ulimit -s hard
 ulimit -u hard
 
-### Refresh tmux environment variables
+### Refresh tmux environment variables ###
 . $contrib/bash-scripts/refresh_tmux_env
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand

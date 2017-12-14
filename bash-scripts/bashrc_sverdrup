@@ -44,3 +44,6 @@ export NETCDFF_LIB=$NETCDFF_ROOT/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NETCDFC_LIB:$NETCDFF_LIB
 export PATH=$PATH:$NETCDFC_BIN:$NETCDFF_BIN:$PATH
 export INCLUDE=$INCLUDE:$NETCDFC_INC:$NETCDFF_INC
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand
