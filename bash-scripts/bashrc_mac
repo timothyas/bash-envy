@@ -32,3 +32,6 @@ export CVSEDITOR=vim
 ## Commands
 export PS1='[tim \W]\$ '
 alias o='open'
+
+### Refresh tmux environment variables ###
+. $contrib/bash-scripts/refresh_tmux_env

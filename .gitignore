@@ -9,6 +9,7 @@ syntax: glob
 *.init
 *.obw
 *.mdjwf
+*.nc
 
 ## Zipped directories ##
 ########################
@@ -82,6 +83,12 @@ relax
 boundary_conditions_flt
 llc_reg_270_11
 .ipynb_checkpoints
+
+# These are on other repos
+xmitgcm
+xgcm
+datashader-examples
+pyfaces/environment.yml
 
 ## MISC ##
 ##########
