@@ -13,6 +13,7 @@ export computing=$WORK/computing
 export ph_work=/nobackupp8/pheimbac
 export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
 export mitgcm=~/MITgcm_c66i+
+export bash-envy=$WORK/bash-envy
 
 ## Commands
 alias qu='qstat -u tasmit12'

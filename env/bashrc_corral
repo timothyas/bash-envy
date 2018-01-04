@@ -3,6 +3,7 @@
 ### Change prompt ###
 export PS1='[corral \W]\$ '
 
-### Main directory ###
+### Directories ###
 export WORK=/corral-repl/utexas/Transfer-of-ECCO-glo
+export bash-envy=~/bash-envy
 
