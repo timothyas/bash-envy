@@ -7,6 +7,7 @@ export TERM=xterm-256color
 #module load c7 # not available
 module load intel
 module load openmpi
+module load netcdf-fortran
 
 ## Directories
 export HOME=/home/tsmith
@@ -28,22 +29,6 @@ alias cda='cd $ase'
 ## Increase stack size
 ulimit -s hard
 ulimit -u hard
-
-## Netcdf workaround
-#NETCDF C
-export NETCDFC_ROOT=/share/netcdf-4.4.1.1/
-export NETCDFC_INC=$NETCDFC_ROOT/include
-export NETCDFC_BIN=$NETCDFC_ROOT/bin
-export NETCDFC_LIB=$NETCDFC_ROOT/lib
-#NETCDF Fortran
-export NETCDFF_ROOT=/share/netcdf-fortran-4.4.4
-export NETCDFF_INC=$NETCDFF_ROOT/include
-export NETCDFF_BIN=$NETCDFF_ROOT/bin
-export NETCDFF_LIB=$NETCDFF_ROOT/lib
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NETCDFC_LIB:$NETCDFF_LIB
-export PATH=$PATH:$NETCDFC_BIN:$NETCDFF_BIN:$PATH
-export INCLUDE=$INCLUDE:$NETCDFC_INC:$NETCDFF_INC
 
 ### Expand environment variables in tab completion ###
 shopt -s direxpand
