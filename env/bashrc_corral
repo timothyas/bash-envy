@@ -1,0 +1,8 @@
+#! /bin/bash
+
+### Change prompt ###
+export PS1='[corral \W]\$ '
+
+### Main directory ###
+export WORK=/corral-repl/utexas/Transfer-of-ECCO-glo
+
