@@ -26,6 +26,7 @@ export sean_work=/work/01268/seanw
 export sean_scratch=/scratch/01268/seanw
 export mitgcm=~/MITgcm_c66i+
 export pig=$WORK/MITgcm_c66i+/pig
+export sean_r3_forcing=/work/01268/seanw/lonestar/ecco_v4_r3_input/input_forcing
 
 ## Commands
 export LESS=-R\ $LESS # For git diff
