@@ -18,3 +18,8 @@ Directions for splitting a git repo were somewhat incomplete online. Here I want
 	git push origin master
 
 9. Now you can delete 'bigdir' from 'original-repo' as it's totally separate from 'new-repo'
+
+10. In the new repository you'll probably need to set tracking information for the branch. If you haven't done anything complicated with branching, then you'll need to run:
+
+    git branch --set-upstream-to=origin/master master
+
