@@ -31,6 +31,9 @@ alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
 alias nansen='mosh --ssh"ssh -p 8704" nansen'
 
+### Link to Sverdrup ###
+alias sshfs-sv="sshfs -p 8704 -o IdentityFile=~/.ssh/id_rsa sverdrup.ices.utexas.edu:/home/tsmith /workspace/sv-mnt"
+
 ### Modules ###
 module load c7 intel mpich/3.0.4 matlab/r2015b texlive
 
