@@ -19,7 +19,7 @@ export ph_data=/scratch/heimbach/data
 export ase=/scratch/tsmith/MITgcm_c66i+/ase
 export pig=/scratch/tsmith/MITgcm_c66i+/pig
 export mitgcm=~/MITgcm_c66i+
-export bash-envy=~/bash-envy
+export bash_envy=~/bash-envy
 
 ## Commands
 export PS1='[\h \W]\$ '

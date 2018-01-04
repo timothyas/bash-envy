@@ -18,7 +18,7 @@ export WORK=/Users/tim/work
 export contrib=$WORK/gcm-contrib
 export computing=$WORK/computing
 export write_repo=$WORK/write-repo
-export bash-envy=$WORK/bash-envy
+export bash_envy=$WORK/bash-envy
 
 ## Nonlocal directories
 export thamoc=/workspace/gcmpack/gcm-contrib/samoc

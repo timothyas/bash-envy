@@ -25,7 +25,7 @@ export an_scratch=/scratch/03901/atnguyen
 export sean_work=/work/01268/seanw
 export sean_scratch=/scratch/01268/seanw
 export mitgcm=~/MITgcm_c66i+
-export bash-envy=/work/03754/tsmith/bash-envy
+export bash_envy=/work/03754/tsmith/bash-envy
 export pig=$WORK/MITgcm_c66i+/pig
 export sean_r3_forcing=/work/01268/seanw/lonestar/ecco_v4_r3_input/input_forcing
 

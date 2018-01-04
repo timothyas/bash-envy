@@ -10,7 +10,7 @@ export contrib=/workspace/gcmpack/gcm-contrib
 export sv=/workspace/sv-mnt
 export computing=/workspace/gcmpack/computing
 export mitgcm=/workspace/gcmpack/MITgcm_c66l
-export bash-envy=/workspace/bash-envy
+export bash_envy=/workspace/bash-envy
 
 ### Aliases
 alias cds='cd $sv'
