@@ -3,23 +3,23 @@
 
 if [[ "$HOSTNAME" == "login"* ]] ; then
 
-  . /work/03754/tsmith/gcm-contrib/bash-scripts/bashrc_tacc
+  . /work/03754/tsmith/bash-envy/env/bashrc_tacc
 
 elif [[ "$HOSTNAME" == "pfe"* ]] ; then
 
-  . /nobackupp2/tasmit12/gcm-contrib/bash-scripts/bashrc_pfe
+  . /nobackupp2/tasmit12/bash-envy/env/bashrc_pfe
 
 elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 
-  . /home/tsmith/gcm-contrib/bash-scripts/bashrc_sverdrup
+  . /home/tsmith/bash-envy/env/bashrc_sverdrup
 
 elif [[ "$HOSTNAME" == "ekman"* ]] ; then
 
-  source /workspace/gcmpack/gcm-contrib/bash-scripts/bashrc_ekman
+  source /workspace/bash-envy/env/bashrc_ekman
 
 elif [ "$USER" == "tim" ] ; then
 
-  . /Users/tim/work/gcm-contrib/bash-scripts/bashrc_mac
+  . /Users/tim/work/bash-envy/env/bashrc_mac
 
 elif [[ "$HOSTNAME" == *"rustler"* ]] ; then 
   
@@ -47,7 +47,7 @@ alias cdm='cd $mitgcm'
 if [[ "$HOSTNAME" != "ekman"* ]] ; then
   alias cds='cd $SCRATCH'
 fi
-alias cdb='cd $bash-envy'
+alias cdb='cd $bash_envy'
 
 if [ "$USER" != "tim" ] ; then
   alias ls='ls -G --color=auto' 
