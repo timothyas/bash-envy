@@ -1,4 +1,6 @@
 " master vimrc file
+" Add this line to ~/.vimrc
+"   source /path/to/thisfile
 
 set number
 set mouse=a
