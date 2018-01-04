@@ -1,0 +1,18 @@
+" master vimrc file
+
+set number
+set mouse=a
+set viminfo='20,<1000
+syntax on
+
+set tabstop=4
+set expandtab
+set incsearch "" incremental search
+
+
+" " This sets the tw to 80 when opening tex documents. Very useful for moving
+" around
+if !exists("autocommands_loaded")
+	let autocommands_loaded=1 
+	autocmd BufNewFile,BufRead *.tex set tw=80
+endif 
