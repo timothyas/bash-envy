@@ -35,4 +35,4 @@ export PS1='[tim \W]\$ '
 alias o='open'
 
 ### Refresh tmux environment variables ###
-. $contrib/bash-scripts/refresh_tmux_env
+. $bash_envy/env/refresh_tmux_env

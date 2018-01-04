@@ -55,7 +55,7 @@ ulimit -s hard
 ulimit -u hard
 
 ### Refresh tmux environment variables ###
-. $contrib/bash-scripts/refresh_tmux_env
+. $bash_envy/env/refresh_tmux_env
 
 ### Expand environment variables in tab completion ###
 shopt -s direxpand
