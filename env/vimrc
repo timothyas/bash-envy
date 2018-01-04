@@ -11,6 +11,12 @@ set tabstop=4
 set expandtab
 set incsearch "" incremental search
 
+" from lonestar
+" I think this was for highlighted tabs in fortran
+" leaving it out for now
+" let fortran_have_tabs=1
+" set term=screen-256color
+
 
 " " This sets the tw to 80 when opening tex documents. Very useful for moving
 " around
