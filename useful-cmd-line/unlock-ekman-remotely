@@ -1,0 +1,3 @@
+After restarting desktop, need to unlock /workspace remotely. Use:
+
+sudo deluks 
