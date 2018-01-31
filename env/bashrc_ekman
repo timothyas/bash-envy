@@ -50,6 +50,7 @@ export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
 export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
+alias cdp='cd $pig'
 
 ### Increase stack size ###
 ulimit -s hard
