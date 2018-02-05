@@ -21,7 +21,7 @@ alias lp='lp -o fit-to-page'
 
 ### SSH Ports ###
 alias pfe='ssh pfe'
-alias stampede='mosh tsmith@login2.stampede.tacc.utexas.edu'
+alias stampede='mosh tsmith@login2.stampede2.tacc.utexas.edu'
 alias lonestar='ssh login2.ls5.tacc.utexas.edu'
 alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
 alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
