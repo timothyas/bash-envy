@@ -27,6 +27,7 @@ alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.e
 alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
 alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 alias sverdrup='mosh --ssh="ssh -p 8704" sverdrup.ices.utexas.edu'
+alias scpsv='scp -P 8704'
 alias glacier='mosh timothys@glacier0.mit.edu'
 alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
