@@ -23,6 +23,10 @@ filetype indent off
 
 " " This sets the tw to 80 when opening tex documents. Very useful for moving
 " around
+" Only want this for ekman and mac!
+let HOSTNAMEENV=$HOSTNAME
+let USERENV=$USER
+if HOSTNAMEENV == 'ekman.ices.utexas.edu' || USERENV == 'tim'
 if !exists("autocommands_loaded")
 	let autocommands_loaded=1 
 	autocmd BufNewFile,BufRead *.tex set tw=80
@@ -42,3 +46,4 @@ Plug 'lervag/vimtex'
 
 " Initialize plugin system
 call plug#end()
+endif
