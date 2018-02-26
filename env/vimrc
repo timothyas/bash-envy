@@ -26,7 +26,6 @@ filetype indent off
 " Only want this for ekman and mac!
 let HOSTNAMEENV=$HOSTNAME
 let USERENV=$USER
-if HOSTNAMEENV == 'ekman.ices.utexas.edu' || USERENV == 'tim'
 if !exists("autocommands_loaded")
 	let autocommands_loaded=1 
 	autocmd BufNewFile,BufRead *.tex set tw=80
@@ -37,6 +36,7 @@ if !exists("autocommands_loaded")
 	autocmd BufNewFile,BufRead *.rst set tw=80
 endif 
 
+if HOSTNAMEENV == 'ekman.ices.utexas.edu' || USER == 'tim'
 " --- vim-plug ---
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
