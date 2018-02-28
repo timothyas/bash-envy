@@ -11,9 +11,12 @@ export sv=/workspace/sv-mnt
 export computing=/workspace/gcmpack/computing
 export mitgcm=/workspace/gcmpack/MITgcm_c66l
 export bash_envy=/workspace/bash-envy
+export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
 
 ### Aliases
 alias cds='cd $sv'
+alias cdp='cd $pig'
+alias cdm='cd $mitgcm'
 alias o='&>/dev/null kde-open '
 export PS1='[\h \W]\$ '
 alias lpq3='lpq -P cp3se'
@@ -21,12 +24,13 @@ alias lp='lp -o fit-to-page'
 
 ### SSH Ports ###
 alias pfe='ssh pfe'
-alias stampede='mosh tsmith@login2.stampede.tacc.utexas.edu'
+alias stampede='mosh tsmith@login2.stampede2.tacc.utexas.edu'
 alias lonestar='ssh login2.ls5.tacc.utexas.edu'
 alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
 alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
 alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 alias sverdrup='mosh --ssh="ssh -p 8704" sverdrup.ices.utexas.edu'
+alias scpsv='scp -P 8704'
 alias glacier='mosh timothys@glacier0.mit.edu'
 alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
@@ -37,7 +41,7 @@ alias sv-sshfs="sshfs -p 8704 -o IdentityFile=~/.ssh/id_rsa sverdrup.ices.utexas
 
 ### Modules ###
 module purge
-module load c7 intel matlab texlive
+module load c7 intel/17.0 mpich/3.0.4 matlab texlive
 
 ### Parallel Algorithms Class stuff ###
 export pcse_repo='https://bitbucket.org/VictorEijkhout/pcse2016'
@@ -49,7 +53,7 @@ export stampwork=$lswork/..
 export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
-export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
+
 
 ### Increase stack size ###
 ulimit -s hard
