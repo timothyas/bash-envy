@@ -11,9 +11,12 @@ export sv=/workspace/sv-mnt
 export computing=/workspace/gcmpack/computing
 export mitgcm=/workspace/gcmpack/MITgcm_c66l
 export bash_envy=/workspace/bash-envy
+export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
 
 ### Aliases
 alias cds='cd $sv'
+alias cdp='cd $pig'
+alias cdm='cd $mitgcm'
 alias o='&>/dev/null kde-open '
 export PS1='[\h \W]\$ '
 alias lpq3='lpq -P cp3se'
@@ -38,7 +41,7 @@ alias sv-sshfs="sshfs -p 8704 -o IdentityFile=~/.ssh/id_rsa sverdrup.ices.utexas
 
 ### Modules ###
 module purge
-module load c7 intel matlab texlive
+module load c7 intel/17.0 mpich/3.0.4 matlab texlive
 
 ### Parallel Algorithms Class stuff ###
 export pcse_repo='https://bitbucket.org/VictorEijkhout/pcse2016'
@@ -50,8 +53,7 @@ export stampwork=$lswork/..
 export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
-export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
-alias cdp='cd $pig'
+
 
 ### Increase stack size ###
 ulimit -s hard
