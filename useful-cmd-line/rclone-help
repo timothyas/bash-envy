@@ -1,0 +1,40 @@
+Would like to use 'sync' command to sync between cloud and local. 
+
+However, this is a one way operation. So syncing (a) to (b) deletes updates on (b).
+
+To avoid... 
+
+1. Look for files that will be deleted with --dry-run flag.
+2. Copy those files to [source] so both locations have them.
+3. Go through with sync.
+
+For example, I want to update local machine with contents of remote.
+
+1. 
+
+    rclone sync --dry-run [source]:[dir] [destination]:[dir]
+
+e.g.
+
+    rclone sync --dry-run remote:CSEM-Thorne/papers /workspace/drive/CSEM-Thorne/papers
+
+Look for files that will be deleted. For example: 
+
+2018/03/12 13:29:58 NOTICE: ECCO/Menemenlis_2008_ECCO2-description.pdf: Not deleting as --dry-run
+
+this file would get deleted from my local machine since it was updated here but not 
+on remote. 
+
+
+2. 
+
+    rclone copy [source]:[dir] [destination]:[dir]
+
+e.g.
+
+    rclone copy /workspace/drive/CSEM-Thorne/papers/ECCO/Menemenlis_2008_ECCO2-description.pdf remote:CSEM-Thorne/papers/ECCO
+
+and continue as needed ...
+Check the dry run command as above. 
+
+3. Run sync without --dry-run flag.
