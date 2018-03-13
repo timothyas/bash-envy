@@ -12,11 +12,13 @@ export computing=/workspace/gcmpack/computing
 export mitgcm=/workspace/gcmpack/MITgcm_c66l
 export bash_envy=/workspace/bash-envy
 export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
+export ase='/workspace/gcmpack/ase-adjoint'
 
 ### Aliases
 alias cds='cd $sv'
 alias cdp='cd $pig'
 alias cdm='cd $mitgcm'
+alias cda='cd $ase'
 alias o='&>/dev/null kde-open '
 export PS1='[\h \W]\$ '
 alias lpq3='lpq -P cp3se'
