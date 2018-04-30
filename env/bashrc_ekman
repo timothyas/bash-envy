@@ -12,29 +12,37 @@ export computing=/workspace/gcmpack/computing
 export mitgcm=/workspace/gcmpack/MITgcm_c66l
 export bash_envy=/workspace/bash-envy
 export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
+export ase='/workspace/gcmpack/ase-adjoint'
 
 ### Aliases
 alias cds='cd $sv'
 alias cdp='cd $pig'
 alias cdm='cd $mitgcm'
+alias cda='cd $ase'
 alias o='&>/dev/null kde-open '
 export PS1='[\h \W]\$ '
 alias lpq3='lpq -P cp3se'
 alias lp='lp -o fit-to-page'
 
 ### SSH Ports ###
+# big guys
 alias pfe='ssh pfe'
-alias stampede='mosh tsmith@login2.stampede2.tacc.utexas.edu'
-alias lonestar='ssh login2.ls5.tacc.utexas.edu'
-alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
-alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
-alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
+alias stampede='ssh tsmith@login2.stampede2.tacc.utexas.edu'
+alias lonestar='mosh login2.ls5.tacc.utexas.edu'
+alias corral='ssh data.tacc.utexas.edu'
+
+# local machines
 alias sverdrup='mosh --ssh="ssh -p 8704" sverdrup.ices.utexas.edu'
 alias scpsv='scp -P 8704'
-alias glacier='mosh timothys@glacier0.mit.edu'
 alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
 alias nansen='mosh --ssh"ssh -p 8704" nansen'
+
+# Don't really use these anymore
+alias glacier='mosh timothys@glacier0.mit.edu'
+alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
+alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
+alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 
 ### Link to Sverdrup ###
 alias sv-sshfs="sshfs -p 8704 -o IdentityFile=~/.ssh/id_rsa sverdrup.ices.utexas.edu:/home/tsmith /workspace/sv-mnt"
@@ -64,3 +72,6 @@ ulimit -u hard
 
 ### Expand environment variables in tab completion ###
 shopt -s direxpand
+
+### Refresh tmux environment variables ###
+. $bash_envy/env/refresh_tmux_env
