@@ -8,6 +8,7 @@
 #ls5 default: module load TACC
 module load netcdf	
 module load parallel-netcdf
+module load git
 
 ### MITgcm stuff 
 export MPI_INC_DIR=$MPICH_DIR/include
@@ -19,16 +20,26 @@ export NETCDF_LIB=$TACC_NETCDF_LIB
 ## Directories
 export contrib=/work/03754/tsmith/gcm-contrib
 export computing=/work/03754/tsmith/computing
+export mitgcm=/work/03754/tsmith/MITgcm
+export bash_envy=/work/03754/tsmith/bash-envy
+export corral_storage=/corral-repl/utexas/Transfer-of-ECCO-glo
+
+if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
+    export ase=$WORK/ase-adjoint
+    export pig=$ase/pig/generic
+
+    alias cda='cd $ase'
+    alias cdp='cd $pig'
+fi
+
+## Other people's stuff
 export ph_data=/work/03263/heimbach/data
 export an_work=/work/03901/atnguyen
 export an_scratch=/scratch/03901/atnguyen
 export sean_work=/work/01268/seanw
 export sean_scratch=/scratch/01268/seanw
-export mitgcm=~/MITgcm_c66i+
-export bash_envy=/work/03754/tsmith/bash-envy
-export pig=$WORK/MITgcm_c66i+/pig
 export sean_r3_forcing=/work/01268/seanw/lonestar/ecco_v4_r3_input/input_forcing
-export corral_storage=/corral-repl/utexas/Transfer-of-ECCO-glo
+
 
 ## Commands
 export LESS=-R\ $LESS # For git diff
