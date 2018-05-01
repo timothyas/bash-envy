@@ -28,6 +28,7 @@ export mitgcm=~/MITgcm_c66i+
 export bash_envy=/work/03754/tsmith/bash-envy
 export pig=$WORK/MITgcm_c66i+/pig
 export sean_r3_forcing=/work/01268/seanw/lonestar/ecco_v4_r3_input/input_forcing
+export corral_storage=/corral-repl/utexas/Transfer-of-ECCO-glo
 
 ## Commands
 export LESS=-R\ $LESS # For git diff
