@@ -19,6 +19,7 @@ export contrib=$WORK/gcm-contrib
 export computing=$WORK/computing
 export write_repo=$WORK/write-repo
 export bash_envy=$WORK/bash-envy
+export mitgcm=$WORK/MITgcm
 
 ## Nonlocal directories
 export thamoc=/workspace/gcmpack/gcm-contrib/samoc
