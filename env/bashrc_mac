@@ -36,3 +36,6 @@ alias o='open'
 
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
+
+### Refresh mac display specifically
+export DISPLAY=':0'
