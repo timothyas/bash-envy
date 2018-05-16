@@ -22,7 +22,7 @@ alias cda='cd $ase'
 alias o='&>/dev/null kde-open '
 export PS1='[\h \W]\$ '
 alias lpq3='lpq -P cp3se'
-alias lp='lp -o fit-to-page'
+alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 
 ### SSH Ports ###
 # big guys
