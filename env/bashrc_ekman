@@ -70,14 +70,13 @@ ulimit -u hard
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
 
-### Expand environment variables in tab completion ###
-shopt -s direxpand
-
-### Refresh tmux environment variables ###
-. $bash_envy/env/refresh_tmux_env
-
 ### Refresh display environment variable if not in vnc session
 if [ `xdpyinfo | grep -c VNC` == 0 ] ; then
     export DISPLAY=':0'
 fi
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand
+
+
 
