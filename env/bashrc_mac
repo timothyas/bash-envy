@@ -40,3 +40,6 @@ alias o='open'
 
 ### Refresh mac display specifically
 export DISPLAY=':0'
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'
