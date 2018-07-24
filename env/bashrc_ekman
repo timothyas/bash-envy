@@ -62,6 +62,7 @@ export stampwork=$lswork/..
 export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
+export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
 
 
 ### Increase stack size ###
