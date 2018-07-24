@@ -6,6 +6,7 @@ PATH=/h2/tsmith/.local/bin:$PATH
 export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python/site-packages
 export TERM=xterm-256color
 export WORK=/workspace
+export data=/mnt/data
 export contrib=/workspace/gcmpack/gcm-contrib
 export sv=/workspace/sv-mnt
 export computing=/workspace/gcmpack/computing
