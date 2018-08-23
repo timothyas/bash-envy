@@ -21,7 +21,7 @@ if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
     alias cda='cd $ase'
     alias cdp='cd $pig'
 
-elif [[ "$TACC_SYSTEM" == "stampede2"]] ; then
+elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
 
     ### Stampede 2 specific ###
     module load intel/17.0.4 impi/17.0.3
