@@ -6,39 +6,66 @@
 #ls5 default: module load intel
 #ls5 default: module load cray-mpich 
 #ls5 default: module load TACC
-module load netcdf	
-module load parallel-netcdf
+module purge
+module load TACC
+
+if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
+
+    ### Lonestar 5 specific ###
+    module load intel
+    module load cray_mpich
+    export MPI_INC_DIR=$MPICH_DIR/include
+    export ase=$WORK/ase-adjoint
+    export pig=$ase/pig/generic
+
+    alias cda='cd $ase'
+    alias cdp='cd $pig'
+
+elif [[ "$TACC_SYSTEM" == "stampede2"]] ; then
+
+    ### Stampede 2 specific ###
+    module load intel/17.0.4 impi/17.0.3
+    module load netcdf/4.3.3.1
+    module load netcdf/4.3.3.1
+
+    export MPI_INC_DIR=$TACC_IMPI_INC
+
+    ### Matlab stuff via An ##
+    #export LM_LICENSE_FILE=$HOME/ices.txt
+    ##if using matlab older than 2016b
+    #export LM_LICENSE_FILE=$HOME/.tacc_matlab_license
+
+else 
+
+    ### Stampede 1 specific ###
+    module load mvapich2
+fi
 module load git
 
 ### MITgcm stuff 
-export MPI_INC_DIR=$MPICH_DIR/include
 export NETCDF_BIN=$TACC_NETCDF_BIN
 export NETCDF_ROOT=$TACC_NETCDF_DIR
 export NETCDF_INC=$TACC_NETCDF_INC
 export NETCDF_LIB=$TACC_NETCDF_LIB
 
-## Directories
+### Directories
 export contrib=/work/03754/tsmith/gcm-contrib
 export computing=/work/03754/tsmith/computing
 export mitgcm=/work/03754/tsmith/MITgcm
 export bash_envy=/work/03754/tsmith/bash-envy
 export corral_storage=/corral-repl/utexas/Transfer-of-ECCO-glo
 
-if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
-    export ase=$WORK/ase-adjoint
-    export pig=$ase/pig/generic
-
-    alias cda='cd $ase'
-    alias cdp='cd $pig'
-fi
-
 ## Other people's stuff
 export ph_data=/work/03263/heimbach/data
+export ph_work='/work/03263/heimbach/';
+export ph_scratch='/scratch/03263/heimbach/';
 export an_work=/work/03901/atnguyen
 export an_scratch=/scratch/03901/atnguyen
 export sean_work=/work/01268/seanw
 export sean_scratch=/scratch/01268/seanw
 export sean_r3_forcing=/work/01268/seanw/lonestar/ecco_v4_r3_input/input_forcing
+export vo_work='/work/04148/vocana/';
+export ab_work='/work/05471/abigdeli/';
 
 
 ## Commands
