@@ -58,7 +58,7 @@ export pcse_repo='https://bitbucket.org/VictorEijkhout/pcse2016'
 ### Directories for servers
 export pfework='/nobackupp2/tasmit12'
 export lswork='/work/03754/tsmith/lonestar'
-export stampwork=$lswork/..
+export stampwork='/work/03754/tsmith/stampede2'
 export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
