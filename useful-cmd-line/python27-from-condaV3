@@ -9,3 +9,6 @@ verify with
 >> python --version
 
 
+to end the session:
+
+>> source deactivate
