@@ -1,0 +1,11 @@
+Download conda with python version 3
+Want to run python v2.7
+In the terminal:
+
+>> source activate py27
+
+verify with
+
+>> python --version
+
+
