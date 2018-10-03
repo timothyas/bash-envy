@@ -22,7 +22,7 @@ export bash_envy=$WORK/bash-envy
 export mitgcm=$WORK/MITgcm
 
 ## Nonlocal directories
-export thamoc=/workspace/gcmpack/gcm-contrib/samoc
+export thamoc=/workspace/gcm-contrib/samoc
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
