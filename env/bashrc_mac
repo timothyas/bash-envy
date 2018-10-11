@@ -19,9 +19,10 @@ export contrib=$WORK/gcm-contrib
 export computing=$WORK/computing
 export write_repo=$WORK/write-repo
 export bash_envy=$WORK/bash-envy
+export mitgcm=$WORK/MITgcm
 
 ## Nonlocal directories
-export thamoc=/workspace/gcmpack/gcm-contrib/samoc
+export thamoc=/workspace/gcm-contrib/samoc
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
@@ -36,3 +37,9 @@ alias o='open'
 
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
+
+### Refresh mac display specifically
+export DISPLAY=':0'
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'

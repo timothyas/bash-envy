@@ -8,9 +8,12 @@ set viminfo='20,<1000
 syntax on
 
 set tabstop=4
+set shiftwidth=4
 set expandtab
 set incsearch "" incremental search
+
 filetype indent off
+
 
 " from lonestar
 " I think this was for highlighted tabs in fortran

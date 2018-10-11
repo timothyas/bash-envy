@@ -6,13 +6,14 @@ PATH=/h2/tsmith/.local/bin:$PATH
 export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python/site-packages
 export TERM=xterm-256color
 export WORK=/workspace
-export contrib=/workspace/gcmpack/gcm-contrib
+export data=/mnt/data
+export contrib=/workspace/gcm-contrib
 export sv=/workspace/sv-mnt
-export computing=/workspace/gcmpack/computing
-export mitgcm=/workspace/gcmpack/MITgcm_c66l
+export computing=/workspace/computing
+export mitgcm=/workspace/MITgcm
 export bash_envy=/workspace/bash-envy
-export pig='/workspace/gcmpack/MITgcm_c66l/mysetups/pig'
-export ase='/workspace/gcmpack/ase-adjoint'
+export pig='/workspace/ase-adjoint/pig/generic'
+export ase='/workspace/ase-adjoint'
 
 ### Aliases
 alias cds='cd $sv'
@@ -22,7 +23,7 @@ alias cda='cd $ase'
 alias o='&>/dev/null kde-open '
 export PS1='[\h \W]\$ '
 alias lpq3='lpq -P cp3se'
-alias lp='lp -o fit-to-page'
+alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 
 ### SSH Ports ###
 # big guys
@@ -57,10 +58,11 @@ export pcse_repo='https://bitbucket.org/VictorEijkhout/pcse2016'
 ### Directories for servers
 export pfework='/nobackupp2/tasmit12'
 export lswork='/work/03754/tsmith/lonestar'
-export stampwork=$lswork/..
+export stampwork='/work/03754/tsmith/stampede2'
 export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
 export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
+export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
 
 
 ### Increase stack size ###
@@ -70,8 +72,13 @@ ulimit -u hard
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
 
+### Refresh display environment variable if not in vnc session
+if [ `xdpyinfo | grep -c VNC` == 0 ] ; then
+    export DISPLAY=':0'
+fi
+
 ### Expand environment variables in tab completion ###
 shopt -s direxpand
 
-### Refresh tmux environment variables ###
-. $bash_envy/env/refresh_tmux_env
+
+
