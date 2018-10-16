@@ -25,7 +25,7 @@ localhost:8888
 #       and set a password
 #    ii. On the web server, open a notebook and run
 
-     from notebook.auth import passwd; passwd
+     from notebook.auth import passwd; passwd()
 
 #    verify the password and copy the text it prints out, then add/uncomment this 
 #    to the local machine at
