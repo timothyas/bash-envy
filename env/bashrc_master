@@ -37,7 +37,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 
 ### Add python modules ###
 # Note: for now, on mac and Ekman they are just in $WORK
-export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
+if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$HOME/xgcm:$HOME/xmitgcm
+else
+    export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
+fi
 
 ### CVS Stuff ###
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
