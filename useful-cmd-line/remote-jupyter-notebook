@@ -6,7 +6,7 @@ jupyter notebook --no-browser --port=8889
 
 # 2. locally 
 
-ssh -N -f localhost:8888:localhost:8889 user@server
+ssh -N -f -L localhost:8888:localhost:8889 user@server
 
 # -N : Do not execute a remote command, useful for forwarding ports
 # -f : ssh in background 
