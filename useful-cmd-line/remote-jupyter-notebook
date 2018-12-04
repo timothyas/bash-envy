@@ -1,0 +1,59 @@
+# How to set up a jupyter notebook on a remote server
+
+# 1. on the remote server
+
+jupyter notebook --no-browser --port=8889
+
+# 2. locally 
+
+ssh -N -f -S <path-to-socket> -L localhost:8888:localhost:8889 user@server
+
+# -N : Do not execute a remote command, useful for forwarding ports
+# -f : ssh in background 
+# -S : path to a file master process creates for inter-process communication for other
+#      ssh instances to share the master process's connection
+#      e.g. ~/.ssh/session1
+# -L : specifies connections to TCP port used here as
+#      -L bind_address:port:host:hostport 
+
+# 3. locally, in web browser URL 
+
+localhost:8888
+
+# 4. Password setup
+#    I followed the site: 
+#    https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#
+#    i. on the remote server, it prints the link http://localhost:889/?token=
+#       copy-paste the text after token= on your local web browser,
+#       and set a password
+#    ii. On the web server, open a notebook and run
+
+     from notebook.auth import passwd; passwd()
+
+#    verify the password and copy the text it prints out, then add/uncomment this 
+#    to the local machine at
+#    ~/.jupyter/jupyter_notebook_config.py as
+
+     c.NotebookApp.password = u'string-from-the-notebook'
+
+#    Now you don't need to type the password to log in
+#
+# 6. To close the ssh port run
+
+ssh -S <path-to-socket> -0 exit user@server
+
+#   where <path-to-socket> is the same as in step 2
+
+# 5. Use SSL for encrypted communication
+# I tried this but got openssl errors for wrong version numbers ... 
+# I think the way to go is to use "Let's Encrypt", but I need to get plots going... 
+# later
+#
+#    maybe not necessary, use a secure connection so your password isn't sent 
+#    unencrypted
+#    i. run this command in a place to keep the keys, I did ~/local/openssl_cert
+#
+#    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.pem
+
+#    Note this makes the secure connection available for 1 year ...
+#    

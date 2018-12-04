@@ -35,6 +35,14 @@ fi
 export PATH=$PATH:$HOME/local/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 
+### Add python modules ###
+# Note: for now, on mac and Ekman they are just in $WORK
+if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$HOME/xgcm:$HOME/xmitgcm
+else
+    export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
+fi
+
 ### CVS Stuff ###
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
 export CVSEDITOR=vim

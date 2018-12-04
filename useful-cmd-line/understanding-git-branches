@@ -1,0 +1,139 @@
+### Understanding git branches
+
+I had a bunch of branches on my forked MITgcm which got merged to the overarching MITgcm
+and I wanted to get rid of them. For reference
+
+    origin/master = my forked branch 
+    upstream/master = the overarching MITgcm code   
+
+1. Running the command
+
+    $ git remote show origin
+
+    gives a very clear picture of what's going on. This showed me (also running git branch -a)
+    that I had a bunch of branches that I had created but got merged to upstream/master, so I don't
+    want them anymore... I had deleted them on the web GUI but they were still present. 
+    e.g. I would see
+
+    $ git remote show origin
+    * remote origin
+      Fetch URL: git@github.com:timothyas/MITgcm.git
+      Push  URL: git@github.com:timothyas/MITgcm.git
+      HEAD branch: master
+      Remote branches:
+        depth-sens                            tracked
+        fix-adj-etan                          tracked
+        master                                tracked
+        refs/remotes/origin/adj_diagnostics   stale (use 'git remote prune' to remove)
+        refs/remotes/origin/callTreeFix       stale (use 'git remote prune' to remove)
+        refs/remotes/origin/crankNicolsParams stale (use 'git remote prune' to remove)
+        refs/remotes/origin/gencost-trsp-mask stale (use 'git remote prune' to remove)
+      Local branches configured for 'git pull':
+        adj_diagnostics   merges with remote adj_diagnostics
+        crankNicolsParams merges with remote crankNicolsParams
+        depth-sens        merges with remote depth-sens
+        gencost-trsp-mask merges with remote gencost-trsp-mask
+        master            merges with remote master
+      Local refs configured for 'git push':
+        depth-sens pushes to depth-sens (up to date)
+        master     pushes to master     (up to date) 
+
+    basically I wanted to get rid of all the stale branches ... 
+
+2. Terminology: 
+    'remote' simply refers to a version of the code. 
+    'origin' is the remote referring to my particular forked version of the code: 
+                timothyas/MITgcm, 
+    'upstream' is the MITgcm/MITgcm
+    
+    There are 3 versions of every remote branch:
+
+        1. The actual branch on the remote repo
+        2. Your snapshot of the branch locally (stored as refs/remotes/...)
+        3. A local branch that might be tracking the remote branch
+
+3. Removing branches:    
+
+    Running 'git remote prune' gets rid of stale branches which have locally stored 
+    snapshot data:
+
+        $ git remote prune origin
+        Pruning origin
+        URL: git@github.com:timothyas/MITgcm.git
+         * [pruned] origin/adj_diagnostics
+         * [pruned] origin/callTreeFix
+         * [pruned] origin/crankNicolsParams
+         * [pruned] origin/gencost-trsp-mask
+        
+        $ git remote show origin
+        * remote origin
+          Fetch URL: git@github.com:timothyas/MITgcm.git
+          Push  URL: git@github.com:timothyas/MITgcm.git
+          HEAD branch: master
+          Remote branches:
+            depth-sens   tracked
+            fix-adj-etan tracked
+            master       tracked
+          Local branches configured for 'git pull':
+            adj_diagnostics   merges with remote adj_diagnostics
+            crankNicolsParams merges with remote crankNicolsParams
+            depth-sens        merges with remote depth-sens
+            gencost-trsp-mask merges with remote gencost-trsp-mask
+            master            merges with remote master
+          Local refs configured for 'git push':
+            depth-sens pushes to depth-sens (up to date)
+            master     pushes to master     (up to date)
+
+    But to remove local branches .... 
+
+        $ git branch -d adj_diagnostics
+        error: The branch 'adj_diagnostics' is not fully merged.
+        If you are sure you want to delete it, run 'git branch -D adj_diagnostics'. 
+
+    This shows up because branch adj_diagnostics and MITgcm commit history is now not EXACTLY
+    the same. This is probably because Jean-Michel compressed my commits into one. 
+    Since I know this branch got merged properly, I can safely delete it ...
+
+4. Removing branches not from the GUI...
+
+    I ran 'git branch -d fix-adj-etan', which supposedly got rid of fix-adj-etan. However
+    it still shows up:
+
+        $ git branch -a
+          depth-sens
+          ecco-phys-reorg
+        * master
+          remotes/origin/HEAD -> origin/master
+          remotes/origin/depth-sens
+          remotes/origin/ecco-phys-reorg
+          remotes/origin/fix-adj-etan
+          remotes/origin/master
+          remotes/upstream/master
+
+        $ git remote show origin
+        * remote origin
+          Fetch URL: git@github.com:timothyas/MITgcm.git
+          Push  URL: git@github.com:timothyas/MITgcm.git
+          HEAD branch: master
+          Remote branches:
+            depth-sens      tracked
+            ecco-phys-reorg tracked
+            fix-adj-etan    tracked
+            master          tracked
+          Local branches configured for 'git pull':
+            depth-sens merges with remote depth-sens
+            master     merges with remote master
+          Local refs configured for 'git push':
+            depth-sens      pushes to depth-sens      (up to date)
+            ecco-phys-reorg pushes to ecco-phys-reorg (up to date)
+            master          pushes to master          (up to date) 
+    
+
+    And it also exists on the web GUI.
+    To REALLY get rid of it ...
+
+        $ git push origin --delete fix-adj-etan 
+
+    so clean ...
+
+    

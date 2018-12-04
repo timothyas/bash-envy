@@ -1,9 +1,7 @@
 #!/bin/bash 
 
 ### Environment Variables ###
-PATH=$PATH:/h2/tsmith/local/bin
 PATH=/h2/tsmith/.local/bin:$PATH
-export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python/site-packages
 export TERM=xterm-256color
 export WORK=/workspace
 export data=/mnt/data
@@ -28,7 +26,7 @@ alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 ### SSH Ports ###
 # big guys
 alias pfe='ssh pfe'
-alias stampede='ssh tsmith@login2.stampede2.tacc.utexas.edu'
+alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
 alias lonestar='mosh login2.ls5.tacc.utexas.edu'
 alias corral='ssh data.tacc.utexas.edu'
 
@@ -79,6 +77,3 @@ fi
 
 ### Expand environment variables in tab completion ###
 shopt -s direxpand
-
-
-

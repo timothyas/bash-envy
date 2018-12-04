@@ -1,0 +1,38 @@
+### How I installed anaconda on
+
+- my mac
+- Ekman
+- Sverdrup
+
+### 
+
+1. Download appropriate file for Mac or linux here 
+    https://conda.io/docs/user-guide/install/index.html
+
+2. Follow prompt ... on sverdrup, I installed to /home/tsmith/anaconda3
+
+3. I grabbed the following modules 
+
+    conda install xarray netCDF4 bottleneck
+    conda install -c conda-forge cartopy docrep
+    conda install -c ioam holoviews
+
+4. I cloned the following repos so I could modify them
+but these can also be installed "the easy way"
+
+    xgcm
+        -- needs xarray, which uses netCDF4 and bottleneck (latter for speed)
+        -- needs docrep
+        Easy way: see https://xgcm.readthedocs.io/en/latest/installation.html
+        My way:
+            1. git clone git@github.com:xgcm/xgcm.git
+            2. add to bashrc: 
+                export PYTHONPATH=$PYTHONPATH:path/to/xgcm
+            
+    xmitgcm
+        -- needs xgcm   
+        Easy way: see https://xmitgcm.readthedocs.io/en/latest/installation.html
+        My way:
+            1. git clone git@github.com:xgcm/xmitgcm.git
+            2. add to bashrc: 
+                export PYTHONPATH=$PYTHONPATH:path/to/xmitgcm

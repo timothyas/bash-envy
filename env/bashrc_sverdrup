@@ -16,9 +16,9 @@ export contrib=/home/tsmith/gcm-contrib
 export computing=/home/tsmith/computing
 export MPI_INC_DIR=$MPI_DIR/include
 export ph_data=/scratch/heimbach/data
-export ase=/scratch/tsmith/MITgcm_c66i+/ase
-export pig=/scratch/tsmith/MITgcm_c66i+/pig
-export mitgcm=~/MITgcm_c66i+
+export ase=/scratch/tsmith/MITgcm/ase-adjoint
+export pig=/scratch/tsmith/MITgcm/ase-adjoint/pig/generic
+export mitgcm=~/MITgcm
 export bash_envy=~/bash-envy
 
 ## Commands
@@ -26,6 +26,7 @@ export PS1='[\h \W]\$ '
 alias scpthorne='scp -P 8704'
 alias qu='squeue -u tsmith'
 alias cda='cd $ase'
+alias cdp='cd $pig'
 
 ## Increase stack size
 ulimit -s hard

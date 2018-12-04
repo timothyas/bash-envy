@@ -21,3 +21,21 @@ e.g. standard I run python 3.6, but to use a module in 2.7 need to switch
     $ python --version
 
 5. To switch back, exit the terminal 
+
+-----------------
+
+to test modifications under a different python version, e.g. to xmitgcm
+here's an example going from default python=3.7 to test mods with python=2.7
+
+    $ conda create --yes -n test_env python=2.7 anaconda xarray future
+    $ conda activate test_env
+    $ conda install -c conda-forge docrep
+
+note -c conda-forge is necessary to look through the conda-forge channel, 
+where docrep exists
+This creates the test_env environment with python version 2.7 and has the modules 
+xarray, future, and docrep installed
+
+Note: at first I was having problems because Ekman has ~/.local/lib/python2.7/site-packages
+which has a really old version of numpy in it ... moving this to old_python2.7
+made it so it's not added to path
