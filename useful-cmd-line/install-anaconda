@@ -15,7 +15,9 @@
 
     conda install xarray netCDF4 bottleneck
     conda install -c conda-forge cartopy docrep
-    conda install -c ioam holoviews
+    conda install -c ioam holoviews geoviews
+    conda install datashader
+    
 
 4. I cloned the following repos so I could modify them
 but these can also be installed "the easy way"
