@@ -59,7 +59,7 @@ export lswork='/work/03754/tsmith/lonestar'
 export stampwork='/work/03754/tsmith/stampede2'
 export eofework='/nobackup1/timothys'
 export svwork='/scratch/tsmith'
-export svpig='/scratch/tsmith/MITgcm_c66i+/pig'
+export svpig='/scratch/tsmith/MITgcm/ase-adjoint/pig/generic'
 export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
 
 
