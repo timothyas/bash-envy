@@ -1,20 +1,24 @@
 # How to set up a jupyter notebook on a remote server
 
 # 1. on the remote server
+#    e.g. Sverdrup (not your laptop!)  
 
 jupyter notebook --no-browser --port=8889
 
-# 2. locally 
+# 2. locally, e.g. on your laptop
 
-ssh -N -f -S <path-to-socket> -L localhost:8888:localhost:8889 user@server
+ssh -L localhost:8888:localhost:8889 user@server
 
+# -L : specifies connections to TCP port used here as
+#      -L bind_address:port:host:hostport 
+#
+# Additional relevant options are
 # -N : Do not execute a remote command, useful for forwarding ports
 # -f : ssh in background 
 # -S : path to a file master process creates for inter-process communication for other
 #      ssh instances to share the master process's connection
 #      e.g. ~/.ssh/session1
-# -L : specifies connections to TCP port used here as
-#      -L bind_address:port:host:hostport 
+
 
 # 3. locally, in web browser URL 
 
