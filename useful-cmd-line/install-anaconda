@@ -24,7 +24,7 @@ but these can also be installed "the easy way"
 
     xgcm
         -- needs xarray, which uses netCDF4 and bottleneck (latter for speed)
-        -- needs docrep
+        -- needs docrep and future
         Easy way: see https://xgcm.readthedocs.io/en/latest/installation.html
         My way:
             1. git clone git@github.com:xgcm/xgcm.git
