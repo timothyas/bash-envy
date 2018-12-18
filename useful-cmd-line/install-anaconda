@@ -15,14 +15,16 @@
 
     conda install xarray netCDF4 bottleneck
     conda install -c conda-forge cartopy docrep
-    conda install -c ioam holoviews
+    conda install -c ioam holoviews geoviews
+    conda install datashader
+    
 
 4. I cloned the following repos so I could modify them
 but these can also be installed "the easy way"
 
     xgcm
         -- needs xarray, which uses netCDF4 and bottleneck (latter for speed)
-        -- needs docrep
+        -- needs docrep and future
         Easy way: see https://xgcm.readthedocs.io/en/latest/installation.html
         My way:
             1. git clone git@github.com:xgcm/xgcm.git

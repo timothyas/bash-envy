@@ -14,6 +14,7 @@ if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
     ### Lonestar 5 specific ###
     module load intel
     module load cray_mpich
+    module load netcdf
     export MPI_INC_DIR=$MPICH_DIR/include
     export ase=$WORK/ase-adjoint
     export pig=$ase/pig/generic

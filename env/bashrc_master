@@ -42,6 +42,7 @@ if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 else
     export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
 fi
+export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
 
 ### CVS Stuff ###
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
