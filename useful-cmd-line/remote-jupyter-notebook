@@ -42,13 +42,13 @@ localhost:8888
 
 #    Now you don't need to type the password to log in
 #
-# 6. To close the ssh port run
+# 5. To close the ssh port run
 
 ssh -S <path-to-socket> -0 exit user@server
 
 #   where <path-to-socket> is the same as in step 2
 
-# 5. Use SSL for encrypted communication
+# 6. Use SSL for encrypted communication
 # I tried this but got openssl errors for wrong version numbers ... 
 # I think the way to go is to use "Let's Encrypt", but I need to get plots going... 
 # later
