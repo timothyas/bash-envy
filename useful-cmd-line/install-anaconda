@@ -17,6 +17,7 @@
     conda install -c conda-forge cartopy docrep
     conda install -c ioam holoviews geoviews
     conda install datashader
+    conda install -c conda-forge pyresample
     
 
 4. I cloned the following repos so I could modify them
