@@ -27,7 +27,8 @@ alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 # big guys
 alias pfe='ssh pfe'
 alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
-alias lonestar='mosh login2.ls5.tacc.utexas.edu'
+# Can't use mosh on lonestar for now... :(
+alias lonestar='ssh login2.ls5.tacc.utexas.edu'
 alias corral='ssh data.tacc.utexas.edu'
 
 # local machines
