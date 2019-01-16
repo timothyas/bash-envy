@@ -17,6 +17,7 @@
     conda install -c conda-forge cartopy docrep
     conda install -c ioam holoviews geoviews
     conda install datashader
+    conda install -c conda-forge pyresample
     
 
 4. I cloned the following repos so I could modify them
@@ -38,3 +39,10 @@ but these can also be installed "the easy way"
             1. git clone git@github.com:xgcm/xmitgcm.git
             2. add to bashrc: 
                 export PYTHONPATH=$PYTHONPATH:path/to/xmitgcm
+
+    MITgcm_recipes
+        Some ASTE plotting scripts from Raphael Dussin
+            1. git clone git@github.com:raphaeldussin/MITgcm-recipes.git
+            2. add to bashrc: 
+                export PYTHONPATH=$PYTHONPATH:path/to/MITgcm-recipes
+
