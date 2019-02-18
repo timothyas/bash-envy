@@ -72,8 +72,27 @@ ulimit -u hard
 . $bash_envy/env/refresh_tmux_env
 
 ### Refresh display environment variable if not in vnc session
+### If in VNC session, then don't add anaconda to path because
+### the qt binaries in anaconda3/bin mess up startkde...
 if [ `xdpyinfo | grep -c VNC` == 0 ] ; then
     export DISPLAY=':0'
+else
+    # added by Anaconda3 5.3.0 installer
+    # >>> conda init >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$(CONDA_REPORT_ERRORS=false '/workspace/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        \eval "$__conda_setup"
+    else
+        if [ -f "/workspace/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/workspace/anaconda3/etc/profile.d/conda.sh"
+            CONDA_CHANGEPS1=false conda activate base
+        else
+            \export PATH="/workspace/anaconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda init <<<
 fi
 
 ### Expand environment variables in tab completion ###
