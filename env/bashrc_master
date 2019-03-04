@@ -21,7 +21,7 @@ elif [ "$USER" == "tim" ] ; then
 
   . /Users/tim/work/bash-envy/env/bashrc_mac
 
-elif [[ "$HOSTNAME" == *"rustler"* ]] ; then 
+elif [[ "$HOSTNAME" == *"corral"* ]] ; then 
   
   . ~/bash-envy/env/bashrc_corral
 
