@@ -14,11 +14,12 @@ alias scpek="scp  -P 8704 -o 'ProxyJump tsmith@login1.ices.utexas.edu'"
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen.ices.utexas.edu'
 alias nansen='mosh --ssh"ssh -p 8704" nansen.ices.utexas.edu'
 
-## remote jupyter notebook on ekman
-alias jupyterek='ssh -p 8704 -N -f -S ~/.ssh/jupyterek_session -L localhost:8888:localhost:8889 ekman.ices.utexas.edu'
-alias jupyterek_close='ssh -S ~/.ssh/jupyterek_session -O exit ekman.ices.utexas.edu'
-alias jupytersv='ssh -p 8704 -N -f -S ~/.ssh/jupytersv_session -L localhost:8890:localhost:8889 sverdrup.ices.utexas.edu'
-alias jupytersv_close='ssh -S ~/.ssh/jupytersv_session -O exit sverdrup.ices.utexas.edu'
+## remote jupyter notebook on ekman ##
+alias jupyterek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8888:localhost:8889 ekman.ices.utexas.edu'
+alias jupytersv='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8890:localhost:8889 sverdrup.ices.utexas.edu'
+
+## vnc session command on ekman ##
+alias vncek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:5901:localhost:5901 ekman.ices.utexas.edu'
 
 ## Directories
 export HOME=/Users/tim
