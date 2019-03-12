@@ -4,11 +4,13 @@
 #tmux source-file /Users/tim/work/gcm-contrib/bash-scripts/tmux.conf
 
 ## Other machines
-alias ekman='mosh --ssh="ssh -p 8704" ekman.ices.utexas.edu'
-alias rsyncek="rsync -ave 'ssh -p 8704'"
-alias scpek="scp -P 8704"
-alias sshek="ssh -p 8704 ekman.ices.utexas.edu"
-alias arctowski='mosh --ssh"ssh -p 8704" arctowski.ices.utexas.edu'
+#alias ekman='mosh --ssh="ssh -p 8704" ekman.ices.utexas.edu'
+alias ekman='ssh -p 8704 -J tsmith@login1.ices.utexas.edu tsmith@ekman.ices.utexas.edu'
+alias sshek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu tsmith@ekman.ices.utexas.edu'
+#alias rsyncek="rsync -ave 'ssh -p 8704'"
+alias rsyncek="rsync -ave 'ssh -p 8704 -J tsmith@login1.ices.utexas.edu' --progress" 
+#alias scpek="scp -P 8704"
+alias scpek="scp  -P 8704 -o 'ProxyJump tsmith@login1.ices.utexas.edu'"
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen.ices.utexas.edu'
 alias nansen='mosh --ssh"ssh -p 8704" nansen.ices.utexas.edu'
 
