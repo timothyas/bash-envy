@@ -41,6 +41,8 @@ if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$HOME/xgcm:$HOME/xmitgcm:$HOME/MITgcm-recipes
 else
     export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
+    export PYTHONPATH=$PYTHONPATH:$WORK/ECCOv4-py:$WORK/ECCOv4-py/ecco_v4_py
+    export PYTHONPATH=$PYTHONPATH:$WORK/ecco-standard-analysis
 fi
 export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
 
