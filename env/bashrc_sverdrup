@@ -20,6 +20,7 @@ export ase=/scratch/tsmith/MITgcm/ase-adjoint
 export pig=/scratch/tsmith/MITgcm/ase-adjoint/pig/generic
 export mitgcm=~/MITgcm
 export bash_envy=~/bash-envy
+export isomip=/scratch/tsmith/MITgcm/isomip-depth
 
 ## Commands
 export PS1='[\h \W]\$ '
@@ -27,6 +28,7 @@ alias scpthorne='scp -P 8704'
 alias qu='squeue -u tsmith'
 alias cda='cd $ase'
 alias cdp='cd $pig'
+alias cdi='cd $isomip'
 
 ## Increase stack size
 ulimit -s hard
