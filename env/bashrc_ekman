@@ -34,6 +34,7 @@ alias corral='ssh data.tacc.utexas.edu'
 # local machines
 alias sverdrup='mosh --ssh="ssh -p 8704" sverdrup.ices.utexas.edu'
 alias scpsv='scp -P 8704'
+alias jupytersv='ssh -p 8704 -L localhost:8890:localhost:8889 sverdrup.ices.utexas.edu'
 alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
 alias nansen='mosh --ssh"ssh -p 8704" nansen'
