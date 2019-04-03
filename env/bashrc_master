@@ -40,10 +40,13 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$HOME/xgcm:$HOME/xmitgcm:$HOME/MITgcm-recipes
     export PYTHONPATH=$PYTHONPATH:$HOME/pych
+    export PYTHONPATH=$PYTHONPATH:$HOME/ECCOv4-py
+    export PYTHONPATH=$PYTHONPATH:$HOME/ECCOv4-py/ecco_v4_py
+    export PYTHONPATH=$PYTHONPATH:$HOME/xecco
 else
     export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
     export PYTHONPATH=$PYTHONPATH:$WORK/ECCOv4-py:$WORK/ECCOv4-py/ecco_v4_py
-    export PYTHONPATH=$PYTHONPATH:$WORK/ecco-standard-analysis
+    export PYTHONPATH=$PYTHONPATH:$WORK/xecco
     export PYTHONPATH=$PYTHONPATH:$WORK/pych
 fi
 export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
