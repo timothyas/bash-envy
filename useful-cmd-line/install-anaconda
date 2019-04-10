@@ -13,11 +13,25 @@
 
 3. I grabbed the following modules 
 
+    conda install future
     conda install xarray netCDF4 bottleneck
     conda install -c conda-forge cartopy docrep
     conda install -c ioam holoviews geoviews
     conda install datashader
     conda install -c conda-forge pyresample
+    conda install -c conda-forge cmocean
+
+3.5 NOTE:
+
+if you have trouble with corrupted packages, like mkl, with messages like
+
+CondaVerificationError: The package for mkl located at /workspace/anaconda3/pkgs/mkl-2019.3-199
+appears to be corrupted. The path 'lib/libmkl_avx512.so'
+specified in the package manifest cannot be found.
+
+then run the following command
+
+    conda clean --packages --tarballs
     
 
 4. I cloned the following repos so I could modify them
