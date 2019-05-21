@@ -14,6 +14,8 @@ alias scpek="scp  -P 8704 -o 'ProxyJump tsmith@login1.ices.utexas.edu'"
 alias amundsen='mosh --ssh"ssh -p 8704" amundsen.ices.utexas.edu'
 alias nansen='mosh --ssh"ssh -p 8704" nansen.ices.utexas.edu'
 
+alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
+
 ## remote jupyter notebook on ekman ##
 alias jupyterek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8889:localhost:8889 ekman.ices.utexas.edu'
 alias jupytersv='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8890:localhost:8889 sverdrup.ices.utexas.edu'
@@ -32,6 +34,14 @@ export mitgcm=$WORK/MITgcm
 
 ## Nonlocal directories
 export thamoc=/workspace/gcm-contrib/samoc
+export pfework='/nobackupp2/tasmit12'
+export lswork='/work/03754/tsmith/lonestar'
+export taccwork='/work/03754/tsmith'
+export stampwork='/work/03754/tsmith/stampede2'
+export eofework='/nobackup1/timothys'
+export svwork='/scratch/tsmith'
+export svpig='/scratch/tsmith/MITgcm/ase-adjoint/pig/generic'
+export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
