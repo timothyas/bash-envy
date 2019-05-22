@@ -31,7 +31,7 @@ if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
 elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
 
     ### Stampede 2 specific ###
-    module load intel/17.0.4 impi/17.0.3
+    module load intel/18.0.2 impi/18.0.2
     module load netcdf/4.3.3.1
 
     export MPI_INC_DIR=$TACC_IMPI_INC
@@ -40,6 +40,8 @@ elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
     #export LM_LICENSE_FILE=$HOME/ices.txt
     ##if using matlab older than 2016b
     #export LM_LICENSE_FILE=$HOME/.tacc_matlab_license
+
+    alias quss='squeue --reservation=ECCO19School'
 
 else 
 
@@ -68,7 +70,7 @@ export PS1='[$TACC_DOMAIN \W]\$ '
 
 ### Other people's directories
 # Community portal
-export community=/work/projects/aci/ECCO/community
+export communitydir=/work/projects/aci/ECCO/community
 
 # Patrick
 export ph_data=/work/03263/heimbach/data
