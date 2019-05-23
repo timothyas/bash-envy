@@ -71,6 +71,8 @@ fi
 alias cdb='cd $bash_envy'
 
 if [ "$USER" != "tim" ] ; then
-  alias ls='ls --color=auto' 
+    alias ls='ls --color=auto' 
+else
+    alias ls='ls -G'
 fi
 alias ll='ls -alh'
