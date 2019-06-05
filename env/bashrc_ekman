@@ -28,8 +28,8 @@ alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 alias pfe='ssh pfe'
 alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
 # Can't use mosh on lonestar for now... :(
-alias lonestar='ssh login2.ls5.tacc.utexas.edu'
-alias corral='ssh data.tacc.utexas.edu'
+alias lonestar='ssh -i ~/.ssh/ls5_rsa tsmith@login2.ls5.tacc.utexas.edu'
+alias corral='ssh -i ~/.ssh/corral_rsa tsmith@data.tacc.utexas.edu'
 
 # local machines
 alias sverdrup='mosh --ssh="ssh -p 8704" sverdrup.ices.utexas.edu'
