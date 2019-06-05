@@ -15,6 +15,7 @@ alias nansen='ssh -p 8704 -J tsmith@login1.ices.utexas.edu tsmith@nansen.ices.ut
 
 alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
 alias lonestar='ssh -i ~/.ssh/ls5_rsa tsmith@login2.ls5.tacc.utexas.edu'
+alias corral='ssh -i ~/.ssh/corral_rsa tsmith@data.tacc.utexas.edu'
 
 ## remote jupyter notebook on ekman ##
 alias jupyterek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8889:localhost:8889 ekman.ices.utexas.edu'
