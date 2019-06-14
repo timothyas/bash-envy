@@ -19,7 +19,7 @@ alias corral='ssh -i ~/.ssh/corral_rsa tsmith@data.tacc.utexas.edu'
 
 ## remote jupyter notebook on ekman ##
 alias jupyterek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8889:localhost:8889 ekman.ices.utexas.edu'
-alias jupytersv='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8890:localhost:8889 sverdrup.ices.utexas.edu'
+alias jupytersv='ssh -p 8704 -i ~/.ssh/sverdrup_rsa -J tsmith@login1.ices.utexas.edu -L localhost:8890:localhost:8890 sverdrup.ices.utexas.edu'
 
 ## vnc session command on ekman ##
 alias vncek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:5901:localhost:5901 ekman.ices.utexas.edu'
