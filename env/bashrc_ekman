@@ -2,7 +2,7 @@
 
 ### Remote servers ###
 ######################
-. $bash_envy/env/remote_aliases
+. $bash_envy/env/remote_alias
 
 ### Environment Variables ###
 PATH=/h2/tsmith/.local/bin:$PATH
