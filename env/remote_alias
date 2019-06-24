@@ -15,7 +15,7 @@ fi
 ###########
 
 # ICES
-alias sverdrup='mosh --ssh="ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump'" tsmith@sverdrup.ices.utexas.edu'
+alias sverdrup='ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.ices.utexas.edu'
 alias amundsen='ssh -p 8704 '$ssh_jump' tsmith@amundsen.ices.utexas.edu'
 alias nansen='ssh -p 8704 '$ssh_jump' tsmith@nansen.ices.utexas.edu'
 
