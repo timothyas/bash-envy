@@ -15,19 +15,6 @@ alias scpek="scp  -P 8704 -o 'ProxyJump tsmith@login1.ices.utexas.edu'"
 
 export thamoc=/workspace/gcm-contrib/samoc
 
-### Jupyter notebooks ###
-#########################
-alias jupyterek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8889:localhost:8889 ekman.ices.utexas.edu'
-
-# For compute node notebook, need to pass IP address
-#   1. Create a temporary function which takes in passed arguments
-#   2. unset the temp function after running the desired ssh command
-#   3. execute
-alias jupytersv='temporary_function(){
-    ssh -p 8704 -i ~/.ssh/sverdrup_rsa -J tsmith@login1.ices.utexas.edu -L localhost:8890:"$@":8890 sverdrup.ices.utexas.edu; 
-    unset -f temporary_function;}; 
-    temporary_function'
-
 ### Directories ###
 ###################
 export HOME=/Users/tim
