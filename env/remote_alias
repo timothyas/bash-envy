@@ -1,0 +1,71 @@
+#!/bin/bash
+
+
+# Define jump option for ssh to ICES from MAC
+if [ "$USER" == "tim" ] ; then
+    # On mac
+    export ssh_jump='-J tsmith@login1.ices.utexas.edu'
+    export scp_jump="-o 'ProxyJump tsmith@login1.ices.utexas.edu'"
+else
+    export ssh_jump=''
+    export scp_jump=''
+fi
+
+### SSH ###
+###########
+
+# ICES
+alias sverdrup='mosh --ssh="ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump'" tsmith@sverdrup.ices.utexas.edu'
+alias amundsen='ssh -p 8704 '$ssh_jump' tsmith@amundsen.ices.utexas.edu'
+alias nansen='ssh -p 8704 '$ssh_jump' tsmith@nansen.ices.utexas.edu'
+
+# NASA
+alias pfe='ssh pfe'
+
+# TACC
+alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
+alias lonestar='ssh -i ~/.ssh/ls5_rsa tsmith@login2.ls5.tacc.utexas.edu'
+alias corral='ssh -i ~/.ssh/corral_rsa tsmith@data.tacc.utexas.edu'
+
+# MIT
+alias glacier='mosh timothys@glacier0.mit.edu'
+alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
+alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
+
+
+### SCP ###
+###########
+
+# ICES
+alias scpsv='scp -p 8704'$scp_jump
+
+# TACC
+alias scstampede='scp -i ~/.ssh/stampede2_rsa'
+alias sclonestar='scp -i ~/.ssh/ls5_rsa'
+alias sccorral='scp -i ~/.ssh/corral_rsa'
+
+# MIT
+alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
+
+### Jupyter notebooks ###
+#########################
+
+### Directories ###
+###################
+
+# Sverdrup
+export svwork='/scratch/tsmith'
+export svpig='/scratch/tsmith/MITgcm/ase-adjoint/pig/generic'
+
+# NASA
+export pfework='/nobackupp2/tasmit12'
+
+# TACC
+export lswork='/work/03754/tsmith/lonestar'
+export stampwork='/work/03754/tsmith/stampede2'
+export taccwork='/work/03754/tsmith'
+export taccscratch='/scratch/03754/tsmith'
+export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
+
+# MIT
+export eofework='/nobackup1/timothys'

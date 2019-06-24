@@ -1,5 +1,9 @@
 #!/bin/bash 
 
+### Remote servers ###
+######################
+. $bash_envy/env/remote_aliases
+
 ### Environment Variables ###
 PATH=/h2/tsmith/.local/bin:$PATH
 export TERM=xterm-256color
@@ -23,28 +27,6 @@ alias o='&>/dev/null kde-open '
 alias lpq3='lpq -P cp3se'
 alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 
-### SSH Ports ###
-# big guys
-alias pfe='ssh pfe'
-alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
-# Can't use mosh on lonestar for now... :(
-alias lonestar='ssh -i ~/.ssh/ls5_rsa tsmith@login2.ls5.tacc.utexas.edu'
-alias corral='ssh -i ~/.ssh/corral_rsa tsmith@data.tacc.utexas.edu'
-
-# local machines
-alias sverdrup='mosh --ssh="ssh -p 8704" sverdrup.ices.utexas.edu'
-alias scpsv='scp -P 8704'
-alias jupytersv='ssh -p 8704 -L localhost:8890:localhost:8890 sverdrup.ices.utexas.edu'
-alias arctowski='mosh --ssh"ssh -p 8704" arctowski'
-alias amundsen='mosh --ssh"ssh -p 8704" amundsen'
-alias nansen='mosh --ssh"ssh -p 8704" nansen'
-
-# Don't really use these anymore
-alias glacier='mosh timothys@glacier0.mit.edu'
-alias engaging4='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe4.mit.edu'
-alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.edu'
-alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
-
 ### Link to Sverdrup ###
 alias sv-sshfs="sshfs -p 8704 -o IdentityFile=~/.ssh/id_rsa sverdrup.ices.utexas.edu:/home/tsmith /workspace/sv-mnt"
 
@@ -54,17 +36,6 @@ module load c7 intel/17.0 mpich/3.0.4 matlab texlive
 
 ### Parallel Algorithms Class stuff ###
 export pcse_repo='https://bitbucket.org/VictorEijkhout/pcse2016'
-
-### Directories for servers
-export pfework='/nobackupp2/tasmit12'
-export lswork='/work/03754/tsmith/lonestar'
-export stampwork='/work/03754/tsmith/stampede2'
-export taccwork='/work/03754/tsmith'
-export eofework='/nobackup1/timothys'
-export svwork='/scratch/tsmith'
-export svpig='/scratch/tsmith/MITgcm/ase-adjoint/pig/generic'
-export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
-
 
 ### Increase stack size ###
 ulimit -s hard
@@ -101,8 +72,5 @@ fi
 ### Reset PS1 after conda messes with it ...
 export PS1='[\h \W]\$ '
 
-
 ### Expand environment variables in tab completion ###
 shopt -s direxpand
-
-

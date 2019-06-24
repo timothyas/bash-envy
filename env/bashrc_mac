@@ -1,30 +1,24 @@
 #! /bin/bash
 
-## tmux ftw
-#tmux source-file /Users/tim/work/gcm-contrib/bash-scripts/tmux.conf
+### Remote servers ###
+######################
+. $bash_envy/env/remote_aliases
 
-## Other machines
+### Ekman ###
+#############
 alias ekman='ssh -p 8704 -J tsmith@login1.ices.utexas.edu tsmith@ekman.ices.utexas.edu'
-alias sshek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu tsmith@ekman.ices.utexas.edu'
+alias jupyterek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8889:localhost:8889 ekman.ices.utexas.edu'
+alias vncek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:5901:localhost:5901 ekman.ices.utexas.edu'
+
 alias rsyncek="rsync -ave 'ssh -p 8704 -J tsmith@login1.ices.utexas.edu' --progress" 
 alias scpek="scp  -P 8704 -o 'ProxyJump tsmith@login1.ices.utexas.edu'"
 
-alias sverdrup='ssh -p 8704 -i ~/.ssh/sverdrup_rsa -J tsmith@login1.ices.utexas.edu tsmith@sverdrup.ices.utexas.edu'
-alias amundsen='ssh -p 8704 -J tsmith@login1.ices.utexas.edu tsmith@amundsen.ices.utexas.edu'
-alias nansen='ssh -p 8704 -J tsmith@login1.ices.utexas.edu tsmith@nansen.ices.utexas.edu'
+export thamoc=/workspace/gcm-contrib/samoc
 
-alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
-alias lonestar='ssh -i ~/.ssh/ls5_rsa tsmith@login2.ls5.tacc.utexas.edu'
-alias corral='ssh -i ~/.ssh/corral_rsa tsmith@data.tacc.utexas.edu'
-
-## remote jupyter notebook on ekman ##
-alias jupyterek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:8889:localhost:8889 ekman.ices.utexas.edu'
 alias jupytersv='ssh -p 8704 -i ~/.ssh/sverdrup_rsa -J tsmith@login1.ices.utexas.edu -L localhost:8890:localhost:8890 sverdrup.ices.utexas.edu'
 
-## vnc session command on ekman ##
-alias vncek='ssh -p 8704 -J tsmith@login1.ices.utexas.edu -L localhost:5901:localhost:5901 ekman.ices.utexas.edu'
-
-## Directories
+### Directories ###
+###################
 export HOME=/Users/tim
 export WORK=/Users/tim/work
 export contrib=$WORK/gcm-contrib
@@ -32,17 +26,6 @@ export computing=$WORK/computing
 export write_repo=$WORK/write-repo
 export bash_envy=$WORK/bash-envy
 export mitgcm=$WORK/MITgcm
-
-## Nonlocal directories
-export thamoc=/workspace/gcm-contrib/samoc
-export pfework='/nobackupp2/tasmit12'
-export lswork='/work/03754/tsmith/lonestar'
-export taccwork='/work/03754/tsmith'
-export stampwork='/work/03754/tsmith/stampede2'
-export eofework='/nobackup1/timothys'
-export svwork='/scratch/tsmith'
-export svpig='/scratch/tsmith/MITgcm/ase-adjoint/pig/generic'
-export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
