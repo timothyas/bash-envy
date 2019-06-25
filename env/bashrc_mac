@@ -1,8 +1,14 @@
 #! /bin/bash
 
-### Remote servers ###
-######################
-. $bash_envy/env/remote_alias
+### Directories ###
+###################
+export HOME=/Users/tim
+export WORK=/Users/tim/work
+export contrib=$WORK/gcm-contrib
+export computing=$WORK/computing
+export write_repo=$WORK/write-repo
+export bash_envy=$WORK/bash-envy
+export mitgcm=$WORK/MITgcm
 
 ### Ekman ###
 #############
@@ -15,15 +21,9 @@ alias scpek="scp  -P 8704 -o 'ProxyJump tsmith@login1.ices.utexas.edu'"
 
 export thamoc=/workspace/gcm-contrib/samoc
 
-### Directories ###
-###################
-export HOME=/Users/tim
-export WORK=/Users/tim/work
-export contrib=$WORK/gcm-contrib
-export computing=$WORK/computing
-export write_repo=$WORK/write-repo
-export bash_envy=$WORK/bash-envy
-export mitgcm=$WORK/MITgcm
+### Remote servers ###
+######################
+. $bash_envy/env/remote_alias
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin

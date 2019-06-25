@@ -1,11 +1,12 @@
 #!/bin/bash 
 
-### Remote servers ###
-######################
-. $bash_envy/env/remote_alias
 
 ### Environment Variables ###
+#############################
 PATH=/h2/tsmith/.local/bin:$PATH
+
+### Directories ###
+###################
 export TERM=xterm-256color
 export WORK=/workspace
 export data=/mnt/data
@@ -16,6 +17,10 @@ export mitgcm=/workspace/MITgcm
 export bash_envy=/workspace/bash-envy
 export pig='/workspace/ase-adjoint/pig/generic'
 export ase='/workspace/ase-adjoint'
+
+### Remote servers ###
+######################
+. $bash_envy/env/remote_alias
 
 ### Aliases
 alias cds='cd $sv'
