@@ -15,6 +15,9 @@ export era_interim=/nobackupp8/pheimbac/data/ecmwf-interim-bulk
 export mitgcm=~/MITgcm_c66i+
 export bash_envy=$WORK/bash-envy
 
+export ow_ecco=/nobackupp7/owang/runs/Others/R3
+export ow_ecco_flux_forced=/nobackupp7/owang/runs/Others/R3_fluxforced
+
 ## Commands
 alias qu='qstat -u tasmit12'
 export PS1='[\h \W]\$ '
