@@ -37,7 +37,7 @@ alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.ed
 ###########
 
 # ICES
-alias scpsv='scp -p 8704'$scp_jump
+alias scpsv="scp -P 8704 "$scp_jump" -i ~/.ssh/sverdrup_rsa"
 
 # TACC
 alias scpstampede2='scp -i ~/.ssh/stampede2_rsa'
