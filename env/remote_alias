@@ -1,11 +1,11 @@
 #!/bin/bash
 
 
-# Define jump option for ssh to ICES from MAC
+# Define jump option for ssh to Oden from MAC
 if [ "$USER" == "tim" ] ; then
     # On mac
-    export ssh_jump='-J tsmith@login1.ices.utexas.edu'
-    export scp_jump="-o 'ProxyJump tsmith@login1.ices.utexas.edu'"
+    export ssh_jump='-J tsmith@login1.oden.utexas.edu'
+    export scp_jump="-o 'ProxyJump tsmith@login1.oden.utexas.edu'"
 else
     export ssh_jump=''
     export scp_jump=''
@@ -14,10 +14,10 @@ fi
 ### SSH ###
 ###########
 
-# ICES
-alias sverdrup='ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.ices.utexas.edu'
-alias amundsen='ssh -p 8704 '$ssh_jump' tsmith@amundsen.ices.utexas.edu'
-alias nansen='ssh -p 8704 '$ssh_jump' tsmith@nansen.ices.utexas.edu'
+# Oden
+alias sverdrup='ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.oden.utexas.edu'
+alias amundsen='ssh -p 8704 '$ssh_jump' tsmith@amundsen.oden.utexas.edu'
+alias nansen='ssh -p 8704 '$ssh_jump' tsmith@nansen.oden.utexas.edu'
 
 # NASA
 alias pfe='ssh pfe'
@@ -36,7 +36,7 @@ alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.ed
 ### SCP ###
 ###########
 
-# ICES
+# Oden
 alias scpsv="scp -P 8704 "$scp_jump" -i ~/.ssh/sverdrup_rsa"
 
 # TACC
@@ -54,7 +54,7 @@ alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 #   2. unset the temp function after running the desired ssh command
 #   3. execute
 alias jupytersv='temporary_function(){
-    ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' -L localhost:8890:"$@":8890 sverdrup.ices.utexas.edu; 
+    ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' -L localhost:8890:"$@":8890 sverdrup.oden.utexas.edu; 
     unset -f temporary_function;}; 
     temporary_function'
 
