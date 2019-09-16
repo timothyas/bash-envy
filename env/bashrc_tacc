@@ -33,6 +33,7 @@ elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
     ### Stampede 2 specific ###
     module load intel/18.0.2 impi/18.0.2
     module load netcdf/4.3.3.1
+    module load python3
 
     export MPI_INC_DIR=$TACC_IMPI_INC
 
