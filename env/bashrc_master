@@ -48,11 +48,13 @@ elif [[ "$HOSTNAME" == "login"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/../ECCOv4-py:$WORK/../ECCOv4-py/ecco_v4_py
     export PYTHONPATH=$PYTHONPATH:$WORK/../xecco
     export PYTHONPATH=$PYTHONPATH:$WORK/../pych
+    export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
 else
     export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
     export PYTHONPATH=$PYTHONPATH:$WORK/ECCOv4-py:$WORK/ECCOv4-py/ecco_v4_py
     export PYTHONPATH=$PYTHONPATH:$WORK/xecco
     export PYTHONPATH=$PYTHONPATH:$WORK/pych
+    export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
 fi
 export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
 
