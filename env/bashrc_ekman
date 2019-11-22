@@ -26,7 +26,7 @@ alias cds='cd $sv'
 alias cdp='cd $pig'
 alias cdm='cd $mitgcm'
 alias cda='cd $ase'
-alias o='&>/dev/null kde-open '
+alias o='&>/dev/null kde-open5'
 
 alias lpq3='lpq -P cp3se'
 alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
