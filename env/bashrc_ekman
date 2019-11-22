@@ -1,6 +1,5 @@
 #!/bin/bash 
 
-
 ### Environment Variables ###
 #############################
 PATH=/h2/tsmith/.local/bin:$PATH
@@ -36,8 +35,7 @@ alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 alias sv-sshfs="sshfs -p 8704 -o IdentityFile=~/.ssh/id_rsa sverdrup.oden.utexas.edu:/home/tsmith /workspace/sv-mnt"
 
 ### Modules ###
-module purge
-module load c7 intel/17.0 mpich/3.0.4 matlab texlive
+module load ubt18 intel
 
 ### Parallel Algorithms Class stuff ###
 export pcse_repo='https://bitbucket.org/VictorEijkhout/pcse2016'
@@ -53,7 +51,7 @@ ulimit -u hard
 ### If in VNC session, then don't add anaconda to path because
 ### the qt binaries in anaconda3/bin mess up startkde...
 if [ `xdpyinfo | grep -c VNC` == 0 ] ; then
-    export DISPLAY=':0'
+    export DISPLAY=':1'
 
 # added by Anaconda3 5.3.0 installer
 # >>> conda init >>>
