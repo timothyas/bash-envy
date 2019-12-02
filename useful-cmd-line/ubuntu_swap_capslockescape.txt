@@ -1,0 +1,11 @@
+
+First I put this in my ~/.bash_profile
+
+    setxkbmap -option caps:swapescape
+
+But this didn't seem to work after logging out. 
+Next I ran this
+
+    dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
+
+and it's working for now...
