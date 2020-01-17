@@ -44,6 +44,15 @@ elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
 
     alias quss='squeue --reservation=ECCO19School'
 
+elif [[ "$TACC_SYSTEM" == "frontera" ]] ; then
+
+    ### Frontera specific ###
+    module load intel/19.0.5 impi/19.0.5
+    module load netcdf
+    module load python3
+
+    export MPI_INC_DIR=$TACC_IMPI_INC
+
 else 
 
     ### Stampede 1 specific ###

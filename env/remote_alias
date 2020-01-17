@@ -23,6 +23,7 @@ alias nansen='ssh -p 8704 '$ssh_jump' tsmith@nansen.oden.utexas.edu'
 alias pfe='ssh pfe'
 
 # TACC
+alias frontera='ssh -i ~/.ssh/frontera_rsa tsmith@login2.frontera.tacc.utexas.edu'
 alias stampede='ssh -i ~/.ssh/stampede2_rsa tsmith@login2.stampede2.tacc.utexas.edu'
 alias lonestar='ssh -i ~/.ssh/ls5_rsa tsmith@login2.ls5.tacc.utexas.edu'
 alias corral='ssh -i ~/.ssh/corral_rsa tsmith@data.tacc.utexas.edu'
@@ -40,6 +41,7 @@ alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.ed
 alias scpsv="scp -P 8704 "$scp_jump" -i ~/.ssh/sverdrup_rsa"
 
 # TACC
+alias scpfrontera='scp -i ~/.ssh/frontera_rsa'
 alias scpstampede2='scp -i ~/.ssh/stampede2_rsa'
 alias scplonestar='scp -i ~/.ssh/ls5_rsa'
 alias scpcorral='scp -i ~/.ssh/corral_rsa'
@@ -71,6 +73,7 @@ export pfework='/nobackupp2/tasmit12'
 # TACC
 export lswork='/work/03754/tsmith/lonestar'
 export stampwork='/work/03754/tsmith/stampede2'
+export fronterawork='/work/03754/tsmith/frontera'
 export taccwork='/work/03754/tsmith'
 export taccscratch='/scratch/03754/tsmith'
 export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
