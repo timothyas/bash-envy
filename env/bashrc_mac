@@ -12,12 +12,12 @@ export mitgcm=$WORK/MITgcm
 
 ### Ekman ###
 #############
-alias ekman='ssh -p 8704 -J tsmith@login1.oden.utexas.edu tsmith@ekman.oden.utexas.edu'
-alias jupyterek='ssh -p 8704 -J tsmith@login1.oden.utexas.edu -L localhost:8889:localhost:8889 ekman.oden.utexas.edu'
-alias vncek='ssh -p 8704 -J tsmith@login1.oden.utexas.edu -L localhost:5901:localhost:5901 ekman.oden.utexas.edu'
+alias ekman='ssh -J tsmith@login1.oden.utexas.edu tsmith@ekman.oden.utexas.edu'
+alias jupyterek='ssh -J tsmith@login1.oden.utexas.edu -L localhost:8889:localhost:8889 ekman.oden.utexas.edu'
+alias vncek='ssh -J tsmith@login1.oden.utexas.edu -L localhost:5901:localhost:5901 ekman.oden.utexas.edu'
 
 alias rsyncek="rsync -ave 'ssh -p 8704 -J tsmith@login1.oden.utexas.edu' --progress" 
-alias scpek="scp  -P 8704 -o 'ProxyJump tsmith@login1.oden.utexas.edu'"
+alias scpek="scp -o 'ProxyJump tsmith@login1.oden.utexas.edu'"
 
 export thamoc=/workspace/gcm-contrib/samoc
 
