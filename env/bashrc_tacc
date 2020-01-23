@@ -47,7 +47,7 @@ elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
 elif [[ "$TACC_SYSTEM" == "frontera" ]] ; then
 
     ### Frontera specific ###
-    module load intel/19.0.5 impi/19.0.5
+    module load intel impi
     module load netcdf
     module load python3
 
@@ -59,6 +59,9 @@ else
     module load mvapich2
 fi
 module load git
+
+### Permissions
+umask 027
 
 ### Increase stack size
 ulimit -s hard
