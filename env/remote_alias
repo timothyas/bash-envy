@@ -76,6 +76,7 @@ export stampwork='/work/03754/tsmith/stampede2'
 export fronterawork='/work/03754/tsmith/frontera'
 export taccwork='/work/03754/tsmith'
 export taccscratch='/scratch/03754/tsmith'
+export fronterascratch='/scratch1/03754/tsmith'
 export corral_dir='/corral-repl/utexas/Transfer-of-ECCO-glo/tsmith'
 
 # MIT
