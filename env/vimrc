@@ -27,26 +27,22 @@ filetype indent off
 " " This sets the tw to 80 when opening tex documents. Very useful for moving
 " around
 " Only want this for ekman and mac!
-let HOSTNAMEENV=$HOSTNAME
 let USERENV=$USER
+let HOSTNAMEENV=hostname()
 if !exists("autocommands_loaded")
 	let autocommands_loaded=1 
 	autocmd BufNewFile,BufRead *.tex set tw=80
-endif 
-" Same for *.rst documents
-if !exists("autocommands_loaded")
-	let autocommands_loaded=1 
 	autocmd BufNewFile,BufRead *.rst set tw=80
 endif 
 
-if HOSTNAMEENV == 'ekman.oden.utexas.edu' || USERENV == 'tim'
-" --- vim-plug ---
-" Specify a directory for plugins
-call plug#begin('~/.vim/plugged')
-
-" Make sure you use single quotes
-Plug 'lervag/vimtex'
-
-" Initialize plugin system
-call plug#end()
+if (HOSTNAMEENV ==? 'ekman')
+    " --- vim-plug ---
+    " Specify a directory for plugins
+    call plug#begin('~/.vim/plugged')
+    
+    " Make sure you use single quotes
+    Plug 'lervag/vimtex'
+    
+    " Initialize plugin system
+    call plug#end()
 endif
