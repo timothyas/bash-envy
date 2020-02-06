@@ -1,0 +1,53 @@
+# This is documenting the fun time I had
+# installing cartopy to be used on frontera
+
+1. Setup a local directory for some new packages (not python packages)
+   e.g. local_dir=$HOME/local
+
+2. In bashrc (or in the build environment if you don't want these new 
+   environment variable names to persist), make sure the following are set
+
+   
+    export local_dir=$HOME/local
+    export PATH=$local_dir/bin:$PATH
+    export LD_LIBRARY_PATH=$local_dir/lib:$LD_LIBRARY_PATH:
+    export PKG_CONFIG_PATH=$local_dir/lib/pkgconfig:$PKG_CONFIG_PATH
+
+3. Download and unzip the following packages
+
+    1. sqlite3: https://www.sqlite.org/index.html
+    2. PROJ: https://proj.org/download.html
+    3. GEOS: (see note below): https://trac.osgeo.org/geos/
+
+4. In each, build with the command:
+
+    ./configure --prefix=$local_dir
+    make
+    make install
+
+5. Using the brand new PROJ API requires one to comment out the following line
+   wherever PROJ got installedset the environment variable:
+
+#ifndef ACCEPT_USE_OF_DEPRECATED_PROJ_API_H
+#error 'To use the proj_api.h you must define the macro ACCEPT_USE_OF_DEPRECATED_PROJ_API_H'
+#endif
+
+
+   because cartopy uses proj_api.h, while proj v6(+) uses proj.h ... 
+
+6. and finally...
+
+    pip install --user cartopy
+
+-------------
+GEOS...
+-------------
+
+The key thing I wish I knew is that GEOS stands for 
+two packages in the python world...
+1. Geometry Engine, Open Source: https://trac.osgeo.org/geos/
+2. Google Earth Overlay Server: https://geos.readthedocs.io/en/latest/
+
+cartopy uses 1, but 2 is a python package while 1 is not
+so I found googling this tricky... just follow links from
+the cartopy page...
