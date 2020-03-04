@@ -19,7 +19,10 @@
 # cartopy from pkgs/main raither than conda-forge...
 # because installing from conda-forge makes the 
 # pkgs/main::conda -> conda-forge::conda
-    conda install -c conda-forge cartopy docrep pyresample cmocean xesmf
+# therefore first try:
+    conda install cartopy
+    conda install -c conda-forge docrep pyresample cmocean xesmf
+# if this doesn't work then add cartopy before docrep above
     conda install datashader
     conda install -c pyviz holoviews geoviews
 
