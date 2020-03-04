@@ -40,6 +40,15 @@ then run the following command
 4. I cloned the following repos so I could modify them
 but these can also be installed "the easy way"
 
+    ECCOv4-py
+        Easy way: pip install ecco_v4_py
+            Note: unfortunately, this package is not yet on conda ... 
+                we need to address this!
+        My way:
+            1. git clone git@github.com/ECCO-GROUP/ECCOv4-py.git
+            2. add to bashrc:
+                export PYTHONPATH=$PYTHONPATH:/path/to/ECCOv4-py
+
     xgcm
         -- needs xarray, which uses netCDF4 and bottleneck (latter for speed)
         -- needs docrep and future
@@ -63,3 +72,11 @@ but these can also be installed "the easy way"
             2. add to bashrc: 
                 export PYTHONPATH=$PYTHONPATH:path/to/MITgcm-recipes
 
+    MITgcmutils
+        this has the necessary rdmds or wrmds functions for reading to numpy arrays
+        (1) one can point to it's location in the directory MITgcm/utils/python via
+
+          add to bashrc:
+           export PYTHONPATH=$PYTHONPATH:/path/to/MITgcm/utils
+        (2) can be installed with pip
+            pip install MITgcmutils
