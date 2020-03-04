@@ -42,16 +42,15 @@ if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$HOME/xgcm:$HOME/xmitgcm:$HOME/MITgcm-recipes
     export PYTHONPATH=$PYTHONPATH:$HOME/pych
     export PYTHONPATH=$PYTHONPATH:$HOME/ECCOv4-py
-    export PYTHONPATH=$PYTHONPATH:$HOME/ECCOv4-py/ecco_v4_py
     export PYTHONPATH=$PYTHONPATH:$HOME/rosy-pig
 elif [[ "$HOSTNAME" == "login"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/../xgcm:$WORK/../xmitgcm
-    export PYTHONPATH=$PYTHONPATH:$WORK/../ECCOv4-py:$WORK/../ECCOv4-py/ecco_v4_py
+    export PYTHONPATH=$PYTHONPATH:$WORK/../ECCOv4-py
     export PYTHONPATH=$PYTHONPATH:$WORK/../pych
     export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
 else
     export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
-    export PYTHONPATH=$PYTHONPATH:$WORK/ECCOv4-py:$WORK/ECCOv4-py/ecco_v4_py
+    export PYTHONPATH=$PYTHONPATH:$WORK/ECCOv4-py
     export PYTHONPATH=$PYTHONPATH:$WORK/pych
     export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
     export PYTHONPATH=$PYTHONPATH:$WORK/xmovie
