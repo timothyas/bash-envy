@@ -6,23 +6,24 @@ channels:
   - conda-forge
 dependencies:
     - python=3.7
+    - numpy
+    - scipy
     - future
     - xarray
     - netCDF4
     - bottleneck
     - dask
-    - numpy
-    - scipy
-    - pytest-cov 
+    - cftime
     - docrep
+    - cartopy
     - pyresample
     - cmocean
     - datashader
     - holoviews
     - geoviews
-# Dependencies for xmitgcm, xgcm 
-# Not obtained if cloning those repos from git
     - cachetools
-      #    - fsspec
-      #    - zarr
-      #    - cftime
+    - fsspec
+    - zarr
+    - pytest-cov 
+    - codecov
+    - black
