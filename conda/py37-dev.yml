@@ -1,0 +1,25 @@
+# following xgcm ci environment specs
+# see: https://pip.pypa.io/en/stable/reference/pip_install/#git
+# for how to specify branches of repos
+name: py37_dev
+channels:
+  - conda-forge
+dependencies:
+    - python=3.7
+    - numpy
+    - scipy
+    - future
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask
+    - cftime
+    - docrep
+    - cartopy
+    - pyresample
+    - cachetools
+    - fsspec
+    - zarr
+    - pytest-cov 
+    - codecov
+    - black
