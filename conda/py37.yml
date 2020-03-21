@@ -4,20 +4,25 @@
 name: py37_yml
 channels:
   - conda-forge
-  - pyviz
 dependencies:
-  - python=3.7
-  - future
-  - xarray
-  - netCDF4
-  - bottleneck
-  - dask
-  - numpy
-  - scipy
-  - pytest-cov 
-  - docrep
-  - pyresample
-  - cmocean
-  - datashader
-  - holoviews
-  - geoviews
+    - python=3.7
+    - future
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask
+    - numpy
+    - scipy
+    - pytest-cov 
+    - docrep
+    - pyresample
+    - cmocean
+    - datashader
+    - holoviews
+    - geoviews
+# Dependencies for xmitgcm, xgcm 
+# Not obtained if cloning those repos from git
+    - cachetools
+      #    - fsspec
+      #    - zarr
+      #    - cftime
