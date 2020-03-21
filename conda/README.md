@@ -4,18 +4,18 @@ A half tutorial, half "note-to-self" for how I installed
 workable anaconda environments on my mac, linux desktop (Ekman), and 
 the CRIOS cluster Sverdrup.
 
-## 0. Download and install
+## Download and install
 
 Download the appropriate binary from [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
 and follow instructions on command line install. 
 
-## 1. Terminology
+## Terminology
 
 Some of the terms in this are "channels", "environments", and "packages".
 To read more about what these are, see [this page in the anaconda documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/index.html)
 
 
-## 2. Setting up environments
+## Setting up environments
 
 First it's a good idea to create an environment before installing 
 all of these packages. 
@@ -38,7 +38,7 @@ or you can simply specify a YAML formatted specification file.
 See [here](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html#managing-environments)
 for more on creating environments.
 
-### "Manual" environment creation
+## "Manual" environment creation
 
 Here I create an environment based on python version 3.7.
 
@@ -63,7 +63,7 @@ Note: I absolutely recommend using python versions greater than 3, and really >3
 is a good idea.
 Many packages no longer support versions <3, and 3 has a lot of convenient features.
 
-#### Add the conda-forge channel
+### Add the conda-forge channel
 
 In short, anaconda has a default channel where it provides many packages.
 However, a lot of the packages we need are on the conda-forge channel, which
@@ -92,11 +92,12 @@ One of the few reasons I can see to use the default channel is that
 numpy on the default channel is installed with Intel MKL packaged 
 BLAS routines, while conda-forge is installed with OpenBLAS.
 However, the conda-forge is relatively recently compatible with MKL, and
-this backend can be specified. See below for this footnote...
+this backend can be specified. 
+See notes at the bottom for more.
 
-conda create -y -n test -c conda-forge numpy libblas=*=*mkl
 
-#### Critical packages
+
+### Critical packages
 
 See [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands)
 for more on adding these packages "manually" in the command line.
@@ -109,7 +110,7 @@ type analysis, and are necessary for the following packages:
 - [xgcm](https://xgcm.readthedocs.io/en/latest/) 
 - [MITgcmutils](https://mitgcm.readthedocs.io/en/latest/utilities/utilities.html#mitgcmutils)
 
-#### Non-developer version
+### Non-developer version
 
 If you want to install the MITgcm related packages so that you can modify
 them as a developer, then you will need to clone the repo from GitHub
@@ -148,10 +149,10 @@ pip install MITgcmutils
 ```
 
 
-#### Developer version
+### Developer version
 
 For a "developer" version of this environment, where these MITgcm packages
-are cloned from GitHub, then omit the installation of . 
+are cloned from GitHub, then go here. 
 Please follow, for example, a developer workflow specified 
 [here from xmitgcm](https://xmitgcm.readthedocs.io/en/latest/development.html#develpment-workflow) (which includes a link discussing how to fork a repo).
 
@@ -184,8 +185,7 @@ but are not a bad idea:
 conda install fsspec zarr 
 ```
 
-
-#### Additional, cool packages
+### Additional, cool packages
 
 The following are not necessary
 but are cool packages
@@ -208,7 +208,7 @@ Note also the functionality could and should be wrapped into the ECCOv4-py packa
 and [there is some discussion about this](https://github.com/ECCO-GROUP/ECCOv4-py/issues/38),
 and we are happily accepting volunteers.
 
-#### Miniconda: TBD
+### Miniconda: TBD
 
 I haven't tried this with miniconda, 
 which is like anaconda but with no packages added by default.
@@ -220,7 +220,7 @@ conda install dask bottleneck
 
 you will likely need more though.
 
-### Creating an environment With a specification file
+## Creating an environment With a specification file
 
 See [py37-all.yml](https://github.com/timothyas/bash-envy/blob/master/conda/py37-all.yml) in this directory for a specification file and run
 
@@ -239,8 +239,21 @@ conda env create -f py37-dev.yml
 for whether you prefer to install the MITgcm related packages from
 conda/pip or from GitHub.
 
+## Notes
+
+### Install numpy from conda forge with MKL BLAS
+
+See [this issue](https://github.com/conda-forge/numpy-feedstock/issues/153)
+and create such an environment with
+
+```
+conda create -y -n test -c conda-forge numpy libblas=*=*mkl
+```
+
+But note that `update --all` will be tricky...
+
  
-## Debug notes
+### Debug corrupted packages
 
 
 If you have trouble with corrupted packages, like mkl, with messages like
