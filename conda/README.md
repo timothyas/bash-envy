@@ -220,7 +220,7 @@ conda install dask bottleneck
 
 you will likely need more though.
 
-## Creating an environment With a specification file
+## Creating an environment with a specification file
 
 See [py37-all.yml](https://github.com/timothyas/bash-envy/blob/master/conda/py37-all.yml) in this directory for a specification file and run
 
