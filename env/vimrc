@@ -35,7 +35,7 @@ if !exists("autocommands_loaded")
 	autocmd BufNewFile,BufRead *.rst set tw=80
 endif 
 
-if (HOSTNAMEENV ==? 'ekman')
+if (HOSTNAMEENV ==? 'ekman' || USERENV ==? 'tim') 
     " --- vim-plug ---
     " Specify a directory for plugins
     call plug#begin('~/.vim/plugged')
