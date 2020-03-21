@@ -57,7 +57,10 @@ conda activate myenv
 ```
 
 and note that any time that you want to use the packages we are soon to add,
-you will need to activate the environment (e.g. before launching a jupyter notebook).
+you will need to activate the environment.
+
+Be sure to see below for how to add this environment so it is visible
+in jupyter notebooks, this requires some extra steps.
 
 Note: I absolutely recommend using python versions greater than 3, and really >3.5 
 is a good idea.
@@ -119,7 +122,7 @@ them as a developer, then you will need to clone the repo from GitHub
 Otherwise, these can easily be installed as well: 
 
 ```
-conda install future xarray netCDF4 cartopy docrep pyresample cftime
+conda install future xarray netCDF4 cartopy docrep pyresample cftime ipykernel cachetools
 conda install xmitgcm xgcm
 ```
 
@@ -241,6 +244,23 @@ conda/pip or from GitHub.
 
 Note that these files assume that `MITgcmutils` is installed by pointing
 the `PYTHONPATH` to an MITgcm checkout.
+
+## Setup environment for Jupyter Notebooks
+
+After the environment is set up run the following:
+
+```
+conda activate myenv
+python -m ipykernel install --user --name=myenv
+```
+
+Now you should be able to see this as an option when creating new jupyter notebooks.
+First [start up a notebook](https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/execute.html),
+and click the "New" button in the top right corner with an arrow. 
+Your environment should be there.
+
+Alternatively, you can switch the kernel of an already opened notebook 
+by selecting the "Kernel" tab toward the top, and then "Change Kernel".
 
 ## Notes
 

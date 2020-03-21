@@ -19,5 +19,8 @@ dependencies:
     - pyresample
     - xmitgcm
     - xgcm
+    - cachetools
+    - ipykernel
+    - pip
     - pip:
         - ecco_v4_py
