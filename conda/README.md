@@ -239,6 +239,9 @@ conda env create -f py37-dev.yml
 for whether you prefer to install the MITgcm related packages from
 conda/pip or from GitHub.
 
+Note that these files assume that `MITgcmutils` is installed by pointing
+the `PYTHONPATH` to an MITgcm checkout.
+
 ## Notes
 
 ### Install numpy from conda forge with MKL BLAS
