@@ -43,12 +43,14 @@ for more on creating environments.
 Here I create an environment based on python version 3.7.
 
 ```
-conda env create -n myenv python=3.7 anaconda
+conda create -n myenv python=3.7
 ```
 
 Note you should swap out `myenv` with whatever you want to name
 this environment.
 Typically, I name based on python versions, e.g. py37. 
+This creates an environment with all the default anaconda packages, compatible 
+with the python version specified.
 
 and then "activate" this package as follows:
 
