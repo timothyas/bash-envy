@@ -41,11 +41,6 @@ export DISPLAY=':0'
 ### Colorize grep output unless being piped to file ###
 export GREP_OPTIONS='--color=auto'
 
-### Conda 
-source activate base
-conda deactivate
-conda activate base
-
 ## Commands
 export PS1='[tim \W]\$ '
 alias o='open'
