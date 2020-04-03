@@ -44,6 +44,8 @@ elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
 
     alias quss='squeue --reservation=ECCO19School'
 
+    export crios_dir=/scratch/projects/ecco
+
 elif [[ "$TACC_SYSTEM" == "frontera" ]] ; then
 
     ### Frontera specific ###
