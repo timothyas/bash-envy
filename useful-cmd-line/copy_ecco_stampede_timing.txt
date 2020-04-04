@@ -1,0 +1,90 @@
+ 
+
+
+--- Total time for 290GB
+
+real	14m20.826s
+user	0m0.206s
+sys	8m10.955s
+
+
+
+--- ECCOv4r2 --- 
+
+ --- copying forcing
+
+ size: 
+92G	/work/03754/tsmith/ecco-data/forcing_baseline2
+‘/work/03754/tsmith/ecco-data/forcing_baseline2’ -> ‘/scratch/projects/ecco/llc90/global/eccov4r2/forcing’
+ time: 
+238 sec
+
+
+ --- copying input obs
+
+ size: 
+25G	/work/03754/tsmith/ecco-data/inputs_baseline2
+‘/work/03754/tsmith/ecco-data/inputs_baseline2’ -> ‘/scratch/projects/ecco/llc90/global/eccov4r2/input_obs’
+ time: 
+70 sec
+
+
+ --- ECCOv4r3 --- 
+
+ --- copying forcing
+
+ size: 
+111G	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/input_forcing
+‘/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/input_forcing’ -> ‘/scratch/projects/ecco/llc90/global/eccov4r3/forcing’
+ time: 
+353 sec
+
+ --- copying input_obs
+
+ size: 
+15G	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/input_ecco
+‘/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/input_ecco’ -> ‘/scratch/projects/ecco/llc90/global/eccov4r3/input_obs’
+ time: 
+64 sec
+
+ --- copying ctrls
+
+ size: 
+142M	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/xx
+ time: 
+0 sec
+
+ --- copying namelist
+
+ size: 
+200K	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/input_init/NAMELIST
+ time: 
+0 sec
+
+ --- copying error weights
+
+ size: 
+185M	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/input_init/error_weight
+ time: 
+0 sec
+
+ --- copying profiles 30x30
+
+ size: 
+17G	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/profiles
+ time: 
+50 sec
+
+ --- copying profiles 15x30
+
+ size: 
+17G	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/profiles_15x30
+ time: 
+41 sec
+
+ --- copying profiles 45x45
+
+ size: 
+17G	/work/projects/aci/ECCO/community//ECCO/ECCOv4/Release3/input.ecco_v4r3/profiles_45x45
+ time: 
+43 sec
