@@ -6,7 +6,6 @@ channels:
   - conda-forge
 dependencies:
     - python=3.7
-    - esmpy
     - numpy
     - scipy
     - future
@@ -29,4 +28,3 @@ dependencies:
     - codecov
     - black
     - ipykernel
-    - xesmf
