@@ -174,14 +174,14 @@ export PYTHONPATH=$PYTHONPATH:/path/to/ECCOv4-py
 You'll need these packages as above:
 
 ```
-conda install future xarray netCDF4 cartopy docrep pyresample cftime
+conda install future xarray netCDF4 cartopy docrep pyresample cftime ipykernel cachetools
+conda install pytest-cov codecov black
 ```
 
-Additionally, you'll need the following dependent packages:
+Where the second line are helpful when submitting PRs to some packages 
+(for instance: `black` is a code formatter that `xgcm` uses, and all PRs will
+be smoother with this package).
 
-```
-conda install cachetools pytest-cov codecov black
-```
 
 I'm not sure if these are necessary for helping develop these packages,
 but are not a bad idea:
