@@ -124,7 +124,7 @@ them as a developer, then you will need to clone the repo from GitHub
 Otherwise, these can easily be installed as well: 
 
 ```
-conda install future xarray netCDF4 cartopy docrep pyresample cftime ipykernel cachetools
+conda install future xarray netCDF4 cartopy docrep pyresample cftime ipykernel cachetools dask
 conda install xmitgcm xgcm
 ```
 
@@ -174,7 +174,7 @@ export PYTHONPATH=$PYTHONPATH:/path/to/ECCOv4-py
 You'll need these packages as above:
 
 ```
-conda install future xarray netCDF4 cartopy docrep pyresample cftime ipykernel cachetools
+conda install future xarray netCDF4 cartopy docrep pyresample cftime ipykernel cachetools dask
 conda install pytest-cov codecov black
 ```
 
