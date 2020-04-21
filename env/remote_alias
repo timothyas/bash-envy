@@ -55,10 +55,9 @@ alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 #   1. Create a temporary function which takes in passed arguments
 #   2. unset the temp function after running the desired ssh command
 #   3. execute
-alias jupytersv='temporary_function(){
-    ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' -L localhost:8890:"$@":8890 sverdrup.oden.utexas.edu; 
-    unset -f temporary_function;}; 
-    temporary_function'
+jupytersv () {
+    ssh -p 8704 -i ~/.ssh/sverdrup_rsa $ssh_jump -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
+}
 
 ### Directories ###
 ###################
