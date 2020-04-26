@@ -21,3 +21,6 @@ export ow_ecco_flux_forced=/nobackupp7/owang/runs/Others/R3_fluxforced
 ## Commands
 alias qu='qstat -u tasmit12'
 export PS1='[\h \W]\$ '
+
+ulimit -s hard
+ulimit -u hard
