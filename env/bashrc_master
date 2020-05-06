@@ -38,7 +38,7 @@ export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:$PKG_CONFIG_PATH
 
 ### Add python modules ###
 # Note: for now, on mac and Ekman they are just in $WORK
-if [ -z $PYTHONPATH ] ; then
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
     if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
         export PYTHONPATH=$PYTHONPATH:$HOME/xgcm:$HOME/xmitgcm:$HOME/MITgcm-recipes
         export PYTHONPATH=$PYTHONPATH:$HOME/pych
