@@ -51,10 +51,7 @@ alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 
 ### Jupyter notebooks ###
 #########################
-# For compute node notebook, need to pass IP address
-#   1. Create a temporary function which takes in passed arguments
-#   2. unset the temp function after running the desired ssh command
-#   3. execute
+# For compute node notebook, need to pass port number and IP address
 jupytersv () {
     ssh -p 8704 -i ~/.ssh/sverdrup_rsa $ssh_jump -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
 }
