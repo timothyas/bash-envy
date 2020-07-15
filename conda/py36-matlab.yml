@@ -1,0 +1,33 @@
+# following xgcm ci environment specs
+# see: https://pip.pypa.io/en/stable/reference/pip_install/#git
+# for how to specify branches of repos
+name: matlab_py36
+channels:
+  - conda-forge
+dependencies:
+    - python=3.6
+    - numpy
+    - scipy
+    - future
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask
+    - cftime
+    - docrep
+    - cartopy
+    - pyresample
+    - cmocean
+    - datashader
+    - holoviews
+    - geoviews
+    - cachetools
+    - fsspec
+    - zarr
+    - pytest-cov 
+    - codecov
+    - black
+    - ipykernel
+    - pip
+    - pip:
+        - matlab_kernel
