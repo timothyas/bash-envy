@@ -1,11 +1,11 @@
 # following xgcm ci environment specs
 # see: https://pip.pypa.io/en/stable/reference/pip_install/#git
 # for how to specify branches of repos
-name: py37_all
+name: py38_all
 channels:
   - conda-forge
 dependencies:
-    - python=3.7
+    - python=3.8
     - numpy
     - scipy
     - future
@@ -21,6 +21,16 @@ dependencies:
     - xgcm
     - cachetools
     - ipykernel
+    - cmocean
+    - datashader
+    - holoviews
+    - geoviews
+    - cachetools
+    - fsspec
+    - zarr
+    - pytest-cov
+    - codecov
+    - black
     - pip
     - pip:
         - ecco_v4_py
