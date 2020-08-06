@@ -37,6 +37,7 @@ let HOSTNAMEENV=hostname()
 if !exists("autocommands_loaded")
 	let autocommands_loaded=1 
 	autocmd BufNewFile,BufRead *.tex set tw=80
+    autocmd BufNewFile,BufRead *.md set tw=80
 	autocmd BufNewFile,BufRead *.rst set tw=80
 endif 
 
