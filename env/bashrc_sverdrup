@@ -41,7 +41,7 @@ shopt -s direxpand
 umask 027
 
 ## Commands for interactive node and jupyter notebook
-alias interactive='srun -t 720 -N 1 -n 28 --pty bash -i'
+alias interactive='srun -t 1440 -N 1 -n 28 --pty bash -i'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
