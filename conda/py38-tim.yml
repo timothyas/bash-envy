@@ -14,7 +14,6 @@ dependencies:
     - bottleneck
     - dask
     - cftime
-    - docrep
     - cartopy
     - pyresample
     - cmocean
