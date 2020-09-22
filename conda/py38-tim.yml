@@ -27,5 +27,4 @@ dependencies:
     - codecov
     - black
     - ipykernel
-    - pip:
-        - docrep<=0.2.7
+    - docrep<=0.2.7
