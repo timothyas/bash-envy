@@ -277,6 +277,12 @@ conda create -y -n test -c conda-forge numpy libblas=*=*mkl
 
 But note that `update --all` will be tricky...
 
+Some more helpful links:
+
+- [BLAS distributions and numpy
+  performance](https://markus-beuckelmann.de/blog/boosting-numpy-blas.html)
+- [Specying BLAS in
+  yaml files](https://conda-forge.org/docs/maintainer/knowledge_base.html#blas)
  
 ### Debug corrupted packages
 
