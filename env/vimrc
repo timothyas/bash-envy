@@ -14,9 +14,12 @@ set incsearch "" incremental search
 
 filetype indent off
 
-" The following will allow vim to open to the last line viewed
+
 if has("autocmd")
+  " Allow vim to open to the last line viewed
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  " Remvoe trailing whitespace from Fortran, python files
+  autocmd FileType fortran,python autocmd BufWritePre <buffer> %s/\s\+$//e
 endif
 
 
