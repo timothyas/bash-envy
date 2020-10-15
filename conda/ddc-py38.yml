@@ -1,0 +1,34 @@
+name: ddc_py38
+channels:
+    - conda-forge
+dependencies:
+    - python=3.8
+# Basics
+    - numpy
+    - scipy
+    - future
+    - matplotlib
+# xarray et al
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask
+    - cftime
+# plotting resampling
+    - seaborn
+    - cartopy
+    - cmocean
+    - pyresample
+# ML
+    - networkx
+    - scikit-learn
+# CI
+    - coverage
+    - codecov
+# jupyter etc
+    - jupyter
+    - ipython
+    - ipykernel
+# Specify blas to use mkl
+    - mkl
+    - libblas=*=*mkl
