@@ -1,5 +1,8 @@
 #!/bin/bash 
 
+## Add AWS to path
+export PATH=$PATH:/scratch2/tsmith/aws-cli/v2/2.0.54/bin
+
 ## set terminal
 export TERM=xterm-256color
 
