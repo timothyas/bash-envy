@@ -41,6 +41,11 @@ dependencies:
     - h5py
     - hdf4
     - hdf5
+# docs
+    - sphinx
+    - sphinx_rtd_theme
+    - numpydoc
+    - nbsphinx
 # Specify blas to use mkl
     - mkl
     - libblas=*=*mkl
