@@ -69,6 +69,16 @@ umask 027
 ulimit -s hard
 ulimit -u hard
 
+### Add python packages from GitHub ###
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$WORK/../xgcm
+    export PYTHONPATH=$PYTHONPATH:$WORK/../xmitgcm
+    export PYTHONPATH=$PYTHONPATH:$WORK/../ECCOv4-py
+    export PYTHONPATH=$PYTHONPATH:$WORK/../pych
+    export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
+    export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
+fi
+
 ### MITgcm stuff 
 export NETCDF_BIN=$TACC_NETCDF_BIN
 export NETCDF_ROOT=$TACC_NETCDF_DIR

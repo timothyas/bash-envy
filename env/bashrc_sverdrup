@@ -26,6 +26,18 @@ export bash_envy=~/bash-envy
 export isomip=/scratch/tsmith/MITgcm/isomip-depth
 export SSCRATCH=/scratch2/tsmith
 
+### Add python packages from GitHub ###
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$HOME/xgcm
+    export PYTHONPATH=$PYTHONPATH:$HOME/xmitgcm
+    #export PYTHONPATH=$PYTHONPATH:$HOME/MITgcm-recipes
+    export PYTHONPATH=$PYTHONPATH:$HOME/pych
+    export PYTHONPATH=$PYTHONPATH:$HOME/ECCOv4-py
+    export PYTHONPATH=$PYTHONPATH:$HOME/rosy-pig
+    export PYTHONPATH=$PYTHONPATH:$HOME/xmovie
+    export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
+fi
+
 ## Commands
 export PS1='[\h \W]\$ '
 alias scpthorne='scp -P 8704'

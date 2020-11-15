@@ -17,6 +17,17 @@ export write_repo=$WORK/write-repo
 export bash_envy=$WORK/bash-envy
 export mitgcm=$WORK/MITgcm
 
+### Add python packages from GitHub ###
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$WORK/xgcm
+    export PYTHONPATH=$PYTHONPATH:$WORK/xmitgcm
+    export PYTHONPATH=$PYTHONPATH:$WORK/ECCOv4-py
+    export PYTHONPATH=$PYTHONPATH:$WORK/pych
+    export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
+    export PYTHONPATH=$PYTHONPATH:$WORK/xmovie
+    export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
+fi
+
 ### Ekman ###
 #############
 alias ekman='ssh -J tsmith@login1.oden.utexas.edu tsmith@ekman.oden.utexas.edu'

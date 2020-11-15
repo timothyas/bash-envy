@@ -36,30 +36,6 @@ export PATH=$HOME/local/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH:
 export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:$PKG_CONFIG_PATH
 
-### Add python modules ###
-# Note: for now, on mac and Ekman they are just in $WORK
-if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
-    if [[ "$HOSTNAME" == "sverdrup"* ]] ; then
-        export PYTHONPATH=$PYTHONPATH:$HOME/xgcm:$HOME/xmitgcm:$HOME/MITgcm-recipes
-        export PYTHONPATH=$PYTHONPATH:$HOME/pych
-        export PYTHONPATH=$PYTHONPATH:$HOME/ECCOv4-py
-        export PYTHONPATH=$PYTHONPATH:$HOME/rosy-pig
-        export PYTHONPATH=$PYTHONPATH:$HOME/xmovie
-    elif [[ "$HOSTNAME" == "login"* ]] ; then
-        export PYTHONPATH=$PYTHONPATH:$WORK/../xgcm:$WORK/../xmitgcm
-        export PYTHONPATH=$PYTHONPATH:$WORK/../ECCOv4-py
-        export PYTHONPATH=$PYTHONPATH:$WORK/../pych
-        export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
-    else
-        export PYTHONPATH=$PYTHONPATH:$WORK/xgcm:$WORK/xmitgcm
-        export PYTHONPATH=$PYTHONPATH:$WORK/ECCOv4-py
-        export PYTHONPATH=$PYTHONPATH:$WORK/pych
-        export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
-        export PYTHONPATH=$PYTHONPATH:$WORK/xmovie
-    fi
-    export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
-fi
-
 ### CVS Stuff ###
 export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
 export CVSEDITOR=vim
