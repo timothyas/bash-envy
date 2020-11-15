@@ -44,6 +44,7 @@ if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
         export PYTHONPATH=$PYTHONPATH:$HOME/pych
         export PYTHONPATH=$PYTHONPATH:$HOME/ECCOv4-py
         export PYTHONPATH=$PYTHONPATH:$HOME/rosy-pig
+        export PYTHONPATH=$PYTHONPATH:$HOME/xmovie
     elif [[ "$HOSTNAME" == "login"* ]] ; then
         export PYTHONPATH=$PYTHONPATH:$WORK/../xgcm:$WORK/../xmitgcm
         export PYTHONPATH=$PYTHONPATH:$WORK/../ECCOv4-py
