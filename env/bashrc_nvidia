@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+# Directories
+export bash_envy=$HOME/bash-envy
+
+### Refresh tmux environment variables ###
+. $bash_envy/env/refresh_tmux_env

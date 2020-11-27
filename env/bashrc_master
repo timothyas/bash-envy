@@ -25,6 +25,10 @@ elif [[ "$HOSTNAME" == *"corral"* ]] ; then
   
   . ~/bash-envy/env/bashrc_corral
 
+elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
+
+  . $HOME/bash-envy/env/bashrc_nvidia
+
 fi
 
 # -------------------------------------------------------------
