@@ -3,6 +3,11 @@
 
 # Directories
 export bash_envy=$HOME/bash-envy
+export PYTHONPATH=$PYTHONPATH:$HOME/data-driven-collab
+
+export SINGULARITY_BIND="/mnt/shared/sw-hackathons_csc/spack/opt/spack/linux-ubuntu18.04-broadwell/gcc-7.5.0/cuda-11.0.2-tfsinxuihgndizgg23rdhsaxqdbqukwi:/mnt/cuda-11.0,/usr/lib/x86_64-linux-gnu:/mnt/x86_64-linux-gnu,/mnt/shared/sw-hackathons_csc/spack/opt/spack/linux-ubuntu18.04-broadwell/gcc-7.5.0/cudnn-8.0.2.39-11.0-linux-x64-jegzsn7obinymdzv2jcabhmv5xh6fq6c:/mnt/cudnn-8.0"
+
+export PS1='[\[\033[01;32m\]\h\[\033[00m\] \[\033[01;34m\]\W\[\033[00m\]]\$ '
 
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
