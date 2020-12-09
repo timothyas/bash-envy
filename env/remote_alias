@@ -40,6 +40,9 @@ alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.ed
 ### SCP ###
 ###########
 
+# NOAA
+alias scpnoaa="scp -i ~/.ssh/mac76_rsa"
+
 # Oden
 alias scpsv="scp -P 8704 "$scp_jump" -i ~/.ssh/sverdrup_rsa"
 
