@@ -29,32 +29,40 @@ elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
 
   . $HOME/bash-envy/env/bashrc_nvidia
 
+elif [[ "$HOSTNAME" == "mac76" ]] ; then
+
+  . $HOME/work/bash-envy/env/bashrc_noaamac
+
 fi
 
 # -------------------------------------------------------------
 # All machines
 # -------------------------------------------------------------
 
-### Add local bin/lib to path ### 
-export PATH=$HOME/local/bin:$PATH
-export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH:
-export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:$PKG_CONFIG_PATH
+if [[ "$HOSTNAME" != "mac76" ]] ; then
+  ### Add local bin/lib to path ### 
+  export PATH=$HOME/local/bin:$PATH
+  export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH:
+  export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:$PKG_CONFIG_PATH
+  
+  ### CVS Stuff ###
+  export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
+  export CVSEDITOR=vim
 
-### CVS Stuff ###
-export CVSROOT=':pserver:cvsanon@mitgcm.org:/u/gcmpack'
-export CVSEDITOR=vim
+  alias cdc='cd $contrib'
+  alias cdm='cd $mitgcm'
+
+  if [[ "$HOSTNAME" != "ekman"* ]] ; then
+    alias cds='cd $SCRATCH'
+  fi
+fi
 
 ## Misc commands and specs ##
 alias cdh='cd $HOME'
 alias cdw='cd $WORK'
-alias cdc='cd $contrib'
-alias cdm='cd $mitgcm'
-if [[ "$HOSTNAME" != "ekman"* ]] ; then
-  alias cds='cd $SCRATCH'
-fi
 alias cdb='cd $bash_envy'
 
-if [ "$USER" != "tim" ] ; then
+if [ "$USER" != "tim" ] && [ "$HOSTNAME" != "mac76" ] ; then
     alias ls='ls --color=auto' 
 else
     alias ls='ls -G'

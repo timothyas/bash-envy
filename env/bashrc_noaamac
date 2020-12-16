@@ -1,0 +1,24 @@
+#! /bin/bash
+
+### Clear path before path_helper runs ###
+# see https://superuser.com/questions/544989/does-tmux-sort-the-path-variable/583502#583502
+#if [ -f /etc/profile ]; then
+#    PATH=""
+#    source /etc/profile
+#fi
+
+### Directories ###
+###################
+export WORK=/Users/tsmith/work
+export data=/Users/tsmith/data
+export bash_envy=$WORK/bash-envy
+
+## Path and LD_LIBRARY
+export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
+export PATH=/opt/anaconda3/bin:$PATH
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'
+
+## Commands
+export PS1='[noaa \W]\$ '
