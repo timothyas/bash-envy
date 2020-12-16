@@ -1,4 +1,4 @@
-name: ddc_py38
+name: ddc
 channels:
     - conda-forge
 dependencies:
