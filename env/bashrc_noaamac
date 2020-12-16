@@ -13,6 +13,7 @@ export WORK=/Users/tsmith/work
 export data=/Users/tsmith/data
 export bash_envy=$WORK/bash-envy
 
+
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
 export PATH=/opt/anaconda3/bin:$PATH
