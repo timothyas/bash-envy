@@ -7,6 +7,12 @@ if [ -f /etc/profile ]; then
     source /etc/profile
 fi
 
+# Ignore zsh message
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# git bash completion
+source /usr/local/etc/bash_completion.d/git-completion.bash
+
 ### Directories ###
 ###################
 export HOME=/Users/tim
@@ -26,6 +32,7 @@ if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/rosy-pig
     export PYTHONPATH=$PYTHONPATH:$WORK/xmovie
     export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
+    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
 fi
 
 ### Ekman ###

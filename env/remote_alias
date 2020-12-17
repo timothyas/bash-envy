@@ -62,6 +62,8 @@ jupytersv () {
     ssh -p 8704 -i ~/.ssh/sverdrup_rsa $ssh_jump -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
 }
 
+alias noaanote="ssh -i ~/.ssh/mac76_rsa -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
+
 ### Directories ###
 ###################
 
