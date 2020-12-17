@@ -14,6 +14,7 @@ dependencies:
     - bottleneck
     - dask
     - cftime
+    - docrep<=0.2.7
 # plotting resampling
     - seaborn
     - cartopy
