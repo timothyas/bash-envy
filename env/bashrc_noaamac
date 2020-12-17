@@ -7,6 +7,9 @@
 #    source /etc/profile
 #fi
 
+# Ignore zsh message
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 ### Directories ###
 ###################
 export WORK=/Users/tsmith/work
