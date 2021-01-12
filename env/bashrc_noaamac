@@ -19,6 +19,7 @@ export bash_envy=$WORK/bash-envy
 ## Python
 if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/pych
+    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
     export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
     export PYTHONPATH=$PYTHONPATH:$WORK/xgcm
 fi
