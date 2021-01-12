@@ -15,6 +15,8 @@ set incsearch "" incremental search
 filetype indent off
 
 
+
+
 if has("autocmd")
   " Allow vim to open to the last line viewed
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -54,4 +56,9 @@ if (HOSTNAMEENV ==? 'ekman' || USERENV ==? 'tim')
     
     " Initialize plugin system
     call plug#end()
+endif
+
+if (HOSTNAMEENV ==? 'mac76' )
+    " weird, delete not working in mac vim
+    set backspace=indent,eol,start
 endif
