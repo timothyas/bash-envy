@@ -16,6 +16,7 @@ dependencies:
     - bottleneck
     - dask
     - cftime
+    - nc-time-axis>=1.2.0
 # plotting resampling
     - cartopy
     - cmocean
