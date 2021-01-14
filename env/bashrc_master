@@ -33,13 +33,17 @@ elif [[ "$HOSTNAME" == "mac76" ]] ; then
 
   . $HOME/work/bash-envy/env/bashrc_noaamac
 
+elif [[ "$HOSTNAME" == "hfe"* ]] ; then
+
+  . $HOME/bash-envy/env/bashrc_hera
+
 fi
 
 # -------------------------------------------------------------
 # All machines
 # -------------------------------------------------------------
 
-if [[ "$HOSTNAME" != "mac76" ]] ; then
+if [[ "$HOSTNAME" != "mac76" && "$HOSTNAME" != "hfe"* ]] ; then
   ### Add local bin/lib to path ### 
   export PATH=$HOME/local/bin:$PATH
   export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH:
