@@ -17,6 +17,9 @@ fi
 # NOAA
 alias noaamac='ssh -i ~/.ssh/mac76_rsa tsmith@mac76.psd.esrl.noaa.gov'
 
+# Hera
+alias hera='ssh Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov'
+
 # Oden
 alias sverdrup='ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.oden.utexas.edu'
 alias amundsen='ssh -p 8704 '$ssh_jump' tsmith@amundsen.oden.utexas.edu'
