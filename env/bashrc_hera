@@ -20,4 +20,8 @@ alias cds='cd $SCRATCH'
 export GREP_OPTIONS='--color=auto'
 
 ## Commands
-export PS1='[hera \W]\$ '
+if [[ -z "$SLURM_JOB_PARTITION" ]] ; then
+    export PS1='[hera \W]\$ '
+else
+    export PS1='[$SLURM_JOB_PARTITION \W]\$ '
+fi
