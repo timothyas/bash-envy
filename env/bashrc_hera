@@ -1,7 +1,7 @@
 
 ### Directories ###
 ###################
-export SCRATCH=/scratch2/BMC/refcst2/Tim.Smith
+export SCRATCH=/scratch2/RDARCH/rda-ddm/Tim.Smith
 export bash_envy=$HOME/bash-envy
 
 ### aliases ###
