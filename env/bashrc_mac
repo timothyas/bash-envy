@@ -33,6 +33,7 @@ if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/xmovie
     export PYTHONPATH=$PYTHONPATH:$mitgcm/utils/python/MITgcmutils
     export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
+    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
 fi
 
 ### Ekman ###
