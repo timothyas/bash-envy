@@ -44,7 +44,7 @@ alias lpq3='lpq -P cp3se'
 alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 
 ### Link to Sverdrup ###
-alias sv-sshfs="sshfs -p 8704 -o IdentityFile=~/.ssh/id_rsa sverdrup.oden.utexas.edu:/home/tsmith /workspace/sv-mnt"
+alias sv-sshfs="sshfs -o IdentityFile=~/.ssh/id_rsa sverdrup.oden.utexas.edu:/home/tsmith /workspace/sv-mnt"
 
 ### Modules ###
 module load ubt18 intel
