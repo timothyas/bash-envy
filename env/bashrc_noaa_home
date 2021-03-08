@@ -1,0 +1,61 @@
+#! /bin/zsh
+
+### Clear path before path_helper runs ###
+# see https://superuser.com/questions/544989/does-tmux-sort-the-path-variable/583502#583502
+if [ -f /etc/profile ]; then
+    PATH=""
+    source /etc/profile
+fi
+
+# Get MacPorts stuff
+export PATH=$PATH:/opt/local/bin
+
+## git bash completion
+# would be nice to have this installed, not sure what the dbus
+# completion is, leaving it here for future reference
+#source /opt/local/etc/bash_completion.d/dbus-bash-completion.sh
+
+### Directories ###
+###################
+export HOME=/Users/tsmith
+export WORK=/Users/tsmith/work
+export bash_envy=$WORK/bash-envy
+
+### Add python packages from GitHub ###
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$WORK/pych
+    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
+    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
+fi
+
+### Remote servers ###
+######################
+. $bash_envy/env/remote_alias
+
+### Refresh tmux environment variables ###
+. $bash_envy/env/refresh_tmux_env
+
+### Refresh mac display specifically
+export DISPLAY=':0'
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'
+
+## Commands
+export PS1='[tim \W]$ '
+alias o='open'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

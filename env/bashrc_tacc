@@ -11,6 +11,8 @@ module load TACC
 
 if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
 
+    export nickname='ls5'
+
     ### Lonestar 5 specific ###
     module load intel
     module load cray_mpich
@@ -30,6 +32,8 @@ if [[ "$TACC_SYSTEM" == "ls5" ]] ; then
 
 elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
 
+    export nickname='stampede2'
+
     ### Stampede 2 specific ###
     module load intel/18.0.2 impi/18.0.2
     module load netcdf/4.3.3.1
@@ -48,6 +52,8 @@ elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
 
 elif [[ "$TACC_SYSTEM" == "frontera" ]] ; then
 
+    export nickname='frontera'
+
     ### Frontera specific ###
     module load intel impi
     module load netcdf
@@ -57,6 +63,7 @@ elif [[ "$TACC_SYSTEM" == "frontera" ]] ; then
 
 else 
 
+    export nickname='stampede'
     ### Stampede 1 specific ###
     module load mvapich2
 fi

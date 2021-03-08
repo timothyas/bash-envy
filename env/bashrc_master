@@ -1,49 +1,77 @@
 #!/bin/bash
 
+export nickname=''
+export work_type=''
 
-if [[ "$HOSTNAME" == "login"* ]] ; then
+if [ "$USER" == "tim" ] ; then
 
-  . /work/03754/tsmith/bash-envy/env/bashrc_tacc
+    export nickname='home'
+    export work_type='phdpostdoc'
+    . /Users/tim/work/bash-envy/env/bashrc_home
 
-elif [[ "$HOSTNAME" == "pfe"* ]] ; then
+# -------------------------------------------------------------
+# Postdoc machines
+# -------------------------------------------------------------
+elif [[ "$HOSTNAME" == "Tims-MacBook-Pro.local" ]] ; then
 
-  . /nobackupp2/tasmit12/bash-envy/env/bashrc_pfe
-
-elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
-
-  . /home/tsmith/bash-envy/env/bashrc_sverdrup
-
-elif [[ "$HOSTNAME" == "ekman"* ]] ; then
-
-  source /workspace/bash-envy/env/bashrc_ekman
-
-elif [ "$USER" == "tim" ] ; then
-
-  . /Users/tim/work/bash-envy/env/bashrc_mac
-
-elif [[ "$HOSTNAME" == *"corral"* ]] ; then 
-  
-  . ~/bash-envy/env/bashrc_corral
-
-elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
-
-  . $HOME/bash-envy/env/bashrc_nvidia
+    export nickname='noaa_home'
+    export work_type='postdoc'
+    . /Users/tsmith/work/bash-envy/env/bashrc_noaa_home
 
 elif [[ "$HOSTNAME" == "mac76" ]] ; then
 
-  . $HOME/work/bash-envy/env/bashrc_noaamac
+    export nickname='noaa_psl'
+    export work_type='postdoc'
+    . /Users/tsmith/work/bash-envy/env/bashrc_noaa_psl
 
 elif [[ "$HOSTNAME" == "hfe"* ]] ; then
 
-  . $HOME/bash-envy/env/bashrc_hera
+    export nickname='hera'
+    export work_type='postdoc'
+    . $HOME/bash-envy/env/bashrc_hera
+
+elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
+
+    export nickname='nvidia'
+    export work_type='postdoc'
+    . $HOME/bash-envy/env/bashrc_nvidia
+
+
+# -------------------------------------------------------------
+# PhD machines
+# -------------------------------------------------------------
+elif [[ "$HOSTNAME" == "ekman"* ]] ; then
+
+    export nickname='ekman'
+    export work_type='phd'
+    source /workspace/bash-envy/env/bashrc_ekman
+
+elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
+
+    export nickname='sverdrup'
+    export work_type='phd'
+    . /home/tsmith/bash-envy/env/bashrc_sverdrup
+
+elif [[ "$HOSTNAME" == "login"* ]] ; then
+
+    export work_type='phd'
+    . /work/03754/tsmith/bash-envy/env/bashrc_tacc
+
+elif [[ "$HOSTNAME" == "pfe"* ]] ; then
+
+    export nickname='pleiades'
+    export work_type='phd'
+    . /nobackupp2/tasmit12/bash-envy/env/bashrc_pfe
+
+elif [[ "$HOSTNAME" == *"corral"* ]] ; then 
+  
+    export nickname='corral'
+    export work_type='phd'
+    . ~/bash-envy/env/bashrc_corral
 
 fi
 
-# -------------------------------------------------------------
-# All machines
-# -------------------------------------------------------------
-
-if [[ "$HOSTNAME" != "mac76" && "$HOSTNAME" != "hfe"* ]] ; then
+if [[ "$nickname" == "phd"* ]] ; then
   ### Add local bin/lib to path ### 
   export PATH=$HOME/local/bin:$PATH
   export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH:
@@ -61,12 +89,14 @@ if [[ "$HOSTNAME" != "mac76" && "$HOSTNAME" != "hfe"* ]] ; then
   fi
 fi
 
-## Misc commands and specs ##
+# -------------------------------------------------------------
+# All machines
+# -------------------------------------------------------------
 alias cdh='cd $HOME'
 alias cdw='cd $WORK'
 alias cdb='cd $bash_envy'
 
-if [ "$USER" != "tim" ] && [ "$HOSTNAME" != "mac76" ] ; then
+if [[ "$OSTYPE" != "darwin19" ]] ; then
     alias ls='ls --color=auto' 
 else
     alias ls='ls -G'
