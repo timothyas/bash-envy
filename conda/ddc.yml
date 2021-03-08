@@ -12,7 +12,9 @@ dependencies:
     - xarray
     - netCDF4
     - bottleneck
-    - dask
+    - dask[complete]
+    - graphviz
+    - python-graphviz
     - cftime
     - docrep<=0.2.7
     - xrft
