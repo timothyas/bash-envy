@@ -10,9 +10,6 @@ fi
 # Ignore zsh message
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-# Get MacPorts stuff
-export PATH=$PATH:/opt/local/bin
-
 ## git bash completion
 # would be nice to have this installed, not sure what the dbus
 # completion is, leaving it here for future reference
