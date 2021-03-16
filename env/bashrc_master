@@ -71,7 +71,7 @@ elif [[ "$HOSTNAME" == *"corral"* ]] ; then
 
 fi
 
-if [[ "$nickname" == "phd"* ]] ; then
+if [[ "$work_type" == *"phd"* ]] ; then
   ### Add local bin/lib to path ### 
   export PATH=$HOME/local/bin:$PATH
   export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH:
@@ -84,7 +84,7 @@ if [[ "$nickname" == "phd"* ]] ; then
   alias cdc='cd $contrib'
   alias cdm='cd $mitgcm'
 
-  if [[ "$HOSTNAME" != "ekman"* ]] ; then
+  if [[ "$nickname" != "ekman" ]] ; then
     alias cds='cd $SCRATCH'
   fi
 fi
