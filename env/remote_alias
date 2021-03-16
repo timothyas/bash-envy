@@ -67,6 +67,10 @@ jupytersv () {
 
 alias noaanote="ssh -i ~/.ssh/mac76_rsa -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
 
+noaaport (){
+    ssh -i ~/.ssh/mac76_rsa -L localhost:$1:localhost:$2 tsmith@mac76.psd.esrl.noaa.gov
+}
+
 ### Directories ###
 ###################
 
