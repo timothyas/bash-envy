@@ -17,10 +17,6 @@ export bash_envy=/workspace/bash-envy
 export pig='/workspace/ase-adjoint/pig/generic'
 export ase='/workspace/ase-adjoint'
 
-### Remote servers ###
-######################
-. $bash_envy/env/remote_alias
-
 
 ### Add python packages from GitHub ###
 if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then

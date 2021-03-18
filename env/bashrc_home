@@ -47,9 +47,6 @@ alias scpek="scp -o 'ProxyJump tsmith@login1.oden.utexas.edu'"
 
 export thamoc=/workspace/gcm-contrib/samoc
 
-### Remote servers ###
-######################
-. $bash_envy/env/remote_alias
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin

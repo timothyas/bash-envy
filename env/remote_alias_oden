@@ -2,7 +2,7 @@
 
 
 # Define jump option for ssh to Oden from MAC
-if [ "$USER" == "tim" ] ; then
+if [[ "$nickname" == "home" ]] ; then
     # On mac
     export ssh_jump='-J tsmith@login1.oden.utexas.edu'
     export scp_jump="-o 'ProxyJump tsmith@login1.oden.utexas.edu'"
@@ -11,14 +11,9 @@ else
     export scp_jump=''
 fi
 
+
 ### SSH ###
 ###########
-
-# NOAA
-alias noaamac='ssh -i ~/.ssh/mac76_rsa tsmith@mac76.psd.esrl.noaa.gov'
-
-# Hera
-alias hera='ssh Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov'
 
 # Oden
 alias sverdrup='ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.oden.utexas.edu'
@@ -43,9 +38,6 @@ alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.ed
 ### SCP ###
 ###########
 
-# NOAA
-alias scpnoaa="scp -i ~/.ssh/mac76_rsa"
-
 # Oden
 alias scpsv="scp -P 8704 "$scp_jump" -i ~/.ssh/sverdrup_rsa"
 
@@ -65,11 +57,6 @@ jupytersv () {
     ssh -p 8704 -i ~/.ssh/sverdrup_rsa $ssh_jump -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
 }
 
-alias noaanote="ssh -i ~/.ssh/mac76_rsa -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
-
-noaaport (){
-    ssh -i ~/.ssh/mac76_rsa -L localhost:$1:localhost:$2 tsmith@mac76.psd.esrl.noaa.gov
-}
 
 ### Directories ###
 ###################

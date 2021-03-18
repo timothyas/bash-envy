@@ -28,10 +28,6 @@ if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
 fi
 
-### Remote servers ###
-######################
-. $bash_envy/env/remote_alias
-
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
 

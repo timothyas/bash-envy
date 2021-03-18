@@ -7,7 +7,9 @@ if [ "$USER" == "tim" ] ; then
 
     export nickname='home'
     export work_type='phdpostdoc'
-    . /Users/tim/work/bash-envy/env/bashrc_home
+    source /Users/tim/work/bash-envy/env/bashrc_home
+    source $bash_envy/env/remote_alias_oden
+    source $bash_envy/env/remote_alias_noaa
 
 # -------------------------------------------------------------
 # Postdoc machines
@@ -16,26 +18,27 @@ elif [[ "$HOSTNAME" == "Tims-MacBook-Pro.local" ]] ; then
 
     export nickname='noaa_home'
     export work_type='postdoc'
-    . /Users/tsmith/work/bash-envy/env/bashrc_noaa_home
+    source /Users/tsmith/work/bash-envy/env/bashrc_noaa_home
+    source $bash_envy/env/remote_alias_noaa
 
 elif [[ "$HOSTNAME" == "mac76" ]] ; then
 
     export nickname='noaa_psl'
     export work_type='postdoc'
-    . /Users/tsmith/work/bash-envy/env/bashrc_noaa_psl
+    source /Users/tsmith/work/bash-envy/env/bashrc_noaa_psl
+    source $bash_envy/env/remote_alias_noaa
 
 elif [[ "$HOSTNAME" == "hfe"* ]] ; then
 
     export nickname='hera'
     export work_type='postdoc'
-    . $HOME/bash-envy/env/bashrc_hera
+    source $HOME/bash-envy/env/bashrc_hera
 
 elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
 
     export nickname='nvidia'
     export work_type='postdoc'
-    . $HOME/bash-envy/env/bashrc_nvidia
-
+    source $HOME/bash-envy/env/bashrc_nvidia
 
 # -------------------------------------------------------------
 # PhD machines
@@ -45,29 +48,30 @@ elif [[ "$HOSTNAME" == "ekman"* ]] ; then
     export nickname='ekman'
     export work_type='phd'
     source /workspace/bash-envy/env/bashrc_ekman
+    source $bash_envy/env/remote_alias_oden
 
 elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 
     export nickname='sverdrup'
     export work_type='phd'
-    . /home/tsmith/bash-envy/env/bashrc_sverdrup
+    source /home/tsmith/bash-envy/env/bashrc_sverdrup
 
 elif [[ "$HOSTNAME" == "login"* ]] ; then
 
     export work_type='phd'
-    . /work/03754/tsmith/bash-envy/env/bashrc_tacc
+    source /work/03754/tsmith/bash-envy/env/bashrc_tacc
 
 elif [[ "$HOSTNAME" == "pfe"* ]] ; then
 
     export nickname='pleiades'
     export work_type='phd'
-    . /nobackupp2/tasmit12/bash-envy/env/bashrc_pfe
+    source /nobackupp2/tasmit12/bash-envy/env/bashrc_pfe
 
 elif [[ "$HOSTNAME" == *"corral"* ]] ; then 
   
     export nickname='corral'
     export work_type='phd'
-    . ~/bash-envy/env/bashrc_corral
+    source ~/bash-envy/env/bashrc_corral
 
 fi
 

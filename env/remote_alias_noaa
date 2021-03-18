@@ -1,0 +1,29 @@
+#!/bin/bash
+
+### SSH ###
+###########
+
+# NOAA
+alias noaamac='ssh -i ~/.ssh/mac76_rsa tsmith@mac76.psd.esrl.noaa.gov'
+
+# Hera
+alias hera='ssh Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov'
+
+
+### SCP ###
+###########
+
+# NOAA
+alias scpnoaa="scp -i ~/.ssh/mac76_rsa"
+
+
+### Jupyter notebooks ###
+#########################
+alias noaanote="ssh -i ~/.ssh/mac76_rsa -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
+
+noaaport (){
+    ssh -i ~/.ssh/mac76_rsa -L localhost:$1:localhost:$2 tsmith@mac76.psd.esrl.noaa.gov
+}
+
+### Directories ###
+###################
