@@ -1,28 +1,34 @@
 #!/bin/bash
 
+if [[ "$nickname" == "home" ]] ; then
+    export sshfile=~/.ssh/mac76_rsa
+elif [[ "$nickname" == "noaa_home" ]] ; then
+    export sshfile=~/.ssh/mac76_ed25519
+fi
+
 ### SSH ###
 ###########
 
 # NOAA
-alias noaamac='ssh -i ~/.ssh/mac76_rsa tsmith@mac76.psd.esrl.noaa.gov'
+alias noaamac="ssh -i ${sshfile} tsmith@mac76.psd.esrl.noaa.gov"
 
 # Hera
-alias hera='ssh Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov'
+alias hera="ssh Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov"
 
 
 ### SCP ###
 ###########
 
 # NOAA
-alias scpnoaa="scp -i ~/.ssh/mac76_rsa"
+alias scpnoaa="scp -i ${sshfile}"
 
 
 ### Jupyter notebooks ###
 #########################
-alias noaanote="ssh -i ~/.ssh/mac76_rsa -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
+alias noaanote="ssh -i ${sshfile} -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
 
 noaaport (){
-    ssh -i ~/.ssh/mac76_rsa -L localhost:$1:localhost:$2 tsmith@mac76.psd.esrl.noaa.gov
+    ssh -i ${sshfile} -L localhost:$1:localhost:$2 tsmith@mac76.psd.esrl.noaa.gov
 }
 
 ### Directories ###
