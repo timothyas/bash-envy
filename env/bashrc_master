@@ -34,6 +34,12 @@ elif [[ "$HOSTNAME" == "hfe"* ]] ; then
     export work_type='postdoc'
     source $HOME/bash-envy/env/bashrc_hera
 
+elif [[ "$HOSTNAME" == "linux"*".psd.esrl.noaa.gov" ]] ; then
+
+    export nickname='psl_linux'
+    export work_type='postdoc'
+    source /home/tsmith/work/bash-envy/env/bashrc_psl_linux
+
 elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
 
     export nickname='nvidia'

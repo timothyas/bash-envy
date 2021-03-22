@@ -1,0 +1,16 @@
+#! /bin/bash
+
+### Directories ###
+###################
+export WORK=/home/tsmith/work
+export data=/home/tsmith/data
+export bash_envy=$WORK/bash-envy
+
+## Python
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
+    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
+fi
+
+## Commands
+export PS1='[$nickname \W]\$ '
