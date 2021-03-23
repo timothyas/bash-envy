@@ -12,5 +12,8 @@ if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
 fi
 
+## Add tmux to path
+export PATH=$PATH:$WORK/tmux
+
 ## Commands
 export PS1='[$nickname \W]\$ '
