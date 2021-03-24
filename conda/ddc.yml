@@ -13,6 +13,7 @@ dependencies:
     - netCDF4
     - bottleneck
     - dask[complete]
+    - dask-jobqueue
     - graphviz
     - python-graphviz
     - cftime
