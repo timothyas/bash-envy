@@ -5,6 +5,7 @@ if [[ "$nickname" == "home" ]] ; then
 elif [[ "$nickname" == "noaa_home" ]] ; then
     export psl_mac_sshfile=~/.ssh/mac76_ed25519
     export psl_linux_sshfile=~/.ssh/psl_linux_rsa
+    export apollo_sshfile=~/.ssh/apollo_ed25519
 fi
 
 ### SSH ###
@@ -20,21 +21,36 @@ alias hera="ssh Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov"
 alias linux1024="ssh tsmith@linux1024.psd.esrl.noaa.gov"
 alias linux512="ssh tsmith@linux512.psd.esrl.noaa.gov"
 
+# apollo
+alias apollo="ssh -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.gov"
+
 
 ### SCP ###
 ###########
 
-# NOAA
+# PSL Mac
 alias scpnoaa="scp -i ${psl_mac_sshfile}"
+
+alias scpapollo="scp -i ${apollo_sshfile}"
 
 
 ### Jupyter notebooks ###
 #########################
 alias noaanote="ssh -i ${psl_mac_sshfile} -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
+alias linuxnote="ssh -L localhost:8890:localhost:8890 tsmith@linux1024.psd.esrl.noaa.gov"
 
 noaaport (){
     ssh -i ${psl_mac_sshfile} -L localhost:$1:localhost:$2 tsmith@mac76.psd.esrl.noaa.gov
 }
+
+linuxport (){
+    ssh -L localhost:$1:localhost:$2 tsmith@linux1024.psd.esrl.noaa.gov
+}
+
+apolloport (){
+    ssh -i ${apollo_sshfile} -L localhost:$1:192.168.1.15:$2 tsmith@apollo1-headnode2.psd.esrl.noaa.gov
+}
+
 
 ### Directories ###
 ###################
