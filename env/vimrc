@@ -58,7 +58,7 @@ if (HOSTNAMEENV ==? 'ekman' || USERENV ==? 'tim')
     call plug#end()
 endif
 
-if (HOSTNAMEENV ==? 'mac76' )
+if ($nickname ==? 'noaa_psl' || $nickname ==? 'noaa_home' )
     " weird, delete not working in mac vim
     set backspace=indent,eol,start
 endif
