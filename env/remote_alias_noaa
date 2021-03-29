@@ -28,10 +28,31 @@ alias apollo="ssh -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.go
 ### SCP ###
 ###########
 
-# PSL Mac
-alias scpnoaa="scp -i ${psl_mac_sshfile}"
+# send out
+scp-to-psl(){
+    scp -i ${psl_mac_sshfile} $1 tsmith@mac76.psd.esrl.noaa.gov:$2
+}
 
-alias scpapollo="scp -i ${apollo_sshfile}"
+scp-to-apollo(){
+    scp -i ${apollo_sshfile} $1 tsmith@apollo1-headnode2.psd.esrl.noaa.gov:$2
+}
+
+scp-to-hera(){
+    scp $1 Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov:$2
+}
+
+# send here
+scp-from-psl(){
+    scp -i ${psl_mac_sshfile} tsmith@mac76.psd.esrl.noaa.gov:$1 $2
+}
+
+scp-from-apollo(){
+    scp -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.gov:$1 $2
+}
+
+scp-from-hera(){
+    scp Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov$1 $2
+}
 
 
 ### Jupyter notebooks ###
