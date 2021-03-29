@@ -9,12 +9,10 @@ export bash_envy=$HOME/bash-envy
 alias cds='cd $SCRATCH'
 
 ## Python
-#if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
-#    export PYTHONPATH=$PYTHONPATH:$WORK/pych
-#    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
-#    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
-#    export PYTHONPATH=$PYTHONPATH:$WORK/xgcm
-#fi
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$SCRATCH/ddhf
+    export PYTHONPATH=$PYTHONPATH:$SCRATCH/data-driven-collab
+fi
 
 ### Colorize grep output unless being piped to file ###
 export GREP_OPTIONS='--color=auto'
@@ -25,3 +23,8 @@ if [[ -z "$SLURM_JOB_PARTITION" ]] ; then
 else
     export PS1='[$SLURM_JOB_PARTITION \W]\$ '
 fi
+
+alias qu='squeue -u Tim.Smith'
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand
