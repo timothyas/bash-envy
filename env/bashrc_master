@@ -118,3 +118,10 @@ else
     alias ls='ls -G'
 fi
 alias ll='ls -alh'
+
+# get tmux version here
+if [[ "$nickname" != "psl_linux" ]] ; then
+    export TMUX_VERSION=`tmux -V | cut -c 6-`
+else
+    export TMUX_VERSION=`tmux -V | cut -c 11-13`
+fi
