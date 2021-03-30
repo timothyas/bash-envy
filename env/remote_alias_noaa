@@ -69,7 +69,7 @@ linuxport (){
 }
 
 apolloport (){
-    ssh -i ${apollo_sshfile} -L localhost:$1:192.168.1.15:$2 tsmith@apollo1-headnode2.psd.esrl.noaa.gov
+    ssh -i ${apollo_sshfile} -L localhost:$1:192.168.1.$2:$3 tsmith@apollo1-headnode2.psd.esrl.noaa.gov
 }
 
 
