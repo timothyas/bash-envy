@@ -19,7 +19,7 @@ export GREP_OPTIONS='--color=auto'
 
 ## Commands
 if [[ -z "$SLURM_JOB_PARTITION" ]] ; then
-    export PS1='[hera \W]\$ '
+    export PS1='[\h \W]\$ '
 else
     export PS1='[$SLURM_JOB_PARTITION \W]\$ '
 fi
