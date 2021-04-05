@@ -3,10 +3,14 @@
 ###################
 export SCRATCH=/scratch2/RDARCH/rda-ddm/Tim.Smith
 export bash_envy=$HOME/bash-envy
+export container=/scratch2/RDARCH/rda-ddm/containers/ddc_latest.sif
+
 
 ### aliases ###
 ###############
 alias cds='cd $SCRATCH'
+alias qu='squeue -u Tim.Smith'
+alias interactive='srun --nodes=1 --ntasks=1 --time=00:30:00 --partition=fge --qos=debug --account=rda-ddm --pty /bin/bash'
 
 ## Python
 if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
@@ -17,14 +21,13 @@ fi
 ### Colorize grep output unless being piped to file ###
 export GREP_OPTIONS='--color=auto'
 
-## Commands
+## PS1
 if [[ -z "$SLURM_JOB_PARTITION" ]] ; then
     export PS1='[\h \W]\$ '
 else
     export PS1='[$SLURM_JOB_PARTITION \W]\$ '
 fi
 
-alias qu='squeue -u Tim.Smith'
 
 ### Expand environment variables in tab completion ###
 shopt -s direxpand
