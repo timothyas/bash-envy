@@ -6,6 +6,7 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export psl_mac_sshfile=~/.ssh/mac76_ed25519
     export psl_linux_sshfile=~/.ssh/psl_linux_rsa
     export apollo_sshfile=~/.ssh/apollo_ed25519
+    export hera_sshfile=~/.ssh/hera_rsa
 fi
 
 ### SSH ###
@@ -15,7 +16,7 @@ fi
 alias noaamac="ssh -i ${psl_mac_sshfile} tsmith@mac76.psd.esrl.noaa.gov"
 
 # Hera
-alias hera="ssh Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov"
+alias hera="ssh -i ${hera_sshfile} -XL 2169:localhost:2169 Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov"
 
 # linux twins
 alias linux1024="ssh tsmith@linux1024.psd.esrl.noaa.gov"
@@ -70,6 +71,10 @@ linuxport (){
 
 apolloport (){
     ssh -i ${apollo_sshfile} -L localhost:$1:192.168.1.$2:$3 tsmith@apollo1-headnode2.psd.esrl.noaa.gov
+}
+
+heraport (){
+    ssh -i ${hera_sshfile} -p 2169 -L $1:$2:$3 Tim.Smith@localhost
 }
 
 
