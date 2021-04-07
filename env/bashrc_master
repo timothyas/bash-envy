@@ -71,7 +71,7 @@ elif [[ "$HOSTNAME" == "sverdrup"* ]] ; then
 elif [[ "$HOSTNAME" == "login"* ]] ; then
 
     export work_type='phd'
-    source /work/03754/tsmith/bash-envy/env/bashrc_tacc
+    source /work2/03754/tsmith/bash-envy/env/bashrc_tacc
 
 elif [[ "$HOSTNAME" == "pfe"* ]] ; then
 

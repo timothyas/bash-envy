@@ -49,6 +49,11 @@ elif [[ "$TACC_SYSTEM" == "stampede2" ]] ; then
     alias quss='squeue --reservation=ECCO19School'
 
     export crios_dir=/scratch/projects/ecco
+    export WORK1=$WORK
+    export STOCKYARD1=$STOCKYARD
+
+    export WORK=$WORK2
+    export STOCKYARD=$STOCKYARD2
 
 elif [[ "$TACC_SYSTEM" == "frontera" ]] ; then
 
@@ -93,10 +98,8 @@ export NETCDF_INC=$TACC_NETCDF_INC
 export NETCDF_LIB=$TACC_NETCDF_LIB
 
 ### Directories
-export contrib=/work/03754/tsmith/gcm-contrib
-export computing=/work/03754/tsmith/computing
-export mitgcm=/work/03754/tsmith/MITgcm
-export bash_envy=/work/03754/tsmith/bash-envy
+export computing=$STOCKYARD/computing
+export bash_envy=$STOCKYARD/bash-envy
 export corral_storage=/corral-repl/utexas/Transfer-of-ECCO-glo
 
 ## Commands
