@@ -13,6 +13,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # git bash completion
 source /usr/local/etc/bash_completion.d/git-completion.bash
 
+# for brew installed tmux ... next time from source
+export PATH=/usr/local/opt/bin:$PATH
+
 ### Directories ###
 ###################
 export HOME=/Users/tim
