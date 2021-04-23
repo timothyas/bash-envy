@@ -15,13 +15,22 @@ fi
 export PATH=$PATH:$HOME/tmux
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/miniconda3/envs/ddc/lib
 
+### Expand environment variables in tab completion ###
+shopt -s direxpand
 
 ## Commands
-export PS1='[$nickname \W]\$ '
 
+alias interactive="srun --nodes=1 --ntasks=16 --cpus-per-task=2 --partition=apollo-h2 --time=10:00:00 --pty /bin/bash" 
+alias qu="squeue -u tsmith"
 
 ## Modules
-module load intel/20.0.2
+#module load intel/20.0.2
+
+if [[ -z $SLURM_JOB_ID ]] ; then
+    export PS1='[$nickname \W]\$ '
+else
+    export PS1='[slurm$SLURM_JOB_ID \W]\$ '
+fi
 
 
 # >>> conda initialize >>>
