@@ -37,6 +37,7 @@ dependencies:
     - ipykernel
 # nice things
     - tqdm
+    - smt
 # Specify blas to use mkl
     - mkl
     - libblas=*=*mkl
