@@ -80,3 +80,5 @@ heraport (){
 
 ### Directories ###
 ###################
+export apollo_work='/home/tsmith/work/'
+export apollo_ddc=$apollo_work/data-driven-collab
