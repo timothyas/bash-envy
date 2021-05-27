@@ -41,3 +41,6 @@ dependencies:
 # Specify blas to use mkl
     - mkl
     - libblas=*=*mkl
+    - pip
+    - pip:
+        - grip
