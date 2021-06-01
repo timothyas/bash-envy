@@ -15,6 +15,10 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # completion is, leaving it here for future reference
 #source /opt/local/etc/bash_completion.d/dbus-bash-completion.sh
 
+# The latex installation from MacPorts is messed up
+# this brings TexBin back to the front
+export PATH=/Library/TeX/texbin:$PATH
+
 ### Directories ###
 ###################
 export HOME=/Users/tsmith
