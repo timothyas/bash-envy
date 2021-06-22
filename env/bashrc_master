@@ -120,8 +120,10 @@ fi
 alias ll='ls -alh'
 
 # get tmux version here
-if [[ "$nickname" != "psl_linux" ]] && [[ "$nickname" != "apollo" ]] ; then
-    export TMUX_VERSION=`tmux -V | cut -c 6-`
-else
-    export TMUX_VERSION=`tmux -V | cut -c 11-13`
+if [[ "$nickname" != "sverdrup" ]] && [[ -z $SLURM_NODELIST ]] ; then
+    if [[ "$nickname" != "psl_linux" ]] && [[ "$nickname" != "apollo" ]] ; then
+        export TMUX_VERSION=`tmux -V | cut -c 6-`
+    else
+        export TMUX_VERSION=`tmux -V | cut -c 11-13`
+    fi
 fi
