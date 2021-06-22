@@ -126,4 +126,6 @@ if [[ "$nickname" != "sverdrup" ]] && [[ -z $SLURM_NODELIST ]] ; then
     else
         export TMUX_VERSION=`tmux -V | cut -c 11-13`
     fi
+else
+    export TMUX_VERSION=1.8
 fi
