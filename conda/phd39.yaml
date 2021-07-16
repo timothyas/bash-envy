@@ -1,0 +1,52 @@
+# following xgcm ci environment specs
+# see: https://pip.pypa.io/en/stable/reference/pip_install/#git
+# for how to specify branches of repos
+name: phd
+channels:
+  - conda-forge
+dependencies:
+    - python=3.9
+# Basics
+    - numpy
+    - scipy
+    - future
+# xarray et al
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask
+    - cftime
+    - nc-time-axis>=1.2.0
+# plotting resampling
+    - cartopy
+    - cmocean
+    - pyresample
+# for other packages
+    - cachetools
+    - fsspec
+    - zarr
+    - coverage
+    - pytest-cov 
+    - codecov
+    - black
+    - docrep<=0.2.7
+    - aiohttp
+# jupyter etc
+    - jupyter
+    - ipython
+    - ipykernel
+# etc
+    - gsw
+    - vaex
+    - numba
+    - h5py
+    - hdf4
+    - hdf5
+# docs
+    - sphinx
+    - sphinx_rtd_theme
+    - numpydoc
+    - nbsphinx
+# Specify blas to use mkl
+    - mkl
+    - libblas=*=*mkl
