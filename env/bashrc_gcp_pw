@@ -1,0 +1,25 @@
+#! /bin/bash
+
+## Directories
+export WORK=/contrib/work
+export bash_envy=$WORK/bash-envy
+
+## Python
+if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
+    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
+    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
+fi
+
+## Commands
+
+alias interactive="srun --nodes=1 --ntasks=4 --cpus-per-task=15 --time=16:00:00  --pty /bin/bash" 
+alias qu="squeue -u tsmith"
+
+## Modules
+#module load intel/20.0.2
+
+if [[ -z $SLURM_JOB_ID ]] ; then
+    export PS1='[$nickname \W]\$ '
+else
+    export PS1='[slurm$SLURM_JOB_ID \W]\$ '
+fi

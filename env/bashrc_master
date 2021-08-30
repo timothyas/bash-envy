@@ -52,6 +52,13 @@ elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
     export work_type='postdoc'
     source $HOME/bash-envy/env/bashrc_nvidia
 
+elif [[ "$HOSTNAME" == *"timsmith-gclusternoaa"* ]] ; then
+
+    export nickname='gcp_parallel_works'
+    export work_type='postdoc'
+    source /contrib/work/bash-envy/env/bashrc_gcp_pw
+
+
 # -------------------------------------------------------------
 # PhD machines
 # -------------------------------------------------------------
