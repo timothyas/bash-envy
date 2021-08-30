@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ## Directories
-export WORK=/contrib/work
+export WORK=/contrib/Tim.Smith
 export bash_envy=$WORK/bash-envy
 
 ## Python
@@ -14,6 +14,7 @@ fi
 
 alias interactive="srun --nodes=1 --ntasks=4 --cpus-per-task=15 --time=16:00:00  --pty /bin/bash" 
 alias qu="squeue -u tsmith"
+alias add_github_key="eval '$(ssh-agent -s) ssh-add /contrib/Tim.Smith/.ssh/id_rsa'"
 
 ## Modules
 #module load intel/20.0.2

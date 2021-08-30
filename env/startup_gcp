@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# --- Add key created in contrib to ssh-agent to use git
+eval $(ssh-agent)
+ssh-add /contrib/Tim.Smith/.ssh/id_rsa
+
+# --- Add all environment stuff
+echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bashrc
+echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bash_profile
+echo "source /contrib/Tim.Smith/bash-envy/env/vimrc" >> ~/.vimrc
+echo "source-file /contrib/Tim.Smith/bash-envy/env/tmux.conf" >> ~/.tmux.conf
+source ~/.bashrc
+
+# --- Some git config
+git config --global user.name "timothyas"
+git config --global user.email "timsmith204@utexas.edu"
+git config --global color.ui true
+git config --global push.default simple

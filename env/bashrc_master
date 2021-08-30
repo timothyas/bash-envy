@@ -56,7 +56,7 @@ elif [[ "$HOSTNAME" == *"timsmith-gclusternoaa"* ]] ; then
 
     export nickname='gcp_parallel_works'
     export work_type='postdoc'
-    source /contrib/work/bash-envy/env/bashrc_gcp_pw
+    source /contrib/Tim.Smith/bash-envy/env/bashrc_gcp_pw
 
 
 # -------------------------------------------------------------
