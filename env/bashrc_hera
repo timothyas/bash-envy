@@ -13,6 +13,8 @@ export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 alias cds='cd $SCRATCH'
 alias qu='squeue -u Tim.Smith'
 alias interactive='srun --nodes=1 --ntasks=1 --time=00:30:00 --partition=fge --qos=debug --account=rda-ddm --pty /bin/bash'
+# assuming skylake nodes:
+alias interactive_jupyter='srun --nodes=1 --ntasks=4 --cpus-per-task=10 --account=rda-ddm --time=02:00:00 --pty bash -i'
 
 ## Python
 if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
