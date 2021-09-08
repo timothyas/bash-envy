@@ -45,6 +45,10 @@ export GREP_OPTIONS='--color=auto'
 export PS1='[tim \W]$ '
 alias o='open'
 
+# --- GCP Parallel works
+export CLOUDSDK_CORE_PROJECT=noaa-users
+export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=$HOME/project-key.json
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"

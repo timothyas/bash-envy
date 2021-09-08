@@ -33,3 +33,7 @@ export GREP_OPTIONS='--color=auto'
 
 ## Commands
 export PS1='[noaa \W]\$ '
+
+# --- GCP Parallel works
+export CLOUDSDK_CORE_PROJECT=noaa-users
+export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=$HOME/.gcp/project-key.json

@@ -7,6 +7,7 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export psl_linux_sshfile=~/.ssh/psl_linux_rsa
     export apollo_sshfile=~/.ssh/apollo_ed25519
     export hera_sshfile=~/.ssh/hera_rsa
+    export orion_sshfile=~/.ssh/orion_rsa
 fi
 
 ### SSH ###
@@ -24,6 +25,9 @@ alias linux512="ssh tsmith@linux512.psd.esrl.noaa.gov"
 
 # apollo
 alias apollo="ssh -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.gov"
+
+# orion
+alias orion="ssh -i ${orion_sshfile} tsmith@orion-login.hpc.msstate.edu"
 
 
 ### SCP ###
