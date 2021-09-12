@@ -4,7 +4,7 @@
 eval $(ssh-agent)
 ssh-add /contrib/Tim.Smith/.ssh/id_rsa
 
-# --- Add all environment stuff
+# --- Add basic environment stuff
 echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bashrc
 echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bash_profile
 echo "source /contrib/Tim.Smith/bash-envy/env/vimrc" >> ~/.vimrc
@@ -16,3 +16,8 @@ git config --global user.name "timothyas"
 git config --global user.email "timsmith204@utexas.edu"
 git config --global color.ui true
 git config --global push.default simple
+
+# --- Dask configuring
+mkdir -p ~/.config/dask
+cp /contrib/Tim.Smith/ddhf/pw/distributed.yaml ~/.config/dask/distributed.yaml
+
