@@ -119,7 +119,7 @@ alias cdh='cd $HOME'
 alias cdw='cd $WORK'
 alias cdb='cd $bash_envy'
 
-if [[ "$OSTYPE" != "darwin19" ]] ; then
+if [[ "$nickname" != "home" ]] ; then
     alias ls='ls --color=auto' 
 else
     alias ls='ls -G'
