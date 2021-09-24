@@ -8,6 +8,7 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export apollo_sshfile=~/.ssh/apollo_ed25519
     export hera_sshfile=~/.ssh/hera_rsa
     export orion_sshfile=~/.ssh/orion_rsa
+    export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa
 fi
 
 ### SSH ###
@@ -29,6 +30,9 @@ alias apollo="ssh -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.go
 # orion
 alias orion="ssh -i ${orion_sshfile} tsmith@orion-login.hpc.msstate.edu"
 
+# GCP
+alias sshgcp="ssh -i ${gcp_sshfile}"
+
 
 ### SCP ###
 ###########
@@ -45,6 +49,9 @@ scp-to-apollo(){
 scp-to-hera(){
     scp $1 Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov:$2
 }
+scp-to-gcp(){
+    scp -i ${gcp_sshfile} $1 $2:$3
+}
 
 # send here
 scp-from-psl(){
@@ -58,6 +65,11 @@ scp-from-apollo(){
 scp-from-hera(){
     scp Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov$1 $2
 }
+
+scp-from-gcp(){
+    scp -i ${gcp_sshfile} $1:$2 $3
+}
+
 
 
 ### Jupyter notebooks ###
