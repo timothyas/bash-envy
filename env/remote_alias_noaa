@@ -2,6 +2,7 @@
 
 if [[ "$nickname" == "home" ]] ; then
     export psl_mac_sshfile=~/.ssh/mac76_rsa
+
 elif [[ "$nickname" == "noaa_home" ]] ; then
     export psl_mac_sshfile=~/.ssh/mac76_ed25519
     export psl_linux_sshfile=~/.ssh/psl_linux_rsa
@@ -9,6 +10,8 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export hera_sshfile=~/.ssh/hera_rsa
     export orion_sshfile=~/.ssh/orion_rsa
     export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa
+elif [[ "$nickname" == "noaa_psl" ]] ; then
+    export hera_sshfile=~/.ssh/psl_hera_rsa
 fi
 
 ### SSH ###
@@ -47,7 +50,7 @@ scp-to-apollo(){
 }
 
 scp-to-hera(){
-    scp $1 Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov:$2
+    scp -i ${hera_sshfile} $1 Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov:$2
 }
 scp-to-gcp(){
     scp -i ${gcp_sshfile} $1 $2:$3
@@ -63,7 +66,7 @@ scp-from-apollo(){
 }
 
 scp-from-hera(){
-    scp Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov$1 $2
+    scp -i ${hera_sshfile} Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov:$1 $2
 }
 
 scp-from-gcp(){
