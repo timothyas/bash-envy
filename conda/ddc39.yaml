@@ -6,6 +6,7 @@ dependencies:
 # Basics
     - numpy
     - scipy
+    - cython
     - future
     - matplotlib
 # xarray et al
@@ -20,6 +21,7 @@ dependencies:
     - docrep<=0.2.7
     - xrft
     - zarr
+    - pyqg
 # plotting resampling
     - seaborn
     - cartopy
@@ -38,6 +40,7 @@ dependencies:
 # nice things
     - tqdm
     - smt
+    - pyfftw
 # Specify blas to use mkl
     - mkl
     - libblas=*=*mkl
