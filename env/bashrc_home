@@ -15,6 +15,7 @@ source /usr/local/etc/bash_completion.d/git-completion.bash
 
 # for brew installed tmux ... next time from source
 export PATH=/usr/local/opt/bin:$PATH
+export PATH=/usr/local/opt/ruby/bin:$PATH
 
 ### Directories ###
 ###################
