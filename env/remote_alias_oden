@@ -16,7 +16,7 @@ fi
 ###########
 
 # Oden
-alias sverdrup='ssh -p 8704 -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.oden.utexas.edu'
+alias sverdrup='ssh -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.oden.utexas.edu'
 alias amundsen='ssh -p 8704 '$ssh_jump' tsmith@amundsen.oden.utexas.edu'
 alias nansen='ssh -p 8704 '$ssh_jump' tsmith@nansen.oden.utexas.edu'
 
@@ -54,7 +54,7 @@ alias scpengaging='scp -i ~/.ssh/id_rsa_eofe-mit'
 #########################
 # For compute node notebook, need to pass port number and IP address
 jupytersv () {
-    ssh -p 8704 -i ~/.ssh/sverdrup_rsa $ssh_jump -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
+    ssh -i ~/.ssh/sverdrup_rsa $ssh_jump -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
 }
 
 
