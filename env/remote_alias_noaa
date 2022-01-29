@@ -11,6 +11,7 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export orion_sshfile=~/.ssh/orion_rsa
     export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa
 elif [[ "$nickname" == "noaa_psl" ]] ; then
+    export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa
     export hera_sshfile=~/.ssh/psl_hera_rsa
 fi
 
