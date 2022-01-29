@@ -33,11 +33,13 @@ dependencies:
 # CI
     - coverage
     - codecov
+    - parameterized
 # jupyter etc
     - jupyter
     - ipython
     - ipykernel
 # nice things
+    - filprofiler
     - tqdm
     - smt
     - pyfftw
