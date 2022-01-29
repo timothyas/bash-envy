@@ -1,0 +1,52 @@
+name: ddc
+channels:
+    - conda-forge
+dependencies:
+    - python=3.9
+# Basics
+    - numpy
+    - scipy
+    - cython
+    - future
+    - matplotlib
+# xarray et al
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask[complete]
+    - dask-jobqueue
+    - graphviz
+    - python-graphviz
+    - cftime
+    - docrep<=0.2.7
+    - xrft
+    - zarr
+    - pyqg
+# plotting resampling
+    - seaborn
+    - cartopy
+    - cmocean
+    - pyresample
+# ML
+    - networkx
+    - scikit-learn
+# CI
+    - coverage
+    - codecov
+    - parameterized
+# jupyter etc
+    - jupyter
+    - ipython
+    - ipykernel
+# nice things
+    - filprofiler
+    - tqdm
+    - smt
+    - pyfftw
+    - tmux
+# Specify blas to use mkl
+    - mkl
+    - libblas=*=*mkl
+    - pip
+    - pip:
+        - grip
