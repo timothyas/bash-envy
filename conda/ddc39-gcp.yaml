@@ -15,6 +15,7 @@ dependencies:
     - bottleneck
     - dask[complete]
     - dask-jobqueue
+    - dask-mpi
     - graphviz
     - python-graphviz
     - cftime

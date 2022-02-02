@@ -13,15 +13,12 @@ fi
 
 ## Commands
 
-alias interactive="srun --nodes=1 --ntasks=2 --cpus-per-task=15 --time=01:00:00  --pty /bin/bash" 
+alias interactive="srun --nodes=1 --ntasks=1 --cpus-per-task=60 --time=02:00:00  --pty /bin/bash"
 alias qu="squeue -u Tim.Smith"
 alias add_github_key="eval '$(ssh-agent -s) ssh-add /contrib/Tim.Smith/.ssh/id_rsa'"
-unalias cp
-unalias mv
-unalias rm
 
 ## Modules
-#module load intel/20.0.2
+module load intel impi
 
 if [[ -z $SLURM_JOB_ID ]] ; then
     export PS1='[$nickname \W]\$ '
