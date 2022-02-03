@@ -4,27 +4,8 @@
 eval $(ssh-agent)
 ssh-add /contrib/Tim.Smith/.ssh/id_rsa
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/contrib/Tim.Smith/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/contrib/Tim.Smith/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/contrib/Tim.Smith/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/contrib/Tim.Smith/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# --- Activate environment with tmux
-conda activate ddc
-
 # --- Add basic environment stuff
 echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bashrc
-echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bash_profile
 echo "source /contrib/Tim.Smith/bash-envy/env/vimrc" >> ~/.vimrc
 echo "source-file /contrib/Tim.Smith/bash-envy/env/tmux.conf" >> ~/.tmux.conf
 source ~/.bashrc
@@ -38,5 +19,5 @@ git config --global push.default simple
 # --- Dask configuring
 mkdir -p ~/.config/dask
 cp /contrib/Tim.Smith/ddhf/pw/distributed.yaml ~/.config/dask/distributed.yaml
-cp /contrib/Tim.Smith/ddhf/pw/distributed.yaml ~/.config/dask/dask.yaml
-
+cp /contrib/Tim.Smith/ddhf/pw/dask.yaml ~/.config/dask/dask.yaml
+cp /contrib/Tim.Smith/ddhf/pw/jobqueue.yaml ~/.config/dask/jobqueue.yaml
