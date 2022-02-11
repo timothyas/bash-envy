@@ -49,7 +49,7 @@ alias vncek='ssh -J tsmith@login1.oden.utexas.edu -L localhost:5901:localhost:59
 alias rsyncek="rsync -ave 'ssh -p 8704 -J tsmith@login1.oden.utexas.edu' --progress" 
 alias scpek="scp -o 'ProxyJump tsmith@login1.oden.utexas.edu'"
 
-export thamoc=/workspace/gcm-contrib/samoc
+export thamoc=/workspace/tsmith/gcm-contrib/samoc
 
 
 ## Path and LD_LIBRARY

@@ -7,15 +7,15 @@ PATH=$HOME/.local/bin:$PATH
 ### Directories ###
 ###################
 export TERM=xterm-256color
-export WORK=/workspace
-export data=/mnt/data
-export contrib=/workspace/gcm-contrib
-export sv=/workspace/sv-mnt
-export computing=/workspace/computing
-export mitgcm=/workspace/MITgcm
-export bash_envy=/workspace/bash-envy
-export pig='/workspace/ase-adjoint/pig/generic'
-export ase='/workspace/ase-adjoint'
+export WORK=/workspace/tsmith
+export data=/mnt/data/tsmith
+export contrib=$WORK/gcm-contrib
+export sv=$WORK/sv-mnt
+export computing=$WORK/computing
+export mitgcm=$WORK/MITgcm
+export bash_envy=$WORK/bash-envy
+export pig=$WORK/ase-adjoint/pig/generic
+export ase=$WORK/ase-adjoint
 
 
 ### Add python packages from GitHub ###
@@ -40,7 +40,7 @@ alias lpq3='lpq -P cp3se'
 alias lp='lp -o fit-to-page -o sides=two-sided-long-edge'
 
 ### Link to Sverdrup ###
-alias sv-sshfs="sshfs -o IdentityFile=~/.ssh/id_rsa sverdrup.oden.utexas.edu:/home/tsmith /workspace/sv-mnt"
+alias sv-sshfs="sshfs -o IdentityFile=~/.ssh/id_rsa sverdrup.oden.utexas.edu:/home/tsmith /workspace/tsmith/sv-mnt"
 
 ### Modules ###
 module load ubt18 intel
@@ -64,16 +64,16 @@ if [ `xdpyinfo -display :1 | grep -c VNC` == 0 ] ; then
 # added by Anaconda3 5.3.0 installer
 # >>> conda init >>>
 # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$(CONDA_REPORT_ERRORS=false '/workspace/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+    __conda_setup="$(CONDA_REPORT_ERRORS=false '/workspace/tsmith/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
     if [ $? -eq 0 ]; then
         \eval "$__conda_setup"
     else
-        if [ -f "/workspace/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/workspace/anaconda3/etc/profile.d/conda.sh"
+        if [ -f "/anaconda3/tsmith/etc/profile.d/conda.sh" ]; then
+            . "/workspace/tsmith/anaconda3/etc/profile.d/conda.sh"
             CONDA_CHANGEPS1=false conda activate base
     
         else
-            \export PATH="/workspace/anaconda3/bin:$PATH"
+            \export PATH="/workspace/tsmith/anaconda3/bin:$PATH"
         fi
     fi
     unset __conda_setup
