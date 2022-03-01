@@ -18,6 +18,7 @@ alias qu="squeue -u Tim.Smith"
 alias add_github_key="eval '$(ssh-agent -s) ssh-add /contrib/Tim.Smith/.ssh/id_rsa'"
 
 ## Modules
+module purge
 module load intel impi
 
 if [[ -z $SLURM_JOB_ID ]] ; then

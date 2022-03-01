@@ -24,3 +24,4 @@ cp /contrib/Tim.Smith/ddhf/pw/jobqueue.yaml ~/.config/dask/jobqueue.yaml
 
 # --- Add jupyter vim bindings
 source $bash_envy/useful-cmd-line/enable_jupyter_vim_binding.sh
+cp $bash_envy/env/gcp_jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
