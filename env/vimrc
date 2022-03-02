@@ -54,6 +54,7 @@ if (NICKNAME ==? 'ekman' || NICKNAME ==? 'home' || NICKNAME ==? 'noaa_home')
     
     " Initialize plugin system
     call plug#end()
+    let g:vimtex_view_method = 'skim'
 endif
 
 if ($nickname ==? 'noaa_psl' || $nickname ==? 'noaa_home' )
