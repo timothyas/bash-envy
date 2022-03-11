@@ -44,3 +44,6 @@ unset __conda_setup
 
 # --- Activate environment with tmux
 conda activate ddc
+
+# Expand environment variables in tab complete
+shopt -s direxpand
