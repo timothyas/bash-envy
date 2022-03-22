@@ -1,6 +1,3 @@
-# following xgcm ci environment specs
-# see: https://pip.pypa.io/en/stable/reference/pip_install/#git
-# for how to specify branches of repos
 name: phd
 channels:
   - conda-forge
@@ -14,7 +11,10 @@ dependencies:
     - xarray
     - netCDF4
     - bottleneck
-    - dask
+    - dask[complete]
+    - dask-jobqueue
+    - graphviz
+    - python-graphviz
     - cftime
     - nc-time-axis>=1.2.0
 # plotting resampling
@@ -29,7 +29,6 @@ dependencies:
     - pytest-cov 
     - codecov
     - black
-    - docrep<=0.2.7
     - aiohttp
 # jupyter etc
     - jupyter
