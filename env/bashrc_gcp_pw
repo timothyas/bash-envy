@@ -13,7 +13,7 @@ fi
 
 ## Commands
 
-alias interactive="srun --nodes=1 --ntasks=1 --cpus-per-task=60 --time=02:00:00  --pty /bin/bash"
+alias interactive="srun --nodes=1 --ntasks=1 --cpus-per-task=30 --time=02:00:00  --pty /bin/bash"
 alias qu="squeue -u Tim.Smith"
 alias add_github_key="eval '$(ssh-agent -s) ssh-add /contrib/Tim.Smith/.ssh/id_rsa'"
 
