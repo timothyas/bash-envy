@@ -1,0 +1,48 @@
+name: mitgcm
+channels:
+  - conda-forge
+dependencies:
+    - python=3.10
+# Basics
+    - numpy
+    - scipy
+    - future
+# xarray et al
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask[complete]
+    - dask-jobqueue
+    - graphviz
+    - python-graphviz
+    - cftime
+    - nc-time-axis>=1.2.0
+# plotting resampling
+    - cartopy
+    - cmocean
+    - pyresample
+# for other packages
+    - xmitgcm
+    - cachetools
+    - fsspec
+    - zarr
+    - coverage
+    - pytest-cov 
+    - codecov
+    - black
+    - aiohttp
+# jupyter etc
+    - jupyter
+    - ipython
+    - ipykernel
+# etc
+    - gsw
+    - h5py
+    - hdf5
+# docs
+    - sphinx
+    - sphinx_rtd_theme
+    - numpydoc
+    - nbsphinx
+# compiling
+    - gfortran
