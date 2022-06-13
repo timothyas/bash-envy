@@ -2,7 +2,7 @@ name: phd
 channels:
   - conda-forge
 dependencies:
-    - python=3.9
+    - python=3.10
 # Basics
     - numpy
     - scipy
@@ -36,8 +36,6 @@ dependencies:
     - ipykernel
 # etc
     - gsw
-    - vaex
-    - numba
     - h5py
     - hdf4
     - hdf5
@@ -46,6 +44,8 @@ dependencies:
     - sphinx_rtd_theme
     - numpydoc
     - nbsphinx
+# nice things
+    - colordiff
 # Specify blas to use mkl
     - mkl
     - libblas=*=*mkl
