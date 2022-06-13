@@ -97,6 +97,10 @@ heraport (){
     ssh -i ${hera_sshfile} -p 2169 -L $1:$2:$3 Tim.Smith@localhost
 }
 
+gcpport (){
+    ssh -i ${gcp_sshfile} $1":localhost:"$1 $2
+}
+
 
 ### Directories ###
 ###################
