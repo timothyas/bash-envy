@@ -1,0 +1,29 @@
+name: demo
+channels:
+  - conda-forge
+dependencies:
+    - python=3.10
+# Basics
+    - numpy
+    - scipy
+    - matplotlib
+# xarray et al
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask[complete]
+    - dask-jobqueue
+    - graphviz
+    - python-graphviz
+    - cftime
+    - nc-time-axis>=1.2.0
+# plotting resampling
+    - cartopy
+    - cmocean
+# jupyter etc
+    - jupyter
+    - ipython
+    - ipykernel
+# etc
+    - h5py
+    - hdf5
