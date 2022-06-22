@@ -1,0 +1,43 @@
+
+### Directories ###
+###################
+export WORK=/work2/noaa/gsienkf/tsmith
+export bash_envy=$HOME/bash-envy
+
+### aliases ###
+###############
+alias cdw='cd $WORK'
+alias qu='squeue -u tsmith'
+alias interactive='srun --nodes=1 --ntasks=1 --time=00:30:00 --account=gsienkf --pty /bin/bash'
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'
+
+## PS1
+if [[ -z "$SLURM_JOB_PARTITION" ]] ; then
+    export PS1='[\h \W]\$ '
+else
+    export PS1='[$SLURM_JOB_PARTITION \W]\$ '
+fi
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand
+
+### Modules
+module load intel
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/tsmith/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/tsmith/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/tsmith/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/tsmith/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

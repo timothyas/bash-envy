@@ -62,6 +62,12 @@ elif [[ "$HOSTNAME" == *"timsmith-"* ]] ; then
     export work_type='postdoc'
     source /contrib/Tim.Smith/bash-envy/env/bashrc_gcp_pw
 
+elif [[ "$HOSTNAME" == *"Orion"* ]] ; then
+
+    export nickname='orion'
+    export work_type='postdoc'
+    source /home/tsmith/bash-envy/env/bashrc_orion
+
 
 # -------------------------------------------------------------
 # PhD machines
