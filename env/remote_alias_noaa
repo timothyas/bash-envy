@@ -8,7 +8,7 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export psl_linux_sshfile=~/.ssh/psl_linux_rsa
     export apollo_sshfile=~/.ssh/apollo_ed25519
     export hera_sshfile=~/.ssh/hera_rsa
-    export orion_sshfile=~/.ssh/orion_rsa
+    export orion_sshfile=~/.ssh/orion_ecdsa
     export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa
 elif [[ "$nickname" == "noaa_psl" ]] ; then
     export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa

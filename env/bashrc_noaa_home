@@ -30,6 +30,7 @@ if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/pych
     export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
     export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
+    export PYTHONPATH=$PYTHONPATH:$WORK/phdstuff/MITgcm/utils/python/MITgcmutils
 fi
 
 ### Refresh tmux environment variables ###
