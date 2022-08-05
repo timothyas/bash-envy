@@ -4,6 +4,15 @@ export nickname=''
 export work_type=''
 export ismac=''
 
+export PYTHONPATH=''
+function add_python_package () {
+
+    # if not in path, add package name
+    if [[ $PYTHONPATH != *$1* ]] ; then
+        export PYTHONPATH=$PYTHONPATH:$2
+    fi
+}
+
 if [ "$USER" == "tim" ] ; then
 
     export nickname='home'

@@ -17,12 +17,9 @@ export data=/Users/tsmith/data
 export bash_envy=$WORK/bash-envy
 
 ## Python
-if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
-    export PYTHONPATH=$PYTHONPATH:$WORK/pych
-    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
-    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
-    export PYTHONPATH=$PYTHONPATH:$WORK/xgcm
-fi
+add_python_package "ddhf" "$WORK/ddhf"
+add_python_package "data-driven-collab" "$WORK/data-driven-collab"
+add_python_package "mlcdc" "$WORK/mlcdc"
 
 ## Path and LD_LIBRARY
 export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
