@@ -9,6 +9,7 @@ export container=$WORK/containers/ddc_pw_cpu_latest.sif
 if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
     export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
     export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
+    export PYTHONPATH=$PYTHONPATH:$WORK/qgrc-teachers
 fi
 
 ## Commands
