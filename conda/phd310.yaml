@@ -17,6 +17,7 @@ dependencies:
     - python-graphviz
     - cftime
     - nc-time-axis>=1.2.0
+    - xmitgcm
 # plotting resampling
     - cartopy
     - cmocean
