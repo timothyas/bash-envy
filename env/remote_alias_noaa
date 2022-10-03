@@ -9,9 +9,9 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export apollo_sshfile=~/.ssh/apollo_ed25519
     export hera_sshfile=~/.ssh/hera_rsa
     export orion_sshfile=~/.ssh/orion_ecdsa
-    export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa
+    export pw_sshfile=~/.ssh/pw_parallel_works_rsa
 elif [[ "$nickname" == "noaa_psl" ]] ; then
-    export gcp_sshfile=~/.ssh/gcp_parallel_works_rsa
+    export pw_sshfile=~/.ssh/pw_parallel_works_rsa
     export hera_sshfile=~/.ssh/psl_hera_rsa
 fi
 
@@ -34,8 +34,8 @@ alias apollo="ssh -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.go
 # orion
 alias orion="ssh -i ${orion_sshfile} tsmith@orion-login.hpc.msstate.edu"
 
-# GCP
-alias sshgcp="ssh -i ${gcp_sshfile}"
+# PW
+alias sshpw="ssh -i ${pw_sshfile}"
 
 
 ### SCP ###
@@ -53,8 +53,8 @@ scp-to-apollo(){
 scp-to-hera(){
     scp -i ${hera_sshfile} $1 Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov:$2
 }
-scp-to-gcp(){
-    scp -i ${gcp_sshfile} $1 $2:$3
+scp-to-pw(){
+    scp -i ${pw_sshfile} $1 $2:$3
 }
 
 # send here
@@ -70,8 +70,8 @@ scp-from-hera(){
     scp -i ${hera_sshfile} Tim.Smith@dtn-hera.fairmont.rdhpcs.noaa.gov:$1 $2
 }
 
-scp-from-gcp(){
-    scp -i ${gcp_sshfile} $1:$2 $3
+scp-from-pw(){
+    scp -i ${pw_sshfile} $1:$2 $3
 }
 
 
@@ -97,8 +97,8 @@ heraport (){
     ssh -i ${hera_sshfile} -p 2169 -L $1:$2:$3 Tim.Smith@localhost
 }
 
-gcpport (){
-    ssh -i ${gcp_sshfile} $1":localhost:"$1 $2
+pwport (){
+    ssh -i ${pw_sshfile} $1":localhost:"$1 $2
 }
 
 
