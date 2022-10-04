@@ -1,0 +1,42 @@
+#! /bin/bash
+
+## Directories
+export WORK=/contrib/Tim.Smith
+export bash_envy=$WORK/bash-envy
+
+## Python
+add_python_package "ddhf" "$WORK/ddhf"
+add_python_package "data-driven-collab" "$WORK/data-driven-collab"
+add_python_package "qgrc-teachers" "$WORK/qgrc-teachers"
+
+## Commands
+alias interactive="srun --nodes=1 --ntasks=1 --cpus-per-task=24 --time=02:00:00  --pty /bin/bash"
+alias qu="squeue -u Tim.Smith"
+alias add_github_key="eval '$(ssh-agent -s) ssh-add /contrib/Tim.Smith/.ssh/id_rsa'"
+
+if [[ -z $SLURM_JOB_ID ]] ; then
+    export PS1='[$nickname \W]\$ '
+else
+    export PS1='[slurm$SLURM_JOB_ID \W]\$ '
+fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/contrib/Tim.Smith/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/contrib/Tim.Smith/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/contrib/Tim.Smith/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/contrib/Tim.Smith/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# --- Activate environment with tmux
+conda activate ddc10
+
+# Expand environment variables in tab complete
+shopt -s direxpand
