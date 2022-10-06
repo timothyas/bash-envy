@@ -22,7 +22,7 @@ add_python_package "data-driven-collab" "$WORK/data-driven-collab"
 add_python_package "mlcdc" "$WORK/mlcdc"
 
 ## Path and LD_LIBRARY
-export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
+export PATH=/Library/TeX/Distributions/Programs/texbin:$PATH
 export PATH=/opt/anaconda3/bin:$PATH
 
 ### Colorize grep output unless being piped to file ###

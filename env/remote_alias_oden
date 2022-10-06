@@ -2,7 +2,7 @@
 
 
 # Define jump option for ssh to Oden from MAC
-if [[ "$nickname" == "home" ]] ; then
+if [[ "$nickname" == *"home" || "$nickname" == "noaa_psl" ]] ; then
     # On mac
     export ssh_jump='-J tsmith@login1.oden.utexas.edu'
     export scp_jump="-o 'ProxyJump tsmith@login1.oden.utexas.edu'"
