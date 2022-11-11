@@ -25,7 +25,7 @@ if [ "$USER" == "tim" ] ; then
 # -------------------------------------------------------------
 # Postdoc machines
 # -------------------------------------------------------------
-elif [[ "$HOSTNAME" == "Tims-MacBook-Pro.local" ]] ; then
+elif [[ "$HOSTNAME" == "Tims-MacBook-Pro.local" || "$HOSTNAME" == "tsmith-MBP" ]] ; then
 
     export nickname='noaa_home'
     export work_type='postdoc'
@@ -33,7 +33,7 @@ elif [[ "$HOSTNAME" == "Tims-MacBook-Pro.local" ]] ; then
     source /Users/tsmith/work/bash-envy/env/bashrc_noaa_home
     source $bash_envy/env/remote_alias_noaa
 
-elif [[ "$HOSTNAME" == "mac76" ]] ; then
+elif [[ "$HOSTNAME" == "mac76" || "$HOSTNAME" == "mac60" ]] ; then
 
     export nickname='noaa_psl'
     export work_type='postdoc'

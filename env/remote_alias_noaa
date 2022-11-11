@@ -19,7 +19,7 @@ fi
 ###########
 
 # NOAA
-alias noaamac="ssh -i ${psl_mac_sshfile} tsmith@mac76.psd.esrl.noaa.gov"
+alias noaamac="ssh -i ${psl_mac_sshfile} tsmith@mac60.psd.esrl.noaa.gov"
 
 # Hera
 alias hera="ssh -i ${hera_sshfile} -XL 2169:localhost:2169 Tim.Smith@hera-rsa.boulder.rdhpcs.noaa.gov"
@@ -43,7 +43,7 @@ alias sshpw="ssh -i ${pw_sshfile}"
 
 # send out
 scp-to-psl(){
-    scp -i ${psl_mac_sshfile} $1 tsmith@mac76.psd.esrl.noaa.gov:$2
+    scp -i ${psl_mac_sshfile} $1 tsmith@mac60.psd.esrl.noaa.gov:$2
 }
 
 scp-to-apollo(){
@@ -59,7 +59,7 @@ scp-to-pw(){
 
 # send here
 scp-from-psl(){
-    scp -i ${psl_mac_sshfile} tsmith@mac76.psd.esrl.noaa.gov:$1 $2
+    scp -i ${psl_mac_sshfile} tsmith@mac60.psd.esrl.noaa.gov:$1 $2
 }
 
 scp-from-apollo(){
@@ -78,11 +78,11 @@ scp-from-pw(){
 
 ### Jupyter notebooks ###
 #########################
-alias noaanote="ssh -i ${psl_mac_sshfile} -L localhost:8899:localhost:8899 tsmith@mac76.psd.esrl.noaa.gov"
+alias noaanote="ssh -i ${psl_mac_sshfile} -L localhost:8899:localhost:8899 tsmith@mac60.psd.esrl.noaa.gov"
 alias linuxnote="ssh -L localhost:8890:localhost:8890 tsmith@linux1024.psd.esrl.noaa.gov"
 
 noaaport (){
-    ssh -i ${psl_mac_sshfile} -L localhost:$1:localhost:$2 tsmith@mac76.psd.esrl.noaa.gov
+    ssh -i ${psl_mac_sshfile} -L localhost:$1:localhost:$2 tsmith@mac60.psd.esrl.noaa.gov
 }
 
 linuxport (){
