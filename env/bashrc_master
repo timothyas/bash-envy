@@ -33,7 +33,7 @@ elif [[ "$HOSTNAME" == "Tims-MacBook-Pro.local" || "$HOSTNAME" == "tsmith-MBP" ]
     source /Users/tsmith/work/bash-envy/env/bashrc_noaa_home
     source $bash_envy/env/remote_alias_noaa
 
-elif [[ "$HOSTNAME" == "mac76" || "$HOSTNAME" == "mac60" ]] ; then
+elif [[ "$HOSTNAME" == "mac76" || "$HOSTNAME" == "mac60" || "$HOSTNAME" == "mac20" ]] ; then
 
     export nickname='noaa_psl'
     export work_type='postdoc'
