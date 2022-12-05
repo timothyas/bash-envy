@@ -3,7 +3,6 @@
 ## Directories
 export WORK=/contrib/Tim.Smith
 export bash_envy=$WORK/bash-envy
-export container=$WORK/containers/ddc_pw_cpu_latest.sif
 
 ## Python
 add_python_package "ddhf" "$WORK/ddhf"
@@ -16,8 +15,8 @@ alias qu="squeue -u Tim.Smith"
 alias add_github_key="eval '$(ssh-agent -s) ssh-add /contrib/Tim.Smith/.ssh/id_rsa'"
 
 ## Modules
-module purge
-module load intel impi
+#module purge
+#module load intel impi
 
 if [[ -z $SLURM_JOB_ID ]] ; then
     export PS1='[$nickname \W]\$ '

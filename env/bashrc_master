@@ -67,7 +67,7 @@ elif [[ "$USER" == "u00u6fuc3j0gv1XhWq357" ]] ; then
 
 elif [[ "$HOSTNAME" == *"timsmith-"* ]] ; then
 
-    if [[ "$PW_CSP" == "gcp" ]] ; then 
+    if [[ "$PW_CSP" == "gcp" || "$PW_CSP" == "google" ]] ; then
         export nickname='gcp_parallel_works'
         export work_type='postdoc'
         source /contrib/Tim.Smith/bash-envy/env/bashrc_pw_gcp
