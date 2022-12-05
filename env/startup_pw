@@ -1,13 +1,7 @@
 #! /bin/bash
 
 # --- Add key created in contrib to ssh-agent to use git
-eval $(ssh-agent)
-
-if [[ "$PW_CSP" == "gcp" || "$PW_CSP" == "google" ]] ; then
-    ssh-add /contrib/Tim.Smith/.ssh/id_ed25519
-elif [[ "$PW_CSP" == "aws" ]] ; then
-    ssh-add /contrib/Tim.Smith/.ssh/id_rsa
-fi
+source /contrib/Tim.Smith/bash-envy/env/refresh_ssh
 
 # --- Add basic environment stuff
 echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bashrc
