@@ -9,6 +9,7 @@ dependencies:
     - future
 # xarray et al
     - xarray
+    - matplotlib
     - netCDF4
     - bottleneck
     - dask[complete]

@@ -10,6 +10,7 @@ elif [[ "$nickname" == "noaa_home" ]] ; then
     export hera_sshfile=~/.ssh/hera_rsa
     export orion_sshfile=~/.ssh/orion_ecdsa
     export pw_sshfile=~/.ssh/pw_parallel_works_rsa
+    export gpu_sshfile=~/.ssh/psl_linux_gpu
 elif [[ "$nickname" == "noaa_psl" ]] ; then
     export pw_sshfile=~/.ssh/pw_parallel_works_rsa
     export hera_sshfile=~/.ssh/psl_hera_rsa
@@ -37,6 +38,9 @@ alias orion="ssh -i ${orion_sshfile} tsmith@orion-login.hpc.msstate.edu"
 # PW
 alias sshpw="ssh -i ${pw_sshfile}"
 
+# PSL GPU
+alias psl-gpu="ssh -i ${gpu_sshfile} tsmith@linux-gpu1.psd.esrl.noaa.gov"
+
 
 ### SCP ###
 ###########
@@ -56,6 +60,10 @@ scp-to-hera(){
 scp-to-pw(){
     scp -i ${pw_sshfile} $1 $2:$3
 }
+scp-to-linux(){
+    scp -i ${gpu_sshfile} $1 tsmith@linux-gpu1.psd.esrl.noaa.gov:$2
+}
+
 
 # send here
 scp-from-psl(){
@@ -73,6 +81,11 @@ scp-from-hera(){
 scp-from-pw(){
     scp -i ${pw_sshfile} $1:$2 $3
 }
+
+scp-from-linux(){
+    scp -i ${gpu_sshfile} tsmith@linux-gpu1.psd.esrl.noaa.gov:$1 $2
+}
+
 
 
 
