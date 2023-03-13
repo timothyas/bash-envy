@@ -1,0 +1,45 @@
+name: hafs
+channels:
+    - conda-forge
+    - yt87
+dependencies:
+    - python=3.9
+# Basics
+    - numpy
+    - scipy
+    - future
+    - matplotlib
+# xarray et al
+    - xarray
+    - netCDF4
+    - bottleneck
+    - dask[complete]
+    - dask-jobqueue
+    - graphviz
+    - python-graphviz
+    - cftime
+    - docrep<=0.2.7
+    - xrft
+    - zarr
+# plotting resampling
+    - seaborn
+    - cartopy
+    - cmocean
+    - pyresample
+# CI
+    - coverage
+    - codecov
+# jupyter etc
+    - jupyter
+    - ipython
+    - ipykernel
+# nice things
+    - tqdm
+# Specify blas to use mkl
+    - mkl
+    - libblas=*=*mkl
+# wgrib2 stuff
+    - mypy_extensions
+    - blosc
+    - wurlitzer
+    - libwgrib2
