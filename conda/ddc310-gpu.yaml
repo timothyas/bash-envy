@@ -1,4 +1,4 @@
-name: ddc10
+name: ddc10-gpu
 channels:
     - conda-forge
 dependencies:
