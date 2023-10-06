@@ -8,6 +8,7 @@ export bash_envy=$WORK/bash-envy
 add_python_package "ddhf" "$WORK/ddhf"
 add_python_package "data-driven-collab" "$WORK/data-driven-collab"
 add_python_package "qgrc-teachers" "$WORK/qgrc-teachers"
+add_python_package "smt" "$WORK/smt"
 
 ## Commands
 alias interactive="srun --nodes=1 --ntasks=1 --cpus-per-task=30 --time=02:00:00  --pty /bin/bash"
