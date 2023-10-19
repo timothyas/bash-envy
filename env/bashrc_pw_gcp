@@ -10,6 +10,7 @@ add_python_package "data-driven-collab" "$WORK/data-driven-collab"
 add_python_package "qgrc-teachers" "$WORK/qgrc-teachers"
 add_python_package "smt" "$WORK/smt"
 add_python_package "xesn" "$WORK/xesn"
+add_python_package "UFS2ARCO" "$WORK/UFS2ARCO/src"
 
 
 ## Commands
