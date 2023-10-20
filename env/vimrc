@@ -19,7 +19,7 @@ if has("autocmd")
   " Allow vim to open to the last line viewed
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
   " Remove trailing whitespace from Fortran, python files
-  autocmd FileType fortran,python,tex,markdown autocmd BufWritePre <buffer> %s/\s\+$//e
+  autocmd FileType fortran,python,tex,markdown,yaml autocmd BufWritePre <buffer> %s/\s\+$//e
   autocmd FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
 endif
 

@@ -25,13 +25,16 @@ export HOME=/Users/tsmith
 export WORK=/Users/tsmith/work
 export bash_envy=$WORK/bash-envy
 
-### Add python packages from GitHub ###
-if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"xmitgcm"* ]] ; then
-    export PYTHONPATH=$PYTHONPATH:$WORK/pych
-    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
-    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
-    export PYTHONPATH=$PYTHONPATH:$WORK/phdstuff/MITgcm/utils/python/MITgcmutils
-fi
+## Python
+add_python_package "pych" "$WORK/pych"
+add_python_package "data-driven-collab" "$WORK/data-driven-collab"
+add_python_package "ddhf" "$WORK/ddhf"
+add_python_package "qgrc-teachers" "$WORK/qgrc-teachers"
+add_python_package "MITgcmutils" "$WORK/phdstuff/MITgcm/utils/python/MITgcmutils"
+add_python_package "smt" "$WORK/smt"
+add_python_package "xesn" "$WORK/xesn"
+add_python_package "UFS2ARCO" "$WORK/UFS2ARCO/src"
+
 
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
