@@ -26,6 +26,7 @@ elif [[ "$PW_CSP" == "aws" ]] ; then
 fi
 
 # --- Add jupyter vim bindings
-cp $bash_envy/env/pw_jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+mkdir -p ~/.jupyter
+#cp $bash_envy/env/pw_jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 cp $bash_envy/env/pw_jupyter_lab_config.py ~/.jupyter/jupyter_lab_config.py
-source $bash_envy/useful-cmd-line/enable_jupyter_vim_binding.sh
+#source $bash_envy/useful-cmd-line/enable_jupyter_vim_binding.sh
