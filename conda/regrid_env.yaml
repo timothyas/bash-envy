@@ -1,4 +1,4 @@
-name: xesn
+name: regrid
 channels:
     - conda-forge
 dependencies:
