@@ -18,8 +18,9 @@ dependencies:
 # regrid
     - xesmf
 # other plotting and interaction
-    - jupyter
+    - jupyterlab
     - cartopy
+    - shapely
 # filesystem
     - fsspec
     - s3fs
