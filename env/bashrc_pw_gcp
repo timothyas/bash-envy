@@ -11,6 +11,8 @@ add_python_package "qgrc-teachers" "$WORK/qgrc-teachers"
 add_python_package "smt" "$WORK/smt"
 add_python_package "xesn" "$WORK/xesn"
 add_python_package "UFS2ARCO" "$WORK/UFS2ARCO/src"
+add_python_package "graphcast" "$WORK/graphcast"
+add_python_package "ufs2arco" "$WORK/ufs2arco"
 
 
 ## Commands
