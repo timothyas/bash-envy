@@ -9,11 +9,11 @@ syntax on
 
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 set incsearch "" incremental search
 
 filetype plugin indent on
-
 
 if has("autocmd")
   " Allow vim to open to the last line viewed
