@@ -11,14 +11,20 @@ else
     export scp_jump=''
 fi
 
+if [[ "$nickname" == "home" ]] ; then
+    export sverdrup_rsa="~/.ssh/sverdrup_rsa"
+elif [[ "$nickname" == "noaa_psl" ]] ; then
+    export sverdrup_rsa="~/.ssh/oden_psl_rsa"
+fi
+
 
 ### SSH ###
 ###########
 
 # Oden
-alias sverdrup='ssh -i ~/.ssh/sverdrup_rsa '$ssh_jump' tsmith@sverdrup.oden.utexas.edu'
-alias amundsen='ssh -p 8704 '$ssh_jump' tsmith@amundsen.oden.utexas.edu'
-alias nansen='ssh -p 8704 '$ssh_jump' tsmith@nansen.oden.utexas.edu'
+alias sverdrup='ssh -i $sverdrup_rsa '$ssh_jump' tsmith@sverdrup.oden.utexas.edu'
+alias amundsen='ssh '$ssh_jump' tsmith@amundsen.oden.utexas.edu'
+alias nansen='ssh '$ssh_jump' tsmith@nansen.oden.utexas.edu'
 
 # NASA
 alias pfe='ssh pfe'
@@ -39,7 +45,7 @@ alias engaging='mosh --ssh="ssh -i ~/.ssh/id_rsa_eofe-mit" timothys@eofe5.mit.ed
 ###########
 
 # Oden
-alias scpsv="scp -P 8704 "$scp_jump" -i ~/.ssh/sverdrup_rsa"
+alias scpsv="scp "$scp_jump" -i $sverdrup_rsa"
 
 # TACC
 alias scpfrontera='scp -i ~/.ssh/frontera_rsa'
