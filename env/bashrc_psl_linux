@@ -7,10 +7,10 @@ export data=/home/tsmith/data
 export bash_envy=$WORK/bash-envy
 
 ## Python
-if [ -z $PYTHONPATH ] || [[ $PYTHONPATH != *"pych"* ]] ; then
-    export PYTHONPATH=$PYTHONPATH:$WORK/ddhf
-    export PYTHONPATH=$PYTHONPATH:$WORK/data-driven-collab
-fi
+add_python_package "ddhf" "$WORK/ddhf"
+add_python_package "xesn" "$WORK/xesn"
+add_python_package "ufs2arco" "$WORK/ufs2arco"
+add_python_package "graphcast" "$WORK/graphcast"
 
 ## Add tmux to path
 export PATH=$PATH:$WORK/tmux
