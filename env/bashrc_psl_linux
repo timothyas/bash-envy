@@ -10,10 +10,27 @@ export bash_envy=$WORK/bash-envy
 add_python_package "ddhf" "$WORK/ddhf"
 add_python_package "xesn" "$WORK/xesn"
 add_python_package "ufs2arco" "$WORK/ufs2arco"
-add_python_package "graphcast" "$WORK/graphcast"
+add_python_package "graphcast" "$WORK/graph-ufs/graphcast"
+add_python_package "graphufs" "$WORK/graph-ufs"
 
 ## Add tmux to path
 export PATH=$PATH:$WORK/tmux
 
 ## Commands
 export PS1='[$nickname \W]\$ '
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/tsmith/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/tsmith/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/tsmith/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/tsmith/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
