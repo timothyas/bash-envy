@@ -114,6 +114,10 @@ pwport (){
     ssh -i ${pw_sshfile} $1":localhost:"$1 $2
 }
 
+pslgpuport (){
+    ssh -i ${gpu_sshfile} -L $1":localhost:"$2 tsmith@linux-gpu1.psd.esrl.noaa.gov
+}
+
 
 ### Directories ###
 ###################
