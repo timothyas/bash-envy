@@ -41,6 +41,10 @@ alias sshpw="ssh -i ${pw_sshfile}"
 # PSL GPU
 alias psl-gpu="ssh -i ${gpu_sshfile} tsmith@linux-gpu1.psd.esrl.noaa.gov"
 
+# sverdrup
+alias enable-sverdrup="eval `ssh-agent` ssh-add ~/.ssh/sverdrup_psl_rsa"
+alias sverdrup="ssh -J login1.oden.utexas.edu sverdrup.oden.utexas.edu"
+
 
 ### SCP ###
 ###########
@@ -86,6 +90,9 @@ scp-from-linux(){
     scp -i ${gpu_sshfile} tsmith@linux-gpu1.psd.esrl.noaa.gov:$1 $2
 }
 
+scp-from-sverdrup(){
+    scp -o "ProxyJump login1.oden.utexas.edu" sverdrup.oden.utexas.edu:$1 $2
+}
 
 
 
