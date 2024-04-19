@@ -47,7 +47,7 @@ elif [[ "$HOSTNAME" == "hfe"* ]] ; then
     export work_type='postdoc'
     source $HOME/bash-envy/env/bashrc_hera
 
-elif [[ "$HOSTNAME" == "linux"*".psd.esrl.noaa.gov" ]] ; then
+elif [[ "$HOSTNAME" == "linux"*".psd."* ]] ; then
 
     export nickname='psl_linux'
     export work_type='postdoc'
