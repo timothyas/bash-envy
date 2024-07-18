@@ -1,12 +1,15 @@
 #! /bin/bash
 
+export WORK=$([ $PW_CSP == "azure" ] && echo "/contrib2/Tim.Smith" || echo "/contrib/Tim.Smith")
+
 # --- Add key created in contrib to ssh-agent to use git
-source /contrib/Tim.Smith/bash-envy/env/refresh_ssh
+source $WORK/refresh_ssh
+
 
 # --- Add basic environment stuff
-echo "source /contrib/Tim.Smith/bash-envy/env/bashrc_master" >> ~/.bashrc
-echo "source /contrib/Tim.Smith/bash-envy/env/vimrc" >> ~/.vimrc
-echo "source-file /contrib/Tim.Smith/bash-envy/env/tmux.conf" >> ~/.tmux.conf
+echo "source $WORK/bash-envy/env/bashrc_master" >> ~/.bashrc
+echo "source $WORK/bash-envy/env/vimrc" >> ~/.vimrc
+echo "source-file $WORK/bash-envy/env/tmux.conf" >> ~/.tmux.conf
 source ~/.bashrc
 
 # --- Some git config
@@ -17,9 +20,10 @@ git config --global push.default simple
 
 # --- Dask configuring
 mkdir -p ~/.config/dask
-cp /contrib/Tim.Smith/rc-gfd/pw/distributed.yaml ~/.config/dask/distributed.yaml
-cp /contrib/Tim.Smith/rc-gfd/pw/dask.yaml ~/.config/dask/dask.yaml
+
 if [[ "$PW_CSP" == "gcp" || "$PW_CSP" == "google" ]] ; then
+    cp /contrib/Tim.Smith/rc-gfd/pw/distributed.yaml ~/.config/dask/distributed.yaml
+    cp /contrib/Tim.Smith/rc-gfd/pw/dask.yaml ~/.config/dask/dask.yaml
     cp /contrib/Tim.Smith/rc-gfd/pw/jobqueue-c2-standard-60.yaml ~/.config/dask/jobqueue.yaml
 elif [[ "$PW_CSP" == "aws" ]] ; then
     cp /contrib/Tim.Smith/ddhf/pw/jobqueue-m5zn-xl.yaml ~/.config/dask/jobqueue.yaml
