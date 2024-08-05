@@ -1,0 +1,23 @@
+### Directories ###
+###################
+export WORK=/work2/noaa/gsienkf/timsmith
+export bash_envy=$HOME/bash-envy
+
+### aliases ###
+###############
+alias cdw='cd $WORK'
+alias qu='squeue -u tsmith'
+alias interactive='srun --nodes=1 --ntasks=1 --time=00:30:00 --account=gsienkf --pty /bin/bash'
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'
+
+## PS1
+if [[ -z "$SLURM_JOB_PARTITION" ]] ; then
+    export PS1='[\h \W]\$ '
+else
+    export PS1='[$SLURM_JOB_PARTITION \W]\$ '
+fi
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand

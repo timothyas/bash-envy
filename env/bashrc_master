@@ -91,6 +91,13 @@ elif [[ "$HOSTNAME" == *"Orion"* ]] ; then
     source /home/tsmith/bash-envy/env/bashrc_orion
 
 
+elif [[ "$HOSTNAME" == *"hercules"* ]] ; then
+
+    export nickname='hercules'
+    export work_type='postdoc'
+    source /home/timsmith/bash-envy/env/bashrc_hercules
+
+
 # -------------------------------------------------------------
 # PhD machines
 # -------------------------------------------------------------
