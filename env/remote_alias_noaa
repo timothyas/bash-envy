@@ -33,7 +33,8 @@ alias linux512="ssh tsmith@linux512.psd.esrl.noaa.gov"
 alias apollo="ssh -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.gov"
 
 # orion
-alias orion="ssh -i ${orion_sshfile} tsmith@orion-login.hpc.msstate.edu"
+#alias orion="ssh -i ${orion_sshfile} tsmith@orion-login.hpc.msstate.edu"
+alias orion="ssh timsmith@orion-login.hpc.msstate.edu"
 
 # PW
 alias sshpw="ssh -i ${pw_sshfile}"
@@ -44,6 +45,9 @@ alias psl-gpu="ssh -i ${gpu_sshfile} tsmith@linux-gpu1.psd.esrl.noaa.gov"
 # sverdrup
 alias enable-sverdrup="eval `ssh-agent` ssh-add ~/.ssh/sverdrup_psl_rsa"
 alias sverdrup="ssh -J login1.oden.utexas.edu sverdrup.oden.utexas.edu"
+jupytersv () {
+    ssh -J login1.oden.utexas.edu -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
+}
 
 
 ### SCP ###
