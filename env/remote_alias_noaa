@@ -49,6 +49,8 @@ jupytersv () {
     ssh -J login1.oden.utexas.edu -L localhost:$1:$2:$1 sverdrup.oden.utexas.edu; 
 }
 
+alias perlmutter="ssh timothys@perlmutter.nersc.gov"
+
 
 ### SCP ###
 ###########
