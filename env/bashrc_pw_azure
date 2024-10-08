@@ -11,8 +11,10 @@ add_python_package "ufs2arco" "$WORK/graph-ufs/ufs2arco"
 
 
 ## Commands
-alias interactive_cpu48="srun --nodes=1 --ntasks=1 --partition=cpuD48v3 --cpus-per-task=48 --time=09:00:00  --pty /bin/bash"
+alias interactive_cpu48="srun --nodes=1 --ntasks=1 --partition=cpuD48v5 --cpus-per-task=48 --time=09:00:00  --pty /bin/bash"
+alias interactive_cpu32="srun --nodes=1 --ntasks=1 --partition=cpuD32v5 --cpus-per-task=32 --time=09:00:00  --pty /bin/bash"
 alias interactive_gpu="srun --nodes=1 --ntasks=1 --partition=gpu --cpus-per-task=24 --time=09:00:00  --pty /bin/bash"
+alias interactive_gpu2="srun --nodes=1 --ntasks=1 --partition=gpu2 --cpus-per-task=48 --time=09:00:00  --pty /bin/bash"
 alias interactive_gpu4="srun --nodes=1 --ntasks=1 --partition=gpu4 --cpus-per-task=96 --time=09:00:00  --pty /bin/bash"
 alias qu="squeue -u Tim.Smith"
 alias add_github_key="eval '$(ssh-agent -s) ssh-add /contrib2/Tim.Smith/.ssh/id_ed25519'"
