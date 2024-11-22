@@ -1,0 +1,30 @@
+#! /bin/bash
+
+## Directories
+export WORK=/pscratch/sd/t/timothys
+export COMMON=/global/common/software/m4718/timothys
+export bash_envy=$HOME/bash-envy
+export graphufs=$COMMON/graphufs
+export gnugraphufs=$COMMON/gnugraphufs
+
+module load conda
+module load PrgEnv-nvidia cray-mpich cudatoolkit craype-accel-nvidia80
+module load cudnn/8.9.3 nccl/2.21.5
+
+## Python
+add_python_package "graphufs" "$COMMON/graph-ufs"
+add_python_package "graphcast" "$COMMON/graph-ufs/graphcast"
+add_python_package "ufs2arco" "$COMMON/graph-ufs/ufs2arco"
+
+
+## Commands
+alias cdc="cd $COMMON"
+alias qu="squeue -u timothys"
+alias add_github_key="eval '$(ssh-agent -s) ssh-add $HOME/.ssh/github_ed25519'"
+alias interactive_gpu="salloc --nodes 1 --tasks-per-node 4 --gpus-per-node 4 --qos interactive --time 01:00:00 --constraint 'gpu&hbm80g' --account m4718"
+
+if [[ -z $SLURM_JOB_ID ]] ; then
+    export PS1='[$nickname \W]\$ '
+else
+    export PS1='[slurm$SLURM_JOB_ID \W]\$ '
+fi

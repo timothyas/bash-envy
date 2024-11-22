@@ -97,6 +97,12 @@ elif [[ "$HOSTNAME" == *"hercules"* ]] ; then
     export work_type='postdoc'
     source /home/timsmith/bash-envy/env/bashrc_hercules
 
+elif [[ "$NERSC_HOST" == *"perlmutter"* ]] ; then
+
+    export nickname='perlmutter'
+    export work_type='postdoc'
+    source /global/homes/t/timothys/bash-envy/env/bashrc_perlmutter
+
 
 # -------------------------------------------------------------
 # PhD machines
