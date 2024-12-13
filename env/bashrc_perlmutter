@@ -3,6 +3,7 @@
 ## Directories
 export WORK=/pscratch/sd/t/timothys
 export COMMON=/global/common/software/m4718/timothys
+export COMMUNITY=/global/cfs/cdirs/m4718/timothys
 export bash_envy=$HOME/bash-envy
 export graphufs=$COMMON/graphufs
 export gnugraphufs=$COMMON/gnugraphufs
