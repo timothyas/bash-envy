@@ -35,6 +35,7 @@ alias apollo="ssh -i ${apollo_sshfile} tsmith@apollo1-headnode2.psd.esrl.noaa.go
 # orion
 #alias orion="ssh -i ${orion_sshfile} tsmith@orion-login.hpc.msstate.edu"
 alias orion="ssh timsmith@orion-login.hpc.msstate.edu"
+alias hercules="ssh timsmith@hercules-login.hpc.msstate.edu"
 
 # PW
 alias sshpw="ssh -i ${pw_sshfile}"
