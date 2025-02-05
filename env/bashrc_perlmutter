@@ -26,6 +26,8 @@ alias interactive_gpu="salloc --nodes 1 --tasks-per-node 4 --gpus-per-node 4 --q
 
 if [[ -z $SLURM_JOB_ID ]] ; then
     export PS1='[$nickname \W]\$ '
+    eval $(ssh-agent -s)
+    ssh-add ~/.ssh/github_ed25519
 else
     export PS1='[slurm$SLURM_JOB_ID \W]\$ '
 fi
