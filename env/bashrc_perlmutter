@@ -20,6 +20,7 @@ add_python_package "ufs2arco" "$COMMON/graph-ufs/ufs2arco"
 
 ## Commands
 alias cdc="cd $COMMON"
+alias cdu="cd $COMMUNITY"
 alias qu="squeue -u timothys"
 alias add_github_key="eval '$(ssh-agent -s) ssh-add $HOME/.ssh/github_ed25519'"
 alias interactive_gpu="salloc --nodes 1 --tasks-per-node 4 --gpus-per-node 4 --qos interactive --time 01:00:00 --constraint 'gpu&hbm80g' --account m4718"
