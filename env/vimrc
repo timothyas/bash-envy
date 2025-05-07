@@ -13,6 +13,7 @@ set softtabstop=4
 set expandtab
 set incsearch "" incremental search
 set bg=light
+set hlsearch "" highlight what I've searched for
 
 filetype plugin indent on
 
