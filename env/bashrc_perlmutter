@@ -10,14 +10,10 @@ export gnugraphufs=$COMMON/gnugraphufs
 
 
 module load conda/Miniforge3-24.11.3-0
-module load PrgEnv-nvidia cray-mpich cudatoolkit craype-accel-nvidia80
-module load cudnn/8.9.3 nccl/2.21.5
+#module load PrgEnv-nvidia cray-mpich cudatoolkit craype-accel-nvidia80 cudnn/8.9.3 nccl/2.21.5
 
-## Python
-add_python_package "graphufs" "$HOME/graph-ufs"
-add_python_package "graphcast" "$HOME/graph-ufs/graphcast"
-add_python_package "ufs2arco" "$HOME/graph-ufs/ufs2arco"
-
+## Azure credentials
+source ~/.azure.sh
 
 ## Commands
 alias cdc="cd $COMMON"
