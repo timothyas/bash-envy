@@ -77,10 +77,15 @@ elif [[ "$HOSTNAME" == *"timsmith-"* ]] ; then
         export work_type='postdoc'
         source /contrib/Tim.Smith/bash-envy/env/bashrc_pw_aws
 
-    elif [[ "$PW_CSP" == "azure" ]] ; then
+    elif [[ "$PW_GROUP" == "cz-ufs-rnr" ]] ; then
         export nickname='azure_pw'
         export work_type='postdoc'
         source /contrib2/Tim.Smith/bash-envy/env/bashrc_pw_azure
+
+    elif [[ "$PW_GROUP" == "cz-ml4da" ]] ; then
+        export nickname='azure_pw_ml4da'
+        export work_type='postdoc'
+        source /work/Tim.Smith/bash-envy/env/bashrc_pw_azure_ml4da
 
     fi
 

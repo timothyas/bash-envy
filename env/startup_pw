@@ -1,6 +1,13 @@
 #! /bin/bash
 
-export WORK=$([ $PW_CSP == "azure" ] && echo "/contrib2/Tim.Smith" || echo "/contrib/Tim.Smith")
+if [[ "$PW_GROUP" == "cz-ufs-rnr" ]] ; then
+    export WORK=/contrib2/Tim.Smith
+elif [[ "$PW_GROUP" == "cz-ml4da" ]] ; then
+    export WORK=/work/Tim.Smith
+else
+    export WORK=/contrib/Tim.Smith
+fi
+
 
 # --- Add key created in contrib to ssh-agent to use git
 source $WORK/refresh_ssh

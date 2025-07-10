@@ -8,5 +8,5 @@ if [[ "$PW_CSP" == "gcp" || "$PW_CSP" == "google" ]] ; then
 elif [[ "$PW_CSP" == "aws" ]] ; then
     ssh-add /contrib/Tim.Smith/.ssh/id_rsa
 elif [[ "$PW_CSP" == "azure" ]] ; then
-    ssh-add /contrib2/Tim.Smith/.ssh/id_ed25519
+    ssh-add $WORK/.ssh/id_ed25519
 fi
