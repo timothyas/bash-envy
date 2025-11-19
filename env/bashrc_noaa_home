@@ -26,19 +26,6 @@ export HOME=/Users/tsmith
 export WORK=/Users/tsmith/work
 export bash_envy=$WORK/bash-envy
 
-## Python
-add_python_package "pych" "$WORK/pych"
-add_python_package "data-driven-collab" "$WORK/data-driven-collab"
-add_python_package "ddhf" "$WORK/ddhf"
-add_python_package "qgrc-teachers" "$WORK/qgrc-teachers"
-add_python_package "MITgcmutils" "$WORK/phdstuff/MITgcm/utils/python/MITgcmutils"
-add_python_package "smt" "$WORK/smt"
-add_python_package "xesn" "$WORK/xesn"
-add_python_package "ufs2arco" "$WORK/ufs2arco"
-add_python_package "graphufs" "$WORK/graph-ufs"
-add_python_package "graphcast" "$WORK/graph-ufs/graphcast"
-
-
 ### Refresh tmux environment variables ###
 . $bash_envy/env/refresh_tmux_env
 
