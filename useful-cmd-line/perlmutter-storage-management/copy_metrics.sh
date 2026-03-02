@@ -5,9 +5,10 @@
 #prefix="anemoi-house/gfs/0.25-degree/mse06h/experiments"
 #prefix="nested-eagle/1.00deg-15km/mse06h/experiments"
 #prefix="nested-eagle/1.00deg-15km/mse24h/experiments"
-#prefix="nested-eagle/1.00deg-15km/crps06h/experiments"
 #prefix="nested-eagle/0.25deg-06km/mse06h/experiments"
 #prefix="nested-eagle/0.25deg-06km/mse24h/experiments"
+
+prefix="nested-eagle/1.00deg-15km/crps06h/experiments"
 
 # TODO:
 #prefix="nested-eagle/0.25deg-06km/production
@@ -28,7 +29,7 @@ fi
 search_dir="${SCRATCH}/${prefix}"
 
 # Define the metrics to look for
-METRICS=("rmse" "mae" "spatial" "spectra")
+METRICS=("rmse" "mae" "spatial" "spectra" "fcrps" "spread")
 
 # Verify the root search directory exists before starting
 if [[ ! -d "$search_dir" ]]; then
