@@ -43,6 +43,20 @@ alias o='open'
 export CLOUDSDK_CORE_PROJECT=noaa-users
 export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=$HOME/project-key.json
 
+function findreplace() {
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: findreplace <search_term> <replace_term>"
+        return 1
+    fi
+
+    echo "Replacing '$1' with '$2' in all files..."
+
+    # Removed the .git exclusion. The LC_ALL=C fix remains to prevent byte errors.
+    find . -type f -exec env LC_ALL=C sed -i '' "s|$1|$2|g" {} +
+
+    echo "Done."
+}
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
