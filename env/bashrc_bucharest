@@ -1,0 +1,64 @@
+#! /bin/bash
+
+### Clear path before path_helper runs ###
+# see https://superuser.com/questions/544989/does-tmux-sort-the-path-variable/583502#583502
+#if [ -f /etc/profile ]; then
+#    PATH=""
+#    source /etc/profile
+#fi
+
+# Ignore zsh message
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+export PATH=$PATH:/Users/timith/.local/bin
+
+### Directories ###
+###################
+export HOME=/Users/timith
+export WORK=/Users/timith/work
+export bash_envy=$WORK/bash-envy
+
+### Refresh tmux environment variables ###
+. $bash_envy/env/refresh_tmux_env
+
+### Refresh mac display specifically
+export DISPLAY=':0'
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'
+
+## Commands
+export PS1='[timith \W]$ '
+alias o='open'
+
+function findreplace() {
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: findreplace <search_term> <replace_term>"
+        return 1
+    fi
+
+    echo "Replacing '$1' with '$2' in all files..."
+
+    # Removed the .git exclusion. The LC_ALL=C fix remains to prevent byte errors.
+    find . -type f -exec env LC_ALL=C sed -i '' "s|$1|$2|g" {} +
+
+    echo "Done."
+}
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# Unset CONDA_SHLVL so conda re-activates and re-prepends its bin after macOS
+# path_helper reorders PATH in tmux login shells (see commented block above).
+unset CONDA_SHLVL
+__conda_setup="$('/Users/timith/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/timith/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/timith/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/timith/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

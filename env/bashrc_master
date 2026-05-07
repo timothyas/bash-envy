@@ -22,6 +22,13 @@ if [ "$USER" == "tim" ] ; then
     source $bash_envy/env/remote_alias_oden
     source $bash_envy/env/remote_alias_noaa
 
+elif [[ "$HOSTNAME" == "Bucharest.local" ]] ; then
+
+    export nickname="bucharest"
+    export work_type="nansen"
+    export ismac="true"
+    source /Users/timith/work/bash-envy/env/bashrc_bucharest
+
 # -------------------------------------------------------------
 # Postdoc machines
 # -------------------------------------------------------------
