@@ -45,7 +45,7 @@ if !exists("autocommands_loaded")
 	autocmd BufNewFile,BufRead *.rst set tw=80
 endif 
 
-if (NICKNAME ==? 'ekman' || NICKNAME ==? 'home' || NICKNAME ==? 'noaa_home' || NICKNAME ==? 'noaa_psl')
+if (NICKNAME ==? 'ekman' || NICKNAME ==? 'home' || NICKNAME ==? 'noaa_home' || NICKNAME ==? 'noaa_psl' || NICKNAME ==? 'bucharest')
     " --- vim-plug ---
     " Specify a directory for plugins
     call plug#begin('~/.vim/plugged')
