@@ -1,0 +1,51 @@
+#! /bin/bash
+
+### Clear path before path_helper runs ###
+# see https://superuser.com/questions/544989/does-tmux-sort-the-path-variable/583502#583502
+#if [ -f /etc/profile ]; then
+#    PATH=""
+#    source /etc/profile
+#fi
+
+# Ignore zsh message
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# git bash completion
+#source /usr/local/etc/bash_completion.d/git-completion.bash
+
+### Directories ###
+###################
+export HOME=/Users/timsmith
+export WORK=/Users/timsmith/work
+export write_repo=$WORK/write-repo
+export bash_envy=$WORK/bash-envy
+
+#### Ekman ###
+##############
+#alias ekman='ssh -J tsmith@login1.oden.utexas.edu tsmith@ekman.oden.utexas.edu'
+#alias jupyterek='ssh -J tsmith@login1.oden.utexas.edu -L localhost:8889:localhost:8889 ekman.oden.utexas.edu'
+#alias vncek='ssh -J tsmith@login1.oden.utexas.edu -L localhost:5901:localhost:5901 ekman.oden.utexas.edu'
+#
+#alias rsyncek="rsync -ave 'ssh -p 8704 -J tsmith@login1.oden.utexas.edu' --progress" 
+#alias scpek="scp -o 'ProxyJump tsmith@login1.oden.utexas.edu'"
+#
+#export thamoc=/workspace/tsmith/gcm-contrib/samoc
+#
+#
+### Path and LD_LIBRARY
+export PATH=$PATH:/Library/TeX/Distributions/Programs/texbin
+export PATH="$HOME/.local/bin:$PATH"
+
+#
+#### Refresh tmux environment variables ###
+#. $bash_envy/env/refresh_tmux_env
+#
+#### Refresh mac display specifically
+#export DISPLAY=':0'
+
+### Colorize grep output unless being piped to file ###
+export GREP_OPTIONS='--color=auto'
+
+## Commands
+export PS1='[m4 \W]\$ '
+alias o='open'

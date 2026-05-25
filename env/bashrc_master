@@ -29,6 +29,15 @@ elif [[ "$HOSTNAME" == "Bucharest.local" || "$HOSTNAME" == *"nersc"* ]] ; then
     export ismac="true"
     source /Users/timith/work/bash-envy/env/bashrc_bucharest
 
+elif [ "$USER" == "timsmith" ] ; then
+
+    export nickname="m4"
+    export work_type="phdpostdoc"
+    export ismac="true"
+    source /Users/timsmith/work/bash-envy/env/bashrc_m4
+    source $bash_envy/env/remote_alias_oden
+    source $bash_envy/env/remote_alias_noaa
+
 # -------------------------------------------------------------
 # Postdoc machines
 # -------------------------------------------------------------
