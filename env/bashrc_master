@@ -22,13 +22,6 @@ if [ "$USER" == "tim" ] ; then
     source $bash_envy/env/remote_alias_oden
     source $bash_envy/env/remote_alias_noaa
 
-elif [[ "$HOSTNAME" == "Bucharest.local" || "$HOSTNAME" == *"nersc"*  || "$HOSTNAME" == "Mac.lan" ]] ; then
-
-    export nickname="bucharest"
-    export work_type="nansen"
-    export ismac="true"
-    source /Users/timith/work/bash-envy/env/bashrc_bucharest
-
 elif [ "$USER" == "timsmith" ] ; then
 
     export nickname="m4"
@@ -39,7 +32,23 @@ elif [ "$USER" == "timsmith" ] ; then
     source $bash_envy/env/remote_alias_noaa
 
 # -------------------------------------------------------------
-# Postdoc machines
+# Nansen
+# -------------------------------------------------------------
+elif [[ "$HOSTNAME" == "Bucharest.local" || "$HOSTNAME" == *"nersc"*  || "$HOSTNAME" == "Mac.lan" ]] ; then
+
+    export nickname="bucharest"
+    export work_type="nansen"
+    export ismac="true"
+    source /Users/timith/work/bash-envy/env/bashrc_bucharest
+
+elif [[ "$USER" == "timith" && "$PS1" == *".olivia"* ]] ; then
+    export nickname="olivia"
+    export work_type="nansen"
+    export ismac="false"
+    source $HOME/bash-envy/env/bashrc_olivia
+
+# -------------------------------------------------------------
+# NOAA machines
 # -------------------------------------------------------------
 elif [[ "$HOSTNAME" == "Tims-MacBook-Pro.local" || "$HOSTNAME" == "tsmith-MBP" || "$HOSTNAME" == "tsmith-MBP-PSL" ]] ; then
 

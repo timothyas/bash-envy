@@ -1,0 +1,48 @@
+#! /bin/bash
+
+## Directories
+#export WORK=/pscratch/sd/t/timothys
+#export COMMON=/global/common/software/m4718/timothys
+#export COMMUNITY=/global/cfs/cdirs/m4718/timothys
+export bash_envy=$HOME/bash-envy
+
+## Commands
+#alias cdc="cd $COMMON"
+#alias cdu="cd $COMMUNITY"
+alias qu="squeue --me"
+alias add_github_key="eval '$(ssh-agent -s) ssh-add $HOME/.ssh/github_id_ed25519'"
+
+# Command to figure out how long a slurm job took
+stime() {
+    # Check if a Job ID was provided
+    if [ -z "$1" ]; then
+        echo "Error: No Job ID provided."
+        echo "Usage: stime <jobid>"
+        return 1
+    fi
+
+    # Run the sacct command with the requested formatting
+    sacct -j "$1" --format=JobID,JobName,State,Elapsed,Start,End
+}
+
+function findreplace() {
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: findreplace <search_term> <replace_term>"
+        return 1
+    fi
+
+    echo "Replacing '$1' with '$2' in all files..."
+    find . -type f -exec sed -i "s|$1|$2|g" {} +
+    echo "Done."
+}
+
+if [[ -z $SLURM_JOB_ID ]] ; then
+    export PS1='[\h.$nickname \W]\$ '
+    eval $(ssh-agent -s)
+    ssh-add ~/.ssh/github_id_ed25519
+else
+    export PS1='[slurm$SLURM_JOB_ID \W]\$ '
+fi
+
+### Expand environment variables in tab completion ###
+shopt -s direxpand
