@@ -41,6 +41,12 @@ elif [[ "$HOSTNAME" == "Bucharest.local" || "$HOSTNAME" == *"nersc"*  || "$HOSTN
     export ismac="true"
     source /Users/timith/work/bash-envy/env/bashrc_bucharest
 
+elif [[ "$USER" == "timith" && "$PS1" == *".betzy"* ]] ; then
+    export nickname="betzy"
+    export work_type="nansen"
+    export ismac="false"
+    source $HOME/bash-envy/env/bashrc_betzy
+
 elif [[ "$USER" == "timith" && "$PS1" == *".olivia"* ]] ; then
     export nickname="olivia"
     export work_type="nansen"
