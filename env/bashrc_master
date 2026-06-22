@@ -22,7 +22,7 @@ if [ "$USER" == "tim" ] ; then
     source $bash_envy/env/remote_alias_oden
     source $bash_envy/env/remote_alias_noaa
 
-elif [[ "$HOSTNAME" == "Bucharest.local" || "$HOSTNAME" == *"nersc"* ]] ; then
+elif [[ "$HOSTNAME" == "Bucharest.local" || "$HOSTNAME" == *"nersc"*  || "$HOSTNAME" == "Mac.lan" ]] ; then
 
     export nickname="bucharest"
     export work_type="nansen"
