@@ -53,6 +53,12 @@ elif [[ "$USER" == "timith" && "$PS1" == *".olivia"* ]] ; then
     export ismac="false"
     source $HOME/bash-envy/env/bashrc_olivia
 
+elif [[ "$USER" == "smithtim" && "$PATH" == *"lumi"* ]] ; then
+    export nickname="lumi"
+    export work_type="nansen"
+    export ismac="false"
+    source $HOME/bash-envy/env/bashrc_lumi
+
 # -------------------------------------------------------------
 # NOAA machines
 # -------------------------------------------------------------
