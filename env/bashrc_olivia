@@ -37,7 +37,7 @@ function findreplace() {
 }
 
 if [[ -z $SLURM_JOB_ID ]] ; then
-    export PS1='[\h.$nickname \W]\$ '
+    export PS1='[\h.olivia \W]\$ '
     eval $(ssh-agent -s)
     ssh-add ~/.ssh/github_id_ed25519
 else
