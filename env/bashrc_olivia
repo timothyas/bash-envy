@@ -5,12 +5,16 @@
 #export COMMON=/global/common/software/m4718/timothys
 #export COMMUNITY=/global/cfs/cdirs/m4718/timothys
 export bash_envy=$HOME/bash-envy
+export WORK=/cluster/work/projects/nn2993k/timith
+export PROJECT=/cluster/projects/nn2993k/timith
+export PATH="$HOME/.local/bin:$PATH"
 
 ## Commands
-#alias cdc="cd $COMMON"
-#alias cdu="cd $COMMUNITY"
+alias cdp="cd $PROJECT"
 alias qu="squeue --me"
 alias add_github_key="eval '$(ssh-agent -s) ssh-add $HOME/.ssh/github_id_ed25519'"
+alias interactive_gpu="salloc --nodes 1 --tasks-per-node 4 --gpus-per-node 4 --mem=808G --qos devel --time 01:00:00 --partition accel --account nn2993k"
+alias interactive_cpu="salloc --nodes 1 --tasks-per-node 64 --cpus-per-task 4 --mem=740G --qos devel --time 01:00:00 --partition small --account nn2993k"
 
 # Command to figure out how long a slurm job took
 stime() {
