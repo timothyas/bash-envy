@@ -8,10 +8,10 @@
 #prefix="nested-eagle/0.25deg-06km/mse06h/experiments"
 #prefix="nested-eagle/0.25deg-06km/mse24h/experiments"
 
-prefix="nested-eagle/1.00deg-15km/crps06h/experiments"
+#prefix="nested-eagle/1.00deg-15km/crps06h/experiments"
 
 # TODO:
-#prefix="nested-eagle/0.25deg-06km/production
+prefix="nested-eagle/0.25deg-06km/production"
 
 # --- The rest is automated
 
